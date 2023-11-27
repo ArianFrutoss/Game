@@ -1,0 +1,48 @@
+import globals from "./globals.js";
+import {initHTMLelements, initVars} from "./Initialize.js";
+import update from "./gameLogic.js";
+import render from "./gameRender.js";
+
+//Game init
+window.onload = init;
+
+function init(){
+
+    //Inicializamos los elementos HTML: Canvas, Context, Caja de texto de pruebas
+    initHTMLelements();
+
+    //Inicialización de variables del juego
+    initVars();
+
+    //Empezar el primer frame request
+    window.requestAnimationFrame(gameLoop);
+}
+
+//Game execute
+//Bucle principal de ejecución
+function gameLoop(timeStamp){
+
+    //Seguir solicitando nuevos frames
+    window.requestAnimationFrame(gameLoop, globals.canvas);
+
+    //Tiempo real de ciclo de ejecución
+    const elapsedCycleMilliSecond = (timeStamp - globals.previousCycleMilliseconds) / 1000;
+
+    //Tiempo anterior de ciclo de ejecución
+    globals.deltaTime += elapsedCycleMilliSecond;
+
+    //Variable que corrige el tiempo de frame debido a retrasos con respecto al tiempo objetivo (frameTImeObj)
+    globals.deltaTime += globals.frameTimeObj;
+
+    if (globals.deltaTime >= globals.frameTimeObj){
+
+        //Funcion para cargar lo que esta ocurriendo en el juego
+        update();
+
+        //Funcion para pintar el juego
+        render();
+
+        //Corregimos los excesos de tiempo
+        globals.deltaTime -= globals.frameTimeObj;
+    }
+}
