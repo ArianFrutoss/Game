@@ -19,3 +19,12 @@ export default function render(){
             console.error("Error: Game State Invalid");
     }
 }
+
+function drawGame(){
+
+    //Borrar la pantalla
+    globals.ctx.clearRect(0, 0, globals.canvas.width, globals.canvas.height);
+
+    //Pintar los FPS
+    globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 30, 30);
+}
