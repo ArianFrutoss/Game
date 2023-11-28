@@ -24,7 +24,7 @@ function initVars(){
     globals.previousCycleMilliseconds = 0;
     globals.deltaTime = 0;
     globals.frameTimeObj = 1 / FPS;
-    globals.gameState = Game.lOADING;
+    globals.gameState = Game.PLAYING;
 }
 
 export{

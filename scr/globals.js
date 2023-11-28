@@ -1,7 +1,7 @@
 //Variables globales
 import {Game} from "./constans.js";
 
-export default {
+export default{
 
     //Acceso al canvas y context
     canvas: {},
