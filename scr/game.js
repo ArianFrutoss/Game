@@ -26,13 +26,13 @@ function gameLoop(timeStamp){
     window.requestAnimationFrame(gameLoop, globals.canvas);
 
     //Tiempo real de ciclo de ejecución
-    const elapsedCycleMilliSecond = (timeStamp - globals.previousCycleMilliseconds) / 1000;
+    const elapsedCycleSecond = (timeStamp - globals.previousCycleMilliseconds) / 1000;
 
     //Tiempo anterior de ciclo de ejecución
     globals.previousCycleMilliseconds = timeStamp;
 
     //Variable que corrige el tiempo de frame debido a retrasos con respecto al tiempo objetivo (frameTImeObj)
-    globals.deltaTime += elapsedCycleMilliSecond;
+    globals.deltaTime += elapsedCycleSecond;
 
     if (globals.deltaTime >= globals.frameTimeObj){
 
