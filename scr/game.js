@@ -29,10 +29,10 @@ function gameLoop(timeStamp){
     const elapsedCycleMilliSecond = (timeStamp - globals.previousCycleMilliseconds) / 1000;
 
     //Tiempo anterior de ciclo de ejecución
-    globals.deltaTime += elapsedCycleMilliSecond;
+    globals.previousCycleMilliseconds = timeStamp;
 
     //Variable que corrige el tiempo de frame debido a retrasos con respecto al tiempo objetivo (frameTImeObj)
-    globals.deltaTime += globals.frameTimeObj;
+    globals.deltaTime += elapsedCycleMilliSecond;
 
     if (globals.deltaTime >= globals.frameTimeObj){
 
