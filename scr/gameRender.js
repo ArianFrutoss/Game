@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game} from "./constans.js";
+import {FPS, Game} from "./constans.js";
 
 export default function render(){
     
@@ -26,5 +26,5 @@ function drawGame(){
     globals.ctx.clearRect(0, 0, globals.canvas.width, globals.canvas.height);
 
     //Pintar los FPS
-    globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 30, 30);
+    globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 1,10);
 }
