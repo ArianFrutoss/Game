@@ -18,3 +18,7 @@ export default function update(){
             console.error("Error: Game State Invalid");
     }
 }
+
+function playGame(){
+
+}
