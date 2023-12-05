@@ -2,10 +2,110 @@
 export const Game = {
 
     INVALID:   -1,
-    lOADING:    0,
+    LOADING:    0,
     PLAYING:    1,
     OVER:       2,
 };
 
 //Velocidad del juego
 export const FPS = 30;
+
+export const Tile = {
+
+    MAP:     1,
+    SPRITES: 0
+}
+
+//Id de bloque del mapa
+export const Block = {
+
+    EMPTY    :   0,
+    BLOCK_1  :   1,
+    BLOCK_2  :   2,
+    BLOCK_3  :   3,
+    BLOCK_4  :   4,
+    BLOCK_5  :   5,
+    BLOCK_6  :   6,
+    BLOCK_7  :   7,
+    BLOCK_8  :   8,
+    BLOCK_9  :   9,
+    BLOCK_10 :   10,
+    BLOCK_11 :   11,
+    BLOCK_12 :   12,
+    BLOCK_13 :   13
+}
+
+//Identificador de tipo de Sprite (ID)
+export const SpriteID = {
+
+    
+    CHAIR_INTERFACE:        0,
+    CHILD_1_INTERFACE_1:    1,
+    CHILD_2_INTERFACE_1:    2,
+    STONE_INTERFACE_1:      3,
+    WOOD_INTERFACE_1:       4,
+    STONE_INTERFACE_2:      5,
+    WOOD_INTERFACE_2:       6,
+    STONE_INTERFACE_3:      7,
+    WOOD_INTERFACE_3:       8,
+    CHILD_1_INTERFACE_2:    9,
+    CHILD_2_INTERFACE_2:    10,
+    CHAIR:                  11,
+    PLAYER:                 12,
+    MAGIC:                  13,
+    STONE:                  14,
+    WOOD:                   15,
+    CHILD_1:                16,
+    CHILD_2:                17,
+    ENEMY_1:                18,
+    WALL:                   19
+}
+
+//Identificador de estado de sprite (direccion)
+export const State = {
+
+    //Estados de la silla
+    INTEGERITY:         0,
+
+    //Estados del personaje
+    IDLE:               0,
+    WALK:               1,
+    STUN:               2,
+    ATTACK:             3,
+
+    //Estados de la magia
+    MAGIC:              0,
+
+    //Piedra
+    STONE:              0,
+
+    //Madera
+    WOOD:               0,
+
+    //Niño1 interfaz
+    CHILD_1_INTERFACE:    0,
+
+    //Niño2 interfaz
+    CHILD_2_INTERFACE:    0,
+
+    //Niño1
+    CHILD_1_IDLE:         0,
+    CHILD_1_WALK:         1,
+    CHILD_1_RUN:          2,
+    CHILD_1_ATTACK:       3,
+
+    //Niño2
+    CHILD_2_IDLE:         0,
+    CHILD_2_WALK:         1,
+    CHILD_2_RUN:          2,
+    CHILD_2_BUILD:        3,
+
+    //Enemy1
+    ENEMY_1_WALK:         0,
+    ENEMY_1_RUN:          1,
+    ENEMY_1_ATTACK:       2,
+    ENEMY_1_DEAD:         3,
+
+    //Wall
+    WALL:               0
+}

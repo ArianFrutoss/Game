@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {initHTMLelements, initVars} from "./Initialize.js";
+import {initHTMLelements, loadAssets, initSprites, initVars, initLevel} from "./Initialize.js";
 import update from "./gameLogic.js";
 import render from "./gameRender.js";
 
@@ -11,9 +11,18 @@ function init(){
     //Inicializamos los elementos HTML: Canvas, Context, Caja de texto de pruebas
     initHTMLelements();
 
+    //Cargamos los activos
+    loadAssets();
+
+    //Inicializamos los sprites
+    initSprites();
+
     //Inicialización de variables del juego
     initVars();
 
+    //Inicializamos mapa del juego
+    initLevel();
+    
     //Empezar el primer frame request
     window.requestAnimationFrame(gameLoop);
 }
@@ -43,6 +52,6 @@ function gameLoop(timeStamp){
         render();
 
         //Corregimos los excesos de tiempo
-        globals.deltaTime -= globals.frameTimeObj;
+        globals.deltaTime = 0;
     }
 }

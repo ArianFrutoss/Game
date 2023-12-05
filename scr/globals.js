@@ -4,8 +4,8 @@ import {Game} from "./constans.js";
 export default{
 
     //Acceso al canvas y context
-    canvas: {},
-    ctx: {},
+    canvas:     {},
+    ctx:        {},
 
     //Estado de juego. Inicializamos a INVÁLIDO
     gameState: Game.INVALID,
@@ -20,5 +20,18 @@ export default{
     frameTimeObj: 0,
 
     //Caja de texto para mostrar datos de depuración
-    txtPruebas: {}
+    txtPruebas: {},
+
+    //Objeto para guardar datos del tileSet
+    tileSets: [],
+
+    //Datos del nivel
+    level: {},
+
+    //Variable para gestionar la carga de archivos
+    assetsToLoad: [],
+    assetsLoaded: 0,
+
+    //Array con datos de los sprites
+    sprites: []
 };
