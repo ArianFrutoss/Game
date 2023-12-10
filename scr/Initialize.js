@@ -407,7 +407,7 @@ function initMoon(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const moon = new Sprite(SpriteID.MOON, State.MOON, 0, 0, imageSet, frames, Game.NEW_GAME);
+    const moon = new Sprite(SpriteID.MOON, State.MOON, 260, 20, imageSet, frames, Game.NEW_GAME);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(moon);
@@ -422,7 +422,7 @@ function initSun(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const sun = new Sprite(SpriteID.SUN, State.SUN, 100, 0, imageSet, frames, Game.NEW_GAME);
+    const sun = new Sprite(SpriteID.SUN, State.SUN, -100, 0, imageSet, frames, Game.NEW_GAME);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(sun);
