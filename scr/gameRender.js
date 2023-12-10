@@ -263,7 +263,50 @@ function renderHistorySprites(){
     }
 }
 
+function renderControlsText(){
 
+    //Dibujar Controles
+    globals.ctx.font = "7px emulogic";
+    
+    globals.ctx.fillText ("W", 210, 120);
+    globals.ctx.fillText ("-------------", 225, 120);
+    globals.ctx.fillText ("move up", 325, 120);
+
+    globals.ctx.fillText ("S", 210, 150);
+    globals.ctx.fillText ("-----------", 225, 150);
+    globals.ctx.fillText ("move Down", 312, 150);
+
+    globals.ctx.fillText ("D", 210, 180);
+    globals.ctx.fillText ("----------", 225, 180);
+    globals.ctx.fillText ("move Right", 305, 180);
+
+    globals.ctx.fillText ("A", 210, 210);
+    globals.ctx.fillText ("-----------", 225, 210);
+    globals.ctx.fillText ("move Left", 312, 210);
+
+    globals.ctx.fillText ("SPACE", 210, 240);
+    globals.ctx.fillText ("----------", 253, 240);
+    globals.ctx.fillText ("Attack", 332, 240);
+
+    globals.ctx.fillText ("1", 210, 270);
+    globals.ctx.fillText ("-------", 225, 270);
+    globals.ctx.fillText ("Put up a wall", 283, 270);
+
+    globals.ctx.fillText ("2", 210, 300);
+    globals.ctx.fillText ("---------", 225, 300);
+    globals.ctx.fillText ("Attack with", 297, 300);
+    globals.ctx.fillText ("the child", 311, 310);
+
+    globals.ctx.fillText ("Q", 210, 330);
+    globals.ctx.fillText ("------", 225, 330);
+    globals.ctx.fillText ("Create a first", 277, 330);
+    globals.ctx.fillText ("child", 340, 340);
+
+    globals.ctx.fillText ("E", 210, 360);
+    globals.ctx.fillText ("-----", 225, 360);
+    globals.ctx.fillText ("Create a second", 270, 360);
+    globals.ctx.fillText ("child", 340, 370);
+}
 
 function renderControlsSprites(){
 
