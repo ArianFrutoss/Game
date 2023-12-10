@@ -42,6 +42,7 @@ export default function render(){
         case Game.OVER:
 
             drawGame();
+            renderOverText()
             break;
 
         default:
@@ -157,7 +158,7 @@ function renderHUD(){
     globals.ctx.font = "12px emulogic";
 
     //Pintar los FPS
-    globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 5,20);
+    //globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 5,20);
 
     //Dibujar High Score
     globals.ctx.fillStyle = "white";
@@ -321,6 +322,40 @@ function renderControlsSprites(){
             }
         }
     }
+}
+
+function renderScoresText(){
+
+    //Dibujar Controles
+    globals.ctx.font = "7px emulogic";
+    
+    globals.ctx.fillText ("WSD", 210, 120);
+    globals.ctx.fillText ("-------------", 237, 120);
+    globals.ctx.fillText ("043220", 335, 120);
+
+    globals.ctx.fillText ("GSC", 210, 150);
+    globals.ctx.fillText ("-------------", 237, 150);
+    globals.ctx.fillText ("928320", 335, 150);
+
+    globals.ctx.fillText ("DSJ", 210, 180);
+    globals.ctx.fillText ("-------------", 237, 180);
+    globals.ctx.fillText ("023320", 335, 180);
+
+    globals.ctx.fillText ("HFS", 210, 210);
+    globals.ctx.fillText ("-------------", 237, 210);
+    globals.ctx.fillText ("723900", 335, 210);
+
+    globals.ctx.fillText ("IKY", 210, 240);
+    globals.ctx.fillText ("-------------", 237, 240);
+    globals.ctx.fillText ("002380", 335, 240);
+
+    globals.ctx.fillText ("QES", 210, 270);
+    globals.ctx.fillText ("-------------", 237, 270);
+    globals.ctx.fillText ("055520", 335, 270);
+
+    globals.ctx.fillText ("BAI", 210, 300);
+    globals.ctx.fillText ("-------------", 237, 300);
+    globals.ctx.fillText ("728130", 335, 300);
 }
 
 function renderScoresSprites(){

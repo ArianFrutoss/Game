@@ -65,7 +65,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.SCORES;
+        globals.gameState = Game.OVER;
     }
 }
 
