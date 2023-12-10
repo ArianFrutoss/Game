@@ -11,7 +11,32 @@ export default function update(){
             console.log("Loading assets...");
             break;
 
+        case Game.NEW_GAME:
+
+            playGame();
+            break;
+
         case Game.PLAYING:
+
+            playGame();
+            break;
+
+        case Game.CONTROLS:
+
+            playGame();
+            break;
+
+        case Game.SCORES:
+
+            playGame();
+            break;
+
+        case Game.HISTORY:
+
+            playGame();
+            break;
+
+        case Game.OVER:
 
             playGame();
             break;

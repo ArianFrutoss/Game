@@ -3,8 +3,12 @@ export const Game = {
 
     INVALID:   -1,
     LOADING:    0,
-    PLAYING:    1,
-    OVER:       2,
+    NEW_GAME:   1,
+    PLAYING:    2,
+    CONTROLS:   3,
+    SCORES:     4,
+    HISTORY:    5,
+    OVER:       6
 };
 
 //Velocidad del juego
