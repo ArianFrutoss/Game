@@ -322,3 +322,18 @@ function renderControlsSprites(){
         }
     }
 }
+
+function renderScoresSprites(){
+
+    for (let i = 0; i < GameStatesLenght; ++i){
+
+        for (let j = 0; j < globals.sprites.length; ++j){
+
+            if (globals.sprites[j].gameState[i] === Game.SCORES){
+
+                const sprite = globals.sprites[j];
+                renderSprite(sprite);
+            }
+        }
+    }
+}

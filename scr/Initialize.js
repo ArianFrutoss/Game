@@ -408,7 +408,7 @@ function initMoon(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const moon = new Sprite(SpriteID.MOON, State.MOON, 260, 20, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS]);
+    const moon = new Sprite(SpriteID.MOON, State.MOON, 260, 20, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS, Game.SCORES]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(moon);
@@ -423,7 +423,7 @@ function initSun(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const sun = new Sprite(SpriteID.SUN, State.SUN, -100, 0, imageSet, frames, [Game.NEW_GAME,Game.HISTORY, Game.CONTROLS]);
+    const sun = new Sprite(SpriteID.SUN, State.SUN, -100, 0, imageSet, frames, [Game.NEW_GAME,Game.HISTORY, Game.CONTROLS, Game.SCORES]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(sun);
@@ -438,7 +438,7 @@ function initBackground(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const background = new Sprite(SpriteID.BACK_GROUND, State.BACK_GROUND, 0, 100, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS]);
+    const background = new Sprite(SpriteID.BACK_GROUND, State.BACK_GROUND, 0, 100, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS, Game.SCORES]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(background);
@@ -453,7 +453,7 @@ function initNightSky(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, 0, 0, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS]);
+    const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, 0, 0, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS, Game.SCORES]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(nightSky);
@@ -468,7 +468,7 @@ function initDaySky(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, 0, 0, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS]);
+    const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, 0, 0, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS, Game.SCORES]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(daySky);
