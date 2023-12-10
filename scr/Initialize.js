@@ -96,7 +96,8 @@ function initSprites(){
     initBackground(),
     initMoon(),
     initSun(),
-    initPaper()
+    initPaper(),
+    initBlack()
 }
 
 function initChairInterface(){
@@ -487,6 +488,21 @@ function initPaper(){
 
     //Añadimos el player el array de sprites
     globals.sprites.push(paper);
+}
+
+function initBlack(){
+
+    //Creamos las propiedades de las imagenes
+    const imageSet = new ImageSet(46, 0, 640, 500, 64, 0, 0);
+
+    //Creamos los datos de la animacion
+    const frames = new Frames(1);
+
+    //Creamos nuestro sprite
+    const black = new Sprite(SpriteID.BLACK, State.BLACK, 0, 0, imageSet, frames, [Game.OVER]);
+
+    //Añadimos el player el array de sprites
+    globals.sprites.push(black);
 }
 
 function initLevel(){
