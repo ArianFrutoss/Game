@@ -91,6 +91,11 @@ function initSprites(){
     initChild2();
     initEnemy1();
     initWall();
+    initDaySky(),
+    initNightSky(),
+    initBackground(),
+    initMoon(),
+    initSun()
 }
 
 function initChairInterface(){
@@ -102,7 +107,7 @@ function initChairInterface(){
     const frames = new Frames(4);
 
     //Creamos nuestro sprite
-    const chairInterface = new Sprite(SpriteID.CHAIR_INTERFACE, State.INTEGERITY, 0, 0, imageSet, frames);
+    const chairInterface = new Sprite(SpriteID.CHAIR_INTERFACE, State.INTEGERITY, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(chairInterface);
@@ -117,7 +122,7 @@ function initChild1Interface1(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_1, State.CHILD_1_INTERFACE, 0, 0, imageSet, frames);
+    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_1, State.CHILD_1_INTERFACE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child1Interface);
@@ -132,7 +137,7 @@ function initChild2Interface1(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_1, State.CHILD_2_INTERFACE, 0, 0, imageSet, frames);
+    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_1, State.CHILD_2_INTERFACE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2Interface);
@@ -147,7 +152,7 @@ function initStoneInterface1(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_1, State.STONE, 0, 0, imageSet, frames);
+    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_1, State.STONE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stoneInterface);
@@ -162,7 +167,7 @@ function initWoodInterface1(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_1, State.WOOD, 0, 0, imageSet, frames);
+    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_1, State.WOOD, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(woodInterface);
@@ -177,7 +182,7 @@ function initStoneInterface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_2, State.STONE, 0, 0, imageSet, frames);
+    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_2, State.STONE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stoneInterface);
@@ -192,7 +197,7 @@ function initWoodInterface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_2, State.WOOD, 0, 0, imageSet, frames);
+    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_2, State.WOOD, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(woodInterface);
@@ -207,7 +212,7 @@ function initStoneInterface3(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_3, State.STONE, 0, 0, imageSet, frames);
+    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_3, State.STONE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stoneInterface);
@@ -222,7 +227,7 @@ function initWoodInterface3(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_3, State.WOOD, 0, 0, imageSet, frames);
+    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_3, State.WOOD, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(woodInterface);
@@ -237,7 +242,7 @@ function initChild1Interface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_2, State.CHILD_1_INTERFACE, 0, 0, imageSet, frames);
+    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_2, State.CHILD_1_INTERFACE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child1Interface);
@@ -252,7 +257,7 @@ function initChild2Interface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_2, State.CHILD_2_INTERFACE, 0, 0, imageSet, frames);
+    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_2, State.CHILD_2_INTERFACE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2Interface);
@@ -267,7 +272,7 @@ function initChair(){
     const frames = new Frames(4);
 
     //Creamos nuestro sprite
-    const chair = new Sprite(SpriteID.CHAIR, State.INTEGERITY, 0, 0, imageSet, frames);
+    const chair = new Sprite(SpriteID.CHAIR, State.INTEGERITY, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(chair);
@@ -282,7 +287,7 @@ function initPlayer(){
     const frames = new Frames(8);
 
     //Creamos nuestro sprite
-    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 0, 0, imageSet, frames);
+    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(player);
@@ -297,7 +302,7 @@ function initMagic(){
     const frames = new Frames(6);
 
     //Creamos nuestro sprite
-    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, 0, 0, imageSet, frames);
+    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(magic);
@@ -312,7 +317,7 @@ function initStone(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stone = new Sprite(SpriteID.STONE, State.STONE, 0, 0, imageSet, frames);
+    const stone = new Sprite(SpriteID.STONE, State.STONE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stone);
@@ -327,7 +332,7 @@ function initWood(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const wood = new Sprite(SpriteID.WOOD, State.WOOD, 0, 0, imageSet, frames);
+    const wood = new Sprite(SpriteID.WOOD, State.WOOD, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wood);
@@ -342,7 +347,7 @@ function initChild1(){
     const frames = new Frames(10);
 
     //Creamos nuestro sprite
-    const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 0, imageSet, frames);
+    const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child1);
@@ -357,7 +362,7 @@ function initChild2(){
     const frames = new Frames(9);
 
     //Creamos nuestro sprite
-    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 0, imageSet, frames);
+    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2);
@@ -372,7 +377,7 @@ function initEnemy1(){
     const frames = new Frames(8);
 
     //Creamos nuestro sprite
-    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 0, 0, imageSet, frames);
+    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(enemy1);
@@ -387,10 +392,85 @@ function initWall(){
     const frames = new Frames(3);
 
     //Creamos nuestro sprite
-    const wall = new Sprite(SpriteID.WALL, State.WALL, 0, 0, imageSet, frames);
+    const wall = new Sprite(SpriteID.WALL, State.WALL, 0, 0, imageSet, frames, Game.PLAYING);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wall);
+}
+
+function initMoon(){
+
+    //Creamos las propiedades de las imagenes
+    const imageSet = new ImageSet(23, 0, 64, 64, 64, 0, 0);
+
+    //Creamos los datos de la animacion
+    const frames = new Frames(1);
+
+    //Creamos nuestro sprite
+    const moon = new Sprite(SpriteID.MOON, State.MOON, 0, 0, imageSet, frames, Game.NEW_GAME);
+
+    //Añadimos el player el array de sprites
+    globals.sprites.push(moon);
+}
+
+function initSun(){
+
+    //Creamos las propiedades de las imagenes
+    const imageSet = new ImageSet(23, 1, 64, 64, 64, 0, 0);
+
+    //Creamos los datos de la animacion
+    const frames = new Frames(1);
+
+    //Creamos nuestro sprite
+    const sun = new Sprite(SpriteID.SUN, State.SUN, 100, 0, imageSet, frames, Game.NEW_GAME);
+
+    //Añadimos el player el array de sprites
+    globals.sprites.push(sun);
+}
+
+function initBackground(){
+
+    //Creamos las propiedades de las imagenes
+    const imageSet = new ImageSet(24, 0, 640, 300, 64, 0, 0);
+
+    //Creamos los datos de la animacion
+    const frames = new Frames(1);
+
+    //Creamos nuestro sprite
+    const background = new Sprite(SpriteID.BACK_GROUND, State.BACK_GROUND, 0, 100, imageSet, frames, Game.NEW_GAME);
+
+    //Añadimos el player el array de sprites
+    globals.sprites.push(background);
+}
+
+function initNightSky(){
+
+    //Creamos las propiedades de las imagenes
+    const imageSet = new ImageSet(35, 0, 640, 300, 64, 0, 0);
+
+    //Creamos los datos de la animacion
+    const frames = new Frames(1);
+
+    //Creamos nuestro sprite
+    const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, 0, 0, imageSet, frames, Game.NEW_GAME);
+
+    //Añadimos el player el array de sprites
+    globals.sprites.push(nightSky);
+}
+
+function initDaySky(){
+
+    //Creamos las propiedades de las imagenes
+    const imageSet = new ImageSet(29, 0, 640, 300, 64, 0, 0);
+
+    //Creamos los datos de la animacion
+    const frames = new Frames(1);
+
+    //Creamos nuestro sprite
+    const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, 0, 0, imageSet, frames, Game.NEW_GAME);
+
+    //Añadimos el player el array de sprites
+    globals.sprites.push(daySky);
 }
 
 function initLevel(){

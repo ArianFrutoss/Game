@@ -7,15 +7,42 @@ export default function render(){
     switch (globals.gameState){
 
         case Game.LOADING:
-            //Dibuja la barra de carga del juego
+
+            break;
+
+        case Game.NEW_GAME:
+
+            renderNewGameSprites();
+            renderNewGameText();
             break;
 
         case Game.PLAYING:
-            //Llama a la funcion que dibuja el juego
+
+            drawGame();
+            break;
+
+        case Game.CONTROLS:
+
+            drawGame();
+            break;
+
+        case Game.SCORES:
+
+            drawGame();
+            break;
+
+        case Game.HISTORY:
+
+            drawGame();
+            break;
+
+        case Game.OVER:
+
             drawGame();
             break;
 
         default:
+
             console.error("Error: Game State Invalid");
     }
 }
@@ -27,7 +54,8 @@ function drawGame(){
 
     //Dibujamos el nivel
     renderMap();
-
+    
+    //Dibujamos la interfaz
     renderHUD();
 
     //Pintar los sprites
@@ -63,11 +91,14 @@ function drawSprites(){
 
     for (let i = 0; i < globals.sprites.length; ++i){
 
-        const sprite = globals.sprites[i];
+        if (globals.sprites[i].gameState === Game.PLAYING){
 
-        //drawSpriteRectangle(sprite);
+            const sprite = globals.sprites[i];
 
-        renderSprite(sprite);
+            //drawSpriteRectangle(sprite);
+
+            renderSprite(sprite);
+        }
     }
 }
 
@@ -165,4 +196,19 @@ function renderHUD(){
     globals.ctx.fillText ("x 2", 1110, 620);
     globals.ctx.fillStyle = "white";
     globals.ctx.fillText ("x 0", 1240, 620);
+}
+
+
+
+function renderNewGameSprites(){
+
+    for (let i = 0; i < globals.sprites.length; ++i){
+
+        if (globals.sprites[i].gameState === Game.NEW_GAME){
+
+            const sprite = globals.sprites[i];
+
+            renderSprite(sprite);
+        }
+    }
 }

@@ -62,54 +62,74 @@ export const SpriteID = {
     CHILD_1:                16,
     CHILD_2:                17,
     ENEMY_1:                18,
-    WALL:                   19
+    WALL:                   19,
+    MOON:                   20,
+    SUN:                    21,
+    BACK_GROUND:            22,
+    NIGHT_SKY:              23,
+    DAY_SKY:                24,
 }
 
 //Identificador de estado de sprite (direccion)
 export const State = {
 
     //Estados de la silla
-    INTEGERITY:         0,
+    INTEGERITY:             0,
 
     //Estados del personaje
-    IDLE:               0,
-    WALK:               1,
-    STUN:               2,
-    ATTACK:             3,
+    IDLE:                   0,
+    WALK:                   1,
+    STUN:                   2,
+    ATTACK:                 3,
 
     //Estados de la magia
-    MAGIC:              0,
+    MAGIC:                  0,
 
     //Piedra
-    STONE:              0,
+    STONE:                  0,
 
     //Madera
-    WOOD:               0,
+    WOOD:                   0,
 
     //Niño1 interfaz
-    CHILD_1_INTERFACE:    0,
+    CHILD_1_INTERFACE:      0,
 
     //Niño2 interfaz
-    CHILD_2_INTERFACE:    0,
+    CHILD_2_INTERFACE:      0,
 
     //Niño1
-    CHILD_1_IDLE:         0,
-    CHILD_1_WALK:         1,
-    CHILD_1_RUN:          2,
-    CHILD_1_ATTACK:       3,
+    CHILD_1_IDLE:           0,
+    CHILD_1_WALK:           1,
+    CHILD_1_RUN:            2,
+    CHILD_1_ATTACK:         3,
 
     //Niño2
-    CHILD_2_IDLE:         0,
-    CHILD_2_WALK:         1,
-    CHILD_2_RUN:          2,
-    CHILD_2_BUILD:        3,
+    CHILD_2_IDLE:           0,
+    CHILD_2_WALK:           1,
+    CHILD_2_RUN:            2,
+    CHILD_2_BUILD:          3,
 
     //Enemy1
-    ENEMY_1_WALK:         0,
-    ENEMY_1_RUN:          1,
-    ENEMY_1_ATTACK:       2,
-    ENEMY_1_DEAD:         3,
+    ENEMY_1_WALK:           0,
+    ENEMY_1_RUN:            1,
+    ENEMY_1_ATTACK:         2,
+    ENEMY_1_DEAD:           3,
 
     //Wall
-    WALL:               0
+    WALL:                   0,
+
+    //Moon
+    MOON:                   0,
+
+    //Sun
+    SUN:                    0,
+
+    //Background
+    BACK_GROUND:            0,
+
+    //Night sky
+    NIGHT_SKY:              0,
+
+    //Day sky
+    DAY_SKY:                0
 }
