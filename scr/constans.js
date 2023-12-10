@@ -11,6 +11,8 @@ export const Game = {
     OVER:       6
 };
 
+export const GameStatesLenght = 7;
+
 //Velocidad del juego
 export const FPS = 30;
 
@@ -68,6 +70,7 @@ export const SpriteID = {
     BACK_GROUND:            22,
     NIGHT_SKY:              23,
     DAY_SKY:                24,
+    PAPER:                  25
 }
 
 //Identificador de estado de sprite (direccion)
@@ -131,5 +134,8 @@ export const State = {
     NIGHT_SKY:              0,
 
     //Day sky
-    DAY_SKY:                0
+    DAY_SKY:                0,
+
+    //Paper
+    PAPER:                  0
 }

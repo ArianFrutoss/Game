@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, Tile} from "./constans.js";
+import {Game, Tile, GameStatesLenght} from "./constans.js";
 
 export default function render(){
     
@@ -33,7 +33,8 @@ export default function render(){
 
         case Game.HISTORY:
 
-            drawGame();
+            renderHistorySprites();
+            renderHistoryText();
             break;
 
         case Game.OVER:
@@ -218,13 +219,72 @@ function renderNewGameText(){
 
 function renderNewGameSprites(){
 
-    for (let i = 0; i < globals.sprites.length; ++i){
+    for (let i = 0; i < GameStatesLenght; ++i){
 
-        if (globals.sprites[i].gameState === Game.NEW_GAME){
+        for (let j = 0; j < globals.sprites.length; ++j){
 
-            const sprite = globals.sprites[i];
+            if (globals.sprites[j].gameState[i] === Game.NEW_GAME && globals.sprites[j].gameState.length > 1){
 
-            renderSprite(sprite);
+                const sprite = globals.sprites[j];
+                renderSprite(sprite);
+            }
+        }
+    }
+
+    for (let i = 0; i < GameStatesLenght; ++i){
+
+        for (let j = 0; j < globals.sprites.length; ++j){
+
+            if (globals.sprites[j].gameState[i] === Game.NEW_GAME && globals.sprites[j].gameState.length === 1){
+
+                const sprite = globals.sprites[j];
+                renderSprite(sprite);
+            }
+        }
+    }
+}
+
+function renderHistoryText(){
+
+    //Dibujar Titulo
+    globals.ctx.font = "9px emulogic";
+    globals.ctx.fillStyle = "black";
+
+    globals.ctx.fillText ("The Decrepit Throne: The defense of the throne", 50, 140);
+
+    //Dibujar Opciones
+    globals.ctx.font = "7px emulogic";
+
+    globals.ctx.fillText ("New Game", 80, 200);
+    globals.ctx.fillText ("History", 80, 230);
+    globals.ctx.fillText ("Controls", 80, 260);
+    globals.ctx.fillText ("High Scores", 80, 290);
+    globals.ctx.fillText ("Exit", 80, 320);
+}
+
+function renderHistorySprites(){
+
+    for (let i = 0; i < GameStatesLenght; ++i){
+
+        for (let j = 0; j < globals.sprites.length; ++j){
+
+            if (globals.sprites[j].gameState[i] === Game.HISTORY && globals.sprites[j].gameState.length > 1){
+
+                const sprite = globals.sprites[j];
+                renderSprite(sprite);
+            }
+        }
+    }
+
+    for (let i = 0; i < GameStatesLenght; ++i){
+
+        for (let j = 0; j < globals.sprites.length; ++j){
+
+            if (globals.sprites[j].gameState[i] === Game.HISTORY && globals.sprites[j].gameState.length === 1){
+
+                const sprite = globals.sprites[j];
+                renderSprite(sprite);
+            }
         }
     }
 }
