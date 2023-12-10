@@ -374,6 +374,22 @@ function renderScoresSprites(){
     }
 }
 
+function renderOverText(){
+
+    //Dibujar Controles
+    globals.ctx.font = "20px emulogic";
+    globals.ctx.fillStyle = "crimson";
+    globals.ctx.fillText ("YOU DIED", 220, 170);
+
+    globals.ctx.font = "8px emulogic";
+    globals.ctx.fillStyle = "white";
+    globals.ctx.fillText ("Enter your name:", 225, 240);
+
+    globals.ctx.font = "8px emulogic";
+    globals.ctx.fillStyle = "crimson";
+    globals.ctx.fillText ("___", 355, 240);
+}
+
 function renderOverSprites(){
 
     for (let i = 0; i < GameStatesLenght; ++i){
