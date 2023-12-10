@@ -65,7 +65,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.HISTORY;
+        globals.gameState = Game.CONTROLS;
     }
 }
 
@@ -408,7 +408,7 @@ function initMoon(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const moon = new Sprite(SpriteID.MOON, State.MOON, 260, 20, imageSet, frames, [Game.HISTORY, Game.NEW_GAME]);
+    const moon = new Sprite(SpriteID.MOON, State.MOON, 260, 20, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(moon);
@@ -423,7 +423,7 @@ function initSun(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const sun = new Sprite(SpriteID.SUN, State.SUN, -100, 0, imageSet, frames, [Game.HISTORY, Game.NEW_GAME]);
+    const sun = new Sprite(SpriteID.SUN, State.SUN, -100, 0, imageSet, frames, [Game.NEW_GAME,Game.HISTORY, Game.CONTROLS]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(sun);
@@ -438,7 +438,7 @@ function initBackground(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const background = new Sprite(SpriteID.BACK_GROUND, State.BACK_GROUND, 0, 100, imageSet, frames, [Game.HISTORY, Game.NEW_GAME]);
+    const background = new Sprite(SpriteID.BACK_GROUND, State.BACK_GROUND, 0, 100, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(background);
@@ -453,7 +453,7 @@ function initNightSky(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, 0, 0, imageSet, frames, [Game.HISTORY, Game.NEW_GAME]);
+    const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, 0, 0, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(nightSky);
@@ -468,7 +468,7 @@ function initDaySky(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, 0, 0, imageSet, frames, [Game.HISTORY, Game.NEW_GAME]);
+    const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, 0, 0, imageSet, frames, [Game.NEW_GAME, Game.HISTORY, Game.CONTROLS]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(daySky);
@@ -483,7 +483,7 @@ function initPaper(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const paper = new Sprite(SpriteID.PAPER, State.PAPER, 170, 45, imageSet, frames, [Game.HISTORY]);
+    const paper = new Sprite(SpriteID.PAPER, State.PAPER, 170, 45, imageSet, frames, ["", Game.HISTORY, Game.CONTROLS, Game.SCORES]);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(paper);
