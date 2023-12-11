@@ -4,8 +4,10 @@ import {Game} from "./constans.js";
 export default{
 
     //Acceso al canvas y context
-    canvas:     {},
-    ctx:        {},
+    canvas:             {},
+    canvasPlaying:      {},
+    ctx:                {},
+    ctxPlaying:         {},
 
     //Estado de juego. Inicializamos a INVÁLIDO
     gameState: Game.INVALID,

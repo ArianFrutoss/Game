@@ -245,9 +245,17 @@ function renderHistoryText(){
     globals.ctx.fillText ("The defense of the throne", 205, 68);
 
     //Dibujar Historia
-    globals.ctx.font = "7px emulogic";
-
-    globals.ctx.fillText ("The news of Joseph's strange chair spread rapidly throughout the Lowlands. The villagers, intrigued and superstitious, began to fear the mysterious connection between Joseph and the colossal chair. Rumors of goblins and dark magic spread like wildfire in a dry forest. One day, the villagers, fearing the chair and convinced that it brought misfortune, organized to destroy it. Joseph, in his madness, believed the chair possessed a magical power that must be protected at all costs. With the help of children he had manipulated with illusory promises of greatness, he set out to defend his decaying throne. The villagers, driven by fear and superstition, advanced toward Joseph's abode with torches and improvised tools. The air was charged with tension as Joseph, in his delirium, clung to the chair with desperate ferocity. The children, still under the spell of the chair's magic, threw themselves against the villagers with blind loyalty. Their eyes gleamed with a supernatural glow as they defended the colossal chair from any perceived threat. Joseph, staring at his attackers, cast erratic spells in a desperate attempt to keep the villagers at bay. As the struggle intensified, some villagers managed to break the spell controlling the children. The truth became evident to the young ones, who, horrified by their own actions, joined the villagers in their fight against Joseph and the cursed chair. Eventually, the villagers prevailed, defeating Joseph and dangerously approaching the chair. The villagers destroyed the chair, which according to their beliefs, was the source of their woes. Despite their attempts to burn the pieces, the chair, thanks to its power, avoided the flames and could not be burned, so they took the fragments, scattered them, and hid them in different places.", 80, 200);
+    globals.ctx.font = "6px emulogic";
+    
+    globals.ctx.fillText ("The news of Joseph's strange", 205, 120);
+    globals.ctx.fillText ("chair spread rapidly throughout", 205, 130);
+    globals.ctx.fillText ("the Lowlands. The villagers,", 205, 140); 
+    globals.ctx.fillText ("intrigued and superstitious,", 205, 150);
+    globals.ctx.fillText ("began to fear the mysterious", 205, 160);
+    globals.ctx.fillText ("connection between Joseph and", 205, 170); 
+    globals.ctx.fillText ("the colossal chair. Rumors of", 205, 180);
+    globals.ctx.fillText ("goblins and dark magic spread", 205, 190);
+    globals.ctx.fillText ("like wildfire in a dry forest.", 205, 200);
 }
 
 function renderHistorySprites(){

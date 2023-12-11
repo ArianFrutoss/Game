@@ -478,7 +478,7 @@ function initDaySky(){
 function initPaper(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(41, 0, 640, 500, 64, 0, 0);
+    const imageSet = new ImageSet(41, 0, 640, 320, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
