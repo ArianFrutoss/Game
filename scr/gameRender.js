@@ -94,15 +94,15 @@ function renderSprite(sprite){
 
 function drawSprites(){
 
-    for (let i = 0; i < globals.sprites.length; ++i){
+    for (let i = 0; i < GameStatesLenght; ++i){
 
-        if (globals.sprites[i].gameState === Game.PLAYING){
+        for (let j = 0; j < globals.sprites.length; ++j){
 
-            const sprite = globals.sprites[i];
+            if (globals.sprites[j].gameState[i] === Game.PLAYING){
 
-            //drawSpriteRectangle(sprite);
-
-            renderSprite(sprite);
+                const sprite = globals.sprites[j];
+                renderSprite(sprite);
+            }
         }
     }
 }
@@ -130,7 +130,7 @@ function renderMap(){
 
     for (let i = 0; i < num_fil; i++){
 
-        for (let j = 0; j < num_col; j++){
+        for (let j = 0; j < num_col -7; j++){
 
             const xTile = (levelData[i][j] - 1) * brickSize;
             const yTile = 0;
@@ -163,44 +163,44 @@ function renderHUD(){
 
     //Dibujar High Score
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("HIGH SCORE", 1040, 30);
+    globals.ctx.fillText ("HIGH SCORE", 590, 30);
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText (" " + highScore, 1195, 30);
+    globals.ctx.fillText (" " + highScore, 755, 30);
 
     //Dibujar Score
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("SCORE", 1040, 60);
+    globals.ctx.fillText ("SCORE", 590, 60);
     globals.ctx.fillStyle = "lightgray";
-    globals.ctx.fillText (" " + score, 1195, 60);
+    globals.ctx.fillText (" " + score, 755, 60);
 
     //Dibujar materiales
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("MATERIALS", 1110, 250);
+    globals.ctx.fillText ("MATERIALS", 660, 250);
 
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 1", 1200, 300);
+    globals.ctx.fillText ("x 1", 750, 300);
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 5", 1200, 350);
+    globals.ctx.fillText ("x 5", 750, 350);
 
     //Dibujar Requisitos
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("REQUERIMENTS", 1090, 415);
+    globals.ctx.fillText ("REQUERIMENTS", 645, 415);
 
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 1", 1080, 480);
+    globals.ctx.fillText ("x 1", 625, 480);
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 3", 1080, 550);
+    globals.ctx.fillText ("x 3", 625, 550);
 
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 2", 1170, 480);
+    globals.ctx.fillText ("x 2", 725, 480);
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 2", 1170, 550);
+    globals.ctx.fillText ("x 2", 725, 550);
 
     //Niños obtenidos
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 2", 1110, 620);
+    globals.ctx.fillText ("x 2", 673, 620);
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 0", 1240, 620);
+    globals.ctx.fillText ("x 0", 800, 620);
 }
 
 function renderNewGameText(){

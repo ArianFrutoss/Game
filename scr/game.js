@@ -2,6 +2,7 @@ import globals from "./globals.js";
 import {initHTMLelements, loadAssets, initSprites, initVars, initLevel} from "./Initialize.js";
 import update from "./gameLogic.js";
 import render from "./gameRender.js";
+import { Game } from "./constans.js";
 
 //Game init
 window.onload = init;

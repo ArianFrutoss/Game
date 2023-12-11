@@ -176,7 +176,7 @@ function updateSprite(sprite){
 
 function updateChairInterface(sprite){
 
-    sprite.xPos = 1130;
+    sprite.xPos = 685;
     sprite.yPos = 125;
 
     sprite.frames.frameCounter = 0;
@@ -186,7 +186,7 @@ function updateChairInterface(sprite){
 
 function updateChild1Interface1(sprite){
 
-    sprite.xPos = 1220;
+    sprite.xPos = 780;
     sprite.yPos = 440;
 
     sprite.frames.frameCounter = 0;
@@ -196,7 +196,7 @@ function updateChild1Interface1(sprite){
 
 function updateChild2Interface1(sprite){
 
-    sprite.xPos = 1220;
+    sprite.xPos = 780;
     sprite.yPos = 505;
 
     sprite.frames.frameCounter = 0;
@@ -206,7 +206,7 @@ function updateChild2Interface1(sprite){
 
 function updateStoneInterface1(sprite){
 
-    sprite.xPos = 1080;
+    sprite.xPos = 620;
     sprite.yPos = 255;
 
     sprite.frames.frameCounter = 0;
@@ -216,7 +216,7 @@ function updateStoneInterface1(sprite){
 
 function updateWoodInterface1(sprite){
 
-    sprite.xPos = 1080;
+    sprite.xPos = 620;
     sprite.yPos = 310;
 
     sprite.frames.frameCounter = 0;
@@ -226,7 +226,7 @@ function updateWoodInterface1(sprite){
 
 function updateStoneInterface2(sprite){
 
-    sprite.xPos = 1025;
+    sprite.xPos = 570;
     sprite.yPos = 440;
 
     sprite.frames.frameCounter = 0;
@@ -236,7 +236,7 @@ function updateStoneInterface2(sprite){
 
 function updateWoodInterface2(sprite){
 
-    sprite.xPos = 1115;
+    sprite.xPos = 670;
     sprite.yPos = 440;
 
     sprite.frames.frameCounter = 0;
@@ -246,7 +246,7 @@ function updateWoodInterface2(sprite){
 
 function updateStoneInterface3(sprite){
 
-    sprite.xPos = 1025;
+    sprite.xPos = 570;
     sprite.yPos = 510;
 
     sprite.frames.frameCounter = 0;
@@ -256,7 +256,7 @@ function updateStoneInterface3(sprite){
 
 function updateWoodInterface3(sprite){
 
-    sprite.xPos = 1115;
+    sprite.xPos = 670;
     sprite.yPos = 510;
 
     sprite.frames.frameCounter = 0;
@@ -266,7 +266,7 @@ function updateWoodInterface3(sprite){
 
 function updateChild1Interface2(sprite){
 
-    sprite.xPos = 1040;
+    sprite.xPos = 600;
     sprite.yPos = 575;
 
     sprite.frames.frameCounter = 0;
@@ -276,7 +276,7 @@ function updateChild1Interface2(sprite){
 
 function updateChild2Interface2(sprite){
 
-    sprite.xPos = 1170;
+    sprite.xPos = 730;
     sprite.yPos = 575;
 
     sprite.frames.frameCounter = 0;
@@ -366,7 +366,7 @@ function updateEnemy1(sprite){
 
 function updateWall(sprite){
 
-    sprite.xPos = 630;
+    sprite.xPos = 450;
     sprite.yPos = 180;
 
     sprite.frames.frameCounter = 0;

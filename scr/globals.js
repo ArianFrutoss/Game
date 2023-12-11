@@ -5,9 +5,7 @@ export default{
 
     //Acceso al canvas y context
     canvas:             {},
-    canvasPlaying:      {},
     ctx:                {},
-    ctxPlaying:         {},
 
     //Estado de juego. Inicializamos a INVÁLIDO
     gameState: Game.INVALID,

@@ -65,7 +65,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.OVER;
+        globals.gameState = Game.PLAYING;
     }
 }
 
@@ -91,13 +91,13 @@ function initSprites(){
     initChild2();
     initEnemy1();
     initWall();
-    initDaySky(),
-    initNightSky(),
-    initBackground(),
-    initMoon(),
-    initSun(),
-    initPaper(),
-    initBlack()
+    initDaySky();
+    initNightSky();
+    initBackground();
+    initMoon();
+    initSun();
+    initPaper();
+    initBlack();
 }
 
 function initChairInterface(){
@@ -520,5 +520,5 @@ export{
     initVars,
     loadAssets,
     initSprites,
-    initLevel,
+    initLevel
 }
