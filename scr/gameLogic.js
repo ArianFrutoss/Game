@@ -50,6 +50,7 @@ export default function update(){
 function playGame(){
 
     updateSprites();
+    updateLevelTimer();
 }
 
 function updateSprites(){
@@ -58,6 +59,22 @@ function updateSprites(){
 
         const sprite = globals.sprites[i];
         updateSprite(sprite);
+    }
+}
+
+function updateLevelTimer(){
+
+    //Incrementamos el contador de cambio de valor
+    globals.levelTime.timerChangeCounter += globals.deltaTime;
+
+    //Si ha pasado el tiempo necesario, cambiamos el valor del timer
+    if (globals.levelTime.timerChangeCounter > globals.levelTime.timerChangeValue){
+
+        globals.levelTime.value++;
+
+        //Reseteamos timeChangeCounter
+        globals.levelTime.timerChangeCounter = 0;
+        console.log(globals.levelTime.value);
     }
 }
 

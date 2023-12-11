@@ -129,7 +129,7 @@ function renderMap(){
 
     for (let i = 0; i < num_fil; i++){
 
-        for (let j = 0; j < num_col -7; j++){
+        for (let j = 0; j < num_col - 7; j++){
 
             const xTile = (levelData[i][j] - 1) * brickSize;
             const yTile = 0;

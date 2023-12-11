@@ -33,5 +33,8 @@ export default{
     assetsLoaded: 0,
 
     //Array con datos de los sprites
-    sprites: []
+    sprites: [],
+
+    //Temporizador nivel
+    levelTime: {}
 };
