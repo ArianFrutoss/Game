@@ -41,7 +41,6 @@ export default function render(){
 
         case Game.OVER:
 
-            drawGame();
             renderOverSprites()
             renderOverText()
             break;
@@ -209,16 +208,16 @@ function renderNewGameText(){
     globals.ctx.font = "9px emulogic";
     globals.ctx.fillStyle = "white";
 
-    globals.ctx.fillText ("The Decrepit Throne: The defense of the throne", 50, 140);
+    globals.ctx.fillText ("The Decrepit Throne: The defense of the throne", 180, 140);
 
     //Dibujar Opciones
     globals.ctx.font = "7px emulogic";
 
-    globals.ctx.fillText ("New Game", 80, 200);
-    globals.ctx.fillText ("History", 80, 230);
-    globals.ctx.fillText ("Controls", 80, 260);
-    globals.ctx.fillText ("High Scores", 80, 290);
-    globals.ctx.fillText ("Exit", 80, 320);
+    globals.ctx.fillText ("New Game", 210, 200);
+    globals.ctx.fillText ("History", 210, 230);
+    globals.ctx.fillText ("Controls", 210, 260);
+    globals.ctx.fillText ("High Scores", 210, 290);
+    globals.ctx.fillText ("Exit", 210, 320);
 }
 
 function renderNewGameSprites(){
@@ -242,20 +241,20 @@ function renderHistoryText(){
     globals.ctx.font = "7px emulogic";
     globals.ctx.fillStyle = "black";
 
-    globals.ctx.fillText ("The defense of the throne", 205, 68);
+    globals.ctx.fillText ("The defense of the throne", 335, 68);
 
     //Dibujar Historia
     globals.ctx.font = "6px emulogic";
     
-    globals.ctx.fillText ("The news of Joseph's strange", 205, 120);
-    globals.ctx.fillText ("chair spread rapidly throughout", 205, 130);
-    globals.ctx.fillText ("the Lowlands. The villagers,", 205, 140); 
-    globals.ctx.fillText ("intrigued and superstitious,", 205, 150);
-    globals.ctx.fillText ("began to fear the mysterious", 205, 160);
-    globals.ctx.fillText ("connection between Joseph and", 205, 170); 
-    globals.ctx.fillText ("the colossal chair. Rumors of", 205, 180);
-    globals.ctx.fillText ("goblins and dark magic spread", 205, 190);
-    globals.ctx.fillText ("like wildfire in a dry forest.", 205, 200);
+    globals.ctx.fillText ("The news of Joseph's strange", 335, 120);
+    globals.ctx.fillText ("chair spread rapidly throughout", 335, 130);
+    globals.ctx.fillText ("the Lowlands. The villagers,", 335, 140); 
+    globals.ctx.fillText ("intrigued and superstitious,", 335, 150);
+    globals.ctx.fillText ("began to fear the mysterious", 335, 160);
+    globals.ctx.fillText ("connection between Joseph and", 335, 170); 
+    globals.ctx.fillText ("the colossal chair. Rumors of", 335, 180);
+    globals.ctx.fillText ("goblins and dark magic spread", 335, 190);
+    globals.ctx.fillText ("like wildfire in a dry forest.", 335, 200);
 }
 
 function renderHistorySprites(){
@@ -278,44 +277,44 @@ function renderControlsText(){
     //Dibujar Controles
     globals.ctx.font = "7px emulogic";
     
-    globals.ctx.fillText ("W", 210, 120);
-    globals.ctx.fillText ("-------------", 225, 120);
-    globals.ctx.fillText ("move up", 325, 120);
+    globals.ctx.fillText ("W", 310, 120);
+    globals.ctx.fillText ("-------------", 325, 120);
+    globals.ctx.fillText ("move up", 425, 120);
 
-    globals.ctx.fillText ("S", 210, 150);
-    globals.ctx.fillText ("-----------", 225, 150);
-    globals.ctx.fillText ("move Down", 312, 150);
+    globals.ctx.fillText ("S", 310, 150);
+    globals.ctx.fillText ("-----------", 325, 150);
+    globals.ctx.fillText ("move Down", 412, 150);
 
-    globals.ctx.fillText ("D", 210, 180);
-    globals.ctx.fillText ("----------", 225, 180);
-    globals.ctx.fillText ("move Right", 305, 180);
+    globals.ctx.fillText ("D", 310, 180);
+    globals.ctx.fillText ("----------", 325, 180);
+    globals.ctx.fillText ("move Right", 405, 180);
 
-    globals.ctx.fillText ("A", 210, 210);
-    globals.ctx.fillText ("-----------", 225, 210);
-    globals.ctx.fillText ("move Left", 312, 210);
+    globals.ctx.fillText ("A", 310, 210);
+    globals.ctx.fillText ("-----------", 325, 210);
+    globals.ctx.fillText ("move Left", 412, 210);
 
-    globals.ctx.fillText ("SPACE", 210, 240);
-    globals.ctx.fillText ("----------", 253, 240);
-    globals.ctx.fillText ("Attack", 332, 240);
+    globals.ctx.fillText ("SPACE", 310, 240);
+    globals.ctx.fillText ("----------", 353, 240);
+    globals.ctx.fillText ("Attack", 432, 240);
 
-    globals.ctx.fillText ("1", 210, 270);
-    globals.ctx.fillText ("-------", 225, 270);
-    globals.ctx.fillText ("Put up a wall", 283, 270);
+    globals.ctx.fillText ("1", 310, 270);
+    globals.ctx.fillText ("-------", 325, 270);
+    globals.ctx.fillText ("Put up a wall", 383, 270);
 
-    globals.ctx.fillText ("2", 210, 300);
-    globals.ctx.fillText ("---------", 225, 300);
-    globals.ctx.fillText ("Attack with", 297, 300);
-    globals.ctx.fillText ("the child", 311, 310);
+    globals.ctx.fillText ("2", 310, 300);
+    globals.ctx.fillText ("---------", 325, 300);
+    globals.ctx.fillText ("Attack with", 397, 300);
+    globals.ctx.fillText ("the child", 411, 310);
 
-    globals.ctx.fillText ("Q", 210, 330);
-    globals.ctx.fillText ("------", 225, 330);
-    globals.ctx.fillText ("Create a first", 277, 330);
-    globals.ctx.fillText ("child", 340, 340);
+    globals.ctx.fillText ("Q", 310, 330);
+    globals.ctx.fillText ("------", 325, 330);
+    globals.ctx.fillText ("Create a first", 377, 330);
+    globals.ctx.fillText ("child", 440, 340);
 
-    globals.ctx.fillText ("E", 210, 360);
-    globals.ctx.fillText ("-----", 225, 360);
-    globals.ctx.fillText ("Create a second", 270, 360);
-    globals.ctx.fillText ("child", 340, 370);
+    globals.ctx.fillText ("E", 310, 360);
+    globals.ctx.fillText ("-----", 325, 360);
+    globals.ctx.fillText ("Create a second", 370, 360);
+    globals.ctx.fillText ("child", 440, 370);
 }
 
 function renderControlsSprites(){
@@ -338,33 +337,33 @@ function renderScoresText(){
     //Dibujar Controles
     globals.ctx.font = "7px emulogic";
     
-    globals.ctx.fillText ("WSD", 210, 120);
-    globals.ctx.fillText ("-------------", 237, 120);
-    globals.ctx.fillText ("043220", 335, 120);
+    globals.ctx.fillText ("WSD", 340, 120);
+    globals.ctx.fillText ("-------------", 367, 120);
+    globals.ctx.fillText ("043220", 465, 120);
 
-    globals.ctx.fillText ("GSC", 210, 150);
-    globals.ctx.fillText ("-------------", 237, 150);
-    globals.ctx.fillText ("928320", 335, 150);
+    globals.ctx.fillText ("GSC", 340, 150);
+    globals.ctx.fillText ("-------------", 367, 150);
+    globals.ctx.fillText ("928320", 465, 150);
 
-    globals.ctx.fillText ("DSJ", 210, 180);
-    globals.ctx.fillText ("-------------", 237, 180);
-    globals.ctx.fillText ("023320", 335, 180);
+    globals.ctx.fillText ("DSJ", 340, 180);
+    globals.ctx.fillText ("-------------", 367, 180);
+    globals.ctx.fillText ("023320", 465, 180);
 
-    globals.ctx.fillText ("HFS", 210, 210);
-    globals.ctx.fillText ("-------------", 237, 210);
-    globals.ctx.fillText ("723900", 335, 210);
+    globals.ctx.fillText ("HFS", 340, 210);
+    globals.ctx.fillText ("-------------", 367, 210);
+    globals.ctx.fillText ("723900", 465, 210);
 
-    globals.ctx.fillText ("IKY", 210, 240);
-    globals.ctx.fillText ("-------------", 237, 240);
-    globals.ctx.fillText ("002380", 335, 240);
+    globals.ctx.fillText ("IKY", 340, 240);
+    globals.ctx.fillText ("-------------", 367, 240);
+    globals.ctx.fillText ("002380", 465, 240);
 
-    globals.ctx.fillText ("QES", 210, 270);
-    globals.ctx.fillText ("-------------", 237, 270);
-    globals.ctx.fillText ("055520", 335, 270);
+    globals.ctx.fillText ("QES", 340, 270);
+    globals.ctx.fillText ("-------------", 367, 270);
+    globals.ctx.fillText ("055520", 465, 270);
 
-    globals.ctx.fillText ("BAI", 210, 300);
-    globals.ctx.fillText ("-------------", 237, 300);
-    globals.ctx.fillText ("728130", 335, 300);
+    globals.ctx.fillText ("BAI", 340, 300);
+    globals.ctx.fillText ("-------------", 367, 300);
+    globals.ctx.fillText ("728130", 465, 300);
 }
 
 function renderScoresSprites(){
@@ -387,15 +386,15 @@ function renderOverText(){
     //Dibujar Controles
     globals.ctx.font = "20px emulogic";
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText ("YOU DIED", 220, 170);
+    globals.ctx.fillText ("YOU DIED", 350, 270);
 
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("Enter your name:", 225, 240);
+    globals.ctx.fillText ("Enter your name:", 355, 340);
 
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText ("___", 355, 240);
+    globals.ctx.fillText ("___", 485, 340);
 }
 
 function renderOverSprites(){
