@@ -6,8 +6,8 @@
 
 #gameScreen{
 
-    width: 1000px;
-    height: 800px;
+    width: 700px;
+    height: 400px;
     image-rendering: -moz-crisp-edges;
     image-rendering: -webkit-crisp-edges;
     image-rendering: pixelated;
