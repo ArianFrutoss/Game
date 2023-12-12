@@ -405,9 +405,30 @@ function updateMoon(sprite){
             break;
     }
 
-    sprite.frames.frameCounter = 0;
+    //sprite.physics.angle += sprite.physics.omega * globals.deltaTime;
 
-    sprite.state = State.MOON;
+    //setMoonPosition(sprite);
+    //updateAnimationFrame(sprite);
+}
 
-    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+export function setMoonPosition(sprite){
+
+    const radius = 65;
+
+    sprite.xPos = sprite.physics.xRotCenter + radius * Math.cos(sprite.physics.angle);
+    sprite.xPos = sprite.physics.xRotCenter + radius * Math.cos(sprite.physics.angle);
+
+    sprite.xPos -= sprite.imageSet.xSize / 2;
+    sprite.yPos -= sprite.imageSet.ySize / 2;
+}
+
+function updateAnimationFrame(sprite){
+
+    sprite.frames.frameCounter++;
+
+    //Reiniciar animacion
+    if (sprite.frames.frameCounter === sprite.frames.framesPerState){
+
+        sprite.frames.frameCounter = 0;
+    }
 }
