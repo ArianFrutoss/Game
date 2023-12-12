@@ -183,6 +183,11 @@ function updateSprite(sprite){
             updateWall(sprite);
             break;
 
+        case SpriteID.MOON:
+
+            updateMoon(sprite);
+            break;
+
         //otros
         default:
 
@@ -390,3 +395,19 @@ function updateWall(sprite){
     sprite.state = State.WALL;
 }
 
+function updateMoon(sprite){
+
+    switch (sprite.state){
+
+        case State.MOON:
+
+            sprite.physics.vx = sprite.physics.vLimit;
+            break;
+    }
+
+    sprite.frames.frameCounter = 0;
+
+    sprite.state = State.MOON;
+
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+}

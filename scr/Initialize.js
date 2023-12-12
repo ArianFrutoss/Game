@@ -67,7 +67,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.PLAYING;
+        globals.gameState = Game.NEW_GAME;
 
         initSprites();
     }
@@ -502,7 +502,7 @@ function initMoon(){
     const physics = new Physics(20);
 
     //Creamos nuestro sprite
-    const moon = new Sprite(SpriteID.MOON, State.MOON, 410, 20, imageSet, frames);
+    const moon = new Sprite(SpriteID.MOON, State.MOON, 410, 20, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(moon);
