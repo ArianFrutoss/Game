@@ -277,44 +277,44 @@ function renderControlsText(){
     //Dibujar Controles
     globals.ctx.font = "7px emulogic";
     
-    globals.ctx.fillText ("W", 310, 120);
-    globals.ctx.fillText ("-------------", 325, 120);
-    globals.ctx.fillText ("move up", 425, 120);
+    globals.ctx.fillText ("W", 340, 120);
+    globals.ctx.fillText ("-------------", 355, 120);
+    globals.ctx.fillText ("move up", 455, 120);
 
-    globals.ctx.fillText ("S", 310, 150);
-    globals.ctx.fillText ("-----------", 325, 150);
-    globals.ctx.fillText ("move Down", 412, 150);
+    globals.ctx.fillText ("S", 340, 150);
+    globals.ctx.fillText ("-----------", 355, 150);
+    globals.ctx.fillText ("move Down", 442, 150);
 
-    globals.ctx.fillText ("D", 310, 180);
-    globals.ctx.fillText ("----------", 325, 180);
-    globals.ctx.fillText ("move Right", 405, 180);
+    globals.ctx.fillText ("D", 340, 180);
+    globals.ctx.fillText ("----------", 355, 180);
+    globals.ctx.fillText ("move Right", 435, 180);
 
-    globals.ctx.fillText ("A", 310, 210);
-    globals.ctx.fillText ("-----------", 325, 210);
-    globals.ctx.fillText ("move Left", 412, 210);
+    globals.ctx.fillText ("A", 340, 210);
+    globals.ctx.fillText ("-----------", 355, 210);
+    globals.ctx.fillText ("move Left", 442, 210);
 
-    globals.ctx.fillText ("SPACE", 310, 240);
-    globals.ctx.fillText ("----------", 353, 240);
-    globals.ctx.fillText ("Attack", 432, 240);
+    globals.ctx.fillText ("SPACE", 340, 240);
+    globals.ctx.fillText ("----------", 383, 240);
+    globals.ctx.fillText ("Attack", 462, 240);
 
-    globals.ctx.fillText ("1", 310, 270);
-    globals.ctx.fillText ("-------", 325, 270);
-    globals.ctx.fillText ("Put up a wall", 383, 270);
+    globals.ctx.fillText ("1", 340, 270);
+    globals.ctx.fillText ("-------", 355, 270);
+    globals.ctx.fillText ("Put up a wall", 413, 270);
 
-    globals.ctx.fillText ("2", 310, 300);
-    globals.ctx.fillText ("---------", 325, 300);
-    globals.ctx.fillText ("Attack with", 397, 300);
-    globals.ctx.fillText ("the child", 411, 310);
+    globals.ctx.fillText ("2", 340, 300);
+    globals.ctx.fillText ("---------", 355, 300);
+    globals.ctx.fillText ("Attack with", 427, 300);
+    globals.ctx.fillText ("the child", 441, 310);
 
-    globals.ctx.fillText ("Q", 310, 330);
-    globals.ctx.fillText ("------", 325, 330);
-    globals.ctx.fillText ("Create a first", 377, 330);
-    globals.ctx.fillText ("child", 440, 340);
+    globals.ctx.fillText ("Q", 340, 330);
+    globals.ctx.fillText ("------", 355, 330);
+    globals.ctx.fillText ("Create a first", 407, 330);
+    globals.ctx.fillText ("child", 470, 340);
 
-    globals.ctx.fillText ("E", 310, 360);
-    globals.ctx.fillText ("-----", 325, 360);
-    globals.ctx.fillText ("Create a second", 370, 360);
-    globals.ctx.fillText ("child", 440, 370);
+    globals.ctx.fillText ("E", 340, 360);
+    globals.ctx.fillText ("-----", 355, 360);
+    globals.ctx.fillText ("Create a second", 400, 360);
+    globals.ctx.fillText ("child", 470, 370);
 }
 
 function renderControlsSprites(){
