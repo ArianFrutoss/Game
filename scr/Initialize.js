@@ -5,6 +5,7 @@ import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
 import {Level, level1} from "./Level.js";
 import Timer from "./Timer.js";
+import Physics from "./Physics.js";
 
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
@@ -497,6 +498,8 @@ function initMoon(){
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
+
+    const physics = new Physics(20);
 
     //Creamos nuestro sprite
     const moon = new Sprite(SpriteID.MOON, State.MOON, 410, 20, imageSet, frames);

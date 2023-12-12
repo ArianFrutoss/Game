@@ -389,3 +389,4 @@ function updateWall(sprite){
 
     sprite.state = State.WALL;
 }
+
