@@ -8,6 +8,5 @@ export default class Sprite{
         this.yPos       = yPos;         //Posicion en Y
         this.imageSet   = imageSet;     //Datos de las imagenes del sprite
         this.frames     = frames;       //Datos de los frames de animacion
-        this.gameState  = gameState;    //State en la que se pintara el sprite
     }
 }

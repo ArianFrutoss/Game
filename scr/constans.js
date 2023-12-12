@@ -11,8 +11,6 @@ export const Game = {
     OVER:       6
 };
 
-export const GameStatesLenght = 7;
-
 //Velocidad del juego
 export const FPS = 30;
 

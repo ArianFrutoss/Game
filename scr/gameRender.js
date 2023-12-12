@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, Tile, GameStatesLenght} from "./constans.js";
+import {Game, Tile} from "./constans.js";
 
 export default function render(){
     
@@ -12,7 +12,7 @@ export default function render(){
 
         case Game.NEW_GAME:
 
-            renderNewGameSprites();
+            drawSprites();
             renderNewGameText();
             break;
 
@@ -23,25 +23,25 @@ export default function render(){
 
         case Game.CONTROLS:
 
-            renderControlsSprites();
+            drawSprites();
             renderControlsText();
             break;
 
         case Game.SCORES:
 
-            renderScoresSprites();
+            drawSprites();
             renderScoresText();
             break;
 
         case Game.HISTORY:
 
-            renderHistorySprites();
+            drawSprites();
             renderHistoryText();
             break;
 
         case Game.OVER:
 
-            renderOverSprites()
+            drawSprites()
             renderOverText()
             break;
 
@@ -93,16 +93,10 @@ function renderSprite(sprite){
 
 function drawSprites(){
 
-    for (let i = 0; i < GameStatesLenght; ++i){
+    for (let i = 0; i < globals.sprites.length; ++i){
 
-        for (let j = 0; j < globals.sprites.length; ++j){
-
-            if (globals.sprites[j].gameState[i] === Game.PLAYING){
-
-                const sprite = globals.sprites[j];
-                renderSprite(sprite);
-            }
-        }
+        const sprite = globals.sprites[i];
+        renderSprite(sprite);
     }
 }
 
@@ -135,7 +129,7 @@ function renderMap(){
             const yTile = 0;
             const xPos = j * brickSize;
             const yPos = i * brickSize;
-
+            
             //Dibujamos el nuevo fotograma del sprite en la posicion adecuada
             globals.ctx.drawImage(
                 
@@ -220,21 +214,6 @@ function renderNewGameText(){
     globals.ctx.fillText ("Exit", 210, 320);
 }
 
-function renderNewGameSprites(){
-
-    for (let i = 0; i < GameStatesLenght; ++i){
-
-        for (let j = 0; j < globals.sprites.length; ++j){
-
-            if (globals.sprites[j].gameState[i] === Game.NEW_GAME){
-
-                const sprite = globals.sprites[j];
-                renderSprite(sprite);
-            }
-        }
-    }
-}
-
 function renderHistoryText(){
 
     //Dibujar Titulo
@@ -255,21 +234,6 @@ function renderHistoryText(){
     globals.ctx.fillText ("the colossal chair. Rumors of", 335, 180);
     globals.ctx.fillText ("goblins and dark magic spread", 335, 190);
     globals.ctx.fillText ("like wildfire in a dry forest.", 335, 200);
-}
-
-function renderHistorySprites(){
-
-    for (let i = 0; i < GameStatesLenght; ++i){
-
-        for (let j = 0; j < globals.sprites.length; ++j){
-
-            if (globals.sprites[j].gameState[i] === Game.HISTORY){
-
-                const sprite = globals.sprites[j];
-                renderSprite(sprite);
-            }
-        }
-    }
 }
 
 function renderControlsText(){
@@ -317,21 +281,6 @@ function renderControlsText(){
     globals.ctx.fillText ("child", 470, 370);
 }
 
-function renderControlsSprites(){
-
-    for (let i = 0; i < GameStatesLenght; ++i){
-
-        for (let j = 0; j < globals.sprites.length; ++j){
-
-            if (globals.sprites[j].gameState[i] === Game.CONTROLS){
-
-                const sprite = globals.sprites[j];
-                renderSprite(sprite);
-            }
-        }
-    }
-}
-
 function renderScoresText(){
 
     //Dibujar Controles
@@ -366,21 +315,6 @@ function renderScoresText(){
     globals.ctx.fillText ("728130", 465, 300);
 }
 
-function renderScoresSprites(){
-
-    for (let i = 0; i < GameStatesLenght; ++i){
-
-        for (let j = 0; j < globals.sprites.length; ++j){
-
-            if (globals.sprites[j].gameState[i] === Game.SCORES){
-
-                const sprite = globals.sprites[j];
-                renderSprite(sprite);
-            }
-        }
-    }
-}
-
 function renderOverText(){
 
     //Dibujar Controles
@@ -395,19 +329,4 @@ function renderOverText(){
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "crimson";
     globals.ctx.fillText ("___", 485, 340);
-}
-
-function renderOverSprites(){
-
-    for (let i = 0; i < GameStatesLenght; ++i){
-
-        for (let j = 0; j < globals.sprites.length; ++j){
-
-            if (globals.sprites[j].gameState[i] === Game.OVER){
-
-                const sprite = globals.sprites[j];
-                renderSprite(sprite);
-            }
-        }
-    }
 }

@@ -74,7 +74,6 @@ function updateLevelTimer(){
 
         //Reseteamos timeChangeCounter
         globals.levelTime.timerChangeCounter = 0;
-        console.log(globals.levelTime.value);
     }
 }
 
