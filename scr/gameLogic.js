@@ -451,7 +451,7 @@ function updateNightCloud(sprite){
 
 function updateDayCloud(sprite){
 
-    if (globals.timer > 15){
+    if (globals.levelTime.value > 14){
 
         sprite.physics.vx = sprite.physics.vLimit;
         sprite.xPos += sprite.physics.vx * globals.deltaTime;

@@ -67,7 +67,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.PLAYING;
+        globals.gameState = Game.NEW_GAME;
 
         initSprites();
     }
@@ -147,6 +147,7 @@ function initNewGameSprites(){
     initDayCloud();
     initNightCloud();
     initBackground();
+    initBlackBorder();
 }
 
 function initControlsSprites(){
@@ -382,6 +383,9 @@ function initPlayer(){
     //Creamos los datos de la animacion
     const frames = new Frames(8);
 
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(10);
+
     //Creamos nuestro sprite
     const player = new Sprite(SpriteID.PLAYER, State.IDLE, 0, 0, imageSet, frames);
 
@@ -551,7 +555,7 @@ function initBackground(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const background = new Sprite(SpriteID.BACK_GROUND, State.BACK_GROUND, 125, globals.canvas.height / 3, imageSet, frames);
+    const background = new Sprite(SpriteID.BACK_GROUND, State.BACK_GROUND, 124, globals.canvas.height / 3, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(background);
@@ -566,7 +570,7 @@ function initNightSky(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, 125, 0, imageSet, frames);
+    const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, 124, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(nightSky);
@@ -581,7 +585,7 @@ function initDaySky(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, 125, 0, imageSet, frames);
+    const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, 124, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(daySky);
@@ -596,7 +600,7 @@ function initNightCloud(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(100);
+    const physics = new Physics(50);
 
     //Creamos nuestro sprite
     const nightCloud = new Sprite(SpriteID.NIGHT_CLOUD, State.NIGHT_CLOUD, -470, 0, imageSet, frames, physics);
@@ -614,10 +618,10 @@ function initDayCloud(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(20);
+    const physics = new Physics(50);
 
     //Creamos nuestro sprite
-    const dayCloud = new Sprite(SpriteID.DAY_CLOUD, State.DAY_CLOUD, 125, 0, imageSet, frames, physics);
+    const dayCloud = new Sprite(SpriteID.DAY_CLOUD, State.DAY_CLOUD, -1216, 0, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(dayCloud);
@@ -651,6 +655,21 @@ function initBlack(){
 
     //Añadimos el player el array de sprites
     globals.sprites.push(black);
+}
+
+function initBlackBorder(){
+
+    //Creamos las propiedades de las imagenes
+    const imageSet = new ImageSet(64, 0, 855, 500, 64, 0, 0);
+
+    //Creamos los datos de la animacion
+    const frames = new Frames(1);
+
+    //Creamos nuestro sprite
+    const blackBorder = new Sprite(SpriteID.BLACK_BORDER, State.BLACK_BORDER, 0, 0, imageSet, frames);
+
+    //Añadimos el player el array de sprites
+    globals.sprites.push(blackBorder);
 }
 
 function initLevel(){
