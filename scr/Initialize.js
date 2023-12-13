@@ -6,7 +6,6 @@ import Frames from "./Frames.js";
 import {Level, level1} from "./Level.js";
 import Timer from "./Timer.js";
 import Physics from "./Physics.js";
-import setMoonPosition from "./gameLogic.js";
 
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
@@ -141,20 +140,20 @@ function initPlayingSprites(){
 
 function initNewGameSprites(){
 
-    //initDaySky();
-    //initNightSky();
-    //initBackground();
+    initDaySky();
+    initNightSky();
     initMoon();
     initSun();
+    initBackground();
 }
 
 function initControlsSprites(){
 
     initDaySky();
     initNightSky();
-    initBackground();
     initMoon();
     initSun();
+    initBackground();
     initPaper();
 }
 
@@ -501,8 +500,8 @@ function initMoon(){
     const frames = new Frames(1);
 
     //Valores iniciales para las fisicas
-    const initAngle     = 90 * Math.PI / 180;
-    const omega         = 0.5;
+    const initAngle     = 270 * Math.PI / 180;
+    const omega         = 0.1;
     const xRotCenter    = globals.canvas.width / 2;
     const yRotCenter    = globals.canvas.height / 2;
 
@@ -511,8 +510,6 @@ function initMoon(){
 
     //Creamos nuestro sprite
     const moon = new Sprite(SpriteID.MOON, State.MOON, 0, 0, imageSet, frames, physics);
-
-    setMoonPosition(moon);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(moon);
@@ -526,8 +523,17 @@ function initSun(){
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
+    //Valores iniciales para las fisicas
+    const initAngle     = 90 * Math.PI / 180;
+    const omega         = 0.1;
+    const xRotCenter    = globals.canvas.width / 2;
+    const yRotCenter    = globals.canvas.height / 2;
+
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(60, 0, 1, 0, omega, initAngle, xRotCenter, yRotCenter);
+
     //Creamos nuestro sprite
-    const sun = new Sprite(SpriteID.SUN, State.SUN, -100, 0, imageSet, frames);
+    const sun = new Sprite(SpriteID.SUN, State.SUN, 0, 0, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(sun);

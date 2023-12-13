@@ -188,6 +188,11 @@ function updateSprite(sprite){
             updateMoon(sprite);
             break;
 
+        case SpriteID.SUN:
+
+            updateSun(sprite);
+            break;
+
         //otros
         default:
 
@@ -397,26 +402,24 @@ function updateWall(sprite){
 
 function updateMoon(sprite){
 
-    switch (sprite.state){
+    sprite.physics.angle += sprite.physics.omega * globals.deltaTime;
 
-        case State.MOON:
-
-            sprite.physics.vx = sprite.physics.vLimit;
-            break;
-    }
-
-    //sprite.physics.angle += sprite.physics.omega * globals.deltaTime;
-
-    //setMoonPosition(sprite);
-    //updateAnimationFrame(sprite);
+    setMoonAndSunPosition(sprite);
 }
 
-export function setMoonPosition(sprite){
+function updateSun(sprite){
 
-    const radius = 65;
+    sprite.physics.angle += sprite.physics.omega * globals.deltaTime;
+
+    setMoonAndSunPosition(sprite);
+}
+
+function setMoonAndSunPosition(sprite){
+
+    const radius = 350;
 
     sprite.xPos = sprite.physics.xRotCenter + radius * Math.cos(sprite.physics.angle);
-    sprite.xPos = sprite.physics.xRotCenter + radius * Math.cos(sprite.physics.angle);
+    sprite.yPos = sprite.physics.yRotCenter + (radius / 2.5) * Math.sin(sprite.physics.angle);
 
     sprite.xPos -= sprite.imageSet.xSize / 2;
     sprite.yPos -= sprite.imageSet.ySize / 2;
