@@ -68,8 +68,10 @@ export const SpriteID = {
     BACK_GROUND:            22,
     NIGHT_SKY:              23,
     DAY_SKY:                24,
-    PAPER:                  25,
-    BLACK:                  26
+    NIGHT_CLOUD:            25,
+    DAY_CLOUD:              26,
+    PAPER:                  27,
+    BLACK:                  28
 }
 
 //Identificador de estado de sprite (direccion)
@@ -134,6 +136,12 @@ export const State = {
 
     //Day sky
     DAY_SKY:                0,
+
+    //Night cloud
+    NIGHT_CLOUD:            0,
+
+    //Day cloud
+    DAY_CLOUD:              0,
 
     //Paper
     PAPER:                  0,

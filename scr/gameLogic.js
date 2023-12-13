@@ -193,6 +193,23 @@ function updateSprite(sprite){
             updateSun(sprite);
             break;
 
+        case SpriteID.DAY_CLOUD:
+
+            updateDayCloud(sprite);
+            break;
+
+        case SpriteID.NIGHT_CLOUD:
+
+            updateNightCloud(sprite);
+            break;
+
+        case SpriteID.NIGHT_SKY:
+
+            updateNightSky(sprite);
+            break;
+
+        case SpriteID.
+        
         //otros
         default:
 
@@ -416,13 +433,34 @@ function updateSun(sprite){
 
 function setMoonAndSunPosition(sprite){
 
-    const radius = 350;
+    const radius = 400;
 
     sprite.xPos = sprite.physics.xRotCenter + radius * Math.cos(sprite.physics.angle);
     sprite.yPos = sprite.physics.yRotCenter + (radius / 2.5) * Math.sin(sprite.physics.angle);
 
     sprite.xPos -= sprite.imageSet.xSize / 2;
     sprite.yPos -= sprite.imageSet.ySize / 2;
+}
+
+function updateNightCloud(sprite){
+
+    sprite.physics.vx = sprite.physics.vLimit;
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+
+}
+
+function updateDayCloud(sprite){
+
+    if (globals.timer > 15){
+
+        sprite.physics.vx = sprite.physics.vLimit;
+        sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    }
+}
+
+function updateNightSky(sprite){
+
+
 }
 
 function updateAnimationFrame(sprite){
