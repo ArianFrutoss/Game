@@ -31,6 +31,16 @@ function initVars(){
     globals.deltaTime = 0;
     globals.frameTimeObj = 1 / FPS;
     globals.gameState = Game.LOADING;
+
+
+    //Inicializamos los estados de las acciones
+    globals.action = {
+
+        moveLeft:   false,
+        moveRight:  false,
+        moveUp:     false,
+        moveDown:   false
+    }
 }
 
 //Carga de activos (TileMap, Images, Sounds)
