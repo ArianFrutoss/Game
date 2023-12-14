@@ -33,7 +33,6 @@ function initVars(){
     globals.frameTimeObj = 1 / FPS;
     globals.gameState = Game.LOADING;
 
-
     //Inicializamos los estados de las acciones
     globals.action = {
 
@@ -85,8 +84,6 @@ function loadHandler(){
 
         //Cambia la etapa del juego a PLAYING
         globals.gameState = Game.PLAYING;
-
-        initSprites();
     }
 }
 
@@ -406,7 +403,7 @@ function initPlayer(){
     const physics = new Physics(20);
 
     //Creamos nuestro sprite
-    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 0, 0, imageSet, frames, physics);
+    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 186, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(player);
