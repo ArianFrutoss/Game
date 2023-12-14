@@ -1,5 +1,5 @@
-import {Key} from "./constans";
-import globals from "./globals";
+import {Key} from "./constans.js";
+import globals from "./globals.js";
 
 export function keydownHandler(event){
 
@@ -27,7 +27,7 @@ export function keydownHandler(event){
     }
 }
 
-export function keyUpHandler(event){
+export function keyupHandler(event){
 
     switch (event.KeyCode){
 

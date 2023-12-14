@@ -79,11 +79,11 @@ function updateLevelTimer(){
 
 function readKeyboardAndAssignState(sprite){
 
-    sprite.state =  globals.action.moveLeft         ? State.LEFT:
-                    globals.action.moveRight        ? State.RIGHT:
-                    globals.action.moveUp           ? State.UP:
-                    globals.action.moveDown         ? State.DOWN:
-                    sprite.state === State.IDLE     ? State.IDLE.LEFT:
+    sprite.state =  globals.action.moveLeft             ? State.WALK:
+                    globals.action.moveRight            ? State.WALK:
+                    globals.action.moveUp               ? State.WALK:
+                    globals.action.moveDown             ? State.WALK:
+                    sprite.state === State.WALK         ? State.IDLE:
                     sprite.state;
 }
 
@@ -352,42 +352,34 @@ function updatePlayer(sprite){
     //Lectura de teclado
     readKeyboardAndAssignState(sprite);
 
-    switch (sprite.state){
+    if (globals.action.moveUp === true){
 
-        case State.UP:
-
-            //Si se mueve hacia arriba asignamos vy (-)
-            sprite.physics.vx = 0;
-            sprite.physics.vy = -sprite.physics.vLimit;
-            break;
-
-        case State.DOWN:
-
-            //Si se mueve hacia abajo asignamos vy (+)
-            sprite.physics.vx = 0;
-            sprite.physics.vy = sprite.physics.vLimit;
-            break;
-
-        case State.RIGHT:
-
-            //Si se mueve a la derecha asignamos vx (+)
-            sprite.physics.vx = sprite.physics.vLimit;
-            sprite.physics.vy = 0;
-            break;
-
-        case State.LEFT:
-
-            //Si se mueve a la izquierda asignamos vx (-)
-            sprite.physics.vx = -sprite.physics.vLimit;
-            sprite.physics.vy = 0;
-            break;
-        
-        default:
-
+        //Si se mueve hacia arriba asignamos vy (-)
         sprite.physics.vx = 0;
+        sprite.physics.vy = -sprite.physics.vLimit;
+    }
+
+    if (globals.action.moveDown === true){
+
+        //Si se mueve hacia abajo asignamos vy (+)
+        sprite.physics.vx = 0;
+        sprite.physics.vy = sprite.physics.vLimit;
+    }
+
+    if (globals.action.moveRight === true){
+
+        //Si se mueve a la derecha asignamos vx (+)
+        sprite.physics.vx = sprite.physics.vLimit;
         sprite.physics.vy = 0;
     }
 
+    if (globals.action.moveLeft === true){
+
+        //Si se mueve a la izquierda asignamos vx (-)
+        sprite.physics.vx = -sprite.physics.vLimit;
+        sprite.physics.vy = 0;
+    }
+    
     //Calculamos distancia que se mueve (x = x + Vt)
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
@@ -518,6 +510,7 @@ function updateNightSky(sprite){
 
 function updateAnimationFrame(sprite){
 
+    //Aumentamos el contador de tiempo entre frames
     sprite.frames.frameCounter++;
 
     //Reiniciar animacion

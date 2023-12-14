@@ -14,10 +14,10 @@ export const Game = {
 //Codigos de teclas
 export const Key = {
 
-    UP:     38,
-    DOWN:   40,
-    RIGHT:  39,
-    LEFT:   37
+    UP:     119,
+    DOWN:   115,
+    RIGHT:  100,
+    LEFT:   97
 }
 
 //Velocidad del juego
@@ -95,6 +95,7 @@ export const State = {
     WALK:                   1,
     STUN:                   2,
     ATTACK:                 3,
+
 
     //Estados de la magia
     MAGIC:                  0,

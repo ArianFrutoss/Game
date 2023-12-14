@@ -6,7 +6,7 @@ import Frames from "./Frames.js";
 import {Level, level1} from "./Level.js";
 import Timer from "./Timer.js";
 import Physics from "./Physics.js";
-import {keydownHandler, keyUpHandler} from "./events.js";
+import {keydownHandler, keyupHandler} from "./events.js";
 
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
@@ -47,7 +47,7 @@ function initVars(){
 function initEvents(){
 
     window.addEventListener("keydown",  keydownHandler, false);
-    window.addEventListener("keyup",    keyUpHandler,   false);
+    window.addEventListener("keyup",    keyupHandler,   false);
 }
 
 //Carga de activos (TileMap, Images, Sounds)
@@ -129,6 +129,8 @@ function initSprites(){
             initOverSprites();
             break;
     }
+
+    initPlayingSprites();
 }
 
 function initPlayingSprites(){
@@ -398,7 +400,7 @@ function initPlayer(){
     const imageSet = new ImageSet(1, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(8, 5);
+    const frames = new Frames(7, 8);
 
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(20);
