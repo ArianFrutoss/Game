@@ -349,12 +349,51 @@ function updateChair(sprite){
 
 function updatePlayer(sprite){
 
-    sprite.xPos = 100;
-    sprite.yPos = 50;
+    //Lectura de teclado
+    readKeyboardAndAssignState(sprite);
 
-    sprite.frames.frameCounter = 0;
+    switch (sprite.state){
 
-    sprite.state = State.WALK;
+        case State.UP:
+
+            //Si se mueve hacia arriba asignamos vy (-)
+            sprite.physics.vx = 0;
+            sprite.physics.vy = -sprite.physics.vLimit;
+            break;
+
+        case State.DOWN:
+
+            //Si se mueve hacia abajo asignamos vy (+)
+            sprite.physics.vx = 0;
+            sprite.physics.vy = sprite.physics.vLimit;
+            break;
+
+        case State.RIGHT:
+
+            //Si se mueve a la derecha asignamos vx (+)
+            sprite.physics.vx = sprite.physics.vLimit;
+            sprite.physics.vy = 0;
+            break;
+
+        case State.LEFT:
+
+            //Si se mueve a la izquierda asignamos vx (-)
+            sprite.physics.vx = -sprite.physics.vLimit;
+            sprite.physics.vy = 0;
+            break;
+        
+        default:
+
+        sprite.physics.vx = 0;
+        sprite.physics.vy = 0;
+    }
+
+    //Calculamos distancia que se mueve (x = x + Vt)
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    sprite.yPos += sprite.physics.vy * globals.deltaTime;
+
+    //Actualizamos la animacion
+    updateAnimationFrame(sprite);
 }
 
 function updateMagic(sprite){
