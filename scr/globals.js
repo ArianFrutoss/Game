@@ -36,5 +36,8 @@ export default{
     sprites: [],
 
     //Temporizador nivel
-    levelTime: {}
+    levelTime: {},
+
+    //Objeto que guarda el estado de la tecla pulsada
+    action: {}
 };

@@ -447,6 +447,10 @@ function updateNightCloud(sprite){
     sprite.physics.vx = sprite.physics.vLimit;
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
 
+    if (sprite.xPos >= globals.canvas.width){
+
+        sprite.xPos = -1216;
+    }
 }
 
 function updateDayCloud(sprite){

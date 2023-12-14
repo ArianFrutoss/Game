@@ -11,6 +11,15 @@ export const Game = {
     OVER:       6
 };
 
+//Codigos de teclas
+export const Key = {
+
+    UP:     38,
+    DOWN:   40,
+    RIGHT:  39,
+    LEFT:   37
+}
+
 //Velocidad del juego
 export const FPS = 30;
 
