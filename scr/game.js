@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {initHTMLelements, loadAssets, initSprites, initVars, initLevel, initTimers} from "./Initialize.js";
+import {initHTMLelements, loadAssets, initSprites, initVars, initEvents, initLevel, initTimers} from "./Initialize.js";
 import update from "./gameLogic.js";
 import render from "./gameRender.js";
 
@@ -22,6 +22,9 @@ function init(){
 
     //Inicializamos el Timer del juego
     initTimers();
+
+    //Inicializamos los eventos de teclas
+    initEvents();
     
     //Empezar el primer frame request
     window.requestAnimationFrame(gameLoop);

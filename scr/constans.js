@@ -9,7 +9,7 @@ export const Game = {
     SCORES:     4,
     HISTORY:    5,
     OVER:       6
-};
+}
 
 //Codigos de teclas
 export const Key = {

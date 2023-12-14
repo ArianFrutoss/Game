@@ -77,6 +77,16 @@ function updateLevelTimer(){
     }
 }
 
+function readKeyboardAndAssignState(sprite){
+
+    sprite.state =  globals.action.moveLeft         ? State.LEFT:
+                    globals.action.moveRight        ? State.RIGHT:
+                    globals.action.moveUp           ? State.UP:
+                    globals.action.moveDown         ? State.DOWN:
+                    sprite.state === State.IDLE     ? State.IDLE.LEFT:
+                    sprite.state;
+}
+
 function updateSprite(sprite){
 
     const type = sprite.id;
