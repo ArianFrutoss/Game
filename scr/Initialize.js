@@ -105,8 +105,6 @@ function initSprites(){
 function initPlayingSprites(){
     
     initChairInterface();
-    initChild1Interface1();
-    initChild2Interface1();
     initStoneInterface1();
     initWoodInterface1();
     initStoneInterface2();
@@ -197,43 +195,13 @@ function initChairInterface(){
     const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(4);
+    const frames = new Frames(4, 100);
 
     //Creamos nuestro sprite
-    const chairInterface = new Sprite(SpriteID.CHAIR_INTERFACE, State.INTEGRITY, 0, 0, imageSet, frames);
+    const chairInterface = new Sprite(SpriteID.CHAIR_INTERFACE, State.INTEGRITY, 685, 125, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(chairInterface);
-}
-
-function initChild1Interface1(){
-
-    //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(8, 0, 64, 64, 64, 0, 0);
-
-    //Creamos los datos de la animacion
-    const frames = new Frames(1);
-
-    //Creamos nuestro sprite
-    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_1, State.CHILD_1_INTERFACE, 0, 0, imageSet, frames);
-
-    //Añadimos el player el array de sprites
-    globals.sprites.push(child1Interface);
-}
-
-function initChild2Interface1(){
-
-    //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(9, 0, 64, 64, 64, 0, 0);
-
-    //Creamos los datos de la animacion
-    const frames = new Frames(1);
-
-    //Creamos nuestro sprite
-    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_1, State.CHILD_2_INTERFACE, 0, 0, imageSet, frames);
-
-    //Añadimos el player el array de sprites
-    globals.sprites.push(child2Interface);
 }
 
 function initStoneInterface1(){
@@ -245,7 +213,7 @@ function initStoneInterface1(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_1, State.STONE, 0, 0, imageSet, frames);
+    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_1, State.STONE, 620, 255, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stoneInterface);
@@ -260,7 +228,7 @@ function initWoodInterface1(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_1, State.WOOD, 0, 0, imageSet, frames);
+    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_1, State.WOOD, 620, 310, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(woodInterface);
@@ -275,7 +243,7 @@ function initStoneInterface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_2, State.STONE, 0, 0, imageSet, frames);
+    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_2, State.STONE, -100, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stoneInterface);
@@ -290,7 +258,7 @@ function initWoodInterface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_2, State.WOOD, 0, 0, imageSet, frames);
+    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_2, State.WOOD, -100, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(woodInterface);
@@ -305,7 +273,7 @@ function initStoneInterface3(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_3, State.STONE, 0, 0, imageSet, frames);
+    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_3, State.STONE, -100, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stoneInterface);
@@ -320,7 +288,7 @@ function initWoodInterface3(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_3, State.WOOD, 0, 0, imageSet, frames);
+    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_3, State.WOOD, -100, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(woodInterface);
@@ -335,7 +303,7 @@ function initChild1Interface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_2, State.CHILD_1_INTERFACE, 0, 0, imageSet, frames);
+    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_2, State.CHILD_1_INTERFACE, -100, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child1Interface);
@@ -350,7 +318,7 @@ function initChild2Interface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_2, State.CHILD_2_INTERFACE, 0, 0, imageSet, frames);
+    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_2, State.CHILD_2_INTERFACE, -100, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2Interface);
@@ -362,10 +330,10 @@ function initChair(){
     const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(4);
+    const frames = new Frames(4, 100);
 
     //Creamos nuestro sprite
-    const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, 0, 0, imageSet, frames);
+    const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, 0, 192, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(chair);
@@ -377,10 +345,10 @@ function initPlayer(){
     const imageSet = new ImageSet(1, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(7, 8);
+    const frames = new Frames(7, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(40);
+    const physics = new Physics(100);
 
     //Creamos nuestro sprite
     const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 186, imageSet, frames, physics);
@@ -440,10 +408,13 @@ function initChild1(){
     const imageSet = new ImageSet(10, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(10);
+    const frames = new Frames(7, 2);
+
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(100);
 
     //Creamos nuestro sprite
-    const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 0, imageSet, frames);
+    const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 0, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child1);
@@ -455,10 +426,13 @@ function initChild2(){
     const imageSet = new ImageSet(14, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(9);
+    const frames = new Frames(9, 2);
+
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(100);
 
     //Creamos nuestro sprite
-    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 0, imageSet, frames);
+    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 374, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2);

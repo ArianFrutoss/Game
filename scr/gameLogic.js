@@ -141,56 +141,6 @@ function updateSprite(sprite){
             updateChairInterface(sprite);
             break;
 
-        case SpriteID.CHILD_1_INTERFACE_1:
-            
-            updateChild1Interface1(sprite);
-            break;
-
-        case SpriteID.CHILD_2_INTERFACE_1:
-        
-            updateChild2Interface1(sprite);
-            break;
-
-        case SpriteID.STONE_INTERFACE_1:
-
-            updateStoneInterface1(sprite);
-            break;
-
-        case SpriteID.WOOD_INTERFACE_1:
-
-            updateWoodInterface1(sprite);
-            break;
-
-        case SpriteID.STONE_INTERFACE_2:
-
-            updateStoneInterface2(sprite);
-            break;
-
-        case SpriteID.WOOD_INTERFACE_2:
-
-            updateWoodInterface2(sprite);
-            break;
-
-        case SpriteID.STONE_INTERFACE_3:
-
-            updateStoneInterface3(sprite);
-            break;
-
-        case SpriteID.WOOD_INTERFACE_3:
-
-            updateWoodInterface3(sprite);
-            break;
-
-        case SpriteID.CHILD_1_INTERFACE_2:
-
-            updateChild1Interface2(sprite);
-            break;
-
-        case SpriteID.CHILD_2_INTERFACE_2:
-
-            updateChild2Interface2(sprite);
-            break;
-
         case SpriteID.CHAIR:
             
             updateChair(sprite);
@@ -272,122 +222,14 @@ function updateSprite(sprite){
 
 function updateChairInterface(sprite){
 
-    sprite.xPos = 685;
-    sprite.yPos = 125;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.INTEGRITY;
-}
-
-function updateChild1Interface1(sprite){
-
-    sprite.xPos = 780;
-    sprite.yPos = 440;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.CHILD_1_INTERFACE;
-}
-
-function updateChild2Interface1(sprite){
-
-    sprite.xPos = 780;
-    sprite.yPos = 505;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.CHILD_2_INTERFACE;
-}
-
-function updateStoneInterface1(sprite){
-
-    sprite.xPos = 620;
-    sprite.yPos = 255;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.STONE;
-}
-
-function updateWoodInterface1(sprite){
-
-    sprite.xPos = 620;
-    sprite.yPos = 310;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.WOOD;
-}
-
-function updateStoneInterface2(sprite){
-
-    sprite.xPos = 570;
-    sprite.yPos = 440;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.STONE;
-}
-
-function updateWoodInterface2(sprite){
-
-    sprite.xPos = 670;
-    sprite.yPos = 440;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.WOOD;
-}
-
-function updateStoneInterface3(sprite){
-
-    sprite.xPos = 570;
-    sprite.yPos = 510;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.STONE;
-}
-
-function updateWoodInterface3(sprite){
-
-    sprite.xPos = 670;
-    sprite.yPos = 510;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.WOOD;
-}
-
-function updateChild1Interface2(sprite){
-
-    sprite.xPos = 600;
-    sprite.yPos = 575;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.CHILD_1_INTERFACE;
-}
-
-function updateChild2Interface2(sprite){
-
-    sprite.xPos = 730;
-    sprite.yPos = 575;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.CHILD_2_INTERFACE;
+    //Actualizamos la animacion
+    updateAnimationFrame(sprite);
 }
 
 function updateChair(sprite){
 
-    sprite.xPos = 0;
-    sprite.yPos = 255;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.INTEGRITY;
+    //Actualizamos la animacion
+    updateAnimationFrame(sprite);
 }
 
 function updatePlayer(sprite){
@@ -405,21 +247,21 @@ function updatePlayer(sprite){
         sprite.physics.vy = -sprite.physics.vLimit;
     }
 
-    if (globals.action.moveDown === true){
+    else if (globals.action.moveDown === true){
 
         //Si se mueve hacia abajo asignamos vy (+)
         sprite.physics.vx = 0;
         sprite.physics.vy = sprite.physics.vLimit;
     }
 
-    if (globals.action.moveRight === true){
+    else if (globals.action.moveRight === true){
 
         //Si se mueve a la derecha asignamos vx (+)
         sprite.physics.vx = sprite.physics.vLimit;
         sprite.physics.vy = 0;
     }
 
-    if (globals.action.moveLeft === true){
+    else if (globals.action.moveLeft === true){
 
         //Si se mueve a la izquierda asignamos vx (-)
         sprite.physics.vx = -sprite.physics.vLimit;
@@ -466,22 +308,31 @@ function updateWood(sprite){
 
 function updateChild1(sprite){
 
-    sprite.xPos = 530;
-    sprite.yPos = 340;
+    sprite.physics.vx = sprite.physics.vLimit;
 
-    sprite.frames.frameCounter = 0;
+    if (globals.sprites[10].xPos <= sprite.xPos){
 
-    sprite.state = State.CHILD_1_IDLE;
+        sprite.physics.vx = 0;
+    }
+
+    sprite.physics.vy = sprite.physics.vLimit;
+
+    if (globals.sprites[10].yPos <= sprite.yPos){
+
+        sprite.physics.vy = 0;
+    }
+
+    //Calculamos distancia que se mueve (x = x + Vt)
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    sprite.yPos += sprite.physics.vy * globals.deltaTime;
+
+    //Actualizamos la animacion
+    updateAnimationFrame(sprite);
 }
 
 function updateChild2(sprite){
 
-    sprite.xPos = 230;
-    sprite.yPos = 120;
-
-    sprite.frames.frameCounter = 3;
-
-    sprite.state = State.CHILD_1_IDLE;
+    
 }
 
 function updateEnemy1(sprite){
@@ -557,7 +408,15 @@ function updateNightSky(sprite){
 function updateAnimationFrame(sprite){
 
     //Aumentamos el contador de tiempo entre frames
-    sprite.frames.frameCounter++;
+    sprite.frames.frameChangeCounter++;
+
+    //Cambiamos de frame cuando el lag de la animacion alcanza animSpeed
+    if (sprite.frames.frameChangeCounter === sprite.frames.speed){
+
+        //Cambiamos de frame y reseteamos el contador de cambio de frame
+        sprite.frames.frameCounter++;
+        sprite.frames.frameChangeCounter = 0;
+    }
 
     //Reiniciar animacion
     if (sprite.frames.frameCounter === sprite.frames.framesPerState){
