@@ -3,7 +3,7 @@ import globals from "./globals.js";
 
 export function keydownHandler(event){
 
-    switch (event.KeyCode){
+    switch (event.keyCode){
 
         case Key.UP:
 
@@ -29,7 +29,7 @@ export function keydownHandler(event){
 
 export function keyupHandler(event){
 
-    switch (event.KeyCode){
+    switch (event.keyCode){
 
         case Key.UP:
 

@@ -83,7 +83,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.NEW_GAME;
+        globals.gameState = Game.PLAYING_LOAD;
     }
 }
 
@@ -142,10 +142,12 @@ function initControlsSprites(){
 
     initDaySky();
     initNightSky();
+    initSun();
+    initMoon();
     initDayCloud();
     initNightCloud();
-    initMoon();
-    initSun();
+    initBackground();
+    initBlackBorder();
     initPaper();
 }
 
@@ -153,9 +155,12 @@ function initHistorySprites(){
 
     initDaySky();
     initNightSky();
-    initBackground();
-    initMoon();
     initSun();
+    initMoon();
+    initDayCloud();
+    initNightCloud();
+    initBackground();
+    initBlackBorder();
     initPaper();
 }
 
@@ -163,9 +168,12 @@ function initScoresSprites(){
 
     initDaySky();
     initNightSky();
-    initBackground();
-    initMoon();
     initSun();
+    initMoon();
+    initDayCloud();
+    initNightCloud();
+    initBackground();
+    initBlackBorder();
     initPaper();
 }
 
@@ -372,7 +380,7 @@ function initPlayer(){
     const frames = new Frames(7, 8);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(100);
+    const physics = new Physics(40);
 
     //Creamos nuestro sprite
     const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 186, imageSet, frames, physics);
@@ -618,7 +626,7 @@ function initDayCloud(){
 function initPaper(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(41, 0, 640, 320, 64, 0, 0);
+    const imageSet = new ImageSet(49, 0, 640, 320, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);

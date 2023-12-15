@@ -1,23 +1,29 @@
 //Estados del juego
 export const Game = {
 
-    INVALID:   -1,
-    LOADING:    0,
-    NEW_GAME:   1,
-    PLAYING:    2,
-    CONTROLS:   3,
-    SCORES:     4,
-    HISTORY:    5,
-    OVER:       6
+    INVALID:           -1,
+    LOADING:            0,
+    NEW_GAME:           1,
+    NEW_GAME_LOAD:      2,
+    PLAYING:            3,
+    PLAYING_LOAD:       4,
+    CONTROLS:           5,
+    CONTROLS_LOAD:      6,
+    SCORES:             7,
+    SCORES_LOAD:        8,
+    HISTORY:            9,
+    HISTORY_LOAD:      10,
+    OVER:              11,
+    OVER_LOAD:         12
 }
 
 //Codigos de teclas
 export const Key = {
 
-    UP:     38,
-    DOWN:   40,
-    RIGHT:  39,
-    LEFT:   37
+    UP:     87,
+    DOWN:   83,
+    RIGHT:  68,
+    LEFT:   65
 }
 
 //Velocidad del juego

@@ -12,45 +12,75 @@ export default function update(){
             console.log("Loading assets...");
             break;
 
-        case Game.NEW_GAME:
+        case Game.NEW_GAME_LOAD:
 
             globals.sprites = [];
             initNewGameSprites();
+            globals.gameState = Game.NEW_GAME;
+            break;
+
+        case Game.NEW_GAME:
+
             playGame();
             break;
 
-        case Game.PLAYING:
+        case Game.PLAYING_LOAD:
 
             globals.sprites = [];
             initPlayingSprites();
+            globals.gameState = Game.PLAYING;
+            break;
+
+        case Game.PLAYING:
+            
             playGame();
+            break;
+
+        case Game.CONTROLS_LOAD:
+
+            globals.sprites = [];
+            initControlsSprites();
+            globals.gameState = Game.CONTROLS;
             break;
 
         case Game.CONTROLS:
 
-            globals.sprites = [];
-            initControlsSprites();
             playGame();
+            break;
+
+        case Game.SCORES_LOAD:
+
+            globals.sprites = [];
+            initScoresSprites();
+            globals.gameState = Game.SCORES;
             break;
 
         case Game.SCORES:
 
-            globals.sprites = [];
-            initScoresSprites();
             playGame();
+            break;
+
+        case Game.HISTORY_LOAD:
+
+            globals.sprites = [];
+            initHistorySprites();
+            globals.gameState = Game.HISTORY;
             break;
 
         case Game.HISTORY:
 
-            globals.sprites = [];
-            initHistorySprites();
             playGame();
+            break;
+
+        case Game.OVER_LOAD:
+
+            globals.sprites = [];
+            initOverSprites();
+            globals.gameState = Game.OVER;
             break;
 
         case Game.OVER:
 
-            globals.sprites = [];
-            initOverSprites();
             playGame();
             break;
 
@@ -364,6 +394,9 @@ function updatePlayer(sprite){
 
     //Lectura de teclado
     readKeyboardAndAssignState(sprite);
+
+    sprite.physics.vx = 0;
+    sprite.physics.vy = 0;
 
     if (globals.action.moveUp === true){
 
