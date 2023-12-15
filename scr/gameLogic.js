@@ -1,5 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID} from "./constans.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites,initHistorySprites, initOverSprites} from "./Initialize.js";
 
 export default function update(){
 
@@ -13,31 +14,43 @@ export default function update(){
 
         case Game.NEW_GAME:
 
+            globals.sprites = [];
+            initNewGameSprites();
             playGame();
             break;
 
         case Game.PLAYING:
 
+            globals.sprites = [];
+            initPlayingSprites();
             playGame();
             break;
 
         case Game.CONTROLS:
 
+            globals.sprites = [];
+            initControlsSprites();
             playGame();
             break;
 
         case Game.SCORES:
 
+            globals.sprites = [];
+            initScoresSprites();
             playGame();
             break;
 
         case Game.HISTORY:
 
+            globals.sprites = [];
+            initHistorySprites();
             playGame();
             break;
 
         case Game.OVER:
 
+            globals.sprites = [];
+            initOverSprites();
             playGame();
             break;
 
@@ -234,7 +247,7 @@ function updateChairInterface(sprite){
 
     sprite.frames.frameCounter = 0;
 
-    sprite.state = State.INTEGERITY;
+    sprite.state = State.INTEGRITY;
 }
 
 function updateChild1Interface1(sprite){
@@ -344,7 +357,7 @@ function updateChair(sprite){
 
     sprite.frames.frameCounter = 0;
 
-    sprite.state = State.INTEGERITY;
+    sprite.state = State.INTEGRITY;
 }
 
 function updatePlayer(sprite){

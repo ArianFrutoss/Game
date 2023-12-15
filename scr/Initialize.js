@@ -83,7 +83,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.PLAYING;
+        globals.gameState = Game.NEW_GAME;
     }
 }
 
@@ -94,40 +94,12 @@ function initTimers(){
 
 function initSprites(){
 
-    switch (globals.gameState){
-
-        case Game.NEW_GAME:
-
-            initNewGameSprites();
-            break;
-
-        case Game.PLAYING:
-
-            initPlayingSprites();
-            break;
-
-        case Game.CONTROLS:
-
-            initControlsSprites();
-            break;
-
-        case Game.SCORES:
-
-            initScoresSprites();
-            break;
-
-        case Game.HISTORY:
-
-            initHistorySprites();
-            break;
-
-        case Game.OVER:
-
-            initOverSprites();
-            break;
-    }
-
     initPlayingSprites();
+    initNewGameSprites();
+    initControlsSprites();
+    initHistorySprites();
+    initScoresSprites();
+    initOverSprites();
 }
 
 function initPlayingSprites(){
@@ -220,7 +192,7 @@ function initChairInterface(){
     const frames = new Frames(4);
 
     //Creamos nuestro sprite
-    const chairInterface = new Sprite(SpriteID.CHAIR_INTERFACE, State.INTEGERITY, 0, 0, imageSet, frames);
+    const chairInterface = new Sprite(SpriteID.CHAIR_INTERFACE, State.INTEGRITY, 0, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(chairInterface);
@@ -385,7 +357,7 @@ function initChair(){
     const frames = new Frames(4);
 
     //Creamos nuestro sprite
-    const chair = new Sprite(SpriteID.CHAIR, State.INTEGERITY, 0, 0, imageSet, frames);
+    const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, 0, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(chair);
@@ -400,7 +372,7 @@ function initPlayer(){
     const frames = new Frames(7, 8);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(20);
+    const physics = new Physics(100);
 
     //Creamos nuestro sprite
     const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 186, imageSet, frames, physics);
@@ -703,7 +675,13 @@ export{
     initVars,
     initEvents,
     loadAssets,
-    initSprites,
     initLevel,
-    initTimers
+    initTimers,
+    initPlayingSprites,
+    initNewGameSprites,
+    initControlsSprites,
+    initHistorySprites,
+    initScoresSprites,
+    initOverSprites,
+    initSprites
 }
