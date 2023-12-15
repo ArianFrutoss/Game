@@ -23,7 +23,14 @@ export const Key = {
     UP:     87,
     DOWN:   83,
     RIGHT:  68,
-    LEFT:   65
+    LEFT:   65,
+    BUILD:  69
+}
+
+export const PlayerPosition = {
+
+    POSITION_X: 0,
+    POSITION_Y: 0
 }
 
 //Velocidad del juego

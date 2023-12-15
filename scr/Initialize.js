@@ -39,7 +39,8 @@ function initVars(){
         moveLeft:   false,
         moveRight:  false,
         moveUp:     false,
-        moveDown:   false
+        moveDown:   false,
+        build:      false
     }
 }
 

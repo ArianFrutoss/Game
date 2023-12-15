@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID} from "./constans.js";
+import {Game, State, SpriteID, PlayerPosition} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites,initHistorySprites, initOverSprites} from "./Initialize.js";
 
 export default function update(){
@@ -126,6 +126,9 @@ function readKeyboardAndAssignState(sprite){
                     globals.action.moveRight            ? State.WALK:
                     globals.action.moveUp               ? State.WALK:
                     globals.action.moveDown             ? State.WALK:
+
+                    globals.action.build                ? State.IDLE:
+
                     sprite.state === State.WALK         ? State.IDLE:
                     sprite.state;
 }
@@ -164,11 +167,6 @@ function updateSprite(sprite){
         case SpriteID.WOOD:
             
             updateWood(sprite);
-            break;
-
-        case SpriteID.CHILD_1:
-            
-            updateChild1(sprite);
             break;
             
         case SpriteID.CHILD_2:
@@ -267,6 +265,13 @@ function updatePlayer(sprite){
         sprite.physics.vx = -sprite.physics.vLimit;
         sprite.physics.vy = 0;
     }
+
+    if (globals.action.build === true){
+
+        PlayerPosition.POSITION_X = sprite.xPos;
+        PlayerPosition.POSITION_Y = sprite.yPos;
+        updateChild1(globals.sprites[14]);
+    }
     
     //Calculamos distancia que se mueve (x = x + Vt)
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
@@ -308,25 +313,54 @@ function updateWood(sprite){
 
 function updateChild1(sprite){
 
-    sprite.physics.vx = sprite.physics.vLimit;
+    sprite.physics.vx = 10;
+    sprite.physics.vy = 10;
 
-    if (globals.sprites[10].xPos <= sprite.xPos){
+    if (PlayerPosition.POSITION_X + 40 < sprite.xPos){
+        console.log(1);
+        sprite.physics.vx = -sprite.physics.vLimit;
 
-        sprite.physics.vx = 0;
+        if (PlayerPosition.POSITION_X + 40 > sprite.xPos){
+
+            sprite.physics.vx = 0;
+        }
     }
 
-    sprite.physics.vy = sprite.physics.vLimit;
+    if (PlayerPosition.POSITION_Y < sprite.yPos){
+        console.log(2);
+        sprite.physics.vy = -sprite.physics.vLimit;
 
-    if (globals.sprites[10].yPos <= sprite.yPos){
+        if (PlayerPosition.POSITION_Y > sprite.yPos){
 
-        sprite.physics.vy = 0;
+            sprite.physics.vy = 0;
+        }
+    }
+
+    if (PlayerPosition.POSITION_X + 40 > sprite.xPos){
+        console.log(3);
+        sprite.physics.vx = sprite.physics.vLimit;
+
+        if (PlayerPosition.POSITION_X + 40 < sprite.xPos){
+
+            sprite.physics.vx = 0;
+        }
+    }
+
+    if (PlayerPosition.POSITION_Y > sprite.yPos){
+        console.log(4);
+        sprite.physics.vy = sprite.physics.vLimit;
+
+        if (PlayerPosition.POSITION_Y < sprite.yPos){
+
+            sprite.physics.vy = 0;
+        }
     }
 
     //Calculamos distancia que se mueve (x = x + Vt)
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
-    //Actualizamos la animacion
+    //Actualizamos la animaciond
     updateAnimationFrame(sprite);
 }
 
