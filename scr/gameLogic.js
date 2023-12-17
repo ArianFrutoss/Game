@@ -168,6 +168,11 @@ function updateSprite(sprite){
             
             updateWood(sprite);
             break;
+
+        case SpriteID.CHILD_1:
+    
+            updateChild1Idle(sprite);
+            break;
             
         case SpriteID.CHILD_2:
             
@@ -268,7 +273,7 @@ function updatePlayer(sprite){
 
     if (globals.action.build === true){
         
-        updateChild1(globals.sprites[14]);
+        updateChild1Walk(globals.sprites[14]);
     }
     
     //Calculamos distancia que se mueve (x = x + Vt)
@@ -309,10 +314,14 @@ function updateWood(sprite){
     sprite.state = State.WOOD;
 }
 
-function updateChild1(sprite){
+function updateChild1Idle(sprite){
+    
+    updateAnimationFrame(sprite);
+}
 
-    sprite.physics.vx = 10;
-    sprite.physics.vy = 10;
+function updateChild1Walk(sprite){
+    
+    sprite.state = State.CHILD_1_WALK;
 
     sprite.physics.vx = sprite.physics.vLimit;
 
@@ -331,18 +340,21 @@ function updateChild1(sprite){
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
         
         globals.action.build = false;
-
+        
         Child1Position.POSITION_X = globals.sprites[14].xPos;
         Child1Position.POSITION_Y = globals.sprites[14].yPos;
         
         initWall();
+
+        sprite.state = State.CHILD_1_IDLE;
+        updateChild1Idle(sprite);
     }
 
     //Calculamos distancia que se mueve (x = x + Vt)
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
-    //Actualizamos la animaciond
+    //Actualizamos la animacion
     updateAnimationFrame(sprite);
 }
 
@@ -353,7 +365,8 @@ function updateChild2(sprite){
 
 function updateEnemy1(sprite){
 
-    
+    sprite.xPos = 330;
+    sprite.yPos = 50;
 
     sprite.frames.frameCounter = 0;
 
