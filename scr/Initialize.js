@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, SpriteID, State, FPS} from "./constans.js";
+import {Game, SpriteID, State, FPS, Child1Position} from "./constans.js";
 import Sprite from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
@@ -459,10 +459,10 @@ function initWall(){
     const imageSet = new ImageSet(22, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(3);
+    const frames = new Frames(3, 100);
 
     //Creamos nuestro sprite
-    const wall = new Sprite(SpriteID.WALL, State.WALL, 0, 0, imageSet, frames);
+    const wall = new Sprite(SpriteID.WALL, State.WALL, Child1Position.POSITION_X + 40, Child1Position.POSITION_Y, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wall);

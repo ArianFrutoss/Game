@@ -1,6 +1,6 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites,initHistorySprites, initOverSprites, initWall} from "./Initialize.js";
+import {Game, State, SpriteID, PlayerPosition, Child1Position, Child2Position} from "./constans.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall} from "./Initialize.js";
 
 export default function update(){
 
@@ -180,7 +180,7 @@ function updateSprite(sprite){
             break;
 
         case SpriteID.WALL:
-            
+
             updateWall(sprite);
             break;
 
@@ -267,9 +267,7 @@ function updatePlayer(sprite){
     }
 
     if (globals.action.build === true){
-
-        PlayerPosition.POSITION_X = sprite.xPos;
-        PlayerPosition.POSITION_Y = sprite.yPos;
+        
         updateChild1(globals.sprites[14]);
     }
     
@@ -333,6 +331,10 @@ function updateChild1(sprite){
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
         
         globals.action.build = false;
+
+        Child1Position.POSITION_X = globals.sprites[14].xPos;
+        Child1Position.POSITION_Y = globals.sprites[14].yPos;
+        
         initWall();
     }
 
@@ -360,8 +362,7 @@ function updateEnemy1(sprite){
 
 function updateWall(sprite){
 
-    sprite.xPos = globals.sprites[14].xPos + 40;
-    sprite.yPos = globals.sprites[14].yPos;
+    updateAnimationFrame(sprite);
 }
 
 function updateMoon(sprite){

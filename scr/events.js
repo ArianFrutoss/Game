@@ -1,5 +1,6 @@
 import {Key} from "./constans.js";
 import globals from "./globals.js";
+import {PlayerPosition} from "./constans.js";
 
 export function keydownHandler(event){
 
@@ -28,6 +29,8 @@ export function keydownHandler(event){
         case Key.BUILD:
 
             globals.action.build = true;
+            PlayerPosition.POSITION_X = globals.sprites[10].xPos;
+            PlayerPosition.POSITION_Y = globals.sprites[10].yPos;
             break;
     }
 }
