@@ -55,10 +55,5 @@ export function keyupHandler(event){
 
             globals.action.moveRight = false;
             break;
-
-        case Key.BUILD:
-
-            globals.action.build = false;
-            break;
     }
 }

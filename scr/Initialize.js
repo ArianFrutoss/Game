@@ -84,7 +84,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.PLAYING_LOAD;
+        globals.gameState = Game.PLAYING_LOAD
     }
 }
 
@@ -122,7 +122,6 @@ function initPlayingSprites(){
     initChild1();
     initChild2();
     initEnemy1();
-    initWall();
 }
 
 function initNewGameSprites(){
@@ -666,5 +665,6 @@ export{
     initHistorySprites,
     initScoresSprites,
     initOverSprites,
-    initSprites
+    initSprites,
+    initWall
 }

@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites,initHistorySprites, initOverSprites} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites,initHistorySprites, initOverSprites, initWall} from "./Initialize.js";
 
 export default function update(){
 
@@ -316,44 +316,24 @@ function updateChild1(sprite){
     sprite.physics.vx = 10;
     sprite.physics.vy = 10;
 
-    if (PlayerPosition.POSITION_X + 40 < sprite.xPos){
-        console.log(1);
-        sprite.physics.vx = -sprite.physics.vLimit;
+    sprite.physics.vx = sprite.physics.vLimit;
 
-        if (PlayerPosition.POSITION_X + 40 > sprite.xPos){
+    if (PlayerPosition.POSITION_X + 40 <= sprite.xPos){
 
-            sprite.physics.vx = 0;
-        }
+        sprite.physics.vx = 0;
     }
 
-    if (PlayerPosition.POSITION_Y < sprite.yPos){
-        console.log(2);
-        sprite.physics.vy = -sprite.physics.vLimit;
+    sprite.physics.vy = sprite.physics.vLimit;
 
-        if (PlayerPosition.POSITION_Y > sprite.yPos){
+    if (PlayerPosition.POSITION_Y <= sprite.yPos){
 
-            sprite.physics.vy = 0;
-        }
+        sprite.physics.vy = 0;
     }
 
-    if (PlayerPosition.POSITION_X + 40 > sprite.xPos){
-        console.log(3);
-        sprite.physics.vx = sprite.physics.vLimit;
-
-        if (PlayerPosition.POSITION_X + 40 < sprite.xPos){
-
-            sprite.physics.vx = 0;
-        }
-    }
-
-    if (PlayerPosition.POSITION_Y > sprite.yPos){
-        console.log(4);
-        sprite.physics.vy = sprite.physics.vLimit;
-
-        if (PlayerPosition.POSITION_Y < sprite.yPos){
-
-            sprite.physics.vy = 0;
-        }
+    if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
+        
+        globals.action.build = false;
+        initWall();
     }
 
     //Calculamos distancia que se mueve (x = x + Vt)
@@ -371,8 +351,7 @@ function updateChild2(sprite){
 
 function updateEnemy1(sprite){
 
-    sprite.xPos = 300;
-    sprite.yPos = 500;
+    
 
     sprite.frames.frameCounter = 0;
 
@@ -381,12 +360,8 @@ function updateEnemy1(sprite){
 
 function updateWall(sprite){
 
-    sprite.xPos = 450;
-    sprite.yPos = 180;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.WALL;
+    sprite.xPos = globals.sprites[14].xPos + 40;
+    sprite.yPos = globals.sprites[14].yPos;
 }
 
 function updateMoon(sprite){
