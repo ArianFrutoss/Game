@@ -36,12 +36,13 @@ function initVars(){
     //Inicializamos los estados de las acciones
     globals.action = {
 
-        moveLeft:   false,
-        moveRight:  false,
-        moveUp:     false,
-        moveDown:   false,
-        build:      false,
-        attack:     false
+        moveLeft:       false,
+        moveRight:      false,
+        moveUp:         false,
+        moveDown:       false,
+        build:          false,
+        attackChild:    false,
+        attack:         false
     }
 }
 
@@ -435,8 +436,8 @@ function initChild2(){
     const imageSet = new ImageSet(14, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(9, 2);
-
+    const frames = new Frames(6, 2);
+ 
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(100);
 

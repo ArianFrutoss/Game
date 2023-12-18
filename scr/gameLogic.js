@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, Child1Position, Child2Position} from "./constans.js";
+import {Game, State, SpriteID, PlayerPosition, Child1Position, Child2Position, Enemy1Position} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic} from "./Initialize.js";
 
 export default function update(){
@@ -127,7 +127,7 @@ function readKeyboardAndAssignState(sprite){
                     globals.action.moveDown             ? State.WALK:
 
                     globals.action.build                ? State.IDLE:
-
+                    globals.action.attackChild          ? State.IDLE:
                     globals.action.attack               ? State.ATTACK:
 
                     sprite.state === State.WALK         ? State.IDLE:
@@ -178,7 +178,7 @@ function updateSprite(sprite){
             
         case SpriteID.CHILD_2:
             
-            updateChild2(sprite);
+            updateChild2Idle(sprite);
             break;
 
         case SpriteID.ENEMY_1:
@@ -293,9 +293,19 @@ function updatePlayer(sprite){
         updateChild1Walk(globals.sprites[13]);
     }
 
-    else if (globals.action.build === false && globals.sprites[14].xPos > 0 || globals.sprites[14].yPos > 0){
+    else if (globals.action.build === false){
 
         updatechild1Return(globals.sprites[13]);
+    }
+
+    if (globals.action.attackChild === true){
+        
+        updateChild2Walk(globals.sprites[14]);
+    }
+
+    else if (globals.action.attackChild === false){
+
+        updatechild2Return(globals.sprites[14]);
     }
     
     //Calculamos distancia que se mueve (x = x + Vt)
@@ -353,6 +363,11 @@ function updateChild1Idle(sprite){
     updateAnimationFrame(sprite);
 }
 
+function updateChild2Idle(sprite){
+    
+    updateAnimationFrame(sprite);
+}
+
 function updateChild1Walk(sprite){
 
     sprite.state = State.CHILD_1_RUN;
@@ -373,8 +388,8 @@ function updateChild1Walk(sprite){
 
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
         
-        Child1Position.POSITION_X = globals.sprites[13].xPos;
-        Child1Position.POSITION_Y = globals.sprites[13].yPos;
+        Child1Position.POSITION_X = sprite.xPos;
+        Child1Position.POSITION_Y = sprite.yPos;
         
         sprite.state = State.CHILD_1_IDLE;
 
@@ -426,12 +441,81 @@ function updatechild1Return(sprite){
     updateAnimationFrame(sprite);
 }
 
-function updateChild2(sprite){
+function updateChild2Walk(sprite){
 
+    sprite.state = State.CHILD_2_RUN;
+
+    sprite.physics.vx = sprite.physics.vLimit;
+
+    if (Enemy1Position.POSITION_X - 40 <= sprite.xPos){
+
+        sprite.physics.vx = 0;
+    }
+
+    sprite.physics.vy = -sprite.physics.vLimit;
+
+    if (Enemy1Position.POSITION_Y >= sprite.yPos){
+
+        sprite.physics.vy = 0;
+    }
+
+    if (sprite.physics.vx === 0 && sprite.physics.vx === 0){
+
+        Child2Position.POSITION_X = sprite.xPos;
+        Child2Position.POSITION_Y = sprite.yPos;
+        
+        sprite.state = State.CHILD_2_IDLE;
+
+        globals.levelTime.value = 0;
+
+        globals.action.attackChild = false;
+    }
+
+    //Calculamos distancia que se mueve (x = x + Vt)
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    sprite.yPos += sprite.physics.vy * globals.deltaTime;
+
+    //Actualizamos la animacion
+    updateAnimationFrame(sprite);
+}
+
+function updatechild2Return(sprite){
+
+    sprite.state = State.CHILD_2_WALK;
+
+    sprite.physics.vLimit = 60;
+    sprite.physics.vx = -sprite.physics.vLimit;
+
+    if (sprite.xPos <= 0){
+
+        sprite.xPos = 0;
+        sprite.physics.vx = 0;
+    }
+
+    sprite.physics.vy = sprite.physics.vLimit;
+
+    if (sprite.yPos >= 372){
+        
+        sprite.yPos = 372;
+        sprite.physics.vy = 0;
+    }
     
+    if (sprite.physics.vx === 0 && sprite.physics.vy === 0){
+
+        sprite.state = State.CHILD_2_IDLE;
+    }
+    
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    sprite.yPos += sprite.physics.vy * globals.deltaTime;
+
+    //Actualizamos la animacion
+    updateAnimationFrame(sprite);
 }
 
 function updateEnemy1(sprite){
+
+    Enemy1Position.POSITION_X = sprite.xPos;
+    Enemy1Position.POSITION_Y = sprite.yPos;
 
     sprite.physics.vx = -sprite.physics.vLimit;
     sprite.physics.vy = 0;

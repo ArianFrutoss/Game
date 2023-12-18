@@ -20,12 +20,13 @@ export const Game = {
 //Codigos de teclas
 export const Key = {
 
-    UP:     87,
-    DOWN:   83,
-    RIGHT:  68,
-    LEFT:   65,
-    BUILD:  69,
-    ATTACK: 32
+    UP:             87,
+    DOWN:           83,
+    RIGHT:          68,
+    LEFT:           65,
+    BUILD:          69,
+    ATTACK_CHILD:   81,
+    ATTACK:         32
 }
 
 export const PlayerPosition = {
@@ -41,6 +42,12 @@ export const Child1Position = {
 }
 
 export const Child2Position = {
+
+    POSITION_X: 0,
+    POSITION_Y: 0
+}
+
+export const Enemy1Position = {
 
     POSITION_X: 0,
     POSITION_Y: 0
