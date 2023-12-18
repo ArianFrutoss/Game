@@ -366,7 +366,7 @@ function initMagic(){
     const frames = new Frames(6, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(100);
+    const physics = new Physics(200);
 
     //Creamos nuestro sprite
     const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, PlayerPosition.POSITION_X, PlayerPosition.POSITION_Y + 5, imageSet, frames, physics);
@@ -453,10 +453,13 @@ function initEnemy1(){
     const imageSet = new ImageSet(18, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(8);
+    const frames = new Frames(8, 2);
+
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(60);
 
     //Creamos nuestro sprite
-    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 0, 0, imageSet, frames);
+    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 500, 300, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(enemy1);

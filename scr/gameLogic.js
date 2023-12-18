@@ -276,10 +276,14 @@ function updatePlayer(sprite){
     else if (globals.action.attack === true){
 
         updateLevelTimer();
-    
+
         if (globals.levelTime.value >= 2){
-                   
+            
+            PlayerPosition.POSITION_X = sprite.xPos;                
+            PlayerPosition.POSITION_Y = sprite.yPos;
+
             globals.levelTime.value = 0;
+
             initMagic();
         }
     }
@@ -429,12 +433,14 @@ function updateChild2(sprite){
 
 function updateEnemy1(sprite){
 
-    sprite.xPos = 330;
-    sprite.yPos = 50;
+    sprite.physics.vx = -sprite.physics.vLimit;
+    sprite.physics.vy = 0;
+    
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.ENEMY_1_WALK;
+    //Actualizamos la animacion
+    updateAnimationFrame(sprite);
 }
 
 function updateWall(sprite){
