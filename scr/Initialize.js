@@ -40,7 +40,8 @@ function initVars(){
         moveRight:  false,
         moveUp:     false,
         moveDown:   false,
-        build:      false
+        build:      false,
+        attack:     false
     }
 }
 
@@ -116,7 +117,6 @@ function initPlayingSprites(){
     initChild2Interface2();
     initChair();
     initPlayer();
-    initMagic();
     initStone();
     initWood();
     initChild1();
@@ -366,7 +366,7 @@ function initMagic(){
     const frames = new Frames(6);
 
     //Creamos nuestro sprite
-    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, 0, 0, imageSet, frames);
+    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, Child1Position.POSITION_X + 10, Child1Position.POSITION_Y, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(magic);
@@ -411,7 +411,7 @@ function initChild1(){
     const frames = new Frames(7, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(100);
+    const physics = new Physics(80);
 
     //Creamos nuestro sprite
     const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 0, imageSet, frames, physics);
@@ -666,5 +666,6 @@ export{
     initScoresSprites,
     initOverSprites,
     initSprites,
-    initWall
+    initWall,
+    initMagic
 }

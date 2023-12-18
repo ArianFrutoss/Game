@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child1Position, Child2Position} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic} from "./Initialize.js";
 
 export default function update(){
 
@@ -129,7 +129,10 @@ function readKeyboardAndAssignState(sprite){
 
                     globals.action.build                ? State.IDLE:
 
+                    globals.action.attack               ? State.ATTACK:
+
                     sprite.state === State.WALK         ? State.IDLE:
+                    sprite.state === State.ATTACK       ? State.IDLE:
                     sprite.state;
 }
 
@@ -273,7 +276,17 @@ function updatePlayer(sprite){
 
     if (globals.action.build === true){
         
-        updateChild1Walk(globals.sprites[14]);
+        updateChild1Walk(globals.sprites[13]);
+    }
+
+    else if (globals.action.build === false && globals.sprites[14].xPos > 0 || globals.sprites[14].yPos > 0){
+
+        updatechild1Return(globals.sprites[13]);
+    }
+
+    if (globals.action.attack === true){
+
+        initMagic();
     }
     
     //Calculamos distancia que se mueve (x = x + Vt)
@@ -320,8 +333,8 @@ function updateChild1Idle(sprite){
 }
 
 function updateChild1Walk(sprite){
-    
-    sprite.state = State.CHILD_1_WALK;
+
+    sprite.state = State.CHILD_1_RUN;
 
     sprite.physics.vx = sprite.physics.vLimit;
 
@@ -339,18 +352,52 @@ function updateChild1Walk(sprite){
 
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
         
-        globals.action.build = false;
+        Child1Position.POSITION_X = globals.sprites[13].xPos;
+        Child1Position.POSITION_Y = globals.sprites[13].yPos;
         
-        Child1Position.POSITION_X = globals.sprites[14].xPos;
-        Child1Position.POSITION_Y = globals.sprites[14].yPos;
-        
+        sprite.state = State.CHILD_1_IDLE;
+
+        globals.levelTime.value = 0;
+
         initWall();
 
-        sprite.state = State.CHILD_1_IDLE;
-        updateChild1Idle(sprite);
+        globals.action.build = false;
     }
 
     //Calculamos distancia que se mueve (x = x + Vt)
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    sprite.yPos += sprite.physics.vy * globals.deltaTime;
+
+    //Actualizamos la animacion
+    updateAnimationFrame(sprite);
+}
+
+function updatechild1Return(sprite){
+
+    sprite.state = State.CHILD_1_WALK;
+
+    sprite.physics.vLimit = 60;
+    sprite.physics.vx = -sprite.physics.vLimit;
+
+    if (sprite.xPos <= 0){
+
+        sprite.xPos = 0;
+        sprite.physics.vx = 0;
+    }
+
+    sprite.physics.vy = -sprite.physics.vLimit;
+
+    if (sprite.yPos <= 0){
+        
+        sprite.yPos = 0;
+        sprite.physics.vy = 0;
+    }
+    
+    if (sprite.physics.vx === 0 && sprite.physics.vy === 0){
+
+        sprite.state = State.CHILD_1_IDLE;
+    }
+    
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
 

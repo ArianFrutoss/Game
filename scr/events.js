@@ -32,6 +32,11 @@ export function keydownHandler(event){
             PlayerPosition.POSITION_X = globals.sprites[10].xPos;
             PlayerPosition.POSITION_Y = globals.sprites[10].yPos;
             break;
+
+        case Key.ATTACK:
+
+            globals.action.attack = true;
+            break;
     }
 }
 
@@ -57,6 +62,11 @@ export function keyupHandler(event){
         case Key.RIGHT:
 
             globals.action.moveRight = false;
+            break;
+
+        case Key.ATTACK:
+
+            globals.action.attack = false;
             break;
     }
 }

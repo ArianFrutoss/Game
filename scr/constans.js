@@ -24,7 +24,8 @@ export const Key = {
     DOWN:   83,
     RIGHT:  68,
     LEFT:   65,
-    BUILD:  69
+    BUILD:  69,
+    ATTACK: 32
 }
 
 export const PlayerPosition = {
@@ -113,7 +114,7 @@ export const SpriteID = {
 export const State = {
 
     //Estados de la silla
-    INTEGRITY:             0,
+    INTEGRITY:              0,
 
     //Estados del personaje
     IDLE:                   0,

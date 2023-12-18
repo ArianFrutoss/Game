@@ -177,7 +177,7 @@ function renderHUD(){
 
     //Dibujar Requisitos
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("REQUERIMENTS", 645, 415);
+    globals.ctx.fillText ("REQUERIMENTS", 645, 515);
 
     globals.ctx.fillStyle = "white";
     globals.ctx.fillText ("x 1", 625, 480);
