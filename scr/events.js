@@ -36,6 +36,8 @@ export function keydownHandler(event){
         case Key.ATTACK:
 
             globals.action.attack = true;
+            PlayerPosition.POSITION_X = globals.sprites[10].xPos;
+            PlayerPosition.POSITION_Y = globals.sprites[10].yPos;
             break;
     }
 }

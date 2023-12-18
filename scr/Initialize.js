@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, SpriteID, State, FPS, Child1Position} from "./constans.js";
+import {Game, SpriteID, State, FPS, Child1Position, PlayerPosition} from "./constans.js";
 import Sprite from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
@@ -363,10 +363,13 @@ function initMagic(){
     const imageSet = new ImageSet(5, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(6);
+    const frames = new Frames(6, 2);
+
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(100);
 
     //Creamos nuestro sprite
-    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, Child1Position.POSITION_X + 10, Child1Position.POSITION_Y, imageSet, frames);
+    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, PlayerPosition.POSITION_X, PlayerPosition.POSITION_Y + 5, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(magic);
@@ -380,8 +383,11 @@ function initStone(){
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(10);
+
     //Creamos nuestro sprite
-    const stone = new Sprite(SpriteID.STONE, State.STONE, 0, 0, imageSet, frames);
+    const stone = new Sprite(SpriteID.STONE, State.STONE, 190, 260, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stone);
@@ -395,8 +401,11 @@ function initWood(){
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(10);
+
     //Creamos nuestro sprite
-    const wood = new Sprite(SpriteID.WOOD, State.WOOD, 0, 0, imageSet, frames);
+    const wood = new Sprite(SpriteID.WOOD, State.WOOD, 120, 150, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wood);

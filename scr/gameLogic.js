@@ -93,7 +93,6 @@ export default function update(){
 function playGame(){
 
     updateSprites();
-    updateLevelTimer();
 }
 
 function updateSprites(){
@@ -274,6 +273,17 @@ function updatePlayer(sprite){
         sprite.physics.vy = 0;
     }
 
+    else if (globals.action.attack === true){
+
+        updateLevelTimer();
+    
+        if (globals.levelTime.value >= 2){
+                   
+            globals.levelTime.value = 0;
+            initMagic();
+        }
+    }
+
     if (globals.action.build === true){
         
         updateChild1Walk(globals.sprites[13]);
@@ -282,11 +292,6 @@ function updatePlayer(sprite){
     else if (globals.action.build === false && globals.sprites[14].xPos > 0 || globals.sprites[14].yPos > 0){
 
         updatechild1Return(globals.sprites[13]);
-    }
-
-    if (globals.action.attack === true){
-
-        initMagic();
     }
     
     //Calculamos distancia que se mueve (x = x + Vt)
@@ -298,33 +303,45 @@ function updatePlayer(sprite){
 }
 
 function updateMagic(sprite){
+    
+    sprite.physics.vx = sprite.physics.vLimit;
+    sprite.physics.vy = 0;
+    
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
-    sprite.xPos = 130;
-    sprite.yPos = 50;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.MAGIC;
+    //Actualizamos la animacion
+    updateAnimationFrame(sprite);
 }
 
 function updateStone(sprite){
 
-    sprite.xPos = 200;
-    sprite.yPos = 140;
-
-    sprite.frames.frameCounter = 0;
-
-    sprite.state = State.STONE;
+    updateMovementOfObjets(sprite);
 }
 
 function updateWood(sprite){
 
-    sprite.xPos = 400;
-    sprite.yPos = 200;
+    updateMovementOfObjets(sprite);
+}
 
-    sprite.frames.frameCounter = 0;
+function updateMovementOfObjets(sprite){
 
-    sprite.state = State.WOOD;
+    updateLevelTimer();
+    
+        if (globals.levelTime.timerChangeCounter >= 0.5){  
+
+            sprite.physics.vx = 0;
+            sprite.physics.vy = -sprite.physics.vLimit;
+        }
+
+        else{
+
+            sprite.physics.vx = 0;
+            sprite.physics.vy = sprite.physics.vLimit;
+        }
+
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    sprite.yPos += sprite.physics.vy * globals.deltaTime;
 }
 
 function updateChild1Idle(sprite){
