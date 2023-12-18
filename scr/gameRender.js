@@ -168,32 +168,26 @@ function renderHUD(){
 
     //Dibujar materiales
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("MATERIALS", 660, 250);
+    globals.ctx.fillText ("MATERIALS", 660, 200);
 
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 1", 750, 300);
+    globals.ctx.fillText ("x 1", 750, 240);
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 5", 750, 350);
+    globals.ctx.fillText ("x 5", 750, 280);
 
     //Dibujar Requisitos
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("REQUERIMENTS", 645, 515);
+    globals.ctx.fillText ("REQUERIMENTS", 645, 320);
 
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 1", 625, 480);
+    globals.ctx.fillText ("x 1", 625, 370);
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 3", 625, 550);
+    globals.ctx.fillText ("x 3", 625, 410);
 
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 2", 725, 480);
+    globals.ctx.fillText ("x 2", 725, 370);
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 2", 725, 550);
-
-    //Niños obtenidos
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 2", 673, 620);
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 0", 800, 620);
+    globals.ctx.fillText ("x 2", 725, 410);
 }
 
 function renderNewGameText(){
