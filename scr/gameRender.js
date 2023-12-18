@@ -193,14 +193,16 @@ function renderHUD(){
 function renderNewGameText(){
 
     //Dibujar Titulo
-    globals.ctx.font = "9px emulogic";
-    globals.ctx.fillStyle = "white";
+    globals.ctx.font = "19px emulogic";
+    globals.ctx.fillStyle = "crimson";
 
-    globals.ctx.fillText ("The Decrepit Throne: The defense of the throne", 180, 140);
+    globals.ctx.fillText ("The Decrepit Throne:", 180, 100);
+    globals.ctx.fillStyle = "white";
+    globals.ctx.fillText ("The defense of the throne", 180, 140);
 
     //Dibujar Opciones
     globals.ctx.font = "7px emulogic";
-
+    globals.ctx.fillStyle = "white";
     globals.ctx.fillText ("New Game", 210, 200);
     globals.ctx.fillText ("History", 210, 230);
     globals.ctx.fillText ("Controls", 210, 260);

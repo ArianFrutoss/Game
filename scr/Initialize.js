@@ -86,7 +86,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.PLAYING_LOAD
+        globals.gameState = Game.PLAYING_LOAD;
     }
 }
 
@@ -418,10 +418,10 @@ function initChild1(){
     const imageSet = new ImageSet(10, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(7, 2);
+    const frames = new Frames(7, 3);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(80);
+    const physics = new Physics(100);
 
     //Creamos nuestro sprite
     const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 0, imageSet, frames, physics);
@@ -436,7 +436,7 @@ function initChild2(){
     const imageSet = new ImageSet(14, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(6, 2);
+    const frames = new Frames(6, 3);
  
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(100);

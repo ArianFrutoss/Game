@@ -324,6 +324,8 @@ function updateMagic(sprite){
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
+    sprite.frames.frameChangeCounter = 0;
+
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
 }
