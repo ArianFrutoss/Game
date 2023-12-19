@@ -68,7 +68,6 @@ function drawGame(){
 
 function renderSprite(sprite){
     
-    
     //Calculamos la posicion del tile de inicio
     const xPosInit = sprite.imageSet.initCol * sprite.imageSet.gridSize;
     const yPosInit = sprite.imageSet.initFil * sprite.imageSet.gridSize;
@@ -96,6 +95,8 @@ function drawSprites(){
     for (let i = 0; i < globals.sprites.length; ++i){
 
         const sprite = globals.sprites[i];
+        //drawSpriteRectangle(sprite);
+        //drawSpriteHitBox(sprite);
         renderSprite(sprite);
     }
 }
@@ -109,6 +110,18 @@ function drawSpriteRectangle(sprite){
     const h1 = sprite.imageSet.ySize;
 
     globals.ctx.fillStyle = "green";
+    globals.ctx.fillRect(x1, y1, w1, h1);
+}
+
+function drawSpriteHitBox(sprite){
+
+    //Datos del sprite
+    const x1 = Math.floor(sprite.xPos) + Math.floor(sprite.hitBox.xOffset);
+    const y1 = Math.floor(sprite.yPos) + Math.floor(sprite.hitBox.yOffset);
+    const w1 = sprite.hitBox.xSize;
+    const h1 = sprite.hitBox.ySize;
+
+    globals.ctx.fillStyle = "red";
     globals.ctx.fillRect(x1, y1, w1, h1);
 }
 

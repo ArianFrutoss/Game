@@ -353,7 +353,7 @@ function initPlayer(){
     const physics = new Physics(100);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(13, 40, 8, 0);
+    const hitBox = new HitBox(20, 48, 21, 11);
 
     //Creamos nuestro sprite
     const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 186, imageSet, frames, physics, hitBox);
@@ -428,7 +428,7 @@ function initChild1(){
     const physics = new Physics(100);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(13, 40, 8, 0);
+    const hitBox = new HitBox(16, 38, 24, 21);
 
     //Creamos nuestro sprite
     const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 0, imageSet, frames, physics, hitBox);
@@ -449,7 +449,7 @@ function initChild2(){
     const physics = new Physics(100);
 
     //Creamos nuestro sprite
-    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 374, imageSet, frames, physics);
+    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 372, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2);

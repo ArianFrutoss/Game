@@ -1,6 +1,6 @@
 export default class Sprite{
 
-    constructor (id, state, xPos, yPos, imageSet, frames, physics){
+    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox){
 
         this.id         = id;           //Tipo de Sprite
         this.state      = state;        //Estado de animacion del sprite
