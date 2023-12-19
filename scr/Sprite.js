@@ -9,5 +9,6 @@ export default class Sprite{
         this.imageSet   = imageSet;     //Datos de las imagenes del sprite
         this.frames     = frames;       //Datos de los frames de animacion
         this.physics    = physics;      //Datos de las fisicas
+        this.hitBox     = hitBox;       //Datos de la hitbox
     }
 }

@@ -7,6 +7,7 @@ import {Level, level1} from "./Level.js";
 import Timer from "./Timer.js";
 import Physics from "./Physics.js";
 import {keydownHandler, keyupHandler} from "./events.js";
+import HitBox from "./HitBox.js";
 
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
@@ -351,8 +352,11 @@ function initPlayer(){
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(100);
 
+    //Creamos la HitBox del sprite
+    const hitBox = new HitBox(13, 40, 8, 0);
+
     //Creamos nuestro sprite
-    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 186, imageSet, frames, physics);
+    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 186, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(player);
@@ -423,8 +427,11 @@ function initChild1(){
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(100);
 
+    //Creamos la HitBox del sprite
+    const hitBox = new HitBox(13, 40, 8, 0);
+
     //Creamos nuestro sprite
-    const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 0, imageSet, frames, physics);
+    const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 0, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child1);
