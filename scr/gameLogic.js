@@ -1,6 +1,6 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, Child1Position, Child2Position, Enemy1Position} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic} from "./Initialize.js";
+import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position} from "./constans.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initMagicTimer} from "./Initialize.js";
 
 export default function update(){
 
@@ -274,18 +274,8 @@ function updatePlayer(sprite){
     }
 
     else if (globals.action.attack === true){
-
-        updateLevelTimer();
-
-        if (globals.levelTime.value >= 2){
-            
-            PlayerPosition.POSITION_X = sprite.xPos;                
-            PlayerPosition.POSITION_Y = sprite.yPos;
-
-            globals.levelTime.value = 0;
-
-            initMagic();
-        }
+        
+        initMagic(sprite.xPos, sprite.yPos);
     }
 
     if (globals.action.build === true){
@@ -300,12 +290,12 @@ function updatePlayer(sprite){
 
     if (globals.action.attackChild === true){
         
-        updateChild2Walk(globals.sprites[14]);
+        updateChild2Walk(globals.sprites[14], sprite.xPos, sprite.yPos);
     }
 
     else if (globals.action.attackChild === false){
 
-        updatechild2Return(globals.sprites[14]);
+        updatechild2Return(globals.sprites[14], sprite.xPos, sprite.yPos);
     }
     
     //Calculamos distancia que se mueve (x = x + Vt)
@@ -344,17 +334,17 @@ function updateMovementOfObjets(sprite){
 
     updateLevelTimer();
     
-        if (globals.levelTime.timerChangeCounter >= 0.5){  
+    if (globals.levelTime.timerChangeCounter >= 0.5){  
 
-            sprite.physics.vx = 0;
-            sprite.physics.vy = -sprite.physics.vLimit;
-        }
+        sprite.physics.vx = 0;
+        sprite.physics.vy = -sprite.physics.vLimit;
+    }
 
-        else{
+    else{
 
-            sprite.physics.vx = 0;
-            sprite.physics.vy = sprite.physics.vLimit;
-        }
+        sprite.physics.vx = 0;
+        sprite.physics.vy = sprite.physics.vLimit;
+    }
 
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
@@ -377,27 +367,24 @@ function updateChild1Walk(sprite){
     sprite.physics.vx = sprite.physics.vLimit;
 
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos){
-
+        
         sprite.physics.vx = 0;
     }
 
     sprite.physics.vy = sprite.physics.vLimit;
 
     if (PlayerPosition.POSITION_Y <= sprite.yPos){
-
+        
         sprite.physics.vy = 0;
-    }
+    }   
 
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
-        
-        Child1Position.POSITION_X = sprite.xPos;
-        Child1Position.POSITION_Y = sprite.yPos;
         
         sprite.state = State.CHILD_1_IDLE;
 
         globals.levelTime.value = 0;
 
-        initWall();
+        initWall(sprite.xPos, sprite.yPos);
 
         globals.action.build = false;
     }

@@ -91,9 +91,29 @@ function loadHandler(){
     }
 }
 
-function initTimers(){
+function initGameTimer(){
 
     globals.levelTime = new Timer(0, 1);
+}
+
+function initObjectTimer(){
+
+    globals.levelTime = new Timer(0, 1);
+}
+
+function initMagicTimer(){
+
+    globals.levelTime = new Timer(1, 0.8);
+}
+
+function initWallTimer(){
+
+    globals.levelTime = new Timer(0, 1);
+}
+
+function initTimers(){
+
+    globals.levelTime = new Timer(30, 1);
 }
 
 function initSprites(){
@@ -362,7 +382,7 @@ function initPlayer(){
     globals.sprites.push(player);
 }
 
-function initMagic(){
+function initMagic(playerXpos, playerYpos){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(5, 0, 64, 64, 64, 0, 0);
@@ -374,7 +394,7 @@ function initMagic(){
     const physics = new Physics(200);
 
     //Creamos nuestro sprite
-    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, PlayerPosition.POSITION_X, PlayerPosition.POSITION_Y + 5, imageSet, frames, physics);
+    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, playerXpos, playerYpos + 5, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(magic);
@@ -473,7 +493,7 @@ function initEnemy1(){
     globals.sprites.push(enemy1);
 }
 
-function initWall(){
+function initWall(childXpos, childYpos){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(22, 0, 64, 64, 64, 0, 0);
@@ -482,7 +502,7 @@ function initWall(){
     const frames = new Frames(3, 100);
 
     //Creamos nuestro sprite
-    const wall = new Sprite(SpriteID.WALL, State.WALL, Child1Position.POSITION_X + 40, Child1Position.POSITION_Y, imageSet, frames);
+    const wall = new Sprite(SpriteID.WALL, State.WALL, childXpos + 40, childYpos, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wall);
@@ -678,6 +698,10 @@ export{
     initEvents,
     loadAssets,
     initLevel,
+    initGameTimer,
+    initObjectTimer,
+    initMagicTimer,
+    initWallTimer,
     initTimers,
     initPlayingSprites,
     initNewGameSprites,
