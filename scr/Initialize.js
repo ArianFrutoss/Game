@@ -91,26 +91,6 @@ function loadHandler(){
     }
 }
 
-function initGameTimer(){
-
-    globals.levelTime = new Timer(0, 1);
-}
-
-function initObjectTimer(){
-
-    globals.levelTime = new Timer(0, 1);
-}
-
-function initMagicTimer(){
-
-    globals.levelTime = new Timer(1, 0.8);
-}
-
-function initWallTimer(){
-
-    globals.levelTime = new Timer(0, 1);
-}
-
 function initTimers(){
 
     globals.levelTime = new Timer(30, 1);
@@ -388,7 +368,7 @@ function initMagic(playerXpos, playerYpos){
     const imageSet = new ImageSet(5, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(6, 2);
+    const frames = new Frames(5, 1);
 
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(200);
@@ -698,10 +678,6 @@ export{
     initEvents,
     loadAssets,
     initLevel,
-    initGameTimer,
-    initObjectTimer,
-    initMagicTimer,
-    initWallTimer,
     initTimers,
     initPlayingSprites,
     initNewGameSprites,

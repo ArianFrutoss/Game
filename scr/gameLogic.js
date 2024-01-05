@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initMagicTimer} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic} from "./Initialize.js";
 
 export default function update(){
 
@@ -104,18 +104,18 @@ function updateSprites(){
     }
 }
 
-function updateLevelTimer(){
+function updateTimer(time){
 
     //Incrementamos el contador de cambio de valor
-    globals.levelTime.timerChangeCounter += globals.deltaTime;
+    time.timerChangeCounter += globals.deltaTime;
 
     //Si ha pasado el tiempo necesario, cambiamos el valor del timer
-    if (globals.levelTime.timerChangeCounter > globals.levelTime.timerChangeValue){
+    if (time.timerChangeCounter > time.timerChangeValue){
 
-        globals.levelTime.value++;
+        time.value--;
 
         //Reseteamos timeChangeCounter
-        globals.levelTime.timerChangeCounter = 0;
+        time.timerChangeCounter = 0;
     }
 }
 
@@ -125,7 +125,7 @@ function readKeyboardAndAssignState(sprite){
                     globals.action.moveRight            ? State.WALK:
                     globals.action.moveUp               ? State.WALK:
                     globals.action.moveDown             ? State.WALK:
-
+            
                     globals.action.build                ? State.IDLE:
                     globals.action.attackChild          ? State.IDLE:
                     globals.action.attack               ? State.ATTACK:
@@ -273,9 +273,14 @@ function updatePlayer(sprite){
         sprite.physics.vy = 0;
     }
 
-    else if (globals.action.attack === true){
-        
-        initMagic(sprite.xPos, sprite.yPos);
+   else if (globals.action.attack === true){
+
+        if (sprite.frames.frameCounter === 3){
+            
+            sprite.frames.frameCounter = 4;
+            
+            initMagic(sprite.xPos, sprite.yPos);
+        }
     }
 
     if (globals.action.build === true){
@@ -307,7 +312,7 @@ function updatePlayer(sprite){
 }
 
 function updateMagic(sprite){
-    
+
     sprite.physics.vx = sprite.physics.vLimit;
     sprite.physics.vy = 0;
     
@@ -332,7 +337,7 @@ function updateWood(sprite){
 
 function updateMovementOfObjets(sprite){
 
-    updateLevelTimer();
+    updateTimer(globals.levelTime);
     
     if (globals.levelTime.timerChangeCounter >= 0.5){  
 
