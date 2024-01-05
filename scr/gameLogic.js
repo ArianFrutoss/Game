@@ -274,6 +274,11 @@ function updatePlayer(sprite){
     }
 
    else if (globals.action.attack === true){
+        
+        if (globals.action.build === true || globals.action.attackChild === true){
+
+            sprite.state = State.ATTACK;
+        }
 
         if (sprite.frames.frameCounter === 3){
             
