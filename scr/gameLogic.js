@@ -288,24 +288,24 @@ function updatePlayer(sprite){
         }
     }
 
-    if (globals.action.build === true){
-        
-        updateChild1Walk(globals.sprites[13]);
+    if (globals.action.build === true && sprite.yPos){
+    
+        updateChild1Walk(globals.sprites[14]);
     }
 
     else if (globals.action.build === false){
 
-        updatechild1Return(globals.sprites[13]);
+        updatechild1Return(globals.sprites[14]);
     }
 
     if (globals.action.attackChild === true){
         
-        updateChild2Walk(globals.sprites[14], sprite.xPos, sprite.yPos);
+        updateChild2Walk(globals.sprites[13], sprite.xPos, sprite.yPos);
     }
 
     else if (globals.action.attackChild === false){
 
-        updatechild2Return(globals.sprites[14], sprite.xPos, sprite.yPos);
+        updatechild2Return(globals.sprites[13], sprite.xPos, sprite.yPos);
     }
     
     //Calculamos distancia que se mueve (x = x + Vt)
@@ -389,14 +389,18 @@ function updateChild1Walk(sprite){
     }   
 
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
+
+        sprite.frames.speed = 4;
+        sprite.frames.framesPerState = 9;
+        sprite.state = State.CHILD_2_BUILD;
         
-        sprite.state = State.CHILD_1_IDLE;
+        if (sprite.frames.frameCounter === 8){
 
-        globals.levelTime.value = 0;
-
-        initWall(sprite.xPos, sprite.yPos);
-
-        globals.action.build = false;
+            initWall(sprite.xPos, sprite.yPos);
+            globals.action.build = false;
+            sprite.frames.frameCounter = 0;
+            sprite.frames.framesPerState = 6;
+        }
     }
 
     //Calculamos distancia que se mueve (x = x + Vt)
