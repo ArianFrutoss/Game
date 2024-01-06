@@ -287,9 +287,14 @@ function updatePlayer(sprite){
             initMagic(sprite.xPos, sprite.yPos);
         }
     }
-
-    if (globals.action.build === true && sprite.yPos){
     
+    if (globals.action.build === true){
+        
+        if (globals.sprites[14].physics.vx < 0 || globals.sprites[14].physics.vy < 0){
+            
+            globals.action.build = false;
+        }
+
         updateChild1Walk(globals.sprites[14]);
     }
 
