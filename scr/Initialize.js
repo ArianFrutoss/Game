@@ -398,7 +398,7 @@ function initStone(){
     const physics = new Physics(10);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(20, 48, 21, 11);
+    const hitBox = new HitBox(23, 15, 21, 29);
 
     //Creamos nuestro sprite
     const stone = new Sprite(SpriteID.STONE, State.STONE, 190, 260, imageSet, frames, physics, hitBox);
