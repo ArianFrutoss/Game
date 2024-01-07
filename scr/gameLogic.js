@@ -288,31 +288,6 @@ function updatePlayer(sprite){
         }
     }
     
-    if (globals.action.build === true){
-        
-        if (globals.sprites[14].physics.vx < 0 || globals.sprites[14].physics.vy < 0){
-            
-            globals.action.build = false;
-        }
-
-        updateChild1Walk(globals.sprites[14]);
-    }
-
-    else if (globals.action.build === false){
-
-        updatechild1Return(globals.sprites[14]);
-    }
-
-    if (globals.action.attackChild === true){
-        
-        updateChild2Walk(globals.sprites[13], sprite.xPos, sprite.yPos);
-    }
-
-    else if (globals.action.attackChild === false){
-
-        updatechild2Return(globals.sprites[13], sprite.xPos, sprite.yPos);
-    }
-    
     //Calculamos distancia que se mueve (x = x + Vt)
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
@@ -368,11 +343,36 @@ function updateMovementOfObjets(sprite){
 function updateChild1Idle(sprite){
     
     updateAnimationFrame(sprite);
+
+    if (globals.action.attackChild === true){
+        
+        updateChild2Walk(sprite);
+    }
+
+    else if (globals.action.attackChild === false){
+
+        updatechild2Return(sprite);
+    }
 }
 
 function updateChild2Idle(sprite){
     
     updateAnimationFrame(sprite);
+
+    if (globals.action.build === true){
+        
+        if (sprite.physics.vx < 0 || sprite.physics.vy < 0){
+            
+            globals.action.build = false;
+        }
+
+        updateChild1Walk(sprite);
+    }
+
+    else if (globals.action.build === false){
+
+        updatechild1Return(sprite);
+    }
 }
 
 function updateChild1Walk(sprite){
