@@ -377,7 +377,7 @@ function initMagic(playerXpos, playerYpos){
     const physics = new Physics(200);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(20, 48, 21, 11);
+    const hitBox = new HitBox(18, 18, 23, 25);
 
     //Creamos nuestro sprite
     const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, playerXpos, playerYpos + 5, imageSet, frames, physics, hitBox);
