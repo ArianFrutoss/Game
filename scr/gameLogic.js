@@ -248,7 +248,7 @@ function updatePlayer(sprite){
         sprite.physics.vx = 0;
         sprite.physics.vy = -sprite.physics.vLimit;
     }
-
+    
     else if (globals.action.moveDown === true){
 
         //Si se mueve hacia abajo asignamos vy (+)
