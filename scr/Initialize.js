@@ -332,10 +332,10 @@ function initChair(){
     const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(4, 100);
+    const frames = new Frames(1, 100);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(32, 48, 17, 11);
+    const hitBox = new HitBox(27, 50, 18, 5);
 
     //Creamos nuestro sprite
     const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, 0, 192, imageSet, frames, 0, hitBox);
