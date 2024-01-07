@@ -461,7 +461,7 @@ function initChild2(){
     const physics = new Physics(100);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(20, 48, 21, 11);
+    const hitBox = new HitBox(16, 39, 24, 19);
 
     //Creamos nuestro sprite
     const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 0, imageSet, frames, physics, hitBox);
