@@ -479,7 +479,7 @@ function initEnemy1(){
     const frames = new Frames(8, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(0);
+    const physics = new Physics(60);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(18, 45, 22, 10);
