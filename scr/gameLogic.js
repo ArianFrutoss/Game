@@ -1,6 +1,7 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic} from "./Initialize.js";
+import detectCollisions from "./collisions.js";
 
 export default function update(){
 
@@ -93,6 +94,8 @@ export default function update(){
 function playGame(){
 
     updateSprites();
+
+    detectCollisions();
 }
 
 function updateSprites(){
@@ -211,11 +214,6 @@ function updateSprite(sprite){
             updateNightCloud(sprite);
             break;
 
-        case SpriteID.NIGHT_SKY:
-
-            updateNightSky(sprite);
-            break;
-
         case SpriteID.
         
         //otros
@@ -233,8 +231,7 @@ function updateChairInterface(sprite){
 
 function updateChair(sprite){
 
-    //Actualizamos la animacion
-    updateAnimationFrame(sprite);
+    
 }
 
 function updatePlayer(sprite){
@@ -583,11 +580,6 @@ function updateDayCloud(sprite){
         sprite.physics.vx = sprite.physics.vLimit;
         sprite.xPos += sprite.physics.vx * globals.deltaTime;
     }
-}
-
-function updateNightSky(sprite){
-
-
 }
 
 function updateAnimationFrame(sprite){

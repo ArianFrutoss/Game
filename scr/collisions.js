@@ -1,4 +1,5 @@
 import globals from "./globals.js";
+import {Block, State} from "./constans.js";
 
 function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2){
 
@@ -6,7 +7,7 @@ function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2){
 
     //Calcula si ha habido overlap en X e Y
     if (x2 > w1 + x1 || x1 > w2 + x2 || y2 > h1 + y1 || y1 > h2 + y2){
-
+        
         isOverlap = false;
     }
 
@@ -26,6 +27,9 @@ export default function detectCollisions(){
         const sprite = globals.sprites[i];
         detectCollisionsBetweenPlayerAndSprite(sprite);
     }
+
+    //Calculamos collision del player con los obstaculos del mapa
+    detectCollisionsBetweenPlayerAndMapObstacles();
 }
 
 function detectCollisionsBetweenPlayerAndSprite(sprite){
@@ -33,8 +37,8 @@ function detectCollisionsBetweenPlayerAndSprite(sprite){
     //Reinicia la State de la collision
     sprite.isCollidingWithPlayer = false;
 
-    //Nuestro player esta en la posicion 0
-    const player = globals.sprites[0];
+    //Nuestro player esta en la posicion 9
+    const player = globals.sprites[10];
 
     //Datos del player
     const x1 = player.xPos + player.hitBox.xOffSet;
@@ -54,5 +58,88 @@ function detectCollisionsBetweenPlayerAndSprite(sprite){
 
         //Existe collision
         sprite.isCollidingWithPlayer = true;
+    }
+}
+
+function getMapTileId(xPos, yPos){
+
+    const brickSize = globals.level.imageSet.gridSize;
+    const levelData = globals.level.data;
+
+    const fil = Math.floor(yPos / brickSize);
+    const col = Math.floor(xPos / brickSize);
+
+    return levelData[fil][col];
+}
+
+function isCollidingWithObstacleAt(xPos, yPos, obstacleId){
+
+    let isColliding;
+
+    const id = getMapTileId(xPos, yPos);
+
+    //Calculamos collision con bloque de cristal
+    if (id === obstacleId){
+
+        isColliding = true;
+    }
+
+    else{
+
+        isColliding = false;
+    }
+
+    return isColliding;
+}
+
+function detectCollisionsBetweenPlayerAndMapObstacles(){
+
+    const player = globals.sprites[10];
+
+    //Reiniciamos el state de la collision
+    player.isCollidingWithObstacleOnTheRight = false;
+
+    //Variables a usar
+    let xPos;
+    let yPos;
+    let isCollidingOnPos1;
+    let isCollidingOnPos2;
+    let isCollidingOnPos3;
+    let isColliding;
+    let overlap;
+
+    const brickSize = globals.level.imageSet.gridSize;
+
+    //Id del obstaculo
+    const obstacleId = Block.BLOCK_3;
+
+    if (globals.action.moveRight === true){
+
+        //Primera colisión en (xPos + xSize - 1, yPos)
+        xPos = player.xPos + player.hitBox.xOffset + player.hitBox.xSize - 1;
+        yPos = player.yPos + player.hitBox.yOffset;
+        isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+        // Segunda colision en (xPos + Size - 1, yPos + bricksize)
+        yPos = player.yPos + player.hitBox.yOffset + brickSize;
+        isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+        
+        //Ultima colisión en (xPos + Size - 1, yPos + ySize - 1)
+        yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize - 1;
+        isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+        console.log(xPos);
+        //Habrá colisión si toca alguno de los 3 bloques.
+        isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3;
+        
+        if (isColliding){
+
+            //Existe colisión a la derecha
+            player.isCollidingWithObstacleOnTheRight = true;
+
+            //AJUSTE: Calculamos solapamiento (overlap) y lo eliminamos
+            //moviendo el personaje tantos pixeles como overlap a la izquierda
+            overlap = Math.floor(xPos) % brickSize + 1;
+            player.xPos -= overlap;
+        }
     }
 }
