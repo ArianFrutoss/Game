@@ -332,7 +332,7 @@ function initChair(){
     const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(1, 100);
+    const frames = new Frames(4, 100);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(27, 50, 18, 5);
@@ -500,10 +500,10 @@ function initWall(childXpos, childYpos){
     const frames = new Frames(3, 100);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(20, 48, 21, 11);
+    const hitBox = new HitBox(24, 60, 16, 4);
 
     //Creamos nuestro sprite
-    const wall = new Sprite(SpriteID.WALL, State.WALL, childXpos + 40, childYpos, imageSet, frames, hitBox);
+    const wall = new Sprite(SpriteID.WALL, State.WALL, childXpos + 40, childYpos, imageSet, frames, 0, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wall);
