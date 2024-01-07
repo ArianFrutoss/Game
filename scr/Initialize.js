@@ -419,7 +419,7 @@ function initWood(){
     const physics = new Physics(10);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(20, 48, 21, 11);
+    const hitBox = new HitBox(20, 20, 22, 24);
 
     //Creamos nuestro sprite
     const wood = new Sprite(SpriteID.WOOD, State.WOOD, 120, 150, imageSet, frames, physics, hitBox);
