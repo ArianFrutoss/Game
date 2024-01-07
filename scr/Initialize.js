@@ -108,15 +108,15 @@ function initSprites(){
 
 function initPlayingSprites(){
     
-    initChairInterface();
-    initStoneInterface1();
-    initWoodInterface1();
-    initStoneInterface2();
-    initWoodInterface2();
-    initStoneInterface3();
-    initWoodInterface3();
-    initChild1Interface2();
-    initChild2Interface2();
+    // initChairInterface();
+    // initStoneInterface1();
+    // initWoodInterface1();
+    // initStoneInterface2();
+    // initWoodInterface2();
+    // initStoneInterface3();
+    // initWoodInterface3();
+    // initChild1Interface2();
+    // initChild2Interface2();
     initChair();
     initPlayer();
     initStone();
@@ -334,8 +334,11 @@ function initChair(){
     //Creamos los datos de la animacion
     const frames = new Frames(4, 100);
 
+    //Creamos la HitBox del sprite
+    const hitBox = new HitBox(32, 48, 17, 11);
+
     //Creamos nuestro sprite
-    const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, 0, 192, imageSet, frames);
+    const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, 0, 192, imageSet, frames, 0, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(chair);
@@ -373,8 +376,11 @@ function initMagic(playerXpos, playerYpos){
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(200);
 
+    //Creamos la HitBox del sprite
+    const hitBox = new HitBox(20, 48, 21, 11);
+
     //Creamos nuestro sprite
-    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, playerXpos, playerYpos + 5, imageSet, frames, physics);
+    const magic = new Sprite(SpriteID.MAGIC, State.MAGIC, playerXpos, playerYpos + 5, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(magic);
@@ -391,8 +397,11 @@ function initStone(){
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(10);
 
+    //Creamos la HitBox del sprite
+    const hitBox = new HitBox(20, 48, 21, 11);
+
     //Creamos nuestro sprite
-    const stone = new Sprite(SpriteID.STONE, State.STONE, 190, 260, imageSet, frames, physics);
+    const stone = new Sprite(SpriteID.STONE, State.STONE, 190, 260, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stone);
@@ -409,8 +418,11 @@ function initWood(){
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(10);
 
+    //Creamos la HitBox del sprite
+    const hitBox = new HitBox(20, 48, 21, 11);
+
     //Creamos nuestro sprite
-    const wood = new Sprite(SpriteID.WOOD, State.WOOD, 120, 150, imageSet, frames, physics);
+    const wood = new Sprite(SpriteID.WOOD, State.WOOD, 120, 150, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wood);
@@ -448,8 +460,11 @@ function initChild2(){
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(100);
 
+    //Creamos la HitBox del sprite
+    const hitBox = new HitBox(20, 48, 21, 11);
+
     //Creamos nuestro sprite
-    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 0, imageSet, frames, physics);
+    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 0, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2);
@@ -464,10 +479,13 @@ function initEnemy1(){
     const frames = new Frames(8, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(60);
+    const physics = new Physics(0);
+
+    //Creamos la HitBox del sprite
+    const hitBox = new HitBox(18, 45, 22, 10);
 
     //Creamos nuestro sprite
-    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 500, 300, imageSet, frames, physics);
+    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 500, 300, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(enemy1);
@@ -481,8 +499,11 @@ function initWall(childXpos, childYpos){
     //Creamos los datos de la animacion
     const frames = new Frames(3, 100);
 
+    //Creamos la HitBox del sprite
+    const hitBox = new HitBox(20, 48, 21, 11);
+
     //Creamos nuestro sprite
-    const wall = new Sprite(SpriteID.WALL, State.WALL, childXpos + 40, childYpos, imageSet, frames);
+    const wall = new Sprite(SpriteID.WALL, State.WALL, childXpos + 40, childYpos, imageSet, frames, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wall);
