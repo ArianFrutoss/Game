@@ -38,6 +38,9 @@ export default{
     //Temporizador nivel
     levelTime: {},
 
+    //Temporizador invulnerabilidad
+    lifeTime: {},
+
     //Objeto que guarda el estado de la tecla pulsada
     action: {}
 };

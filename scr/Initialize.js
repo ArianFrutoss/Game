@@ -94,6 +94,7 @@ function loadHandler(){
 function initTimers(){
 
     globals.levelTime = new Timer(30, 1);
+    globals.lifeTime = new Timer(2, 0.01);
 }
 
 function initSprites(){
@@ -333,7 +334,7 @@ function initChair(){
     const frames = new Frames(4, 100);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(27, 50, 18, 5);
+    const hitBox = new HitBox(27, 500, 18, -250);
 
     //Creamos nuestro sprite
     const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, 0, 192, imageSet, frames, 0, hitBox);
@@ -483,7 +484,7 @@ function initEnemy1(){
     const hitBox = new HitBox(18, 45, 22, 10);
 
     //Creamos nuestro sprite
-    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 500, 300, imageSet, frames, physics, hitBox);
+    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 100, 300, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(enemy1);

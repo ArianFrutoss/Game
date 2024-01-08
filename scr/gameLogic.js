@@ -389,8 +389,7 @@ function updateChild1Walk(sprite){
         
         sprite.physics.vy = 0;
     }   
-    console.log(sprite.physics.vx);
-    console.log(sprite.physics.vy);
+    
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
 
         sprite.frames.speed = 4;
@@ -533,7 +532,14 @@ function updateEnemy1(sprite){
 
     if (sprite.isCollidingWithPlayer){
         
-        sprite.physics.vLimit = 300;
+        sprite.isCollidingWithPlayer = false;
+        
+        if (globals.lifeTime.value === 2){
+
+            updateTimer(globals.lifeTime);
+
+            globals.sprites[4].frames.frameCounter += 1;
+        }
     }
 }
 

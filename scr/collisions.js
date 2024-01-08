@@ -40,8 +40,8 @@ function detectCollisionsBetweenPlayerAndSprite(sprite){
     //Reinicia la State de la collision
     sprite.isCollidingWithPlayer = false;
 
-    //Nuestro player esta en la posicion 0
-    const player = globals.sprites[0];
+    //Nuestro player esta en la posicion 1
+    const player = globals.sprites[4];
 
     //Datos del player
     const x1 = player.xPos + player.hitBox.xOffset;
