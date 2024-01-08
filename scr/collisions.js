@@ -133,7 +133,6 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
         
         if (isColliding){
 
-            //Existe colisión a la derecha
             player.isCollidingWithObstacleOnTheRight = true;
             
             player.physics.vLimit = 50;
@@ -141,7 +140,6 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
 
         else{
 
-            //Existe colisión a la derecha
             player.isCollidingWithObstacleOnTheRight = false;
             
             player.physics.vLimit = 100;
@@ -159,8 +157,8 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
         yPos = player.yPos + player.hitBox.yOffset + brickSize;
         isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
         
-        //Ultima colisión en (xPos + Size - 1, yPos + ySize - 1)
-        yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize - 1;
+        //Ultima colisión en (xPos + Size - 1, yPos + ySize + 1)
+        yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize + 1;
         isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId); 
 
         //Habrá colisión si toca alguno de los 3 bloques.
@@ -168,7 +166,6 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
         
         if (isColliding){
 
-            //Existe colisión a la izquierda
             player.isCollidingWithObstacleOnTheLeft = true;
             
             player.physics.vLimit = 50;
@@ -176,7 +173,72 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
 
         else{
 
-            //No existe colisión a la izquieda
+            player.isCollidingWithObstacleOnTheLeft = false;
+            
+            player.physics.vLimit = 100;
+        }
+    }
+
+    if (globals.action.moveUp === true){
+
+        //Primera colisión en (xPos + xSize- 1, yPos)
+        xPos = player.xPos;
+        yPos = player.yPos + player.hitBox.yOffset;
+        isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+        // Segunda colision en (xPos + Size - 1, yPos + bricksize)
+        yPos = player.yPos + player.hitBox.yOffset + brickSize;
+        isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+        
+        //Ultima colisión en (xPos + Size - 1, yPos + ySize - 1)
+        yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize + 1;
+        isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+        //Habrá colisión si toca alguno de los 3 bloques.
+        isColliding = isCollidingOnPos3
+        
+        if (isColliding){
+
+            player.isCollidingWithObstacleOnTheLeft = true;
+            
+            player.physics.vLimit = 50;
+        }
+
+        else{
+
+            player.isCollidingWithObstacleOnTheLeft = false;
+            
+            player.physics.vLimit = 100;
+        }
+    }
+
+    if (globals.action.moveDown === true){
+
+        //Primera colisión en (xPos + xSize- 1, yPos)
+        xPos = player.xPos;
+        yPos = player.yPos + player.hitBox.yOffset;
+        isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+        // Segunda colision en (xPos + Size - 1, yPos + bricksize)
+        yPos = player.yPos + player.hitBox.yOffset + brickSize;
+        isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+        
+        //Ultima colisión en (xPos + Size - 1, yPos + ySize - 1)
+        yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize + 1;
+        isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+        console.log(yPos);
+        //Habrá colisión si toca alguno de los 3 bloques.
+        isColliding = isCollidingOnPos3
+        
+        if (isColliding){
+
+            player.isCollidingWithObstacleOnTheLeft = true;
+            
+            player.physics.vLimit = 50;
+        }
+
+        else{
+
             player.isCollidingWithObstacleOnTheLeft = false;
             
             player.physics.vLimit = 100;
