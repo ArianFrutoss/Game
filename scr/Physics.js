@@ -4,7 +4,8 @@ export default class Physics{
 
         this.vx         = 0;            //Velocidad X(Pixels/Second)
         this.vy         = 0;            //Velocidad Y(Pixels/Second)
-        this.vLimit     = vLimit;       //Valocidad maxima del sprite
+        this.vLimit     = vLimit;       //Velocidad maxima del sprite
+        this.speedReductionCont = 0;    //Velocidad que se ha disminuido
         this.ax         = 0;            //Aceleracion X
         this.ay         = 0;            //Aceleracion Y
         this.aLimit     = aLimit;       //Aceleracion limite

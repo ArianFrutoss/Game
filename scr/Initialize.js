@@ -108,22 +108,20 @@ function initSprites(){
 
 function initPlayingSprites(){
     
-    initChairInterface();
-    initStoneInterface1();
-    initWoodInterface1();
-    initStoneInterface2();
-    initWoodInterface2();
-    initStoneInterface3();
-    initWoodInterface3();
-    initChild1Interface2();
-    initChild2Interface2();
-    initChair();
     initPlayer();
-    initStone();
-    initWood();
     initChild1();
     initChild2();
     initEnemy1();
+    initChair();
+    // initChairInterface();
+    // initStoneInterface1();
+    // initWoodInterface1();
+    // initStoneInterface2();
+    // initWoodInterface2();
+    // initStoneInterface3();
+    // initWoodInterface3();
+    // initChild1Interface2();
+    // initChild2Interface2();
 }
 
 function initNewGameSprites(){

@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Block, State} from "./constans.js";
+import {Block} from "./constans.js";
 
 function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2){
 
@@ -22,14 +22,17 @@ function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2){
 export default function detectCollisions(){
 
     //Calculamos collision del player con cada uno de los sprites
-    for (let i = 1; i < globals.sprites.length; i++){
+    for (let i = 0; i < globals.sprites.length; i++){
 
         const sprite = globals.sprites[i];
         detectCollisionsBetweenPlayerAndSprite(sprite);
     }
 
-    //Calculamos collision del player con los obstaculos del mapa
-    detectCollisionsBetweenPlayerAndMapObstacles();
+    for (let i = 0; i < 4; i++){
+
+        const sprite = globals.sprites[i];
+        detectCollisionsBetweenPlayerAndMapObstacles(sprite);
+    }
 }
 
 function detectCollisionsBetweenPlayerAndSprite(sprite){
@@ -37,17 +40,17 @@ function detectCollisionsBetweenPlayerAndSprite(sprite){
     //Reinicia la State de la collision
     sprite.isCollidingWithPlayer = false;
 
-    //Nuestro player esta en la posicion 9
-    const player = globals.sprites[10];
+    //Nuestro player esta en la posicion 0
+    const player = globals.sprites[0];
 
     //Datos del player
-    const x1 = player.xPos + player.hitBox.xOffSet;
+    const x1 = player.xPos + player.hitBox.xOffset;
     const y1 = player.yPos + player.hitBox.yOffset;
     const w1 = player.hitBox.xSize;
     const h1 = player.hitBox.ySize;
 
     //Datos del otro sprite
-    const x2 = sprite.xPos + sprite.hitBox.xOffSet;
+    const x2 = sprite.xPos + sprite.hitBox.xOffset;
     const y2 = sprite.yPos + sprite.hitBox.yOffset;
     const w2 = sprite.hitBox.xSize;
     const h2 = sprite.hitBox.ySize;
@@ -92,10 +95,11 @@ function isCollidingWithObstacleAt(xPos, yPos, obstacleId){
     return isColliding;
 }
 
-function detectCollisionsBetweenPlayerAndMapObstacles(){
+function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
 
-    const player = globals.sprites[10];
-
+    const player = sprite;
+    const minSpeed = 30;
+    
     //Reiniciamos el state de la collision
     player.isCollidingWithObstacleOnTheRight = false;
 
@@ -106,14 +110,13 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
     let isCollidingOnPos2;
     let isCollidingOnPos3;
     let isColliding;
-    let overlap;
-
+    
     const brickSize = globals.level.imageSet.gridSize;
 
     //Id del obstaculo
     const obstacleId = Block.BLOCK_3;
 
-    if (globals.action.moveRight === true){
+    if (sprite.physics.vx > 0){
 
         //Primera colisión en (xPos + xSize - 1, yPos)
         xPos = player.xPos + player.hitBox.xOffset + player.hitBox.xSize + 1;
@@ -135,18 +138,30 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
 
             player.isCollidingWithObstacleOnTheRight = true;
             
-            player.physics.vLimit = 50;
+            if (player.physics.vLimit > minSpeed){
+
+                player.physics.vLimit -= 10;
+                player.physics.speedReductionCont += 10;
+            }
         }
 
         else{
 
             player.isCollidingWithObstacleOnTheRight = false;
             
-            player.physics.vLimit = 100;
+            if (player.physics.vLimit < minSpeed + player.physics.speedReductionCont){
+
+                player.physics.vLimit += 10;
+            }
+
+            else{
+
+                player.physics.speedReductionCont = 0
+            }
         }
     }
 
-    if (globals.action.moveLeft === true){
+    if (sprite.physics.vx < 0){
 
         //Primera colisión en (xPos + xSize - 1, yPos)
         xPos = player.xPos + player.hitBox.xOffset + 1;
@@ -168,18 +183,30 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
 
             player.isCollidingWithObstacleOnTheLeft = true;
             
-            player.physics.vLimit = 50;
+            if (player.physics.vLimit > minSpeed){
+
+                player.physics.vLimit -= 10;
+                player.physics.speedReductionCont += 10;
+            }
         }
 
         else{
 
             player.isCollidingWithObstacleOnTheLeft = false;
             
-            player.physics.vLimit = 100;
+            if (player.physics.vLimit < minSpeed + player.physics.speedReductionCont){
+
+                player.physics.vLimit += 10;
+            }
+
+            else{
+                
+                player.physics.speedReductionCont = 0
+            }
         }
     }
 
-    if (globals.action.moveUp === true){
+    if (sprite.physics.vy > 0){
 
         //Primera colisión en (xPos + xSize- 1, yPos)
         xPos = player.xPos + player.hitBox.xOffset + 1;
@@ -199,20 +226,32 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
         
         if (isColliding){
 
-            player.isCollidingWithObstacleOnTheLeft = true;
+            player.isCollidingWithObstacleOnTheBottom = true;
             
-            player.physics.vLimit = 50;
+            if (player.physics.vLimit > minSpeed){
+
+                player.physics.vLimit -= 10;
+                player.physics.speedReductionCont += 10;
+            }
         }
 
         else{
 
-            player.isCollidingWithObstacleOnTheLeft = false;
+            player.isCollidingWithObstacleOnTheBottom = false;
             
-            player.physics.vLimit = 100;
+            if (player.physics.vLimit < minSpeed + player.physics.speedReductionCont){
+
+                player.physics.vLimit += 10;
+            }
+
+            else{
+                
+                player.physics.speedReductionCont = 0
+            }
         }
     }
 
-    if (globals.action.moveDown === true){
+    if (sprite.physics.vy < 0){
 
         //Primera colisión en (xPos + xSize- 1, yPos)
         xPos = player.xPos + player.hitBox.xOffset + 1;
@@ -232,16 +271,28 @@ function detectCollisionsBetweenPlayerAndMapObstacles(){
         
         if (isColliding){
 
-            player.isCollidingWithObstacleOnTheLeft = true;
+            player.isCollidingWithObstacleOnTheTop = true;
             
-            player.physics.vLimit = 50;
+            if (player.physics.vLimit > minSpeed){
+
+                player.physics.vLimit -= 10;
+                player.physics.speedReductionCont += 10;
+            }
         }
 
         else{
 
-            player.isCollidingWithObstacleOnTheLeft = false;
+            player.isCollidingWithObstacleOnTheTop = false;
             
-            player.physics.vLimit = 100;
+            if (player.physics.vLimit < minSpeed + player.physics.speedReductionCont){
+
+                player.physics.vLimit += 10;
+            }
+
+            else{
+                
+                player.physics.speedReductionCont = 0
+            }
         }
     }
 }

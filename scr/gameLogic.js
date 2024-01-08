@@ -305,6 +305,11 @@ function updateMagic(sprite){
 
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
+
+    if (sprite.isCollidingWithPlayer === true){
+        
+        sprite.physics.vLimit = 0;
+    }
 }
 
 function updateStone(sprite){
@@ -530,6 +535,11 @@ function updateEnemy1(sprite){
 
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
+
+    if (sprite.isCollidingWithPlayer === true){
+        
+        sprite.physics.vLimit = 300;
+    }
 }
 
 function updateWall(sprite){
