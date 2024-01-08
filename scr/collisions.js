@@ -141,7 +141,7 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
             if (player.physics.vLimit > minSpeed){
 
                 player.physics.vLimit -= 10;
-                player.physics.speedReductionCont += 10;
+                player.physics.speedReductionContX += 10;
             }
         }
 
@@ -149,20 +149,20 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
 
             player.isCollidingWithObstacleOnTheRight = false;
             
-            if (player.physics.vLimit < minSpeed + player.physics.speedReductionCont){
+            if (player.physics.vLimit < minSpeed + player.physics.speedReductionContX){
 
                 player.physics.vLimit += 10;
             }
 
             else{
 
-                player.physics.speedReductionCont = 0
+                player.physics.speedReductionContX = 0
             }
         }
     }
 
-    if (sprite.physics.vx < 0){
-
+    else if (sprite.physics.vx < 0){
+        
         //Primera colisión en (xPos + xSize - 1, yPos)
         xPos = player.xPos + player.hitBox.xOffset + 1;
         yPos = player.yPos + player.hitBox.yOffset;
@@ -186,7 +186,7 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
             if (player.physics.vLimit > minSpeed){
 
                 player.physics.vLimit -= 10;
-                player.physics.speedReductionCont += 10;
+                player.physics.speedReductionContX += 10;
             }
         }
 
@@ -194,19 +194,19 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
 
             player.isCollidingWithObstacleOnTheLeft = false;
             
-            if (player.physics.vLimit < minSpeed + player.physics.speedReductionCont){
+            if (player.physics.vLimit < minSpeed + player.physics.speedReductionContX){
 
                 player.physics.vLimit += 10;
             }
 
             else{
                 
-                player.physics.speedReductionCont = 0
+                player.physics.speedReductionContX = 0
             }
         }
     }
 
-    if (sprite.physics.vy > 0){
+    else if (sprite.physics.vy > 0){
 
         //Primera colisión en (xPos + xSize- 1, yPos)
         xPos = player.xPos + player.hitBox.xOffset + 1;
@@ -231,7 +231,7 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
             if (player.physics.vLimit > minSpeed){
 
                 player.physics.vLimit -= 10;
-                player.physics.speedReductionCont += 10;
+                player.physics.speedReductionContY += 10;
             }
         }
 
@@ -239,19 +239,19 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
 
             player.isCollidingWithObstacleOnTheBottom = false;
             
-            if (player.physics.vLimit < minSpeed + player.physics.speedReductionCont){
+            if (player.physics.vLimit < minSpeed + player.physics.speedReductionContY){
 
                 player.physics.vLimit += 10;
             }
 
             else{
                 
-                player.physics.speedReductionCont = 0
+                player.physics.speedReductionContY = 0
             }
         }
     }
 
-    if (sprite.physics.vy < 0){
+    else if (sprite.physics.vy < 0){
 
         //Primera colisión en (xPos + xSize- 1, yPos)
         xPos = player.xPos + player.hitBox.xOffset + 1;
@@ -276,7 +276,7 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
             if (player.physics.vLimit > minSpeed){
 
                 player.physics.vLimit -= 10;
-                player.physics.speedReductionCont += 10;
+                player.physics.speedReductionContY += 10;
             }
         }
 
@@ -284,14 +284,14 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
 
             player.isCollidingWithObstacleOnTheTop = false;
             
-            if (player.physics.vLimit < minSpeed + player.physics.speedReductionCont){
+            if (player.physics.vLimit < minSpeed + player.physics.speedReductionContY){
 
                 player.physics.vLimit += 10;
             }
 
             else{
                 
-                player.physics.speedReductionCont = 0
+                player.physics.speedReductionContY = 0
             }
         }
     }

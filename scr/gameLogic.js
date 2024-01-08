@@ -305,11 +305,6 @@ function updateMagic(sprite){
 
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
-
-    if (sprite.isCollidingWithPlayer === true){
-        
-        sprite.physics.vLimit = 0;
-    }
 }
 
 function updateStone(sprite){
@@ -343,7 +338,7 @@ function updateMovementOfObjets(sprite){
 }
 
 function updateChild1Idle(sprite){
-    
+
     updateAnimationFrame(sprite);
 
     if (globals.action.attackChild === true){
@@ -380,7 +375,7 @@ function updateChild2Idle(sprite){
 function updateChild1Walk(sprite){
 
     sprite.state = State.CHILD_1_RUN;
-
+    
     sprite.physics.vx = sprite.physics.vLimit;
 
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos){
@@ -394,7 +389,8 @@ function updateChild1Walk(sprite){
         
         sprite.physics.vy = 0;
     }   
-
+    console.log(sprite.physics.vx);
+    console.log(sprite.physics.vy);
     if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
 
         sprite.frames.speed = 4;
@@ -422,7 +418,6 @@ function updatechild1Return(sprite){
 
     sprite.state = State.CHILD_1_WALK;
 
-    sprite.physics.vLimit = 60;
     sprite.physics.vx = -sprite.physics.vLimit;
 
     if (sprite.xPos <= 0){
@@ -536,7 +531,7 @@ function updateEnemy1(sprite){
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
 
-    if (sprite.isCollidingWithPlayer === true){
+    if (sprite.isCollidingWithPlayer){
         
         sprite.physics.vLimit = 300;
     }
