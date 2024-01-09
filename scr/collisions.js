@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Block} from "./constans.js";
+import {Block, State} from "./constans.js";
 
 function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2){
 
@@ -23,15 +23,17 @@ export default function detectCollisions(){
 
     //Calculamos collision del player con cada uno de los sprites
     for (let i = 0; i < globals.sprites.length; i++){
-
+        
         const sprite = globals.sprites[i];
-        detectCollisionsBetweenPlayerAndSprite(sprite);
+        
+        //detectCollisionsBetweenPlayerAndSprite(sprite);
     }
 
     for (let i = 0; i < 4; i++){
-
+        
         const sprite = globals.sprites[i];
-        detectCollisionsBetweenPlayerAndMapObstacles(sprite);
+        
+        detectCollisionsBetweenSpritesAndLakes(sprite);
     }
 }
 
@@ -95,7 +97,38 @@ function isCollidingWithObstacleAt(xPos, yPos, obstacleId){
     return isColliding;
 }
 
-function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
+function detectCollisionsBetweenSpritesAndLakes(sprite){
+
+    //Variables a usar
+    let xPos;
+    let yPos;
+    let isCollidingOnPos1;
+    let isCollidingOnPos2;
+    let isColliding;
+    
+    const brickSize = globals.level.imageSet.gridSize;
+
+    sprite.isCollidingWithTheLake = false;
+
+    //Id del obstaculo
+    const obstacleId = Block.BLOCK_3;
+
+    xPos = sprite.xPos + sprite.hitBox.xOffset + sprite.hitBox.xSize + 1;
+    yPos = sprite.yPos + sprite.hitBox.yOffset + sprite.hitBox.ySize + 1;
+    isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+    xPos = sprite.xPos + sprite.hitBox.xOffset + 1;
+    isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+    isColliding = isCollidingOnPos1 || isCollidingOnPos2;
+    
+    if (isColliding){
+
+        sprite.isCollidingWithTheLake = true;
+    }
+}
+
+function detectCollisionsBetweenSpritesAndWall(sprite){
 
     const player = sprite;
     const minSpeed = 30;
@@ -114,7 +147,7 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
     const brickSize = globals.level.imageSet.gridSize;
 
     //Id del obstaculo
-    const obstacleId = Block.BLOCK_3;
+    const obstacleId = Block.BLOCK_1;
 
     if (sprite.physics.vx > 0){
 
@@ -132,7 +165,7 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
         isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId); 
 
         //Habrá colisión si toca alguno de los 3 bloques.
-        isColliding = isCollidingOnPos3;
+        isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3;
         
         if (isColliding){
 
@@ -177,7 +210,7 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
         isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId); 
 
         //Habrá colisión si toca alguno de los 3 bloques.
-        isColliding = isCollidingOnPos3;
+        isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3;
         
         if (isColliding){
 
@@ -222,7 +255,7 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
         isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
 
         //Habrá colisión si toca alguno de los 3 bloques.
-        isColliding = isCollidingOnPos3
+        isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3;
         
         if (isColliding){
 
@@ -267,7 +300,7 @@ function detectCollisionsBetweenPlayerAndMapObstacles(sprite, previousVLimit){
         isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
     
         //Habrá colisión si toca alguno de los 3 bloques.
-        isColliding = isCollidingOnPos3
+        isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3;
         
         if (isColliding){
 

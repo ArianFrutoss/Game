@@ -104,6 +104,7 @@ function updateSprites(){
 
         const sprite = globals.sprites[i];
         updateSprite(sprite);
+        updateSpriteSpeed(sprite);
     }
 }
 
@@ -546,6 +547,7 @@ function updateEnemy1(sprite){
 function updateWall(sprite){
 
     updateAnimationFrame(sprite);
+    detectCollisions(sprite);
 }
 
 function updateMoon(sprite){
@@ -610,5 +612,38 @@ function updateAnimationFrame(sprite){
     if (sprite.frames.frameCounter === sprite.frames.framesPerState){
 
         sprite.frames.frameCounter = 0;
+    }
+}
+
+function updateSpriteSpeed(sprite){
+    
+    if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
+        
+        const minSpeed = 30;
+
+        if (sprite.isCollidingWithTheLake){
+
+            if (sprite.physics.vLimit > minSpeed){
+
+                sprite.physics.vLimit -= 10;
+                sprite.physics.speedReductionCont += 10;
+                sprite.frames.speed++;
+            }
+        }
+
+        else{
+
+            if (sprite.physics.vLimit < minSpeed + sprite.physics.speedReductionCont){
+
+                sprite.physics.vLimit += 10;
+                sprite.frames.speed--;
+                sprite.frames.frameChangeCounter = 1;
+            }
+
+            else{
+
+                sprite.physics.speedReductionCont = 0;
+            }
+        }
     }
 }

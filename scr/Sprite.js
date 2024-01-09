@@ -11,9 +11,6 @@ export default class Sprite{
         this.physics                            = physics;      //Datos de las fisicas
         this.hitBox                             = hitBox;       //Datos de la hitbox
         this.isCollidingWithPlayer              = false;        //Variables que indica si la habido colision con el player
-        this.isCollidingWithObstacleOnTheTop    = false;        //Indica si ha habido colision con un obstaculo hacia arriba
-        this.isCollidingWithObstacleOnTheLeft   = false;        //Indica si ha habido colision con un obstaculo hacia la izquierda
-        this.isCollidingWithObstacleOnTheBottom = false;        //Indica si ha habido colision con un obstaculo hacia abajo
-        this.isCollidingWithObstacleOnTheRight  = false;        //Indica si ha habido colision con un obstaculo hacia la derecha
+        this.isCollidingWithTheLake             = false;        //Indica si ha habido colision con el lago
     }
 }

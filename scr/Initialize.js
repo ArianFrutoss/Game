@@ -114,15 +114,15 @@ function initPlayingSprites(){
     initChild2();
     initEnemy1();
     initChair();
-    // initChairInterface();
-    // initStoneInterface1();
-    // initWoodInterface1();
-    // initStoneInterface2();
-    // initWoodInterface2();
-    // initStoneInterface3();
-    // initWoodInterface3();
-    // initChild1Interface2();
-    // initChild2Interface2();
+    initChairInterface();
+    initStoneInterface1();
+    initWoodInterface1();
+    initStoneInterface2();
+    initWoodInterface2();
+    initStoneInterface3();
+    initWoodInterface3();
+    initChild1Interface2();
+    initChild2Interface2();
 }
 
 function initNewGameSprites(){
@@ -304,7 +304,7 @@ function initChild1Interface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_2, State.CHILD_1_INTERFACE, 780, 330, imageSet, frames, 0, 0);
+    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_2, State.CHILD_1_INTERFACE, 780, 330, imageSet, frames, 0);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child1Interface);
@@ -319,7 +319,7 @@ function initChild2Interface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_2, State.CHILD_2_INTERFACE, 780, 370, imageSet, frames, 0, 0);
+    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_2, State.CHILD_2_INTERFACE, 780, 370, imageSet, frames, 0);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2Interface);
@@ -334,7 +334,7 @@ function initChair(){
     const frames = new Frames(4, 100);
 
     //Creamos la HitBox del sprite
-    const hitBox = new HitBox(27, 500, 18, -250);
+    const hitBox = new HitBox(27, 500, 18, -200);
 
     //Creamos nuestro sprite
     const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, 0, 192, imageSet, frames, 0, hitBox);
@@ -484,7 +484,7 @@ function initEnemy1(){
     const hitBox = new HitBox(18, 45, 22, 10);
 
     //Creamos nuestro sprite
-    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 100, 300, imageSet, frames, physics, hitBox);
+    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 500, 300, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(enemy1);

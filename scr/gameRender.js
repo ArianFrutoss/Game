@@ -96,7 +96,7 @@ function drawSprites(){
 
         const sprite = globals.sprites[i];
         //drawSpriteRectangle(sprite);
-        drawSpriteHitBox(sprite);
+        //drawSpriteHitBox(sprite);
         renderSprite(sprite);
     }
 }
