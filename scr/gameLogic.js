@@ -636,8 +636,6 @@ function updateSpriteSpeed(sprite){
             if (sprite.physics.vLimit < minSpeed + sprite.physics.speedReductionCont){
 
                 sprite.physics.vLimit += 10;
-                sprite.frames.speed--;
-                sprite.frames.frameChangeCounter = 1;
             }
 
             else{
