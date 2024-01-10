@@ -3,7 +3,7 @@ import {Game, SpriteID, State, FPS, Child1Position, PlayerPosition} from "./cons
 import Sprite from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
-import {Level, level1} from "./Level.js";
+import {Level, level1, spriteLevel1} from "./Level.js";
 import Timer from "./Timer.js";
 import Physics from "./Physics.js";
 import {keydownHandler, keyupHandler} from "./events.js";
@@ -99,6 +99,11 @@ function initTimers(){
 
 function initSprites(){
 
+    for (let i = 0; i < globals.spriteLevel1.length; i++){
+
+        
+    }
+
     initPlayingSprites();
     initNewGameSprites();
     initControlsSprites();
@@ -114,15 +119,15 @@ function initPlayingSprites(){
     initChild2();
     initEnemy1();
     initChair();
-    // initChairInterface();
-    // initStoneInterface1();
-    // initWoodInterface1();
-    // initStoneInterface2();
-    // initWoodInterface2();
-    // initStoneInterface3();
-    // initWoodInterface3();
-    // initChild1Interface2();
-    // initChild2Interface2();
+    initChairInterface();
+    initStoneInterface1();
+    initWoodInterface1();
+    initStoneInterface2();
+    initWoodInterface2();
+    initStoneInterface3();
+    initWoodInterface3();
+    initChild1Interface2();
+    initChild2Interface2();
 }
 
 function initNewGameSprites(){
