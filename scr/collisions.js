@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Block, State} from "./constans.js";
+import {Block, SpriteID} from "./constans.js";
 
 function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2){
 
@@ -26,14 +26,17 @@ export default function detectCollisions(){
         
         const sprite = globals.sprites[i];
         
-        //detectCollisionsBetweenPlayerAndSprite(sprite);
+        //edetectCollisionsBetweenPlayerAndSprite(sprite);
     }
 
-    for (let i = 0; i < 4; i++){
+    for (let i = 0; i < globals.sprites.length; i++){
         
         const sprite = globals.sprites[i];
         
-        detectCollisionsBetweenSpritesAndLakes(sprite);
+        if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
+
+            detectCollisionsBetweenSpritesAndLakes(sprite);
+        }
     }
 }
 

@@ -94,7 +94,6 @@ export default function update(){
 function playGame(){
 
     updateSprites();
-
     detectCollisions();
 }
 
@@ -376,6 +375,11 @@ function updateChild2Idle(sprite){
 function updateChild1Walk(sprite){
 
     sprite.state = State.CHILD_1_RUN;
+
+    if (sprite.physics.vx > 0 && sprite.isCollidingWithTheLake === false){
+
+        sprite.physics.vLimit = 100;
+    }
     
     sprite.physics.vx = sprite.physics.vLimit;
 
@@ -417,6 +421,11 @@ function updateChild1Walk(sprite){
 function updatechild1Return(sprite){
 
     sprite.state = State.CHILD_1_WALK;
+
+    if (sprite.physics.vx < 0 && sprite.isCollidingWithTheLake === false){
+
+        sprite.physics.vLimit = 60;
+    }
 
     sprite.physics.vx = -sprite.physics.vLimit;
 
@@ -617,6 +626,7 @@ function updateAnimationFrame(sprite){
 
 function updateSpriteSpeed(sprite){
     
+    //Intentar hacer que la speed de cambio de frames se reduzca dentro de los charcos
     if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
         
         const minSpeed = 30;
@@ -627,7 +637,6 @@ function updateSpriteSpeed(sprite){
 
                 sprite.physics.vLimit -= 10;
                 sprite.physics.speedReductionCont += 10;
-                sprite.frames.speed++;
             }
         }
 
