@@ -26,7 +26,6 @@ export default function detectCollisions(){
         
         const sprite = globals.sprites[i];
         
-        //detectCollisionsBetweenPlayerAndSprite(sprite);
         if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
 
             detectCollisionsBetweenSpritesAndLakes(sprite);
@@ -135,8 +134,9 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
     for (let i = 1; i < globals.activeWall.length; i++){
 
-            //Nuestro wall esta en la posicion 1
         const Wall = globals.activeWall[i];
+
+        sprite.isCollidingWithWall = false;
 
         let overlap;
 
@@ -156,29 +156,30 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
         //Existe collision
         if (isOverlap){
+
+            sprite.isCollidingWithWall = true;
             
             if (sprite.physics.vx > 0){
                 
-                overlap = Math.floor(x1 + w1 - 1) % w2 + 1;
-                sprite.xPos -= overlap;
-            }
-
-            if (sprite.physics.vx < 0){
-                
-                overlap = Math.floor(x1 + w1 - 1) % w2 + 1;
-                console.log(overlap);
+                overlap = x1 - x2 - w2 - 1;
                 sprite.xPos += overlap;
             }
 
-            if (sprite.physics.vy > 0){
+            else if (sprite.physics.vx < 0){
                 
-                overlap = Math.floor(y1 + h1 - 1) % h2 + 1;
-                sprite.yPos -= overlap;
+                overlap = x1 - x2 + w1 + 1;
+                sprite.xPos += overlap;
             }
 
-            if (sprite.physics.vy < 0){
+            else if (sprite.physics.vy > 0){
+                
+                overlap = y1 - y2 - h2 - 1;
+                sprite.yPos += overlap;
+            }
 
-                overlap = Math.floor(y1 + h1 - 1) % h2 + 1;
+            else if (sprite.physics.vy < 0){
+
+                overlap = y1 - y2 + h1 + 1;
                 sprite.yPos += overlap;
             }
         }
