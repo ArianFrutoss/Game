@@ -383,7 +383,7 @@ function updateChild1Walk(sprite){
     
     sprite.physics.vx = sprite.physics.vLimit;
 
-    if (PlayerPosition.POSITION_X + 40 <= sprite.xPos){
+    if (PlayerPosition.POSITION_X + 30 <= sprite.xPos){
         
         sprite.physics.vx = 0;
     }
@@ -395,7 +395,7 @@ function updateChild1Walk(sprite){
         sprite.physics.vy = 0;
     }   
     
-    if (PlayerPosition.POSITION_X + 40 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
+    if (PlayerPosition.POSITION_X + 30 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
 
         sprite.frames.speed = 4;
         sprite.frames.framesPerState = 9;
@@ -415,7 +415,7 @@ function updateChild1Walk(sprite){
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
     //Actualizamos la animacion
-    updateAnimationFrame(sprite);
+    updateAnimationFrame(sprite);1
 }
 
 function updatechild1Return(sprite){

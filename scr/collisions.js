@@ -26,16 +26,15 @@ export default function detectCollisions(){
         
         const sprite = globals.sprites[i];
         
-        //edetectCollisionsBetweenPlayerAndSprite(sprite);
-    }
-
-    for (let i = 0; i < globals.sprites.length; i++){
-        
-        const sprite = globals.sprites[i];
-        
+        //detectCollisionsBetweenPlayerAndSprite(sprite);
         if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
 
             detectCollisionsBetweenSpritesAndLakes(sprite);
+        }
+
+        if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
+           
+            detectCollisionsBetweenSpritesAndWall(sprite);
         }
     }
 }
@@ -116,8 +115,9 @@ function detectCollisionsBetweenSpritesAndLakes(sprite){
     //Id del obstaculo
     const obstacleId = Block.BLOCK_3;
 
-    xPos = sprite.xPos + sprite.hitBox.xOffset + sprite.hitBox.xSize + 1;
     yPos = sprite.yPos + sprite.hitBox.yOffset + sprite.hitBox.ySize + 1;
+
+    xPos = sprite.xPos + sprite.hitBox.xOffset + sprite.hitBox.xSize + 1;
     isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
 
     xPos = sprite.xPos + sprite.hitBox.xOffset + 1;
@@ -133,201 +133,53 @@ function detectCollisionsBetweenSpritesAndLakes(sprite){
 
 function detectCollisionsBetweenSpritesAndWall(sprite){
 
-    const player = sprite;
-    const minSpeed = 30;
-    
-    //Reiniciamos el state de la collision
-    player.isCollidingWithObstacleOnTheRight = false;
+    for (let i = 1; i < globals.activeWall.length; i++){
 
-    //Variables a usar
-    let xPos;
-    let yPos;
-    let isCollidingOnPos1;
-    let isCollidingOnPos2;
-    let isCollidingOnPos3;
-    let isColliding;
-    
-    const brickSize = globals.level.imageSet.gridSize;
+            //Nuestro wall esta en la posicion 1
+        const Wall = globals.activeWall[i];
 
-    //Id del obstaculo
-    const obstacleId = Block.BLOCK_1;
+        let overlap;
 
-    if (sprite.physics.vx > 0){
+        //Datos del wall
+        const x1 = Wall.xPos + Wall.hitBox.xOffset;
+        const y1 = Wall.yPos + Wall.hitBox.yOffset;
+        const w1 = Wall.hitBox.xSize;
+        const h1 = Wall.hitBox.ySize;
 
-        //Primera colisión en (xPos + xSize - 1, yPos)
-        xPos = player.xPos + player.hitBox.xOffset + player.hitBox.xSize + 1;
-        yPos = player.yPos + player.hitBox.yOffset;
-        isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+        //Datos del otro sprite
+        const x2 = sprite.xPos + sprite.hitBox.xOffset;
+        const y2 = sprite.yPos + sprite.hitBox.yOffset;
+        const w2 = sprite.hitBox.xSize;
+        const h2 = sprite.hitBox.ySize;
 
-        // Segunda colision en (xPos + Size - 1, yPos + bricksize)
-        yPos = player.yPos + player.hitBox.yOffset + brickSize;
-        isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
-        
-        //Ultima colisión en (xPos + Size - 1, yPos + ySize - 1)
-        yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize + 1;
-        isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId); 
+        const isOverlap = rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2)
 
-        //Habrá colisión si toca alguno de los 3 bloques.
-        isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3;
-        
-        if (isColliding){
-
-            player.isCollidingWithObstacleOnTheRight = true;
+        //Existe collision
+        if (isOverlap){
             
-            if (player.physics.vLimit > minSpeed){
-
-                player.physics.vLimit -= 10;
-                player.physics.speedReductionContX += 10;
-            }
-        }
-
-        else{
-
-            player.isCollidingWithObstacleOnTheRight = false;
-            
-            if (player.physics.vLimit < minSpeed + player.physics.speedReductionContX){
-
-                player.physics.vLimit += 10;
-            }
-
-            else{
-
-                player.physics.speedReductionContX = 0
-            }
-        }
-    }
-
-    else if (sprite.physics.vx < 0){
-        
-        //Primera colisión en (xPos + xSize - 1, yPos)
-        xPos = player.xPos + player.hitBox.xOffset + 1;
-        yPos = player.yPos + player.hitBox.yOffset;
-        isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
-
-        // Segunda colision en (xPos + Size - 1, yPos + bricksize)
-        yPos = player.yPos + player.hitBox.yOffset + brickSize;
-        isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
-        
-        //Ultima colisión en (xPos + Size - 1, yPos + ySize - 1)
-        yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize + 1;
-        isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId); 
-
-        //Habrá colisión si toca alguno de los 3 bloques.
-        isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3;
-        
-        if (isColliding){
-
-            player.isCollidingWithObstacleOnTheLeft = true;
-            
-            if (player.physics.vLimit > minSpeed){
-
-                player.physics.vLimit -= 10;
-                player.physics.speedReductionContX += 10;
-            }
-        }
-
-        else{
-
-            player.isCollidingWithObstacleOnTheLeft = false;
-            
-            if (player.physics.vLimit < minSpeed + player.physics.speedReductionContX){
-
-                player.physics.vLimit += 10;
-            }
-
-            else{
+            if (sprite.physics.vx > 0){
                 
-                player.physics.speedReductionContX = 0
-            }
-        }
-    }
-
-    else if (sprite.physics.vy > 0){
-
-        //Primera colisión en (xPos + xSize- 1, yPos)
-        xPos = player.xPos + player.hitBox.xOffset + 1;
-        yPos = player.yPos + player.hitBox.yOffset;
-        isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
-
-        // Segunda colision en (xPos + Size - 1, yPos + bricksize)
-        yPos = player.yPos + player.hitBox.yOffset + brickSize;
-        isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
-        
-        //Ultima colisión en (xPos + Size - 1, yPos + ySize - 1)
-        yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize + 1;
-        isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
-
-        //Habrá colisión si toca alguno de los 3 bloques.
-        isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3;
-        
-        if (isColliding){
-
-            player.isCollidingWithObstacleOnTheBottom = true;
-            
-            if (player.physics.vLimit > minSpeed){
-
-                player.physics.vLimit -= 10;
-                player.physics.speedReductionContY += 10;
-            }
-        }
-
-        else{
-
-            player.isCollidingWithObstacleOnTheBottom = false;
-            
-            if (player.physics.vLimit < minSpeed + player.physics.speedReductionContY){
-
-                player.physics.vLimit += 10;
+                overlap = Math.floor(x1 + w1 - 1) % w2 + 1;
+                sprite.xPos -= overlap;
             }
 
-            else{
+            if (sprite.physics.vx < 0){
                 
-                player.physics.speedReductionContY = 0
-            }
-        }
-    }
-
-    else if (sprite.physics.vy < 0){
-
-        //Primera colisión en (xPos + xSize- 1, yPos)
-        xPos = player.xPos + player.hitBox.xOffset + 1;
-        yPos = player.yPos + player.hitBox.yOffset;
-        isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
-
-        // Segunda colision en (xPos + Size - 1, yPos + bricksize)
-        yPos = player.yPos + player.hitBox.yOffset + brickSize;
-        isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
-        
-        //Ultima colisión en (xPos + Size - 1, yPos + ySize - 1)
-        yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize + 1;
-        isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
-    
-        //Habrá colisión si toca alguno de los 3 bloques.
-        isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3;
-        
-        if (isColliding){
-
-            player.isCollidingWithObstacleOnTheTop = true;
-            
-            if (player.physics.vLimit > minSpeed){
-
-                player.physics.vLimit -= 10;
-                player.physics.speedReductionContY += 10;
-            }
-        }
-
-        else{
-
-            player.isCollidingWithObstacleOnTheTop = false;
-            
-            if (player.physics.vLimit < minSpeed + player.physics.speedReductionContY){
-
-                player.physics.vLimit += 10;
+                overlap = Math.floor(x1 + w1 - 1) % w2 + 1;
+                console.log(overlap);
+                sprite.xPos += overlap;
             }
 
-            else{
+            if (sprite.physics.vy > 0){
                 
-                player.physics.speedReductionContY = 0
+                overlap = Math.floor(y1 + h1 - 1) % h2 + 1;
+                sprite.yPos -= overlap;
+            }
+
+            if (sprite.physics.vy < 0){
+
+                overlap = Math.floor(y1 + h1 - 1) % h2 + 1;
+                sprite.yPos += overlap;
             }
         }
     }

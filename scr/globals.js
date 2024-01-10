@@ -42,5 +42,8 @@ export default{
     lifeTime: {},
 
     //Objeto que guarda el estado de la tecla pulsada
-    action: {}
+    action: {},
+
+    //Muros
+    activeWall: []
 };

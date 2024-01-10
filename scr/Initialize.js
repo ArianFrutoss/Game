@@ -114,15 +114,15 @@ function initPlayingSprites(){
     initChild2();
     initEnemy1();
     initChair();
-    initChairInterface();
-    initStoneInterface1();
-    initWoodInterface1();
-    initStoneInterface2();
-    initWoodInterface2();
-    initStoneInterface3();
-    initWoodInterface3();
-    initChild1Interface2();
-    initChild2Interface2();
+    // initChairInterface();
+    // initStoneInterface1();
+    // initWoodInterface1();
+    // initStoneInterface2();
+    // initWoodInterface2();
+    // initStoneInterface3();
+    // initWoodInterface3();
+    // initChild1Interface2();
+    // initChild2Interface2();
 }
 
 function initNewGameSprites(){
@@ -502,10 +502,13 @@ function initWall(childXpos, childYpos){
     const hitBox = new HitBox(24, 60, 16, 4);
 
     //Creamos nuestro sprite
-    const wall = new Sprite(SpriteID.WALL, State.WALL, childXpos + 40, childYpos, imageSet, frames, 0, hitBox);
+    const wall = new Sprite(SpriteID.WALL, State.WALL, childXpos + 30, childYpos, imageSet, frames, 0, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wall);
+
+    //Activar muros
+    globals.activeWall.push(wall);
 }
 
 function initMoon(){
