@@ -30,8 +30,15 @@ export function keydownHandler(event){
         case Key.BUILD:
 
             globals.action.build = true;
-            PlayerPosition.POSITION_X = globals.sprites[0].xPos;
-            PlayerPosition.POSITION_Y = globals.sprites[0].yPos;
+
+            for (let i = 0; i < globals.sprites.length; i++){
+                
+                if (globals.sprites[i].id === SpriteID.PLAYER){
+                    
+                    PlayerPosition.POSITION_X = globals.sprites[i].xPos;
+                    PlayerPosition.POSITION_Y = globals.sprites[i].yPos;
+                }
+            }
             break;
 
         case Key.ATTACK_CHILD:
