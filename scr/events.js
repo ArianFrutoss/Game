@@ -1,7 +1,6 @@
 import {Key, SpriteID} from "./constans.js";
 import globals from "./globals.js";
 import {PlayerPosition} from "./constans.js";
-import Sprite from "./Sprite.js";
 
 export function keydownHandler(event){
 
@@ -39,6 +38,7 @@ export function keydownHandler(event){
                     PlayerPosition.POSITION_Y = globals.sprites[i].yPos;
                 }
             }
+            
             break;
 
         case Key.ATTACK_CHILD:

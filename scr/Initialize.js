@@ -108,7 +108,7 @@ function initSprites(){
 }
 
 function initPlayingSprites(){
-
+    
     initPlayer();
     initChild1();
     initChild2();
@@ -692,6 +692,9 @@ function initLevel(){
 
     //Creamos y guardamos nuestro nivel
     globals.level = new Level(level1, imageSet);
+
+    //Creamos y guardamos nuestros sprites en el mapa
+    globals.level = new Level(spriteLevel1, imageSet);
 }
 
 export{
