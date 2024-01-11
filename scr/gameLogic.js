@@ -101,7 +101,19 @@ function updateSprites(){
 
     for (let i = 0; i < globals.sprites.length; i++){
 
+        for (let j = i + 1; j < globals.sprites.length; j++){
+
+            let maxYPosSprite = globals.sprites[i];
+            
+            if (globals.sprites[j].yPos < globals.sprites[i].yPos){
+                
+                globals.sprites[i] = globals.sprites[j];
+                globals.sprites[j] = maxYPosSprite;
+            }
+        }
+
         const sprite = globals.sprites[i];
+        
         updateSprite(sprite);
         updateSpriteSpeed(sprite);
     }

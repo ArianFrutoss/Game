@@ -75,7 +75,7 @@ function loadAssets(){
 function loadHandler(){
 
     globals.assetsLoaded++;
-    
+
     //Cuando se han cargado todos los archivos entra en el if
     if (globals.assetsLoaded === globals.assetsToLoad.length){
 
@@ -83,7 +83,7 @@ function loadHandler(){
 
             globals.tileSets[i].removeEventListener("load", loadHandler, false);
         }
-        
+
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
@@ -98,12 +98,7 @@ function initTimers(){
 }
 
 function initSprites(){
-
-    for (let i = 0; i < globals.spriteLevel1.length; i++){
-
-        
-    }
-
+    
     initPlayingSprites();
     initNewGameSprites();
     initControlsSprites();
@@ -113,7 +108,7 @@ function initSprites(){
 }
 
 function initPlayingSprites(){
-    
+
     initPlayer();
     initChild1();
     initChild2();
@@ -460,7 +455,7 @@ function initChild2(){
 
     //Creamos los datos de la animacion
     const frames = new Frames(6, 3);
- 
+
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(100);
 
