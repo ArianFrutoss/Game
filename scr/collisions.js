@@ -134,11 +134,12 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
     for (let i = 1; i < globals.activeWall.length; i++){
 
+        //Variables a usar
+        let overlap;
+
         const Wall = globals.activeWall[i];
 
         sprite.isCollidingWithWall = false;
-
-        let overlap;
 
         //Datos del wall
         const x1 = Wall.xPos + Wall.hitBox.xOffset;
@@ -152,7 +153,7 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
         const w2 = sprite.hitBox.xSize;
         const h2 = sprite.hitBox.ySize;
 
-        const isOverlap = rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2)
+        const isOverlap = rectIntersect(x1, y1, w1, h1 / 2, x2, y2, w2, h2);
 
         //Existe collision
         if (isOverlap){
@@ -179,7 +180,7 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
             else if (sprite.physics.vy < 0){
 
-                overlap = y1 - y2 + h1 + 1;
+                overlap = y1 - y2 + h1 / 2 + 1;
                 sprite.yPos += overlap;
             }
         }

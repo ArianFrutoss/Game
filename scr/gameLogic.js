@@ -111,11 +111,10 @@ function updateSprites(){
                 globals.sprites[j] = maxYPosSprite;
             }
 
-            if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id != SpriteID.WALL && globals.sprites[j].id != SpriteID.MAGIC){
+            if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id != SpriteID.MAGIC){
                 
                 globals.sprites[i] = globals.sprites[j];
                 globals.sprites[j] = maxYPosSprite;
-                
             }
         }
 
