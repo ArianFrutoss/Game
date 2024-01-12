@@ -105,11 +105,11 @@ function updateSprites(){
 
             let maxYPosSprite = globals.sprites[i];
             
-            if (globals.sprites[j].yPos < globals.sprites[i].yPos){
+            if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id != SpriteID.WALL && globals.sprites[j].id != SpriteID.MAGIC){
                 
                 globals.sprites[i] = globals.sprites[j];
                 globals.sprites[j] = maxYPosSprite;
-            }
+            }       
         }
 
         const sprite = globals.sprites[i];
