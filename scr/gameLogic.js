@@ -98,18 +98,25 @@ function playGame(){
 }
 
 function updateSprites(){
-
+    
     for (let i = 0; i < globals.sprites.length; i++){
 
         for (let j = i + 1; j < globals.sprites.length; j++){
 
             let maxYPosSprite = globals.sprites[i];
             
+            if (globals.sprites[j].id === SpriteID.WALL && globals.sprites[i].id === SpriteID.MAGIC){
+
+                globals.sprites[i] = globals.sprites[j];
+                globals.sprites[j] = maxYPosSprite;
+            }
+
             if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id != SpriteID.WALL && globals.sprites[j].id != SpriteID.MAGIC){
                 
                 globals.sprites[i] = globals.sprites[j];
                 globals.sprites[j] = maxYPosSprite;
-            }       
+                
+            }
         }
 
         const sprite = globals.sprites[i];
@@ -567,8 +574,7 @@ function updateEnemy1(sprite){
 
 function updateWall(sprite){
 
-    updateAnimationFrame(sprite);
-    detectCollisions(sprite);
+    
 }
 
 function updateMoon(sprite){
