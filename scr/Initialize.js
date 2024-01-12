@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, SpriteID, State, FPS, Child1Position, PlayerPosition} from "./constans.js";
+import {Game, SpriteID, State, FPS} from "./constans.js";
 import Sprite from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
@@ -98,7 +98,37 @@ function initTimers(){
 }
 
 function initSprites(){
+
+    //Creamos las propiedades de las imagenes del mapa
+    const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
+
+    //Creamos y guardamos nuestros sprites en el mapa
+    globals.levelSprites = new Level(spriteLevel1, imageSet);
+
+    const brickSize = globals.levelSprites.imageSet.gridSize;
+    const levelData = globals.levelSprites.data;
+
+    //Dibujamos el mapa
+    const num_fil = levelData.length;
+    const num_col = levelData[0].length;
+        
+    for (let i = 0; i < num_fil - 7; i++){
+
+        for (let j = 0; j < num_col; j++){
+
+            const xPos = j * brickSize;
+            const yPos = i * brickSize;
+
+            if (levelData[i][j] === globals.sprites[i].id){
+
+                globals.sprites[i].xPos = xPos;
+                
+                globals.sprites[i].xPos = yPos;
+            }
+        }
+    }
     
+
     initPlayingSprites();
     initNewGameSprites();
     initControlsSprites();
@@ -108,7 +138,7 @@ function initSprites(){
 }
 
 function initPlayingSprites(){
-    
+
     initPlayer();
     initChild1();
     initChild2();
@@ -692,9 +722,6 @@ function initLevel(){
 
     //Creamos y guardamos nuestro nivel
     globals.level = new Level(level1, imageSet);
-
-    //Creamos y guardamos nuestros sprites en el mapa
-    globals.level = new Level(spriteLevel1, imageSet);
 }
 
 export{

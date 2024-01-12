@@ -28,6 +28,9 @@ export default{
     //Datos del nivel
     level: {},
 
+    //Datos de los sprites del nivel
+    levelSprites: {},
+
     //Variable para gestionar la carga de archivos
     assetsToLoad: [],
     assetsLoaded: 0,

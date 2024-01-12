@@ -35,12 +35,6 @@ export const PlayerPosition = {
     POSITION_Y: 0
 }
 
-export const Child1Position = {
-
-    POSITION_X: 0,
-    POSITION_Y: 0
-}
-
 export const Child2Position = {
 
     POSITION_X: 0,

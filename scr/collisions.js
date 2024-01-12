@@ -31,7 +31,7 @@ export default function detectCollisions(){
             detectCollisionsBetweenSpritesAndLakes(sprite);
         }
 
-        if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
+        if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2 || sprite.id === SpriteID.MAGIC){
            
             detectCollisionsBetweenSpritesAndWall(sprite);
         }
@@ -153,35 +153,41 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
         const w2 = sprite.hitBox.xSize;
         const h2 = sprite.hitBox.ySize;
 
-        const isOverlap = rectIntersect(x1, y1, w1, h1 / 2, x2, y2, w2, h2);
+        let xPos1 = sprite.xPos + sprite.hitBox.xOffset + sprite.hitBox.xSize + 1;
+        let xPos2 = sprite.xPos + sprite.hitBox.xOffset + 1;
+
+        const isOverlap = rectIntersect(x1, y1, w1, xPos1 - xPos2, x2, y2, w2, h2);
 
         //Existe collision
         if (isOverlap){
 
             sprite.isCollidingWithWall = true;
-            
-            if (sprite.physics.vx > 0){
                 
-                overlap = x1 - x2 - w2 - 1;
-                sprite.xPos += overlap;
-            }
+            if (sprite.id != SpriteID.MAGIC){
 
-            else if (sprite.physics.vx < 0){
-                
-                overlap = x1 - x2 + w1 + 1;
-                sprite.xPos += overlap;
-            }
+                if (sprite.physics.vx > 0){
+                    
+                    overlap = x1 - x2 - w2 - 1;
+                    sprite.xPos += overlap;
+                }
 
-            else if (sprite.physics.vy > 0){
-                
-                overlap = y1 - y2 - h2 - 1;
-                sprite.yPos += overlap;
-            }
+                else if (sprite.physics.vx < 0){
+                    
+                    overlap = x1 - x2 + w1 + 1;
+                    sprite.xPos += overlap;
+                }
 
-            else if (sprite.physics.vy < 0){
+                else if (sprite.physics.vy > 0){
+                    
+                    overlap = y1 - y2 - h2 - 1;
+                    sprite.yPos += overlap;
+                }
 
-                overlap = y1 - y2 + h1 / 2 + 1;
-                sprite.yPos += overlap;
+                else if (sprite.physics.vy < 0){
+
+                    overlap = y1 - y2 + xPos1 - xPos2 + 1;
+                    sprite.yPos += overlap;
+                }
             }
         }
     }

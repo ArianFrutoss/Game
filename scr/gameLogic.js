@@ -102,26 +102,27 @@ function updateSprites(){
     for (let i = 0; i < globals.sprites.length; i++){
 
         for (let j = i + 1; j < globals.sprites.length; j++){
-
+            
             let maxYPosSprite = globals.sprites[i];
             
-            if (globals.sprites[j].id === SpriteID.WALL && globals.sprites[i].id === SpriteID.MAGIC){
-
+            if (globals.sprites[j].yPos < globals.sprites[i].yPos){
+                
                 globals.sprites[i] = globals.sprites[j];
                 globals.sprites[j] = maxYPosSprite;
             }
 
-            if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id != SpriteID.MAGIC){
-                
+            if (i === globals.sprites.length && globals.sprites[i].id != SpriteID.WALL){
+
                 globals.sprites[i] = globals.sprites[j];
                 globals.sprites[j] = maxYPosSprite;
             }
         }
 
         const sprite = globals.sprites[i];
-        
         updateSprite(sprite);
+        
         updateSpriteSpeed(sprite);
+        //updateSpriteWhenIsCollidingWithWall(sprite);
     }
 }
 
@@ -643,7 +644,7 @@ function updateAnimationFrame(sprite){
 
 function updateSpriteSpeed(sprite){
     
-    //Intentar hacer que la speed de cambio de frames se reduzca dentro de los charcos
+    //TODO Intentar hacer que la speed de cambio de frames se reduzca dentro de los charcos
     if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
         
         const minSpeed = 30;
@@ -669,5 +670,24 @@ function updateSpriteSpeed(sprite){
                 sprite.physics.speedReductionCont = 0;
             }
         }
+    }
+}
+
+let cont = 0;
+
+function updateSpriteWhenIsCollidingWithWall(sprite){
+
+    if (sprite.isCollidingWithWall && cont === 0){
+        console.log(1);
+        sprite.state -= 1;
+
+        cont--;
+    }
+
+    else if (sprite.isCollidingWithWall && cont === 0){
+        console.log(1);
+        
+
+        cont--;
     }
 }
