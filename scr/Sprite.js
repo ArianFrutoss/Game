@@ -13,5 +13,6 @@ export default class Sprite{
         this.isCollidingWithPlayer              = false;        //Variables que indica si la habido colision con el player
         this.isCollidingWithTheLake             = false;        //Indica si ha habido colision con el lago
         this.isCollidingWithWall                = false;        //Indica si ha habido colosion con el muro
+        this.lastFrameCollision                 = false;                
     }
 }

@@ -388,7 +388,7 @@ function initPlayer(){
     const hitBox = new HitBox(20, 48, 21, 11);
 
     //Creamos nuestro sprite
-    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 186, imageSet, frames, physics, hitBox);
+    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 184, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(player);

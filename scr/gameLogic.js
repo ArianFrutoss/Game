@@ -104,25 +104,30 @@ function updateSprites(){
         for (let j = i + 1; j < globals.sprites.length; j++){
             
             let maxYPosSprite = globals.sprites[i];
-            
-            if (globals.sprites[j].yPos < globals.sprites[i].yPos){
+
+            if (globals.sprites[i].id === SpriteID.MAGIC && globals.sprites[j].id === SpriteID.WALL && globals.sprites[i].isCollidingWithWall){
                 
                 globals.sprites[i] = globals.sprites[j];
                 globals.sprites[j] = maxYPosSprite;
             }
 
-            if (i === globals.sprites.length && globals.sprites[i].id != SpriteID.WALL){
+            else if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id === SpriteID.MAGIC && globals.sprites[i].id != SpriteID.WALL){
+                
+                globals.sprites[i] = globals.sprites[j];
+                globals.sprites[j] = maxYPosSprite;
+            }
 
+            else if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id != SpriteID.MAGIC){
+                
                 globals.sprites[i] = globals.sprites[j];
                 globals.sprites[j] = maxYPosSprite;
             }
         }
-
+        
         const sprite = globals.sprites[i];
         updateSprite(sprite);
-        
         updateSpriteSpeed(sprite);
-        //updateSpriteWhenIsCollidingWithWall(sprite);
+        updatePlayerStateWhenIsCollidingWithWall(sprite);
     }
 }
 
@@ -673,21 +678,10 @@ function updateSpriteSpeed(sprite){
     }
 }
 
-let cont = 0;
+function updatePlayerStateWhenIsCollidingWithWall(sprite){
 
-function updateSpriteWhenIsCollidingWithWall(sprite){
-
-    if (sprite.isCollidingWithWall && cont === 0){
-        console.log(1);
-        sprite.state -= 1;
-
-        cont--;
-    }
-
-    else if (sprite.isCollidingWithWall && cont === 0){
-        console.log(1);
+    if (sprite.isCollidingWithWall && sprite.id === SpriteID.PLAYER){
         
-
-        cont--;
+        sprite.state = State.IDLE;
     }
 }
