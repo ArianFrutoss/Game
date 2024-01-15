@@ -41,3 +41,13 @@ export class Enemy1 extends Sprite{
             this.isCollidingWithEnemy               = false;        //Indica si ha habido colosion con el enemigo
     }
 }
+
+export class HudSprites extends Sprite{
+
+    constructor (id, state, xPos, yPos, imageSet, frames){
+
+        super(id, state, xPos, yPos, imageSet, frames);
+
+            this.hud = true
+    }
+}

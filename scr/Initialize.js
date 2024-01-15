@@ -1,7 +1,7 @@
 import globals from "./globals.js";
 import {Game, SpriteID, State, FPS, ParticleState, particleID} from "./constans.js";
 import WaterParticle from "./Particle.js";
-import Sprite, { Enemy1, Player } from "./Sprite.js";
+import Sprite, { Enemy1, HudSprites, Player } from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
 import {Level, level1, spriteLevel1} from "./Level.js";
@@ -14,11 +14,13 @@ import Camera from "./Camera.js";
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
 
-    //Inicializar CANVAS
+    //Inicializar GAME
     globals.canvas = document.getElementById("gameScreen");
-
-    //Inicializar CONTEXT
     globals.ctx = globals.canvas.getContext("2d");
+
+    //Inicializar HUD
+    globals.canvasHUD = document.getElementById("gameHUD");
+    globals.ctxHUD = globals.canvasHUD.getContext("2d");
 
     //Eliminar Anti-Aliasing
     globals.ctx.imageSmoothingEnabled = false;
@@ -181,15 +183,15 @@ function initPlayingSprites(){
     initChild2();
     initEnemy1();
     initChair();
-    // initChairInterface();
-    // initStoneInterface1();
-    // initWoodInterface1();
-    // initStoneInterface2();
-    // initWoodInterface2();
-    // initStoneInterface3();
-    // initWoodInterface3();
-    // initChild1Interface2();
-    // initChild2Interface2();
+    initChairInterface();
+    initStoneInterface1();
+    initWoodInterface1();
+    initStoneInterface2();
+    initWoodInterface2();
+    initStoneInterface3();
+    initWoodInterface3();
+    initChild1Interface2();
+    initChild2Interface2();
 }
 
 function initNewGameSprites(){
@@ -266,7 +268,7 @@ function initChairInterface(){
     const frames = new Frames(4, 100);
 
     //Creamos nuestro sprite
-    const chairInterface = new Sprite(SpriteID.CHAIR_INTERFACE, State.INTEGRITY, 685, 100, imageSet, frames, 0, 0);
+    const chairInterface = new HudSprites(SpriteID.CHAIR_INTERFACE, State.INTEGRITY, 95, 100, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(chairInterface);
@@ -281,7 +283,7 @@ function initStoneInterface1(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_1, State.STONE, 620, 195, imageSet, frames, 0, 0);
+    const stoneInterface = new HudSprites(SpriteID.STONE_INTERFACE_1, State.STONE, 40, 195, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stoneInterface);
@@ -296,7 +298,7 @@ function initWoodInterface1(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_1, State.WOOD, 620, 240, imageSet, frames, 0, 0);
+    const woodInterface = new HudSprites(SpriteID.WOOD_INTERFACE_1, State.WOOD, 40, 240, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(woodInterface);
@@ -311,7 +313,7 @@ function initStoneInterface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_2, State.STONE, 570, 330, imageSet, frames, 0, 0);
+    const stoneInterface = new HudSprites(SpriteID.STONE_INTERFACE_2, State.STONE, -5, 330, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stoneInterface);
@@ -326,7 +328,7 @@ function initWoodInterface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_2, State.WOOD, 670, 330, imageSet, frames, 0, 0);
+    const woodInterface = new HudSprites(SpriteID.WOOD_INTERFACE_2, State.WOOD, 85, 330, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(woodInterface);
@@ -341,7 +343,7 @@ function initStoneInterface3(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const stoneInterface = new Sprite(SpriteID.STONE_INTERFACE_3, State.STONE, 570, 370, imageSet, frames, 0, 0);
+    const stoneInterface = new HudSprites(SpriteID.STONE_INTERFACE_3, State.STONE, -5, 370, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stoneInterface);
@@ -356,7 +358,7 @@ function initWoodInterface3(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const woodInterface = new Sprite(SpriteID.WOOD_INTERFACE_3, State.WOOD, 670, 370, imageSet, frames, 0, 0);
+    const woodInterface = new HudSprites(SpriteID.WOOD_INTERFACE_3, State.WOOD, 85, 370, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(woodInterface);
@@ -371,7 +373,7 @@ function initChild1Interface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child1Interface = new Sprite(SpriteID.CHILD_1_INTERFACE_2, State.CHILD_1_INTERFACE, 780, 330, imageSet, frames, 0);
+    const child1Interface = new HudSprites(SpriteID.CHILD_1_INTERFACE_2, State.CHILD_1_INTERFACE, 175, 330, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child1Interface);
@@ -386,7 +388,7 @@ function initChild2Interface2(){
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const child2Interface = new Sprite(SpriteID.CHILD_2_INTERFACE_2, State.CHILD_2_INTERFACE, 780, 370, imageSet, frames, 0);
+    const child2Interface = new HudSprites(SpriteID.CHILD_2_INTERFACE_2, State.CHILD_2_INTERFACE, 175, 370, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2Interface);

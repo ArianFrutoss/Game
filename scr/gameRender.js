@@ -99,16 +99,31 @@ function renderSprite(sprite){
 
     const xPos = Math.floor(sprite.xPos);
     const yPos = Math.floor(sprite.yPos);
-
+    
     //Dibujamos el nuevo fotograma del sprite
-    globals.ctx.drawImage(
+    if (sprite.hud){
+        
+        globals.ctxHUD.drawImage(
 
-        globals.tileSets[Tile.SPRITES],                             
-        xTile, yTile,                                   
-        sprite.imageSet.xSize, sprite.imageSet.ySize,   
-        xPos, yPos,                                     
-        sprite.imageSet.xSize, sprite.imageSet.ySize    
-    )
+            globals.tileSets[Tile.SPRITES],                             
+            xTile, yTile,                                   
+            sprite.imageSet.xSize, sprite.imageSet.ySize,   
+            xPos, yPos,                                     
+            sprite.imageSet.xSize, sprite.imageSet.ySize    
+        )
+    }
+
+    else{
+
+        globals.ctx.drawImage(
+
+            globals.tileSets[Tile.SPRITES],                             
+            xTile, yTile,                                   
+            sprite.imageSet.xSize, sprite.imageSet.ySize,   
+            xPos, yPos,                                     
+            sprite.imageSet.xSize, sprite.imageSet.ySize    
+        )
+    }
 }
 
 function renderParticles(){
@@ -157,7 +172,7 @@ function renderSprites(){
 
         const sprite = globals.sprites[i];
         // drawSpriteRectangle(sprite);
-        drawSpriteHitBox(sprite);
+        // drawSpriteHitBox(sprite);
         // drawSpriteHitBoxCamera(sprite);
         renderSprite(sprite);
     }
@@ -240,45 +255,45 @@ function renderHUD(){
     const score = 100000;
     const highScore = 640200;
 
-    globals.ctx.font = "12px emulogic";
+    globals.ctxHUD.font = "12px emulogic";
 
     //Pintar los FPS
     //globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 5,20);
 
     //Dibujar High Score
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("HIGH SCORE", 590, 30);
-    globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText (" " + highScore, 755, 30);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("HIGH SCORE", 15, 30);
+    globals.ctxHUD.fillStyle = "crimson";
+    globals.ctxHUD.fillText (" " + highScore, 150, 30);
 
     //Dibujar Score
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("SCORE", 590, 60);
-    globals.ctx.fillStyle = "lightgray";
-    globals.ctx.fillText (" " + score, 755, 60);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("SCORE", 15, 60);
+    globals.ctxHUD.fillStyle = "lightgray";
+    globals.ctxHUD.fillText (" " + score, 150, 60);
 
     //Dibujar materiales
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("MATERIALS", 660, 200);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("MATERIALS", 75, 200);
 
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 1", 750, 240);
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 5", 750, 280);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("x 1", 155, 240);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("x 5", 155, 280);
 
     //Dibujar Requisitos
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("REQUERIMENTS", 645, 320);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("REQUERIMENTS", 55, 320);
 
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 1", 625, 370);
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 3", 625, 410);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("x 1", 50, 370);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("x 3", 50, 410);
 
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 2", 725, 370);
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("x 2", 725, 410);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("x 2", 135, 370);
+    globals.ctxHUD.fillStyle = "white";
+    globals.ctxHUD.fillText ("x 2", 135, 410);
 }
 
 function renderNewGameText(){
