@@ -100,6 +100,7 @@ function playGame(){
     updateCamera();
     updateLakes();
     spawnRandomEnemys();
+    updateScore();
 }
 
 function updateSprites(){
@@ -322,8 +323,7 @@ function updateSprite(sprite){
 
 function updateChairInterface(sprite){
 
-    //Actualizamos la animacion
-    updateAnimationFrame(sprite);
+    sprite.frames.frameCounter = globals.chairHP;
 }
 
 function updateChair(sprite){
@@ -649,9 +649,18 @@ function updateEnemy1(sprite){
 
     if (sprite.hp === 0 && sprite.state === State.ENEMY_1_DEAD && sprite.frames.frameCounter === 3){
 
+        updateTimer(globals.EnemyDespawnTime);
+        console.log(globals.EnemyDespawnTime.value);
         activeDead = true;
         sprite.frames.speed = 0;
         sprite.frames.frameCounter = 0;
+        globals.score += 100;
+
+        if (globals.EnemyDespawnTime.value === 0){
+            
+            globals.sprites.splice(sprite, 1)
+            globals.EnemyDespawnTime.value = 5;
+        }
     }
 
     //Actualizamos la animacion
@@ -741,11 +750,11 @@ function updateSpriteSpeed(sprite){
 
                 sprite.physics.vLimit -= 10;
                 sprite.physics.speedReductionCont += 10;
-
+                
                 const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
                 const spriteYpos = sprite.yPos + sprite.imageSet.ySize;
                 
-                // initWaterParticles(spriteXpos, spriteYpos);
+                //initWaterParticles(spriteXpos, spriteYpos);
             }
         }
 
@@ -816,7 +825,7 @@ function updateLakes(){
         globals.lakesTime.value = 30;
     }
 }
-let cont = 4;
+
 function spawnRandomEnemys(){
 
     const randomYpos = Math.floor(Math.random() * 300);
@@ -825,19 +834,14 @@ function spawnRandomEnemys(){
     
     if (globals.EnemySpawnTime.value === 0){
 
-        globals.EnemySpawnTime.value = 10;
+        globals.EnemySpawnTime.value = 3;
         
-        if (cont > 0){
-            
-            initEnemy1(randomYpos);
-            cont--;
-        }
-
-        if (cont === 0 && globals.EnemySpawnTime.value > 0){
-        
-            cont = 4;
-        }
+        initEnemy1(randomYpos);   
     }
+}
 
+function updateScore(){
+
+    
     
 }

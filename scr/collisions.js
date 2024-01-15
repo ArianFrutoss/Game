@@ -41,10 +41,12 @@ export default function detectCollisions(){
            
             detectCollisionsBetweenChairAndEnemy(sprite);
             detectCollisionsBetweenMagicAndEnemy(sprite);
+            
         }
 
         if (sprite.id === SpriteID.PLAYER){
 
+            // detectCollisionsBetweenPlayerCameraHitboxAndBorders(sprite);
             detectCollisionsBetweenPlayerAndBorders(sprite);
         }
     }
@@ -141,29 +143,74 @@ function detectCollisionsBetweenPlayerAndBorders(sprite){
         sprite.xPos -= overlap;
     }
 
-    else if (sprite.xPos > 64 * 16){
+    // else if (sprite.xPos > 64 * 16){
         
-        sprite.isCollidingWithBorderRight = true;
+    //     sprite.isCollidingWithBorderRight = true;
         
-        overlap = 64 * 15 - x1;
-        sprite.xPos += overlap;
+    //     overlap = 64 * 15 - x1;
+    //     sprite.xPos += overlap;
+    // }
+
+    // else if (sprite.yPos < 0){
+
+    //     sprite.isCollidingWithBorderTop = true;
+
+    //     overlap = y1 - y2 - h2 - 1;
+    //     sprite.yPos += overlap;
+    // }
+
+    // else if (y1 > globals.canvas.height){
+
+    //     sprite.isCollidingWithBorderBottom = true;
+
+    //     overlap = y1 - 0 + h1 + 1;
+    //     sprite.yPos += overlap;
+    // }
+}
+
+function detectCollisionsBetweenPlayerCameraHitboxAndBorders(sprite){
+
+    let overlap;
+
+    sprite.isCollidingWithBorderRight = false;
+    sprite.isCollidingWithBorderLeft = false;
+    sprite.isCollidingWithBorderTop = false;
+    sprite.isCollidingWithBorderBottom = false;
+
+    //Datos del player
+    const x1 = sprite.xPos + sprite.hitBoxCamera.xOffset;
+    const y1 = sprite.yPos + sprite.hitBoxCamera.yOffset;
+    const w1 = sprite.hitBoxCamera.xSize;
+    const h1 = sprite.hitBoxCamera.ySize;
+    
+    if (sprite.hitBox.xOffset < 0){
+
+        sprite.isCollidingWithBorderLeft = true;
     }
 
-    else if (sprite.yPos < 0){
+    // else if (sprite.xPos > 64 * 16){
+        
+    //     sprite.isCollidingWithBorderRight = true;
+        
+    //     overlap = 64 * 15 - x1;
+    //     sprite.xPos += overlap;
+    // }
 
-        sprite.isCollidingWithBorderTop = true;
+    // else if (sprite.yPos < 0){
 
-        overlap = y1 - y2 - h2 - 1;
-        sprite.yPos += overlap;
-    }
+    //     sprite.isCollidingWithBorderTop = true;
 
-    else if (y1 > globals.canvas.height){
+    //     overlap = y1 - y2 - h2 - 1;
+    //     sprite.yPos += overlap;
+    // }
 
-        sprite.isCollidingWithBorderBottom = true;
+    // else if (y1 > globals.canvas.height){
 
-        overlap = y1 - 0 + h1 + 1;
-        sprite.yPos += overlap;
-    }
+    //     sprite.isCollidingWithBorderBottom = true;
+
+    //     overlap = y1 - 0 + h1 + 1;
+    //     sprite.yPos += overlap;
+    // }
 }
 
 function getMapTileId(xPos, yPos){

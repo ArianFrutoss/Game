@@ -49,6 +49,9 @@ export default{
     //Temporizador aparicion de enemigos
     EnemySpawnTime: {},
 
+    //Temporizador aparicion de enemigos
+    EnemyDespawnTime: {},
+
     //Objeto que guarda el estado de la tecla pulsada
     action: {},
 
@@ -57,6 +60,9 @@ export default{
 
     //Chair HP
     chairHP: 0,
+
+    //Score
+    score: 0,
 
     //Array de particulas
     particles: [],

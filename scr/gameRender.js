@@ -67,7 +67,10 @@ function drawGame(){
     
     //Borrar la pantalla
     globals.ctx.clearRect(0, 0, globals.canvas.width, globals.canvas.height);
-
+    
+    //Borrar la pantalla
+    globals.ctxHUD.clearRect(0, 0, globals.canvasHUD.width, globals.canvasHUD.height);
+    
     //Movemos la camara
     moveCamera();
 
@@ -252,7 +255,6 @@ function renderMap(){
 function renderHUD(){
 
     //Datos
-    const score = 100000;
     const highScore = 640200;
 
     globals.ctxHUD.font = "12px emulogic";
@@ -270,7 +272,7 @@ function renderHUD(){
     globals.ctxHUD.fillStyle = "white";
     globals.ctxHUD.fillText ("SCORE", 15, 60);
     globals.ctxHUD.fillStyle = "lightgray";
-    globals.ctxHUD.fillText (" " + score, 150, 60);
+    globals.ctxHUD.fillText (" " + globals.score, 150, 60);
 
     //Dibujar materiales
     globals.ctxHUD.fillStyle = "white";

@@ -61,7 +61,7 @@ function initEvents(){
 function loadAssets(){
 
     let tileSet;
-
+    
     tileSet = new Image();
     tileSet.addEventListener("load", loadHandler, false);
     tileSet.src = "./images/spritesheet.png";
@@ -100,6 +100,7 @@ function initTimers(){
     globals.levelTime = new Timer(30, 1);
     globals.lakesTime = new Timer(30, 1);
     globals.EnemySpawnTime = new Timer(5, 1);
+    globals.EnemyDespawnTime = new Timer(5, 1);
 }
 
 function initParticles(){
@@ -167,7 +168,6 @@ function initSprites(){
     //         }
     //     }
     // }
-    
 
     initPlayingSprites();
     initNewGameSprites();
@@ -421,7 +421,7 @@ function initPlayer(){
     const frames = new Frames(7, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(100);
+    const physics = new Physics(180);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(20, 48, 21, 11);
