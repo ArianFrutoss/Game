@@ -1,5 +1,6 @@
 import globals from "./globals.js";
-import {Game, SpriteID, State, FPS} from "./constans.js";
+import {Game, SpriteID, State, FPS, ParticleState, particleID} from "./constans.js";
+import WaterParticle from "./Particle.js";
 import Sprite, { Enemy1 } from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
@@ -97,36 +98,67 @@ function initTimers(){
     globals.lifeTime = new Timer(2, 0.01);
 }
 
+function initParticles(){
+
+    initWaterParticles();
+}
+
+function initWaterParticles(){
+
+    const numParticles  = 300;
+    const xInit         = 50;
+    const yInit         = 20;
+    const radius        = 2.5;
+    const timeToFadeMax = 5;
+    const alpha         = 1.0;
+
+    for (let i = 0; i < numParticles; i++){
+
+        const velocity = Math.random() * 25 + 5;
+        const physics = new Physics(velocity);
+
+        const timeToFade = timeToFadeMax * Math.random() + 1;
+        const particle = new WaterParticle(particleID.EXPLOSION, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
+
+        //Asignamos velocidades segun angulo aleatorio
+        const randomAngle = Math.random() * 2 * Math.PI;
+        particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle);
+        particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle);
+
+        globals.particles.push(particle);
+    }
+}
+
 function initSprites(){
 
-    //Creamos las propiedades de las imagenes del mapa
-    const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
+    // //Creamos las propiedades de las imagenes del mapa
+    // const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
 
-    //Creamos y guardamos nuestros sprites en el mapa
-    globals.levelSprites = new Level(spriteLevel1, imageSet);
+    // //Creamos y guardamos nuestros sprites en el mapa
+    // globals.levelSprites = new Level(spriteLevel1, imageSet);
 
-    const brickSize = globals.levelSprites.imageSet.gridSize;
-    const levelData = globals.levelSprites.data;
+    // const brickSize = globals.levelSprites.imageSet.gridSize;
+    // const levelData = globals.levelSprites.data;
 
-    //Dibujamos el mapa
-    const num_fil = levelData.length;
-    const num_col = levelData[0].length;
+    // //Dibujamos el mapa
+    // const num_fil = levelData.length;
+    // const num_col = levelData[0].length;
         
-    for (let i = 0; i < num_fil - 7; i++){
+    // for (let i = 0; i < num_fil - 7; i++){
 
-        for (let j = 0; j < num_col; j++){
+    //     for (let j = 0; j < num_col; j++){
 
-            const xPos = j * brickSize;
-            const yPos = i * brickSize;
+    //         const xPos = j * brickSize;
+    //         const yPos = i * brickSize;
 
-            if (levelData[i][j] === globals.sprites[i].id){
+    //         if (levelData[i][j] === globals.sprites[i].id){
 
-                globals.sprites[i].xPos = xPos;
+    //             globals.sprites[i].xPos = xPos;
                 
-                globals.sprites[i].xPos = yPos;
-            }
-        }
-    }
+    //             globals.sprites[i].xPos = yPos;
+    //         }
+    //     }
+    // }
     
 
     initPlayingSprites();
@@ -740,5 +772,6 @@ export{
     initOverSprites,
     initSprites,
     initWall,
-    initMagic
+    initMagic,
+    initParticles
 }

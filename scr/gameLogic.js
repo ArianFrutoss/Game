@@ -1,8 +1,7 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position} from "./constans.js";
+import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, particleID} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
-import { Enemy1 } from "./Sprite.js";
 
 export default function update(){
 
@@ -95,6 +94,7 @@ export default function update(){
 function playGame(){
 
     updateSprites();
+    updateParticles();
     detectCollisions();
 }
 
@@ -130,8 +130,72 @@ function updateSprites(){
         updateSpriteSpeed(sprite);
         updatePlayerStateWhenIsCollidingWithWall(sprite);
         updateChairHPWhenIsCollidingWithEnemy(sprite);
-        // updateEnemyHpWhenIsCOllidingWithEnemy(sprite);
+        updateEnemyHpWhenIsCOllidingWithEnemy(sprite);
     }
+}
+
+function updateParticles(){
+
+    for (let i = 0; i < globals.particles.length; i++){
+
+        const particle = globals.particles[i];
+        updateParticle(particle);
+    }
+}
+
+function updateParticle(particle){
+
+    const type = particle.id;
+
+    switch (type){
+
+        //Caso del jugador
+        case particleID.EXPLOSION:
+
+            updateWaterParticle(particle);
+            break;
+        
+        default:
+
+            break;
+    }
+}
+
+function updateWaterParticle(particle){
+
+    particle.fadeCounter += globals.deltaTime;
+
+    //Cogemos las velocidades de los arrays
+    switch (particle.state){
+
+        case ParticleState.ON:
+
+            if (particle.fadeCounter > particle.timeToFade){
+
+                particle.fadeCounter = 0;
+                particle.state = ParticleState.FADE;
+            }
+
+            break;
+
+        case ParticleState.FADE:
+
+            particle.alpha -= 0.01;
+
+            if (particle.alpha <= 0){
+
+                particle.state = ParticleState.OFF;
+            }
+
+            break;
+        
+        case ParticleState.OFF:
+            
+        break;
+    }
+
+    particle.xPos += particle.physics.vx * globals.deltaTime;
+    particle.yPos += particle.physics.vy * globals.deltaTime;
 }
 
 function updateTimer(time){

@@ -49,7 +49,7 @@ export const Enemy1Position = {
 
 export const particleID = {
 
-    EXPLOSION:      0
+    WATER:      0
 }
 
 export const ParticleState = {

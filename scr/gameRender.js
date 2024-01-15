@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, Tile} from "./constans.js";
+import {Game, ParticleState, Tile, particleID} from "./constans.js";
 
 export default function render(){
     
@@ -58,12 +58,15 @@ function drawGame(){
 
     //Dibujamos el nivel
     renderMap();
+
+    //Pintar los sprites
+    renderSprites();
+
+    //Pintar las particulas
+    renderParticles();
     
     //Dibujamos la interfaz
     renderHUD();
-
-    //Pintar los sprites
-    drawSprites();
 }
 
 function renderSprite(sprite){
@@ -90,7 +93,47 @@ function renderSprite(sprite){
     )
 }
 
-function drawSprites(){
+function renderParticles(){
+
+    for (let i = 0; globals.particles.length; i++){
+
+        const particle = globals.particles[i];
+        renderParticle(particle);
+    }
+}
+
+function renderParticle(particle){
+
+    const type = particle.id;
+
+    switch (type){
+
+        //Caso del jugador
+        case particleID.WATER:
+
+            renderWaterParticle(particle);
+            break;
+        
+        default:
+
+            break;
+    }
+}
+
+function renderWaterParticle(particle){
+
+    if (particle.state != ParticleState.OFF){
+
+        globals.ctx.fillStyle = "blue";
+        globals.ctx.globalAlpha = particle.alpha;
+        globals.ctx.beginPath();
+        globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI);
+        globals.ctx.fill();
+        globals.ctx.globalAlpha = 1.0;
+    }
+}
+
+function renderSprites(){
 
     for (let i = 0; i < globals.sprites.length; ++i){
 
