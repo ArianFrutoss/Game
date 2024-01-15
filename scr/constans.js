@@ -47,6 +47,18 @@ export const Enemy1Position = {
     POSITION_Y: 0
 }
 
+export const particleID = {
+
+    EXPLOSION:      0
+}
+
+export const ParticleState = {
+
+    ON:     0,
+    FADE:   1,
+    OFF:    -1
+}
+
 //Velocidad del juego
 export const FPS = 30;
 

@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, SpriteID, State, FPS} from "./constans.js";
-import Sprite from "./Sprite.js";
+import Sprite, { Enemy1 } from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
 import {Level, level1, spriteLevel1} from "./Level.js";
@@ -505,7 +505,7 @@ function initEnemy1(){
     const imageSet = new ImageSet(18, 0, 64, 64, 64, 0, 0);
 
     //Creamos los datos de la animacion
-    const frames = new Frames(8, 2);
+    const frames = new Frames(6, 2);
 
     //Creamos los datos de las fisicas del sprite
     const physics = new Physics(60);
@@ -514,7 +514,7 @@ function initEnemy1(){
     const hitBox = new HitBox(18, 45, 22, 10);
 
     //Creamos nuestro sprite
-    const enemy1 = new Sprite(SpriteID.ENEMY_1, State.ENEMY_1_WALK, 500, 300, imageSet, frames, physics, hitBox);
+    const enemy1 = new Enemy1(SpriteID.ENEMY_1, State.ENEMY_1_RUN, 500, 300, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(enemy1);

@@ -48,5 +48,11 @@ export default{
     action: {},
 
     //Muros
-    activeWall: []
+    activeWall: [],
+
+    //Chair HP
+    chairHP: 0,
+
+    //Array de particulas
+    particles: []
 };

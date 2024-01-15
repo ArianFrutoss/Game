@@ -2,6 +2,7 @@ import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
+import { Enemy1 } from "./Sprite.js";
 
 export default function update(){
 
@@ -128,6 +129,8 @@ function updateSprites(){
         updateSprite(sprite);
         updateSpriteSpeed(sprite);
         updatePlayerStateWhenIsCollidingWithWall(sprite);
+        updateChairHPWhenIsCollidingWithEnemy(sprite);
+        // updateEnemyHpWhenIsCOllidingWithEnemy(sprite);
     }
 }
 
@@ -255,7 +258,7 @@ function updateChairInterface(sprite){
 
 function updateChair(sprite){
 
-    
+    sprite.frames.frameCounter = globals.chairHP;
 }
 
 function updatePlayer(sprite){
@@ -552,30 +555,39 @@ function updatechild2Return(sprite){
 
 function updateEnemy1(sprite){
 
-    Enemy1Position.POSITION_X = sprite.xPos;
-    Enemy1Position.POSITION_Y = sprite.yPos;
+    let activeDead = false;
 
-    sprite.physics.vx = -sprite.physics.vLimit;
-    sprite.physics.vy = 0;
-    
-    sprite.xPos += sprite.physics.vx * globals.deltaTime;
-    sprite.yPos += sprite.physics.vy * globals.deltaTime;
+    if (sprite.state === State.ENEMY_1_RUN){
+
+        Enemy1Position.POSITION_X = sprite.xPos;
+        Enemy1Position.POSITION_Y = sprite.yPos;
+
+        sprite.physics.vx = -sprite.physics.vLimit;
+        sprite.physics.vy = 0;
+        
+        sprite.xPos += sprite.physics.vx * globals.deltaTime;
+        sprite.yPos += sprite.physics.vy * globals.deltaTime;
+
+        if (sprite.hp === 0 && sprite.frames.frameCounter === 1){
+
+            sprite.state = State.ENEMY_1_DEAD;
+            sprite.physics.vLimit = 0;
+            sprite.frames.speed = 4;
+            sprite.frames.framesPerState = 4;
+        }
+    }
+
+    if (sprite.hp === 0 && sprite.state === State.ENEMY_1_DEAD && sprite.frames.frameCounter === 3){
+
+        activeDead = true;
+        sprite.frames.speed = 0;
+        sprite.hp = -1;
+        sprite.frames.frameCounter = 0;
+    }
 
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
-
-    if (sprite.isCollidingWithPlayer){
-        
-        sprite.isCollidingWithPlayer = false;
-        
-        if (globals.lifeTime.value === 2){
-
-            updateTimer(globals.lifeTime);
-
-            globals.sprites[4].frames.frameCounter += 1;
-        }
-    }
-}
+}   
 
 function updateWall(sprite){
 
@@ -683,5 +695,22 @@ function updatePlayerStateWhenIsCollidingWithWall(sprite){
     if (sprite.isCollidingWithWall && sprite.id === SpriteID.PLAYER){
         
         sprite.state = State.IDLE;
+    }
+}
+
+function updateChairHPWhenIsCollidingWithEnemy(sprite){
+
+    if (sprite.isCollidingWithChair){
+        
+        globals.chairHP += 1;
+    }
+}
+
+function updateEnemyHpWhenIsCOllidingWithEnemy(sprite){
+
+    if (sprite.isCollidingWithEnemy){
+        
+        sprite.hp -= 1;
+        sprite.isCollidingWithEnemy = false;
     }
 }

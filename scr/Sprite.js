@@ -13,6 +13,17 @@ export default class Sprite{
         this.isCollidingWithPlayer              = false;        //Variables que indica si la habido colision con el player
         this.isCollidingWithTheLake             = false;        //Indica si ha habido colision con el lago
         this.isCollidingWithWall                = false;        //Indica si ha habido colosion con el muro
-        this.lastFrameCollision                 = false;                
+        this.isCollidingWithChair               = false;        //Indica si ha habido colosion con la silla
+    }
+}
+
+export class Enemy1 extends Sprite{
+
+    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox, ){
+
+        super(id, state, xPos, yPos, imageSet, frames, physics, hitBox);
+
+            this.hp                                 = 4;            //Vida de los enemigos
+            this.isCollidingWithEnemy               = false;        //Indica si ha habido colosion con el enemigo
     }
 }

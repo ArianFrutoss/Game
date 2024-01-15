@@ -95,8 +95,8 @@ function drawSprites(){
     for (let i = 0; i < globals.sprites.length; ++i){
 
         const sprite = globals.sprites[i];
-        //drawSpriteRectangle(sprite);
-        //drawSpriteHitBox(sprite);
+        // drawSpriteRectangle(sprite);
+        // drawSpriteHitBox(sprite);
         renderSprite(sprite);
     }
 }

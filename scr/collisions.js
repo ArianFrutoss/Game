@@ -35,35 +35,80 @@ export default function detectCollisions(){
            
             detectCollisionsBetweenSpritesAndWall(sprite);
         }
+
+        if (sprite.id === SpriteID.ENEMY_1){
+           
+            detectCollisionsBetweenChairAndEnemy(sprite);
+            detectCollisionsBetweenMagicAndEnemy(sprite);
+        }
     }
 }
 
-function detectCollisionsBetweenPlayerAndSprite(sprite){
+function detectCollisionsBetweenChairAndEnemy(sprite){
 
-    //Reinicia la State de la collision
-    sprite.isCollidingWithPlayer = false;
+    for (let i = 0; i < globals.sprites.length; i++){
 
-    //Nuestro player esta en la posicion 1
-    const player = globals.sprites[4];
+        if (globals.sprites[i].id === SpriteID.CHAIR){
+            
+            const chair = globals.sprites[i];
+        
+            sprite.isCollidingWithChair = false;
 
-    //Datos del player
-    const x1 = player.xPos + player.hitBox.xOffset;
-    const y1 = player.yPos + player.hitBox.yOffset;
-    const w1 = player.hitBox.xSize;
-    const h1 = player.hitBox.ySize;
+            //Datos de la chair
+            const x1 = chair.xPos + chair.hitBox.xOffset;
+            const y1 = chair.yPos + chair.hitBox.yOffset;
+            const w1 = 1;
+            const h1 = chair.hitBox.ySize;
 
-    //Datos del otro sprite
-    const x2 = sprite.xPos + sprite.hitBox.xOffset;
-    const y2 = sprite.yPos + sprite.hitBox.yOffset;
-    const w2 = sprite.hitBox.xSize;
-    const h2 = sprite.hitBox.ySize;
+            //Datos del otro sprite
+            const x2 = sprite.xPos + sprite.hitBox.xOffset;
+            const y2 = sprite.yPos + sprite.hitBox.yOffset;
+            const w2 = 1;
+            const h2 = sprite.hitBox.ySize;
 
-    const isOverlap = rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2)
+            const isOverlap = rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2);
 
-    if (isOverlap){
+            //Existe collision
+            if (isOverlap){
+                
+                sprite.isCollidingWithChair = true;
+            }
+        }
+    }
+}
 
-        //Existe collision
-        sprite.isCollidingWithPlayer = true;
+function detectCollisionsBetweenMagicAndEnemy(sprite){
+
+    for (let i = 0; i < globals.sprites.length; i++){
+
+        if (globals.sprites[i].id === SpriteID.MAGIC){
+
+            const magic = globals.sprites[i];
+        
+            sprite.isCollidingWithEnemy = false;
+
+            //Datos de la magic
+            const x1 = magic.xPos + magic.hitBox.xOffset;
+            const y1 = magic.yPos + magic.hitBox.yOffset;
+            const w1 = magic.hitBox.xSize;
+            const h1 = magic.hitBox.ySize;
+
+            //Datos del otro sprite
+            const x2 = sprite.xPos + sprite.hitBox.xOffset;
+            const y2 = sprite.yPos + sprite.hitBox.yOffset;
+            const w2 = sprite.hitBox.xSize;
+            const h2 = sprite.hitBox.ySize;
+
+            const isOverlap = rectIntersect(x1, y1, w1, h1 + h1, x2, y2, w2, h2);
+
+            //Existe collision
+            if (isOverlap && sprite.hp > 0){
+                
+                sprite.isCollidingWithEnemy = true;
+                globals.sprites.splice(i, 1);
+                sprite.hp -= 1;
+            }
+        }
     }
 }
 
