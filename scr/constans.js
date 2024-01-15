@@ -59,6 +59,15 @@ export const ParticleState = {
     OFF:    -1
 }
 
+export const collision = {
+
+    NO_COLLISION:   -1,
+    BORDER_UP:      0,
+    BORDER_DOWN:    1,
+    BORDER_LEFT:    2,
+    BORDER_RIGHT:   3
+}
+
 //Velocidad del juego
 export const FPS = 30;
 

@@ -1,7 +1,7 @@
 import globals from "./globals.js";
 import {Game, SpriteID, State, FPS, ParticleState, particleID} from "./constans.js";
 import WaterParticle from "./Particle.js";
-import Sprite, { Enemy1 } from "./Sprite.js";
+import Sprite, { Enemy1, Player } from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
 import {Level, level1, spriteLevel1} from "./Level.js";
@@ -9,6 +9,7 @@ import Timer from "./Timer.js";
 import Physics from "./Physics.js";
 import {keydownHandler, keyupHandler} from "./events.js";
 import HitBox from "./HitBox.js";
+import Camera from "./Camera.js";
 
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
@@ -100,25 +101,29 @@ function initTimers(){
 
 function initParticles(){
 
-    initWaterParticles();
 }
 
-function initWaterParticles(){
+function initCamera(){
 
-    const numParticles  = 300;
-    const xInit         = 50;
-    const yInit         = 20;
-    const radius        = 2.5;
-    const timeToFadeMax = 5;
+    globals.camera = new Camera(0);
+}
+
+function initWaterParticles(spriteXpos, spriteYpos){
+
+    const numParticles  = 10;
+    const xInit         = spriteXpos;
+    const yInit         = spriteYpos;
+    const radius        = 1;
+    const timeToFadeMax = 1;
     const alpha         = 1.0;
 
     for (let i = 0; i < numParticles; i++){
 
-        const velocity = Math.random() * 25 + 5;
+        const velocity = Math.random() * 15 + 5;
         const physics = new Physics(velocity);
 
         const timeToFade = timeToFadeMax * Math.random() + 1;
-        const particle = new WaterParticle(particleID.EXPLOSION, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
+        const particle = new WaterParticle(particleID.WATER, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
 
         //Asignamos velocidades segun angulo aleatorio
         const randomAngle = Math.random() * 2 * Math.PI;
@@ -176,15 +181,15 @@ function initPlayingSprites(){
     initChild2();
     initEnemy1();
     initChair();
-    initChairInterface();
-    initStoneInterface1();
-    initWoodInterface1();
-    initStoneInterface2();
-    initWoodInterface2();
-    initStoneInterface3();
-    initWoodInterface3();
-    initChild1Interface2();
-    initChild2Interface2();
+    // initChairInterface();
+    // initStoneInterface1();
+    // initWoodInterface1();
+    // initStoneInterface2();
+    // initWoodInterface2();
+    // initStoneInterface3();
+    // initWoodInterface3();
+    // initChild1Interface2();
+    // initChild2Interface2();
 }
 
 function initNewGameSprites(){
@@ -418,9 +423,10 @@ function initPlayer(){
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(20, 48, 21, 11);
+    const hitBoxCamera = new HitBox(815, 48, -355, 11);
 
     //Creamos nuestro sprite
-    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 184, imageSet, frames, physics, hitBox);
+    const player = new Player(SpriteID.PLAYER, State.IDLE, 64, 184, imageSet, frames, physics, hitBox, hitBoxCamera);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(player);
@@ -773,5 +779,7 @@ export{
     initSprites,
     initWall,
     initMagic,
-    initParticles
+    initParticles,
+    initWaterParticles,
+    initCamera
 }

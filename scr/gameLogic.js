@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, particleID} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 
 export default function update(){
@@ -96,6 +96,7 @@ function playGame(){
     updateSprites();
     updateParticles();
     detectCollisions();
+    updateCamera();
 }
 
 function updateSprites(){
@@ -126,11 +127,12 @@ function updateSprites(){
         }
         
         const sprite = globals.sprites[i];
+
         updateSprite(sprite);
         updateSpriteSpeed(sprite);
         updatePlayerStateWhenIsCollidingWithWall(sprite);
         updateChairHPWhenIsCollidingWithEnemy(sprite);
-        updateEnemyHpWhenIsCOllidingWithEnemy(sprite);
+        updateEnemyHpWhenIsCollidingWithEnemy(sprite);
     }
 }
 
@@ -150,7 +152,7 @@ function updateParticle(particle){
     switch (type){
 
         //Caso del jugador
-        case particleID.EXPLOSION:
+        case particleID.WATER:
 
             updateWaterParticle(particle);
             break;
@@ -175,12 +177,12 @@ function updateWaterParticle(particle){
                 particle.fadeCounter = 0;
                 particle.state = ParticleState.FADE;
             }
-
+            
             break;
 
         case ParticleState.FADE:
-
-            particle.alpha -= 0.01;
+            
+            particle.alpha -= 1;
 
             if (particle.alpha <= 0){
 
@@ -190,8 +192,9 @@ function updateWaterParticle(particle){
             break;
         
         case ParticleState.OFF:
-            
-        break;
+
+            globals.particles.splice(0, 1)
+            break;
     }
 
     particle.xPos += particle.physics.vx * globals.deltaTime;
@@ -736,6 +739,11 @@ function updateSpriteSpeed(sprite){
 
                 sprite.physics.vLimit -= 10;
                 sprite.physics.speedReductionCont += 10;
+
+                const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
+                const spriteYpos = sprite.yPos + sprite.imageSet.ySize;
+                
+                // initWaterParticles(spriteXpos, spriteYpos);
             }
         }
 
@@ -770,11 +778,27 @@ function updateChairHPWhenIsCollidingWithEnemy(sprite){
     }
 }
 
-function updateEnemyHpWhenIsCOllidingWithEnemy(sprite){
+function updateEnemyHpWhenIsCollidingWithEnemy(sprite){
 
     if (sprite.isCollidingWithEnemy){
         
         sprite.hp -= 1;
         sprite.isCollidingWithEnemy = false;
     }
+}
+
+function updateCamera(){
+
+    let player;
+
+    //Centraremos la camara en el player
+    for (let i = 0; i < globals.sprites.length; i++){
+
+        if (globals.sprites[i].id === SpriteID.PLAYER){
+
+            player = globals.sprites[i];
+        }
+    }
+    
+    globals.camera.x = Math.floor(player.xPos) + Math.floor((player.imageSet.xSize - globals.canvas.width) / 2);
 }

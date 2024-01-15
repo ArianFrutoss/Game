@@ -54,5 +54,8 @@ export default{
     chairHP: 0,
 
     //Array de particulas
-    particles: []
+    particles: [],
+
+    //Objeto que guarda la camara
+    camera: {}
 };

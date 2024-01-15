@@ -1,6 +1,6 @@
 export default class Sprite{
 
-    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox){
+    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox, hitBoxCamera){
 
         this.id                                 = id;           //Tipo de Sprite
         this.state                              = state;        //Estado de animacion del sprite
@@ -15,6 +15,20 @@ export default class Sprite{
         this.isCollidingWithWall                = false;        //Indica si ha habido colosion con el muro
         this.isCollidingWithChair               = false;        //Indica si ha habido colosion con la silla
     }
+}
+
+export class Player extends Sprite{
+
+    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox, hitBoxCamera){
+
+        super(id, state, xPos, yPos, imageSet, frames, physics, hitBox);
+
+            this.hitBoxCamera                   = hitBoxCamera;         //Datos de la hitbox
+            this.isCollidingWithBorderTop       = false                 //Collision por arriba
+            this.isCollidingWithBorderBottom    = false                 //Collision por abajo
+            this.isCollidingWithBorderRight     = false                 //Collision por derecha
+            this.isCollidingWithBorderLeft      = false                 //Collision por izquierda
+        }
 }
 
 export class Enemy1 extends Sprite{

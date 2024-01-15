@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, ParticleState, Tile, particleID} from "./constans.js";
+import {Game, Tile, ParticleState, particleID, SpriteID} from "./constans.js";
 
 export default function render(){
     
@@ -51,10 +51,25 @@ export default function render(){
     }
 }
 
+function moveCamera(){
+
+    const xTranslation = -globals.camera.x;
+
+    globals.ctx.translate(xTranslation, 0);
+}
+
+function restoreCamera(){
+
+    globals.ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+
 function drawGame(){
     
     //Borrar la pantalla
     globals.ctx.clearRect(0, 0, globals.canvas.width, globals.canvas.height);
+
+    //Movemos la camara
+    moveCamera();
 
     //Dibujamos el nivel
     renderMap();
@@ -62,11 +77,14 @@ function drawGame(){
     //Pintar los sprites
     renderSprites();
 
-    //Pintar las particulas
-    renderParticles();
+    //Dibujamos los elementos
+    restoreCamera();
     
     //Dibujamos la interfaz
     renderHUD();
+
+    //Pintar las particulas
+    renderParticles();
 }
 
 function renderSprite(sprite){
@@ -96,7 +114,7 @@ function renderSprite(sprite){
 function renderParticles(){
 
     for (let i = 0; globals.particles.length; i++){
-
+        
         const particle = globals.particles[i];
         renderParticle(particle);
     }
@@ -105,12 +123,12 @@ function renderParticles(){
 function renderParticle(particle){
 
     const type = particle.id;
-
+    
     switch (type){
 
         //Caso del jugador
         case particleID.WATER:
-
+            
             renderWaterParticle(particle);
             break;
         
@@ -139,7 +157,8 @@ function renderSprites(){
 
         const sprite = globals.sprites[i];
         // drawSpriteRectangle(sprite);
-        // drawSpriteHitBox(sprite);
+        drawSpriteHitBox(sprite);
+        // drawSpriteHitBoxCamera(sprite);
         renderSprite(sprite);
     }
 }
@@ -168,6 +187,22 @@ function drawSpriteHitBox(sprite){
     globals.ctx.fillRect(x1, y1, w1, h1);
 }
 
+function drawSpriteHitBoxCamera(sprite){
+    
+    if (sprite.id === SpriteID.PLAYER){
+
+        //Datos del sprite
+        const x1 = Math.floor(sprite.xPos) + Math.floor(sprite.hitBoxCamera.xOffset);
+        const y1 = Math.floor(sprite.yPos) + Math.floor(sprite.hitBoxCamera.yOffset);
+        const w1 = sprite.hitBoxCamera.xSize;
+        const h1 = sprite.hitBoxCamera.ySize;
+
+        globals.ctx.fillStyle = "red";
+        globals.ctx.fillRect(x1, y1, w1, h1);
+    }
+    
+}
+
 function renderMap(){
 
     const brickSize = globals.level.imageSet.gridSize;
@@ -179,7 +214,7 @@ function renderMap(){
 
     for (let i = 0; i < num_fil; i++){
 
-        for (let j = 0; j < num_col - 7; j++){
+        for (let j = 0; j < num_col; j++){
 
             const xTile = (levelData[i][j] - 1) * brickSize;
             const yTile = 0;

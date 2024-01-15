@@ -1,5 +1,6 @@
 import globals from "./globals.js";
-import {Block, SpriteID} from "./constans.js";
+import {Block, SpriteID, Tile} from "./constans.js";
+import { level1 } from "./Level.js";
 
 function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2){
 
@@ -40,6 +41,11 @@ export default function detectCollisions(){
            
             detectCollisionsBetweenChairAndEnemy(sprite);
             detectCollisionsBetweenMagicAndEnemy(sprite);
+        }
+
+        if (sprite.id === SpriteID.PLAYER){
+
+            detectCollisionsBetweenPlayerAndBorders(sprite);
         }
     }
 }
@@ -109,6 +115,54 @@ function detectCollisionsBetweenMagicAndEnemy(sprite){
                 sprite.hp -= 1;
             }
         }
+    }
+}
+
+function detectCollisionsBetweenPlayerAndBorders(sprite){
+
+    let overlap;
+
+    sprite.isCollidingWithBorderRight = false;
+    sprite.isCollidingWithBorderLeft = false;
+    sprite.isCollidingWithBorderTop = false;
+    sprite.isCollidingWithBorderBottom = false;
+
+    //Datos del player
+    const x1 = sprite.xPos + sprite.hitBox.xOffset;
+    const y1 = sprite.yPos + sprite.hitBox.yOffset;
+    const w1 = sprite.hitBox.xSize;
+    const h1 = sprite.hitBox.ySize;
+    
+    if (sprite.xPos + sprite.hitBox.xOffset < 0 ){
+
+        sprite.isCollidingWithBorderLeft = true;
+        
+        overlap = x1 - 1;
+        sprite.xPos -= overlap;
+    }
+
+    else if (sprite.xPos > 64 * 16){
+        
+        sprite.isCollidingWithBorderRight = true;
+        
+        overlap = 64 * 15 - x1;
+        sprite.xPos += overlap;
+    }
+
+    else if (sprite.yPos < 0){
+
+        sprite.isCollidingWithBorderTop = true;
+
+        overlap = y1 - y2 - h2 - 1;
+        sprite.yPos += overlap;
+    }
+
+    else if (y1 > globals.canvas.height){
+
+        sprite.isCollidingWithBorderBottom = true;
+
+        overlap = y1 - 0 + h1 + 1;
+        sprite.yPos += overlap;
     }
 }
 
