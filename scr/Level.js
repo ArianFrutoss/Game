@@ -32,7 +32,7 @@ export const spriteLevel1 = [
 
 levelPuddle(level1)
 
-function levelPuddle(level){
+export function levelPuddle(level){
 
     const num_fil = level.length;
     const num_col = level[0].length;
@@ -64,6 +64,23 @@ function levelPuddle(level){
             if (contPuddleFloor >= 2){
 
                 break;
+            }
+        }
+    }
+}
+
+export function levelClear(level){
+
+    const num_fil = level.length;
+    const num_col = level[0].length;
+
+    for (let i = 0; i < num_fil; i++){
+
+        for (let j = 0; j < num_col; j++){
+
+            if (level[i][j] === 3){
+
+                level[i][j] = 2;
             }
         }
     }

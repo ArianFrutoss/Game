@@ -39,6 +39,7 @@ export class Enemy1 extends Sprite{
 
             this.hp                                 = 4;            //Vida de los enemigos
             this.isCollidingWithEnemy               = false;        //Indica si ha habido colosion con el enemigo
+            this.enemyCont                          = 5;            //Contador de enemigos spawneados
     }
 }
 

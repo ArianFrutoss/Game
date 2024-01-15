@@ -110,8 +110,8 @@ function detectCollisionsBetweenMagicAndEnemy(sprite){
             //Existe collision
             if (isOverlap && sprite.hp > 0){
                 
-                sprite.isCollidingWithEnemy = true;
                 globals.sprites.splice(i, 1);
+                sprite.isCollidingWithEnemy = true;
                 sprite.hp -= 1;
             }
         }

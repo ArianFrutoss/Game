@@ -98,7 +98,8 @@ function loadHandler(){
 function initTimers(){
 
     globals.levelTime = new Timer(30, 1);
-    globals.lifeTime = new Timer(2, 0.01);
+    globals.lakesTime = new Timer(30, 1);
+    globals.EnemySpawnTime = new Timer(5, 1);
 }
 
 function initParticles(){
@@ -181,7 +182,6 @@ function initPlayingSprites(){
     initPlayer();
     initChild1();
     initChild2();
-    initEnemy1();
     initChair();
     initChairInterface();
     initStoneInterface1();
@@ -539,7 +539,7 @@ function initChild2(){
     globals.sprites.push(child2);
 }
 
-function initEnemy1(){
+function initEnemy1(yPos){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(18, 0, 64, 64, 64, 0, 0);
@@ -554,7 +554,7 @@ function initEnemy1(){
     const hitBox = new HitBox(18, 45, 22, 10);
 
     //Creamos nuestro sprite
-    const enemy1 = new Enemy1(SpriteID.ENEMY_1, State.ENEMY_1_RUN, 500, 300, imageSet, frames, physics, hitBox);
+    const enemy1 = new Enemy1(SpriteID.ENEMY_1, State.ENEMY_1_RUN, 1200, yPos, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(enemy1);
@@ -781,6 +781,7 @@ export{
     initSprites,
     initWall,
     initMagic,
+    initEnemy1,
     initParticles,
     initWaterParticles,
     initCamera

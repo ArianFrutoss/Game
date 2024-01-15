@@ -1,7 +1,8 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, particleID} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initEnemy1} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
+import {level1, levelPuddle, levelClear} from "./Level.js";
 
 export default function update(){
 
@@ -97,6 +98,8 @@ function playGame(){
     updateParticles();
     detectCollisions();
     updateCamera();
+    updateLakes();
+    spawnRandomEnemys();
 }
 
 function updateSprites(){
@@ -648,7 +651,6 @@ function updateEnemy1(sprite){
 
         activeDead = true;
         sprite.frames.speed = 0;
-        sprite.hp = -1;
         sprite.frames.frameCounter = 0;
     }
 
@@ -801,4 +803,41 @@ function updateCamera(){
     }
     
     globals.camera.x = Math.floor(player.xPos) + Math.floor((player.imageSet.xSize - globals.canvas.width) / 2);
+}
+
+function updateLakes(){
+
+    updateTimer(globals.lakesTime);
+
+    if (globals.lakesTime.value === 0){
+
+        levelClear(level1);
+        levelPuddle(level1);
+        globals.lakesTime.value = 30;
+    }
+}
+let cont = 4;
+function spawnRandomEnemys(){
+
+    const randomYpos = Math.floor(Math.random() * 300);
+
+    updateTimer(globals.EnemySpawnTime);
+    
+    if (globals.EnemySpawnTime.value === 0){
+
+        globals.EnemySpawnTime.value = 10;
+        
+        if (cont > 0){
+            
+            initEnemy1(randomYpos);
+            cont--;
+        }
+
+        if (cont === 0 && globals.EnemySpawnTime.value > 0){
+        
+            cont = 4;
+        }
+    }
+
+    
 }

@@ -43,8 +43,11 @@ export default{
     //Temporizador nivel
     levelTime: {},
 
-    //Temporizador invulnerabilidad
-    lifeTime: {},
+    //Temporizador Lagos
+    lakesTime: {},
+
+    //Temporizador aparicion de enemigos
+    EnemySpawnTime: {},
 
     //Objeto que guarda el estado de la tecla pulsada
     action: {},
