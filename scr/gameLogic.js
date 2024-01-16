@@ -35,7 +35,7 @@ export default function update(){
 
         case Game.PLAYING:
             
-            playGame();
+            playGamePlayingScreen();
             break;
 
         case Game.CONTROLS_LOAD:
@@ -92,7 +92,7 @@ export default function update(){
     }
 }
 
-function playGame(){
+function playGamePlayingScreen(){
 
     updateSprites();
     updateParticles();
@@ -103,40 +103,59 @@ function playGame(){
     updateScore();
 }
 
+function playGame(){
+
+    updateSprites();
+    updateParticles();
+}
+
 function updateSprites(){
     
-    for (let i = 0; i < globals.sprites.length; i++){
+    if (globals.gameState === Game.PLAYING || globals.gameState.State === Game.OVER){
 
-        for (let j = i + 1; j < globals.sprites.length; j++){
+        for (let i = 0; i < globals.sprites.length; i++){
+
+            for (let j = i + 1; j < globals.sprites.length; j++){
+                
+                let maxYPosSprite = globals.sprites[i];
+
+                if (globals.sprites[i].id === SpriteID.MAGIC && globals.sprites[j].id === SpriteID.WALL && globals.sprites[i].isCollidingWithWall){
+                    
+                    globals.sprites[i] = globals.sprites[j];
+                    globals.sprites[j] = maxYPosSprite;
+                }
+
+                else if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id === SpriteID.MAGIC && globals.sprites[i].id != SpriteID.WALL){
+                    
+                    globals.sprites[i] = globals.sprites[j];
+                    globals.sprites[j] = maxYPosSprite;
+                }
+
+                else if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id != SpriteID.MAGIC){
+                    
+                    globals.sprites[i] = globals.sprites[j];
+                    globals.sprites[j] = maxYPosSprite;
+                }
+            }
             
-            let maxYPosSprite = globals.sprites[i];
+            const sprite = globals.sprites[i];
 
-            if (globals.sprites[i].id === SpriteID.MAGIC && globals.sprites[j].id === SpriteID.WALL && globals.sprites[i].isCollidingWithWall){
-                
-                globals.sprites[i] = globals.sprites[j];
-                globals.sprites[j] = maxYPosSprite;
-            }
-
-            else if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id === SpriteID.MAGIC && globals.sprites[i].id != SpriteID.WALL){
-                
-                globals.sprites[i] = globals.sprites[j];
-                globals.sprites[j] = maxYPosSprite;
-            }
-
-            else if (globals.sprites[j].yPos < globals.sprites[i].yPos && globals.sprites[j].id != SpriteID.MAGIC){
-                
-                globals.sprites[i] = globals.sprites[j];
-                globals.sprites[j] = maxYPosSprite;
-            }
+            updateSprite(sprite);
+            updateSpriteSpeed(sprite);
+            updatePlayerStateWhenIsCollidingWithWall(sprite);
+            updateChairHPWhenIsCollidingWithEnemy(sprite);
+            updateEnemyHpWhenIsCollidingWithEnemy(sprite);
         }
-        
-        const sprite = globals.sprites[i];
+    }
 
-        updateSprite(sprite);
-        updateSpriteSpeed(sprite);
-        updatePlayerStateWhenIsCollidingWithWall(sprite);
-        updateChairHPWhenIsCollidingWithEnemy(sprite);
-        updateEnemyHpWhenIsCollidingWithEnemy(sprite);
+    else{
+
+        for (let i = 0; i < globals.sprites.length; i++){
+
+            const sprite = globals.sprites[i];
+
+            updateSprite(sprite);
+        }
     }
 }
 
@@ -754,7 +773,7 @@ function updateSpriteSpeed(sprite){
                 const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
                 const spriteYpos = sprite.yPos + sprite.imageSet.ySize;
                 
-                //initWaterParticles(spriteXpos, spriteYpos);
+                initWaterParticles(spriteXpos, spriteYpos);
             }
         }
 
@@ -799,7 +818,7 @@ function updateEnemyHpWhenIsCollidingWithEnemy(sprite){
 }
 
 function updateCamera(){
-
+    
     let player;
 
     //Centraremos la camara en el player

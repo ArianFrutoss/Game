@@ -12,7 +12,7 @@ export default function render(){
 
         case Game.NEW_GAME:
 
-            drawSprites();
+            drawGame();
             renderNewGameText();
             break;
 
@@ -23,25 +23,25 @@ export default function render(){
 
         case Game.CONTROLS:
 
-            drawSprites();
+            drawGame();
             renderControlsText();
             break;
 
         case Game.SCORES:
 
-            drawSprites();
+            drawGame();
             renderScoresText();
             break;
 
         case Game.HISTORY:
 
-            drawSprites();
+            drawGame();
             renderHistoryText();
             break;
 
         case Game.OVER:
 
-            drawSprites()
+            drawGame()
             renderOverText()
             break;
 
@@ -73,18 +73,21 @@ function drawGame(){
     
     //Movemos la camara
     moveCamera();
-
+    
     //Dibujamos el nivel
     renderMap();
 
     //Pintar los sprites
     renderSprites();
 
-    //Dibujamos los elementos
+    //Restablecer camara
     restoreCamera();
     
     //Dibujamos la interfaz
-    renderHUD();
+    if (globals.gameState === Game.PLAYING){
+        
+        renderHUD();
+    }
 
     //Pintar las particulas
     renderParticles();
