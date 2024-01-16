@@ -249,7 +249,7 @@ function renderHUD(){
     //globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 5,20);
 
     //Dibujar Fondo del HUD
-    globals.ctxHUD.fillStyle = "black";
+    globals.ctxHUD.fillStyle = "white";
     globals.ctxHUD.fillRect(0, 0, globals.canvasHUD.width, globals.canvasHUD.height)
     
 

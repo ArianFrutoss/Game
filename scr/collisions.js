@@ -146,11 +146,7 @@ function detectCollisionsBetweenPlayerAndBorders(sprite){
 
 function detectCollisionsBetweenCameraAndBorders(player){
 
-    const brickSize = globals.level.imageSet.gridSize;
-    const levelData = globals.level.data;
-    const numBlocks = levelData[0].length;
-
-    if (player.xPos > (globals.canvas.width + globals.canvasHUD.width) / 4){
+    if (player.xPos >= 100){
         
         globals.camera.isCollidingWithBorderLeft = false;
     }
@@ -160,18 +156,15 @@ function detectCollisionsBetweenCameraAndBorders(player){
         globals.camera.isCollidingWithBorderLeft = true;
     }
 
-    if (player.xPos < 484 + (globals.canvas.width + globals.canvasHUD.width) / 4){
+    if (player.xPos <= globals.camera.x + 100){
         
         globals.camera.isCollidingWithBorderRight = false;
     }
 
-    else if (globals.camera.x >= 484){
-        console.log(1);
+    else if (globals.camera.x >= globals.canvas.width - player.xPos - player.imageSet.xSize + globals.canvasHUD.width){
+        
         globals.camera.isCollidingWithBorderRight = true;
     }
-
-    console.log(numBlocks * brickSize);
-    console.log(globals.camera.x);
 }
 
 function getMapTileId(xPos, yPos){

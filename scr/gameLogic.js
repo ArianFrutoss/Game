@@ -841,13 +841,14 @@ function updateCamera(){
     
     if (globals.camera.isCollidingWithBorderRight){
         
-        globals.camera.x = 484;
+        globals.camera.x = globals.canvas.width - globals.camera.x - 100 - player.imageSet.xSize + globals.canvasHUD.width;
     }
 
     if(globals.camera.isCollidingWithBorderLeft === false && globals.camera.isCollidingWithBorderRight === false){
         
-        globals.camera.x = Math.floor(player.xPos) + Math.floor((player.imageSet.xSize - globals.canvas.width + globals.canvasHUD.width) / 2);
+        globals.camera.x = player.xPos - 100;
     }
+    console.log(globals.canvas.width - globals.camera.x - 96 - player.imageSet.xSize + globals.canvasHUD.width);
 }
 
 function updateLakes(){
