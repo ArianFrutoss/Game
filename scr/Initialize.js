@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, SpriteID, State, FPS, ParticleState, particleID} from "./constans.js";
+import {Game, SpriteID, State, FPS, ParticleState, ParticleID} from "./constans.js";
 import WaterParticle from "./Particle.js";
 import Sprite, { Enemy1, HudSprites, Player } from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
@@ -105,11 +105,7 @@ function initTimers(){
 
 function initParticles(){
 
-}
-
-function initCamera(){
-
-    globals.camera = new Camera(0);
+    
 }
 
 function initWaterParticles(spriteXpos, spriteYpos){
@@ -127,7 +123,7 @@ function initWaterParticles(spriteXpos, spriteYpos){
         const physics = new Physics(velocity);
 
         const timeToFade = timeToFadeMax * Math.random() + 1;
-        const particle = new WaterParticle(particleID.WATER, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
+        const particle = new WaterParticle(ParticleID.WATER, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
 
         //Asignamos velocidades segun angulo aleatorio
         const randomAngle = Math.random() * 2 * Math.PI;
@@ -136,6 +132,11 @@ function initWaterParticles(spriteXpos, spriteYpos){
 
         globals.particles.push(particle);
     }
+}
+
+function initCamera(){
+
+    globals.camera = new Camera(0);
 }
 
 function initSprites(){
@@ -413,7 +414,7 @@ function initPlayer(){
     const frames = new Frames(7, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(150);
+    const physics = new Physics(200);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(20, 48, 21, 11);

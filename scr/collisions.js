@@ -1,6 +1,5 @@
 import globals from "./globals.js";
-import {Block, SpriteID, Tile} from "./constans.js";
-import { level1 } from "./Level.js";
+import {Block, SpriteID} from "./constans.js";
 
 function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2){
 
@@ -33,7 +32,7 @@ export default function detectCollisions(){
         }
 
         if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2 || sprite.id === SpriteID.MAGIC){
-           
+            
             detectCollisionsBetweenSpritesAndWall(sprite);
         }
 
@@ -232,8 +231,8 @@ function detectCollisionsBetweenSpritesAndLakes(sprite){
 
 function detectCollisionsBetweenSpritesAndWall(sprite){
 
-    for (let i = 1; i < globals.activeWall.length; i++){
-
+    for (let i = 0; i < globals.activeWall.length; i++){
+        
         //Variables a usar
         let overlap;
 

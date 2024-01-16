@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, particleID} from "./constans.js";
+import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, ParticleID} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initEnemy1} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
@@ -75,7 +75,7 @@ export default function update(){
             break;
 
         case Game.OVER_LOAD:
-
+            
             initOverSprites();
             globals.gameState = Game.OVER;
             break;
@@ -92,14 +92,14 @@ export default function update(){
 }
 
 function playGamePlayingScreen(){
-
+    
     detectCollisions();
     updateCamera();
-    updateSprites();
     updateParticles();
     updateLakes();
-    // spawnRandomEnemys();
+    spawnRandomEnemys();
     updateScore();
+    updateSprites();
     gameOver();
 }
 
@@ -175,7 +175,7 @@ function updateParticle(particle){
     switch (type){
 
         //Caso del jugador
-        case particleID.WATER:
+        case ParticleID.WATER:
 
             updateWaterParticle(particle);
             break;
@@ -189,14 +189,14 @@ function updateParticle(particle){
 function updateWaterParticle(particle){
 
     particle.fadeCounter += globals.deltaTime;
-
+    
     //Cogemos las velocidades de los arrays
     switch (particle.state){
 
         case ParticleState.ON:
 
             if (particle.fadeCounter > particle.timeToFade){
-
+                
                 particle.fadeCounter = 0;
                 particle.state = ParticleState.FADE;
             }
@@ -208,14 +208,14 @@ function updateWaterParticle(particle){
             particle.alpha -= 1;
 
             if (particle.alpha <= 0){
-
+                
                 particle.state = ParticleState.OFF;
             }
 
             break;
         
         case ParticleState.OFF:
-
+            
             globals.particles.splice(0, 1)
             break;
     }
@@ -669,7 +669,7 @@ function updateEnemy1(sprite){
     if (sprite.hp === 0 && sprite.state === State.ENEMY_1_DEAD && sprite.frames.frameCounter === 3){
 
         updateTimer(globals.EnemyDespawnTime);
-        console.log(globals.EnemyDespawnTime.value);
+        
         activeDead = true;
         sprite.frames.speed = 0;
         sprite.frames.frameCounter = 0;
@@ -773,7 +773,7 @@ function updateSpriteSpeed(sprite){
                 const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
                 const spriteYpos = sprite.yPos + sprite.imageSet.ySize;
                 
-                // initWaterParticles(spriteXpos, spriteYpos);
+                initWaterParticles(spriteXpos, spriteYpos);
             }
         }
 

@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, Tile, ParticleState, particleID, SpriteID} from "./constans.js";
+import {Game, Tile, ParticleState, ParticleID} from "./constans.js";
 
 export default function render(){
     
@@ -144,12 +144,12 @@ function renderParticles(){
 function renderParticle(particle){
 
     const type = particle.id;
-    
+
     switch (type){
 
         //Caso del jugador
-        case particleID.WATER:
-            
+        case ParticleID.WATER:
+
             renderWaterParticle(particle);
             break;
         

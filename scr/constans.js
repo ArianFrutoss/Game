@@ -47,7 +47,7 @@ export const Enemy1Position = {
     POSITION_Y: 0
 }
 
-export const particleID = {
+export const ParticleID = {
 
     WATER:      0
 }
