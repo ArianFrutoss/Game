@@ -252,7 +252,7 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
         const y2 = sprite.yPos + sprite.hitBox.yOffset;
         const w2 = sprite.hitBox.xSize;
         const h2 = sprite.hitBox.ySize;
-
+        
         let xPos1 = sprite.xPos + sprite.hitBox.xOffset + sprite.hitBox.xSize + 1;
         let xPos2 = sprite.xPos + sprite.hitBox.xOffset + 1;
 
@@ -260,7 +260,7 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
         //Existe collision
         if (isOverlap){
-
+            
             sprite.isCollidingWithWall = true;
                 
             if (sprite.id != SpriteID.MAGIC){
@@ -284,7 +284,7 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
                 }
 
                 else if (sprite.physics.vy < 0){
-
+                    
                     overlap = y1 - y2 + xPos1 - xPos2 + 1;
                     sprite.yPos += overlap;
                 }

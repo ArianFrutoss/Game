@@ -821,10 +821,6 @@ function updateCamera(){
     
     let player;
 
-    const brickSize = globals.level.imageSet.gridSize;
-    const levelData = globals.level.data;
-    const numBlocks = levelData[0].length;
-
     //Centraremos la camara en el player
     for (let i = 0; i < globals.sprites.length; i++){
 
@@ -839,16 +835,20 @@ function updateCamera(){
         globals.camera.x = 0;
     }
     
-    if (globals.camera.isCollidingWithBorderRight){
+    if (globals.camera.isCollidingWithBorderRight && player.xPos >= globals.camera.x + 100){
+
         
-        globals.camera.x = globals.canvas.width - globals.camera.x - 100 - player.imageSet.xSize + globals.canvasHUD.width;
+    }
+
+    else if (globals.camera.isCollidingWithBorderRight){
+        
+        globals.camera.x = globals.canvas.width - player.xPos - player.imageSet.xSize + globals.canvasHUD.width;
     }
 
     if(globals.camera.isCollidingWithBorderLeft === false && globals.camera.isCollidingWithBorderRight === false){
         
         globals.camera.x = player.xPos - 100;
     }
-    console.log(globals.canvas.width - globals.camera.x - 96 - player.imageSet.xSize + globals.canvasHUD.width);
 }
 
 function updateLakes(){
