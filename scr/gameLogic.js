@@ -63,7 +63,7 @@ export default function update(){
             break;
 
         case Game.HISTORY_LOAD:
-
+            
             globals.sprites = [];
             initHistorySprites();
             globals.gameState = Game.HISTORY;
@@ -76,7 +76,6 @@ export default function update(){
 
         case Game.OVER_LOAD:
 
-            globals.sprites = [];
             initOverSprites();
             globals.gameState = Game.OVER;
             break;
@@ -94,13 +93,14 @@ export default function update(){
 
 function playGamePlayingScreen(){
 
-    updateSprites();
-    updateParticles();
     detectCollisions();
     updateCamera();
+    updateSprites();
+    updateParticles();
     updateLakes();
-    spawnRandomEnemys();
+    // spawnRandomEnemys();
     updateScore();
+    gameOver();
 }
 
 function playGame(){
@@ -114,7 +114,7 @@ function updateSprites(){
     if (globals.gameState === Game.PLAYING || globals.gameState.State === Game.OVER){
 
         for (let i = 0; i < globals.sprites.length; i++){
-
+            
             for (let j = i + 1; j < globals.sprites.length; j++){
                 
                 let maxYPosSprite = globals.sprites[i];
@@ -773,7 +773,7 @@ function updateSpriteSpeed(sprite){
                 const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
                 const spriteYpos = sprite.yPos + sprite.imageSet.ySize;
                 
-                initWaterParticles(spriteXpos, spriteYpos);
+                // initWaterParticles(spriteXpos, spriteYpos);
             }
         }
 
@@ -821,6 +821,10 @@ function updateCamera(){
     
     let player;
 
+    const brickSize = globals.level.imageSet.gridSize;
+    const levelData = globals.level.data;
+    const numBlocks = levelData[0].length;
+
     //Centraremos la camara en el player
     for (let i = 0; i < globals.sprites.length; i++){
 
@@ -830,7 +834,20 @@ function updateCamera(){
         }
     }
     
-    globals.camera.x = Math.floor(player.xPos) + Math.floor((player.imageSet.xSize - globals.canvas.width) / 2);
+    if (globals.camera.isCollidingWithBorderLeft){
+        
+        globals.camera.x = 0;
+    }
+    
+    if (globals.camera.isCollidingWithBorderRight){
+        
+        globals.camera.x = 484;
+    }
+
+    if(globals.camera.isCollidingWithBorderLeft === false && globals.camera.isCollidingWithBorderRight === false){
+        
+        globals.camera.x = Math.floor(player.xPos) + Math.floor((player.imageSet.xSize - globals.canvas.width + globals.canvasHUD.width) / 2);
+    }
 }
 
 function updateLakes(){
@@ -863,4 +880,12 @@ function updateScore(){
 
     
     
+}
+
+function gameOver(){
+
+    if (globals.chairHP === 3){
+
+        globals.gameState = Game.OVER_LOAD;
+    }
 }

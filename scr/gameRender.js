@@ -77,17 +77,17 @@ function drawGame(){
     //Dibujamos el nivel
     renderMap();
 
-    //Pintar los sprites
-    renderSprites();
-
-    //Restablecer camara
-    restoreCamera();
-    
     //Dibujamos la interfaz
     if (globals.gameState === Game.PLAYING){
         
         renderHUD();
     }
+
+    //Pintar los sprites
+    renderSprites();
+
+    //Restablecer camara
+    restoreCamera();
 
     //Pintar las particulas
     renderParticles();
@@ -179,7 +179,6 @@ function renderSprites(){
         const sprite = globals.sprites[i];
         // drawSpriteRectangle(sprite);
         // drawSpriteHitBox(sprite);
-        // drawSpriteHitBoxCamera(sprite);
         renderSprite(sprite);
     }
 }
@@ -206,22 +205,6 @@ function drawSpriteHitBox(sprite){
 
     globals.ctx.fillStyle = "red";
     globals.ctx.fillRect(x1, y1, w1, h1);
-}
-
-function drawSpriteHitBoxCamera(sprite){
-    
-    if (sprite.id === SpriteID.PLAYER){
-
-        //Datos del sprite
-        const x1 = Math.floor(sprite.xPos) + Math.floor(sprite.hitBoxCamera.xOffset);
-        const y1 = Math.floor(sprite.yPos) + Math.floor(sprite.hitBoxCamera.yOffset);
-        const w1 = sprite.hitBoxCamera.xSize;
-        const h1 = sprite.hitBoxCamera.ySize;
-
-        globals.ctx.fillStyle = "red";
-        globals.ctx.fillRect(x1, y1, w1, h1);
-    }
-    
 }
 
 function renderMap(){
@@ -262,8 +245,13 @@ function renderHUD(){
 
     globals.ctxHUD.font = "12px emulogic";
 
-    //Pintar los FPS
+    //Dibujar los FPS
     //globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 5,20);
+
+    //Dibujar Fondo del HUD
+    globals.ctxHUD.fillStyle = "black";
+    globals.ctxHUD.fillRect(0, 0, globals.canvasHUD.width, globals.canvasHUD.height)
+    
 
     //Dibujar High Score
     globals.ctxHUD.fillStyle = "white";
@@ -427,13 +415,13 @@ function renderOverText(){
     //Dibujar Controles
     globals.ctx.font = "20px emulogic";
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText ("YOU DIED", 350, 270);
+    globals.ctx.fillText ("YOU DIED", 350, 220);
 
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("Enter your name:", 355, 340);
+    globals.ctx.fillText ("Enter your name:", 355, 280);
 
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText ("___", 485, 340);
+    globals.ctx.fillText ("___", 485, 280);
 }

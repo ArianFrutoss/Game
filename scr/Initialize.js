@@ -91,7 +91,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.NEW_GAME_LOAD;
+        globals.gameState = Game.PLAYING_LOAD;
     }
 }
 
@@ -247,16 +247,8 @@ function initScoresSprites(){
 
 function initOverSprites(){
 
-    initChair();
-    initPlayer();
-    initMagic();
-    initStone();
-    initWood();
-    initChild1();
-    initChild2();
-    initEnemy1();
-    initWall();
     initBlack();
+    initBlackBorder();
 }
 
 function initChairInterface(){
@@ -421,14 +413,13 @@ function initPlayer(){
     const frames = new Frames(7, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(180);
+    const physics = new Physics(150);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(20, 48, 21, 11);
-    const hitBoxCamera = new HitBox(815, 48, -355, 11);
 
     //Creamos nuestro sprite
-    const player = new Player(SpriteID.PLAYER, State.IDLE, 64, 184, imageSet, frames, physics, hitBox, hitBoxCamera);
+    const player = new Player(SpriteID.PLAYER, State.IDLE, 64, 184, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(player);
@@ -728,13 +719,13 @@ function initPaper(){
 function initBlack(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(46, 0, 640, 500, 64, 0, 0);
+    const imageSet = new ImageSet(54, 0, 640, 500, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const black = new Sprite(SpriteID.BLACK, State.BLACK, 0, 0, imageSet, frames);
+    const black = new Sprite(SpriteID.BLACK, State.BLACK, 120, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(black);

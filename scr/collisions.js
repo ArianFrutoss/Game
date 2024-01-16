@@ -46,8 +46,8 @@ export default function detectCollisions(){
 
         if (sprite.id === SpriteID.PLAYER){
 
-            // detectCollisionsBetweenPlayerCameraHitboxAndBorders(sprite);
             detectCollisionsBetweenPlayerAndBorders(sprite);
+            detectCollisionsBetweenCameraAndBorders(sprite);
         }
     }
 }
@@ -142,75 +142,36 @@ function detectCollisionsBetweenPlayerAndBorders(sprite){
         overlap = x1 - 1;
         sprite.xPos -= overlap;
     }
-
-    // else if (sprite.xPos > 64 * 16){
-        
-    //     sprite.isCollidingWithBorderRight = true;
-        
-    //     overlap = 64 * 15 - x1;
-    //     sprite.xPos += overlap;
-    // }
-
-    // else if (sprite.yPos < 0){
-
-    //     sprite.isCollidingWithBorderTop = true;
-
-    //     overlap = y1 - y2 - h2 - 1;
-    //     sprite.yPos += overlap;
-    // }
-
-    // else if (y1 > globals.canvas.height){
-
-    //     sprite.isCollidingWithBorderBottom = true;
-
-    //     overlap = y1 - 0 + h1 + 1;
-    //     sprite.yPos += overlap;
-    // }
 }
 
-function detectCollisionsBetweenPlayerCameraHitboxAndBorders(sprite){
+function detectCollisionsBetweenCameraAndBorders(player){
 
-    let overlap;
+    const brickSize = globals.level.imageSet.gridSize;
+    const levelData = globals.level.data;
+    const numBlocks = levelData[0].length;
 
-    sprite.isCollidingWithBorderRight = false;
-    sprite.isCollidingWithBorderLeft = false;
-    sprite.isCollidingWithBorderTop = false;
-    sprite.isCollidingWithBorderBottom = false;
-
-    //Datos del player
-    const x1 = sprite.xPos + sprite.hitBoxCamera.xOffset;
-    const y1 = sprite.yPos + sprite.hitBoxCamera.yOffset;
-    const w1 = sprite.hitBoxCamera.xSize;
-    const h1 = sprite.hitBoxCamera.ySize;
-    
-    if (sprite.hitBox.xOffset < 0){
-
-        sprite.isCollidingWithBorderLeft = true;
+    if (player.xPos > (globals.canvas.width + globals.canvasHUD.width) / 4){
+        
+        globals.camera.isCollidingWithBorderLeft = false;
     }
 
-    // else if (sprite.xPos > 64 * 16){
+    else if (globals.camera.x <= 0){
+       
+        globals.camera.isCollidingWithBorderLeft = true;
+    }
+
+    if (player.xPos < 484 + (globals.canvas.width + globals.canvasHUD.width) / 4){
         
-    //     sprite.isCollidingWithBorderRight = true;
-        
-    //     overlap = 64 * 15 - x1;
-    //     sprite.xPos += overlap;
-    // }
+        globals.camera.isCollidingWithBorderRight = false;
+    }
 
-    // else if (sprite.yPos < 0){
+    else if (globals.camera.x >= 484){
+        console.log(1);
+        globals.camera.isCollidingWithBorderRight = true;
+    }
 
-    //     sprite.isCollidingWithBorderTop = true;
-
-    //     overlap = y1 - y2 - h2 - 1;
-    //     sprite.yPos += overlap;
-    // }
-
-    // else if (y1 > globals.canvas.height){
-
-    //     sprite.isCollidingWithBorderBottom = true;
-
-    //     overlap = y1 - 0 + h1 + 1;
-    //     sprite.yPos += overlap;
-    // }
+    console.log(numBlocks * brickSize);
+    console.log(globals.camera.x);
 }
 
 function getMapTileId(xPos, yPos){

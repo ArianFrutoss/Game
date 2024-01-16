@@ -19,11 +19,10 @@ export default class Sprite{
 
 export class Player extends Sprite{
 
-    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox, hitBoxCamera){
+    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox){
 
         super(id, state, xPos, yPos, imageSet, frames, physics, hitBox);
 
-            this.hitBoxCamera                   = hitBoxCamera;         //Datos de la hitbox
             this.isCollidingWithBorderTop       = false                 //Collision por arriba
             this.isCollidingWithBorderBottom    = false                 //Collision por abajo
             this.isCollidingWithBorderRight     = false                 //Collision por derecha
