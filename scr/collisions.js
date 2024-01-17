@@ -25,11 +25,11 @@ export default function detectCollisions(){
     for (let i = 0; i < globals.sprites.length; i++){
         
         const sprite = globals.sprites[i];
-        
-        if (sprite.ypos > globals.canvas.width && sprite.xPos < 0 && sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
-
+         
+        if (sprite.yPos > 0 && sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
+            
             detectCollisionsBetweenSpritesAndLakes(sprite);
-        }
+        }   
 
         if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2 || sprite.id === SpriteID.MAGIC){
             
@@ -215,33 +215,36 @@ function isCollidingWithObstacleAt(xPos, yPos, obstacleId){
 
 function detectCollisionsBetweenSpritesAndLakes(sprite){
 
-    //Variables a usar
-    let xPos;
-    let yPos;
-    let isCollidingOnPos1;
-    let isCollidingOnPos2;
-    let isColliding;
+    if (sprite.yPos + sprite.hitBox.yOffset + sprite.hitBox.ySize + 1 < globals.canvas.height && sprite.yPos > 0){
     
-    const brickSize = globals.level.imageSet.gridSize;
+        //Variables a usar
+        let xPos;
+        let yPos;
+        let isCollidingOnPos1;
+        let isCollidingOnPos2;
+        let isColliding;
+        
+        const brickSize = globals.level.imageSet.gridSize;
 
-    sprite.isCollidingWithTheLake = false;
+        sprite.isCollidingWithTheLake = false;
 
-    //Id del obstaculo
-    const obstacleId = Block.BLOCK_3;
+        //Id del obstaculo
+        const obstacleId = Block.BLOCK_3;
 
-    yPos = sprite.yPos + sprite.hitBox.yOffset + sprite.hitBox.ySize + 1;
+        yPos = sprite.yPos + sprite.hitBox.yOffset + sprite.hitBox.ySize + 1;
 
-    xPos = sprite.xPos + sprite.hitBox.xOffset + sprite.hitBox.xSize + 1;
-    isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+        xPos = sprite.xPos + sprite.hitBox.xOffset + sprite.hitBox.xSize + 1;
+        isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
 
-    xPos = sprite.xPos + sprite.hitBox.xOffset + 1;
-    isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+        xPos = sprite.xPos + sprite.hitBox.xOffset + 1;
+        isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
 
-    isColliding = isCollidingOnPos1 || isCollidingOnPos2;
-    
-    if (isColliding){
+        isColliding = isCollidingOnPos1 || isCollidingOnPos2;
+        
+        if (isColliding){
 
-        sprite.isCollidingWithTheLake = true;
+            sprite.isCollidingWithTheLake = true;
+        }
     }
 }
 
