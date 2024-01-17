@@ -26,7 +26,7 @@ export default function detectCollisions(){
         
         const sprite = globals.sprites[i];
         
-        if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
+        if (sprite.ypos > globals.canvas.width && sprite.xPos < 0 && sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2){
 
             detectCollisionsBetweenSpritesAndLakes(sprite);
         }
@@ -120,13 +120,13 @@ function detectCollisionsBetweenMagicAndEnemy(sprite){
 }
 
 function detectCollisionsBetweenPlayerAndBorders(sprite){
-
+    
     let overlap;
 
-    sprite.isCollidingWithBorderRight = false;
-    sprite.isCollidingWithBorderLeft = false;
-    sprite.isCollidingWithBorderTop = false;
-    sprite.isCollidingWithBorderBottom = false;
+    const brickSize = globals.level.imageSet.gridSize;
+    const levelData = globals.level.data;
+    const numBlocksX = levelData[0].length;
+    const numBlocksY = levelData.length;
 
     //Datos del player
     const x1 = sprite.xPos + sprite.hitBox.xOffset;
@@ -134,12 +134,28 @@ function detectCollisionsBetweenPlayerAndBorders(sprite){
     const w1 = sprite.hitBox.xSize;
     const h1 = sprite.hitBox.ySize;
     
-    if (sprite.xPos + sprite.hitBox.xOffset < 0 ){
+    if (x1 < 0){
 
-        sprite.isCollidingWithBorderLeft = true;
-        
         overlap = x1 - 1;
         sprite.xPos -= overlap;
+    }
+
+    if (x1 > numBlocksX * brickSize - sprite.hitBox.xOffset){
+        
+        overlap = numBlocksX * brickSize - x1 - w1 - 1;
+        sprite.xPos += overlap;
+    }
+
+    if (y1 < 0){
+        
+        overlap = y1 - 1;
+        sprite.yPos -= overlap;
+    }
+    
+    if (y1 + h1 > numBlocksY * brickSize - sprite.imageSet.yOffset){
+        
+        overlap = numBlocksY * brickSize - y1 - h1 + sprite.imageSet.yOffset - 1;
+        sprite.yPos += overlap;
     }
 }
 
@@ -235,16 +251,17 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
         
         //Variables a usar
         let overlap;
+        let isOverlap;
 
-        const Wall = globals.activeWall[i];
+        const wall = globals.activeWall[i];
 
         sprite.isCollidingWithWall = false;
 
         //Datos del wall
-        const x1 = Wall.xPos + Wall.hitBox.xOffset;
-        const y1 = Wall.yPos + Wall.hitBox.yOffset;
-        const w1 = Wall.hitBox.xSize;
-        const h1 = Wall.hitBox.ySize;
+        const x1 = wall.xPos + wall.hitBox.xOffset;
+        const y1 = wall.yPos + wall.hitBox.yOffset;
+        const w1 = wall.hitBox.xSize;
+        let h1;
 
         //Datos del otro sprite
         const x2 = sprite.xPos + sprite.hitBox.xOffset;
@@ -255,7 +272,17 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
         let xPos1 = sprite.xPos + sprite.hitBox.xOffset + sprite.hitBox.xSize + 1;
         let xPos2 = sprite.xPos + sprite.hitBox.xOffset + 1;
 
-        const isOverlap = rectIntersect(x1, y1, w1, xPos1 - xPos2, x2, y2, w2, h2);
+        if (sprite.id === SpriteID.MAGIC){
+
+            h1 = wall.hitBox.ySize;
+            isOverlap = rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2);
+        }
+
+        else{
+
+            h1 = xPos1 - xPos2;
+            isOverlap = rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2);
+        }
 
         //Existe collision
         if (isOverlap){
@@ -284,7 +311,7 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
                 else if (sprite.physics.vy < 0){
                     
-                    overlap = y1 - y2 + xPos1 - xPos2 + 1;
+                    overlap = y1 - y2 + h1 + 1;
                     sprite.yPos += overlap;
                 }
             }

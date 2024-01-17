@@ -1,10 +1,10 @@
 import globals from "./globals.js";
 import {Game, SpriteID, State, FPS, ParticleState, ParticleID} from "./constans.js";
 import WaterParticle from "./Particle.js";
-import Sprite, { Enemy1, HudSprites, Player } from "./Sprite.js";
+import Sprite, {Enemy1, HudSprites} from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
-import {Level, level1, spriteLevel1} from "./Level.js";
+import {Level, level1} from "./Level.js";
 import Timer from "./Timer.js";
 import Physics from "./Physics.js";
 import {keydownHandler, keyupHandler} from "./events.js";
@@ -420,7 +420,7 @@ function initPlayer(){
     const hitBox = new HitBox(20, 48, 21, 11);
 
     //Creamos nuestro sprite
-    const player = new Player(SpriteID.PLAYER, State.IDLE, 64, 184, imageSet, frames, physics, hitBox);
+    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 184, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(player);

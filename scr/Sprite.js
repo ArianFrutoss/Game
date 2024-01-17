@@ -17,19 +17,6 @@ export default class Sprite{
     }
 }
 
-export class Player extends Sprite{
-
-    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox){
-
-        super(id, state, xPos, yPos, imageSet, frames, physics, hitBox);
-
-            this.isCollidingWithBorderTop       = false                 //Collision por arriba
-            this.isCollidingWithBorderBottom    = false                 //Collision por abajo
-            this.isCollidingWithBorderRight     = false                 //Collision por derecha
-            this.isCollidingWithBorderLeft      = false                 //Collision por izquierda
-        }
-}
-
 export class Enemy1 extends Sprite{
 
     constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox, ){

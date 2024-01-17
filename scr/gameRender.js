@@ -251,7 +251,6 @@ function renderHUD(){
     //Dibujar Fondo del HUD
     globals.ctxHUD.fillStyle = "black";
     globals.ctxHUD.fillRect(0, 0, globals.canvasHUD.width, globals.canvasHUD.height)
-    
 
     //Dibujar High Score
     globals.ctxHUD.fillStyle = "white";

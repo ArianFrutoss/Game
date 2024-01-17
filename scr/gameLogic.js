@@ -76,6 +76,7 @@ export default function update(){
 
         case Game.OVER_LOAD:
             
+            globals.sprites = [];
             initOverSprites();
             globals.gameState = Game.OVER;
             break;
@@ -773,7 +774,7 @@ function updateSpriteSpeed(sprite){
                 const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
                 const spriteYpos = sprite.yPos + sprite.imageSet.ySize;
                 
-                initWaterParticles(spriteXpos, spriteYpos);
+                // initWaterParticles(spriteXpos, spriteYpos);
             }
         }
 
