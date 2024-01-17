@@ -30,7 +30,7 @@ export default function detectCollisions(){
             
             detectCollisionsBetweenSpritesAndLakes(sprite);
         }   
-
+        
         if (sprite.id === SpriteID.PLAYER || sprite.id === SpriteID.ENEMY_1 || sprite.id === SpriteID.CHILD_1 || sprite.id === SpriteID.CHILD_2 || sprite.id === SpriteID.MAGIC){
             
             detectCollisionsBetweenSpritesAndWall(sprite);

@@ -94,9 +94,9 @@ export default function update(){
 
 function playGamePlayingScreen(){
     
+    updateParticles();
     detectCollisions();
     updateCamera();
-    updateParticles();
     updateLakes();
     spawnRandomEnemys();
     updateScore();
@@ -105,9 +105,9 @@ function playGamePlayingScreen(){
 }
 
 function playGame(){
-
-    updateSprites();
+    
     updateParticles();
+    updateSprites();
 }
 
 function updateSprites(){
@@ -217,7 +217,14 @@ function updateWaterParticle(particle){
         
         case ParticleState.OFF:
             
-            globals.particles.splice(0, 1)
+            for (let i = 0; i < globals.particles.length; i++){
+
+                if (globals.particles[i].state === ParticleState.OFF){
+
+                    globals.particles.splice[i, 1];
+                }
+            }
+
             break;
     }
 
@@ -774,7 +781,7 @@ function updateSpriteSpeed(sprite){
                 const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
                 const spriteYpos = sprite.yPos + sprite.imageSet.ySize;
                 
-                initWaterParticles(spriteXpos, spriteYpos);
+                //initWaterParticles(spriteXpos, spriteYpos);
             }
         }
 
@@ -843,7 +850,7 @@ function updateCamera(){
 
     else if (globals.camera.isCollidingWithBorderRight){
         
-        globals.camera.x = globals.canvas.width - player.xPos - player.imageSet.xSize + globals.canvasHUD.width;
+        globals.camera.x = globals.canvas.width - globals.camera.x - player.imageSet.xSize + globals.canvasHUD.width;
     }
 
     if(globals.camera.isCollidingWithBorderLeft === false && globals.camera.isCollidingWithBorderRight === false){

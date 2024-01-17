@@ -70,7 +70,7 @@ function drawGame(){
     
     //Borrar la pantalla
     globals.ctxHUD.clearRect(0, 0, globals.canvasHUD.width, globals.canvasHUD.height);
-    
+
     //Movemos la camara
     moveCamera();
     
@@ -138,6 +138,7 @@ function renderParticles(){
         
         const particle = globals.particles[i];
         renderParticle(particle);
+        console.log(particle.xPos);
     }
 }
 
@@ -147,7 +148,6 @@ function renderParticle(particle){
 
     switch (type){
 
-        //Caso del jugador
         case ParticleID.WATER:
 
             renderWaterParticle(particle);
