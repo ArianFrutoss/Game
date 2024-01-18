@@ -53,7 +53,10 @@ export default{
     EnemyDespawnTime: {},
 
     //Temporizador aparicion de nubes
-    cloudSpawn: {},
+    cloudSpawnTime: {},
+
+    //Temporizador para cambiar de posicion del menu
+    menuPositionTime: {},
 
     //Objeto que guarda el estado de la tecla pulsada
     action: {},
@@ -71,5 +74,8 @@ export default{
     particles: [],
 
     //Objeto que guarda la camara
-    camera: {}
+    camera: {},
+    
+    //Contador de en que posicion esta en el menu
+    gameStateCont: 2
 };

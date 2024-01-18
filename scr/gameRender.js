@@ -323,7 +323,6 @@ function renderNewGameText(){
     globals.ctx.fillText ("History", 210, 230);
     globals.ctx.fillText ("Controls", 210, 260);
     globals.ctx.fillText ("High Scores", 210, 290);
-    globals.ctx.fillText ("Exit", 210, 320);
 }
 
 function renderHistoryText(){

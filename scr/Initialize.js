@@ -101,7 +101,8 @@ function initTimers(){
     globals.lakesTime = new Timer(30, 1);
     globals.EnemySpawnTime = new Timer(5, 1);
     globals.EnemyDespawnTime = new Timer(5, 1);
-    globals.cloudSpawn = new Timer(160, 1);
+    globals.cloudSpawnTime = new Timer(160, 1);
+    globals.menuPositionTime = new Timer(1, 1);
 }
 
 function initParticles(){
@@ -646,7 +647,7 @@ function initNightSky(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(33);
+    const physics = new Physics(32);
 
     //Posicion de inicializacion de la nube
     const position = globals.canvas.width - imageSet.xSize / 2 - 150;
@@ -667,7 +668,7 @@ function initDaySky(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(33);
+    const physics = new Physics(32);
 
     //Posicion de inicializacion de la nube
     const position = -globals.canvas.width - 150;

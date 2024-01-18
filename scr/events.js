@@ -10,7 +10,7 @@ export function keydownHandler(event){
 
             globals.action.moveUp = true;
             break;
-
+        
         case Key.DOWN:
 
             globals.action.moveDown = true;

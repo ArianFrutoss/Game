@@ -3,18 +3,18 @@ export const Game = {
 
     INVALID:           -1,
     LOADING:            0,
-    NEW_GAME:           1,
-    NEW_GAME_LOAD:      2,
-    PLAYING:            3,
-    PLAYING_LOAD:       4,
-    CONTROLS:           5,
-    CONTROLS_LOAD:      6,
-    SCORES:             7,
-    SCORES_LOAD:        8,
-    HISTORY:            9,
-    HISTORY_LOAD:      10,
-    OVER:              11,
-    OVER_LOAD:         12
+    NEW_GAME_LOAD:      1,
+    PLAYING_LOAD:       2,
+    HISTORY_LOAD:       3,
+    CONTROLS_LOAD:      4,
+    SCORES_LOAD:        5,
+    OVER_LOAD:          6,
+    NEW_GAME:           7,
+    PLAYING:            8,
+    CONTROLS:           9,
+    SCORES:            10,
+    HISTORY:           11,
+    OVER:              12
 }
 
 //Codigos de teclas
@@ -26,7 +26,7 @@ export const Key = {
     LEFT:           65,
     BUILD:          69,
     ATTACK_CHILD:   81,
-    ATTACK:         32
+    ATTACK:         32,
 }
 
 export const PlayerPosition = {
@@ -57,15 +57,6 @@ export const ParticleState = {
     ON:     0,
     FADE:   1,
     OFF:    -1
-}
-
-export const collision = {
-
-    NO_COLLISION:   -1,
-    BORDER_UP:      0,
-    BORDER_DOWN:    1,
-    BORDER_LEFT:    2,
-    BORDER_RIGHT:   3
 }
 
 //Velocidad del juego

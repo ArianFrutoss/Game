@@ -108,6 +108,7 @@ function playGame(){
     
     updateParticles();
     updateSprites();
+    changeGameState();
 }
 
 function updateSprites(){
@@ -728,9 +729,9 @@ function setMoonAndSunPosition(sprite){
 
 function updateNightCloud(sprite){
 
-    updateTimer(globals.cloudSpawn);
+    updateTimer(globals.cloudSpawnTime);
 
-    if (globals.cloudSpawn.value <= 160 && globals.cloudSpawn.value > 80){
+    if (globals.cloudSpawnTime.value <= 160 && globals.cloudSpawnTime.value > 80){
 
         sprite.physics.vx = sprite.physics.vLimit;
         sprite.xPos += sprite.physics.vx * globals.deltaTime;
@@ -739,15 +740,15 @@ function updateNightCloud(sprite){
     if (sprite.xPos >= globals.canvas.width){
 
         sprite.xPos = -sprite.imageSet.xSize - sprite.imageSet.xOffset;
-        globals.cloudSpawn.value = 80;
+        globals.cloudSpawnTime.value = 80;
     }
 }
 
 function updateDayCloud(sprite){
 
-    updateTimer(globals.cloudSpawn);
+    updateTimer(globals.cloudSpawnTime);
     
-    if (globals.cloudSpawn.value <= 80 && globals.cloudSpawn.value > 0){
+    if (globals.cloudSpawnTime.value <= 80 && globals.cloudSpawnTime.value > 0){
 
         sprite.physics.vx = sprite.physics.vLimit;
         sprite.xPos += sprite.physics.vx * globals.deltaTime;
@@ -756,7 +757,7 @@ function updateDayCloud(sprite){
     if (sprite.xPos >= globals.canvas.width){
 
         sprite.xPos = -sprite.imageSet.xSize - sprite.imageSet.xOffset;
-        globals.cloudSpawn.value = 160;
+        globals.cloudSpawnTime.value = 160;
     }
 }
 
@@ -937,5 +938,40 @@ function gameOver(){
     if (globals.chairHP === 3){
 
         globals.gameState = Game.OVER_LOAD;
+    }
+}
+
+function changeGameState(){
+    
+    updateTimer(globals.menuPositionTime);
+
+    if (globals.gameState === Game.NEW_GAME){
+
+        if (globals.action.moveUp && globals.gameStateCont > 2 && globals.menuPositionTime.value < 1){
+
+            globals.gameStateCont -= 1;
+            globals.menuPositionTime.value = 1;
+        }
+        
+        if (globals.action.moveDown && globals.gameStateCont < 5 && globals.menuPositionTime.value < 1){
+            
+            globals.gameStateCont += 1;
+            globals.menuPositionTime.value = 1;
+        }
+
+        if (globals.action.attack && globals.menuPositionTime.value < 1){
+            
+            globals.gameState = globals.gameStateCont;
+            globals.menuPositionTime.value = 1;
+        }
+    }
+
+    if (globals.gameState === Game.HISTORY || globals.gameState === Game.CONTROLS || globals.gameState === Game.SCORES || globals.gameState === Game.OVER){
+        
+        if (globals.action.attack && globals.menuPositionTime.value < 1){
+
+            globals.gameState = Game.NEW_GAME_LOAD;
+            globals.menuPositionTime.value = 1;
+        }
     }
 }
