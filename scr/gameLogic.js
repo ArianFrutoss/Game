@@ -763,22 +763,22 @@ function updateDayCloud(sprite){
 function updateNightSky(sprite){
 
     sprite.physics.vx = sprite.physics.vLimit;
-    sprite.xPos -= sprite.physics.vx * globals.deltaTime;
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
 
-    if (sprite.xPos + sprite.imageSet.xSize - 1 < 0){
+    if (sprite.xPos >= globals.canvas.width - 1){
 
-        sprite.xPos = sprite.imageSet.xSize;
+        sprite.xPos = -globals.canvas.width - sprite.imageSet.xSize + sprite.imageSet.xSize / 2;
     }
 }
 
 function updateDaySky(sprite){
-
+    
     sprite.physics.vx = sprite.physics.vLimit;
-    sprite.xPos -= sprite.physics.vx * globals.deltaTime;
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
 
-    if (sprite.xPos + sprite.imageSet.xSize - 1 < 0){
+    if (sprite.xPos >= globals.canvas.width - 1){
 
-        sprite.xPos = sprite.imageSet.xSize;
+        sprite.xPos = -globals.canvas.width - sprite.imageSet.xSize + sprite.imageSet.xSize / 2;
     }
 }
 

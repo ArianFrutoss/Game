@@ -646,10 +646,10 @@ function initNightSky(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(25);
+    const physics = new Physics(32);
 
     //Posicion de inicializacion de la nube
-    const position = globals.canvas.width;
+    const position = globals.canvas.width - imageSet.xSize / 2 - 150;
 
     //Creamos nuestro sprite
     const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, position, 0, imageSet, frames, physics);
@@ -667,10 +667,10 @@ function initDaySky(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(25);
+    const physics = new Physics(32);
 
     //Posicion de inicializacion de la nube
-    const position = globals.canvas.width - imageSet.xSize;
+    const position = -globals.canvas.width - 150;
     
     //Creamos nuestro sprite
     const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, position, 0, imageSet, frames, physics);
