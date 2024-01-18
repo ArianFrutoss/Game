@@ -263,6 +263,11 @@ function updateSprite(sprite){
     
     switch (type){
 
+        case SpriteID.CHAIR_MENU:
+            
+            updateChairMenu(sprite);
+            break;
+
         case SpriteID.CHAIR_INTERFACE:
             
             updateChairInterface(sprite);
@@ -343,12 +348,16 @@ function updateSprite(sprite){
             updateNightSky(sprite);
             break;
 
-        
         //otros
         default:
 
             break;
     }
+}
+
+function updateChairMenu(sprite){
+
+    sprite.yPos = 165 + 30 * (globals.gameStateCont - 2);
 }
 
 function updateChairInterface(sprite){
@@ -943,10 +952,10 @@ function gameOver(){
 
 function changeGameState(){
     
-    updateTimer(globals.menuPositionTime);
-
     if (globals.gameState === Game.NEW_GAME){
 
+        updateTimer(globals.menuPositionTime);
+        
         if (globals.action.moveUp && globals.gameStateCont > 2 && globals.menuPositionTime.value < 1){
 
             globals.gameStateCont -= 1;
@@ -963,11 +972,14 @@ function changeGameState(){
             
             globals.gameState = globals.gameStateCont;
             globals.menuPositionTime.value = 1;
+            globals.gameStateCont = 2;
         }
     }
 
     if (globals.gameState === Game.HISTORY || globals.gameState === Game.CONTROLS || globals.gameState === Game.SCORES || globals.gameState === Game.OVER){
-        
+
+        updateTimer(globals.menuPositionTime);
+
         if (globals.action.attack && globals.menuPositionTime.value < 1){
 
             globals.gameState = Game.NEW_GAME_LOAD;

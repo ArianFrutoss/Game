@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, Tile, ParticleState, ParticleID} from "./constans.js";
+import {Game, Tile, ParticleState, ParticleID, SpriteID} from "./constans.js";
 
 export default function render(){
     
@@ -103,6 +103,15 @@ function renderSprite(sprite){
     const xPos = Math.floor(sprite.xPos);
     const yPos = Math.floor(sprite.yPos);
     
+    if (sprite.id === SpriteID.CHAIR_MENU){
+        
+        globals.ctx.translate(xPos + sprite.imageSet.xSize / 2, yPos + sprite.imageSet.ySize / 2);
+
+        globals.ctx.scale(0.5, 0.5);
+
+        globals.ctx.translate(-(xPos + sprite.imageSet.xSize / 2), -(yPos + sprite.imageSet.ySize / 2));
+    }
+
     //Dibujamos el nuevo fotograma del sprite
     if (sprite.hud){
         
@@ -113,7 +122,7 @@ function renderSprite(sprite){
             sprite.imageSet.xSize, sprite.imageSet.ySize,   
             xPos, yPos,                                     
             sprite.imageSet.xSize, sprite.imageSet.ySize    
-        )
+        );
     }
 
     else{
@@ -125,7 +134,7 @@ function renderSprite(sprite){
             sprite.imageSet.xSize, sprite.imageSet.ySize,   
             xPos, yPos,                                     
             sprite.imageSet.xSize, sprite.imageSet.ySize    
-        )
+        );
     }
 }
 
@@ -351,6 +360,7 @@ function renderControlsText(){
 
     //Dibujar Controles
     globals.ctx.font = "7px emulogic";
+    globals.ctx.fillStyle = "black";
     
     globals.ctx.fillText ("W", 340, 120);
     globals.ctx.fillText ("-------------", 355, 120);
@@ -396,6 +406,7 @@ function renderScoresText(){
 
     //Dibujar Controles
     globals.ctx.font = "7px emulogic";
+    globals.ctx.fillStyle = "black";
     
     globals.ctx.fillText ("WSD", 340, 120);
     globals.ctx.fillText ("-------------", 367, 120);

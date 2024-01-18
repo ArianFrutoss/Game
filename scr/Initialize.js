@@ -207,6 +207,7 @@ function initNewGameSprites(){
     initNightCloud();
     initBackground();
     initBlackBorder();
+    initChairMenu();
 }
 
 function initControlsSprites(){
@@ -252,6 +253,21 @@ function initOverSprites(){
 
     initBlack();
     initBlackBorder();
+}
+
+function initChairMenu(){
+
+    //Creamos las propiedades de las imagenes
+    const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
+
+    //Creamos los datos de la animacion
+    const frames = new Frames(4, 100);
+    
+    //Creamos nuestro sprite
+    const chairMenu = new Sprite(SpriteID.CHAIR_MENU, State.INTEGRITY, 160, 165, imageSet, frames);
+
+    //Añadimos el player el array de sprites
+    globals.sprites.push(chairMenu);
 }
 
 function initChairInterface(){
