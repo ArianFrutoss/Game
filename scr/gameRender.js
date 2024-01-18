@@ -221,7 +221,7 @@ function drawSpriteHitBox(sprite){
 
 function renderMap(){
 
-    if (globals.gameState === Game.PLAYING){
+    if (globals.gameState === Game.PLAYING || globals.gameState === Game.OVER){
 
         const brickSize = globals.level.imageSet.gridSize;
         const levelData = globals.level.data;
@@ -310,9 +310,9 @@ function renderNewGameText(){
 
     //Dibujar Titulo
     globals.ctx.font = "19px emulogic";
-    globals.ctx.fillStyle = "crimson";
-
+    globals.ctx.fillStyle = "rgb(114, 47, 47)";
     globals.ctx.fillText ("The Decrepit Throne:", 180, 100);
+    
     globals.ctx.fillStyle = "white";
     globals.ctx.fillText ("The defense of the throne", 180, 140);
 

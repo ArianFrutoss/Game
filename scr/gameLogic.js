@@ -750,7 +750,7 @@ function updateDayCloud(sprite){
     if (globals.cloudSpawn.value <= 80 && globals.cloudSpawn.value > 0){
 
         sprite.physics.vx = sprite.physics.vLimit;
-        sprite.xPos -= sprite.physics.vx * globals.deltaTime;
+        sprite.xPos += sprite.physics.vx * globals.deltaTime;
     }
 
     if (sprite.xPos >= globals.canvas.width){
@@ -765,7 +765,7 @@ function updateNightSky(sprite){
     sprite.physics.vx = sprite.physics.vLimit;
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
 
-    if (sprite.xPos >= globals.canvas.width - 1){
+    if (sprite.xPos >= globals.canvas.width - 2){
 
         sprite.xPos = -globals.canvas.width - sprite.imageSet.xSize + sprite.imageSet.xSize / 2;
     }
@@ -776,7 +776,7 @@ function updateDaySky(sprite){
     sprite.physics.vx = sprite.physics.vLimit;
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
 
-    if (sprite.xPos >= globals.canvas.width - 1){
+    if (sprite.xPos >= globals.canvas.width - 2){
 
         sprite.xPos = -globals.canvas.width - sprite.imageSet.xSize + sprite.imageSet.xSize / 2;
     }
