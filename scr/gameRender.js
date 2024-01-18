@@ -221,31 +221,34 @@ function drawSpriteHitBox(sprite){
 
 function renderMap(){
 
-    const brickSize = globals.level.imageSet.gridSize;
-    const levelData = globals.level.data;
+    if (globals.gameState === Game.PLAYING){
 
-    //Dibujamos el mapa
-    const num_fil = levelData.length;
-    const num_col = levelData[0].length;
+        const brickSize = globals.level.imageSet.gridSize;
+        const levelData = globals.level.data;
 
-    for (let i = 0; i < num_fil; i++){
+        //Dibujamos el mapa
+        const num_fil = levelData.length;
+        const num_col = levelData[0].length;
 
-        for (let j = 0; j < num_col; j++){
+        for (let i = 0; i < num_fil; i++){
 
-            const xTile = (levelData[i][j] - 1) * brickSize;
-            const yTile = 0;
-            const xPos = j * brickSize;
-            const yPos = i * brickSize;
-            
-            //Dibujamos el nuevo fotograma del sprite en la posicion adecuada
-            globals.ctx.drawImage(
+            for (let j = 0; j < num_col; j++){
+
+                const xTile = (levelData[i][j] - 1) * brickSize;
+                const yTile = 0;
+                const xPos = j * brickSize;
+                const yPos = i * brickSize;
                 
-                globals.tileSets[Tile.MAP],
-                xTile, yTile,
-                brickSize, brickSize,
-                xPos, yPos,
-                brickSize, brickSize
-            );
+                //Dibujamos el nuevo fotograma del sprite en la posicion adecuada
+                globals.ctx.drawImage(
+                    
+                    globals.tileSets[Tile.MAP],
+                    xTile, yTile,
+                    brickSize, brickSize,
+                    xPos, yPos,
+                    brickSize, brickSize
+                );
+            }
         }
     }
 }

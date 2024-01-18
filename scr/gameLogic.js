@@ -332,7 +332,16 @@ function updateSprite(sprite){
             updateNightCloud(sprite);
             break;
 
-        case SpriteID.
+        case SpriteID.DAY_SKY:
+
+            updateDaySky(sprite);
+            break;
+
+        case SpriteID.NIGHT_SKY:
+
+            updateNightSky(sprite);
+            break;
+
         
         //otros
         default:
@@ -719,21 +728,57 @@ function setMoonAndSunPosition(sprite){
 
 function updateNightCloud(sprite){
 
-    sprite.physics.vx = sprite.physics.vLimit;
-    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    updateTimer(globals.cloudSpawn);
+
+    if (globals.cloudSpawn.value <= 160 && globals.cloudSpawn.value > 80){
+
+        sprite.physics.vx = sprite.physics.vLimit;
+        sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    }
 
     if (sprite.xPos >= globals.canvas.width){
 
-        sprite.xPos = -1216;
+        sprite.xPos = -sprite.imageSet.xSize - sprite.imageSet.xOffset;
+        globals.cloudSpawn.value = 80;
     }
 }
 
 function updateDayCloud(sprite){
 
-    if (globals.levelTime.value > 14){
+    updateTimer(globals.cloudSpawn);
+    
+    if (globals.cloudSpawn.value <= 80 && globals.cloudSpawn.value > 0){
 
         sprite.physics.vx = sprite.physics.vLimit;
-        sprite.xPos += sprite.physics.vx * globals.deltaTime;
+        sprite.xPos -= sprite.physics.vx * globals.deltaTime;
+    }
+
+    if (sprite.xPos >= globals.canvas.width){
+
+        sprite.xPos = -sprite.imageSet.xSize - sprite.imageSet.xOffset;
+        globals.cloudSpawn.value = 160;
+    }
+}
+
+function updateNightSky(sprite){
+
+    sprite.physics.vx = sprite.physics.vLimit;
+    sprite.xPos -= sprite.physics.vx * globals.deltaTime;
+
+    if (sprite.xPos + sprite.imageSet.xSize - 1 < 0){
+
+        sprite.xPos = sprite.imageSet.xSize;
+    }
+}
+
+function updateDaySky(sprite){
+
+    sprite.physics.vx = sprite.physics.vLimit;
+    sprite.xPos -= sprite.physics.vx * globals.deltaTime;
+
+    if (sprite.xPos + sprite.imageSet.xSize - 1 < 0){
+
+        sprite.xPos = sprite.imageSet.xSize;
     }
 }
 

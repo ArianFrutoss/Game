@@ -91,7 +91,7 @@ function loadHandler(){
         console.log("Assets finished loading");
 
         //Cambia la etapa del juego a PLAYING
-        globals.gameState = Game.PLAYING_LOAD;
+        globals.gameState = Game.NEW_GAME_LOAD;
     }
 }
 
@@ -101,6 +101,7 @@ function initTimers(){
     globals.lakesTime = new Timer(30, 1);
     globals.EnemySpawnTime = new Timer(5, 1);
     globals.EnemyDespawnTime = new Timer(5, 1);
+    globals.cloudSpawn = new Timer(160, 1);
 }
 
 function initParticles(){
@@ -197,8 +198,8 @@ function initPlayingSprites(){
 
 function initNewGameSprites(){
 
-    initDaySky();
     initNightSky();
+    initDaySky();
     initSun();
     initMoon();
     initDayCloud();
@@ -582,7 +583,7 @@ function initMoon(){
     const frames = new Frames(1);
 
     //Valores iniciales para las fisicas
-    const initAngle     = 270 * Math.PI / 180;
+    const initAngle     = 180 * Math.PI / 180;
     const omega         = 0.1;
     const xRotCenter    = globals.canvas.width / 2;
     const yRotCenter    = globals.canvas.height / 2;
@@ -606,7 +607,7 @@ function initSun(){
     const frames = new Frames(1);
 
     //Valores iniciales para las fisicas
-    const initAngle     = 90 * Math.PI / 180;
+    const initAngle     = 0 * Math.PI / 180;
     const omega         = 0.1;
     const xRotCenter    = globals.canvas.width / 2;
     const yRotCenter    = globals.canvas.height / 2;
@@ -639,13 +640,19 @@ function initBackground(){
 function initNightSky(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(35, 0, 608, 344, 64, 0, 0);
+    const imageSet = new ImageSet(35, 0, 1144, 344, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(25);
+
+    //Posicion de inicializacion de la nube
+    const position = globals.canvas.width;
+
     //Creamos nuestro sprite
-    const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, 124, 0, imageSet, frames);
+    const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, position, 0, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(nightSky);
@@ -654,13 +661,19 @@ function initNightSky(){
 function initDaySky(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(29, 0, 608, 344, 64, 0, 0);
+    const imageSet = new ImageSet(29, 0, 1144, 344, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
+    //Creamos los datos de las fisicas del sprite
+    const physics = new Physics(25);
+
+    //Posicion de inicializacion de la nube
+    const position = globals.canvas.width - imageSet.xSize;
+    
     //Creamos nuestro sprite
-    const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, 124, 0, imageSet, frames);
+    const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, position, 0, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(daySky);
@@ -669,17 +682,20 @@ function initDaySky(){
 function initNightCloud(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(45, 0, 1216, 240, 64, 0, 0);
+    const imageSet = new ImageSet(45, 0, 1144, 240, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(50);
+    const physics = new Physics(68);
+
+    //Posicion de inicializacion de la nube
+    const position = -imageSet.xSize - imageSet.xOffset;
 
     //Creamos nuestro sprite
-    const nightCloud = new Sprite(SpriteID.NIGHT_CLOUD, State.NIGHT_CLOUD, -470, 0, imageSet, frames, physics);
-
+    const nightCloud = new Sprite(SpriteID.NIGHT_CLOUD, State.NIGHT_CLOUD, position, 0, imageSet, frames, physics);
+    
     //Añadimos el player el array de sprites
     globals.sprites.push(nightCloud);
 }
@@ -687,16 +703,19 @@ function initNightCloud(){
 function initDayCloud(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(41, 0, 1216, 240, 64, 0, 0);
+    const imageSet = new ImageSet(41, 0, 1144, 240, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(50);
+    const physics = new Physics(68);
+
+    //Posicion de inicializacion de la nube
+    const position = -imageSet.xSize - imageSet.xOffset;
 
     //Creamos nuestro sprite
-    const dayCloud = new Sprite(SpriteID.DAY_CLOUD, State.DAY_CLOUD, -1216, 0, imageSet, frames, physics);
+    const dayCloud = new Sprite(SpriteID.DAY_CLOUD, State.DAY_CLOUD, position, 0, imageSet, frames, physics);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(dayCloud);

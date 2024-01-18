@@ -52,6 +52,9 @@ export default{
     //Temporizador aparicion de enemigos
     EnemyDespawnTime: {},
 
+    //Temporizador aparicion de nubes
+    cloudSpawn: {},
+
     //Objeto que guarda el estado de la tecla pulsada
     action: {},
 
