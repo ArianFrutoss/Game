@@ -105,28 +105,28 @@ function initTimers(){
 
 function initParticles(){
 
-    initWaterParticles(100, 100);    
+    
 }
 
 function initWaterParticles(spriteXpos, spriteYpos){
 
-    const numParticles  = 20;
-    const xInit         = 100;
-    const yInit         = 100;
-    const radius        = 1.5;
-    const timeToFadeMax = 2;
+    const numParticles  = 10;
+    const xInit         = spriteXpos;
+    const yInit         = spriteYpos;
+    const radius        = 1;
+    const timeToFadeMax = 0.5;
     const alpha         = 1.0;
 
     for (let i = 0; i < numParticles; i++){
 
-        const velocity = Math.random() * 1.5 + 5;
+        const velocity = Math.random() * 5 + 5;
         const physics = new Physics(velocity);
 
         const timeToFade = timeToFadeMax * Math.random() + 1;
         const particle = new WaterParticle(ParticleID.WATER, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
         
         //Asignamos velocidades segun angulo aleatorio
-        const randomAngle = Math.random() * 2 * Math.PI;
+        const randomAngle = Math.random() * 5 * Math.PI;
         particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle);
         particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle);
 

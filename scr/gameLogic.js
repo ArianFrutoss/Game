@@ -94,12 +94,12 @@ export default function update(){
 
 function playGamePlayingScreen(){
     
-    updateParticles();
     detectCollisions();
     updateCamera();
     updateLakes();
     spawnRandomEnemys();
     updateScore();
+    updateParticles();
     updateSprites();
     gameOver();
 }
@@ -217,14 +217,7 @@ function updateWaterParticle(particle){
         
         case ParticleState.OFF:
             
-            for (let i = 0; i < globals.particles.length; i++){
-
-                if (globals.particles[i].state === ParticleState.OFF){
-
-                    globals.particles.splice[i, 1];
-                }
-            }
-
+            globals.particles.splice(particle, 1);
             break;
     }
 
@@ -777,11 +770,14 @@ function updateSpriteSpeed(sprite){
 
                 sprite.physics.vLimit -= 10;
                 sprite.physics.speedReductionCont += 10;
+            }
+            
+            if (sprite.physics.vx != 0 || sprite.physics.vy != 0){
                 
                 const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
-                const spriteYpos = sprite.yPos + sprite.imageSet.ySize;
-                
-                //initWaterParticles(spriteXpos, spriteYpos);
+                const spriteYpos = sprite.yPos + sprite.imageSet.ySize - 5;
+
+                initWaterParticles(spriteXpos, spriteYpos);
             }
         }
 

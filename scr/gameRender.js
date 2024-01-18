@@ -78,19 +78,16 @@ function drawGame(){
     renderMap();
 
     //Dibujamos la interfaz
-    if (globals.gameState === Game.PLAYING){
-        
-        renderHUD();
-    }
+    renderHUD();
+
+    //Pintar las particulas
+    renderParticles();
 
     //Pintar los sprites
     renderSprites();
 
     //Restablecer camara
     restoreCamera();
-
-    //Pintar las particulas
-    renderParticles();
 }
 
 function renderSprite(sprite){
@@ -134,11 +131,10 @@ function renderSprite(sprite){
 
 function renderParticles(){
 
-    for (let i = 0; globals.particles.length; i++){
+    for (let i = 0; i < globals.particles.length; i++){
         
         const particle = globals.particles[i];
         renderParticle(particle);
-        console.log(particle.xPos);
     }
 }
 
@@ -163,7 +159,23 @@ function renderWaterParticle(particle){
 
     if (particle.state != ParticleState.OFF){
 
-        globals.ctx.fillStyle = "blue";
+        const randomColorParticles = Math.floor(Math.random() * 3);
+
+        if (randomColorParticles === 1){
+
+            globals.ctx.fillStyle = "rgb(39, 161, 185)";
+        }
+
+        else if (randomColorParticles === 2){
+
+            globals.ctx.fillStyle = "rgb(30, 106, 136)";
+        }
+
+        else{
+
+            globals.ctx.fillStyle = "rgb(205, 231, 255)";            
+        }
+        
         globals.ctx.globalAlpha = particle.alpha;
         globals.ctx.beginPath();
         globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI);
@@ -240,52 +252,55 @@ function renderMap(){
 
 function renderHUD(){
 
-    //Datos
-    const highScore = 640200;
+    if (globals.gameState === Game.PLAYING){
+        
+        //Datos
+        const highScore = 640200;
 
-    globals.ctxHUD.font = "12px emulogic";
+        globals.ctxHUD.font = "12px emulogic";
 
-    //Dibujar los FPS
-    //globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 5,20);
+        //Dibujar los FPS
+        //globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 5,20);
 
-    //Dibujar Fondo del HUD
-    globals.ctxHUD.fillStyle = "black";
-    globals.ctxHUD.fillRect(0, 0, globals.canvasHUD.width, globals.canvasHUD.height)
+        //Dibujar Fondo del HUD
+        globals.ctxHUD.fillStyle = "black";
+        globals.ctxHUD.fillRect(0, 0, globals.canvasHUD.width, globals.canvasHUD.height)
 
-    //Dibujar High Score
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("HIGH SCORE", 15, 30);
-    globals.ctxHUD.fillStyle = "crimson";
-    globals.ctxHUD.fillText (" " + highScore, 150, 30);
+        //Dibujar High Score
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("HIGH SCORE", 15, 30);
+        globals.ctxHUD.fillStyle = "crimson";
+        globals.ctxHUD.fillText (" " + highScore, 150, 30);
 
-    //Dibujar Score
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("SCORE", 15, 60);
-    globals.ctxHUD.fillStyle = "lightgray";
-    globals.ctxHUD.fillText (" " + globals.score, 150, 60);
+        //Dibujar Score
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("SCORE", 15, 60);
+        globals.ctxHUD.fillStyle = "lightgray";
+        globals.ctxHUD.fillText (" " + globals.score, 150, 60);
 
-    //Dibujar materiales
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("MATERIALS", 75, 200);
+        //Dibujar materiales
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("MATERIALS", 75, 200);
 
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("x 1", 155, 240);
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("x 5", 155, 280);
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("x 1", 155, 240);
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("x 5", 155, 280);
 
-    //Dibujar Requisitos
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("REQUERIMENTS", 55, 320);
+        //Dibujar Requisitos
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("REQUERIMENTS", 55, 320);
 
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("x 1", 50, 370);
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("x 3", 50, 410);
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("x 1", 50, 370);
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("x 3", 50, 410);
 
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("x 2", 135, 370);
-    globals.ctxHUD.fillStyle = "white";
-    globals.ctxHUD.fillText ("x 2", 135, 410);
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("x 2", 135, 370);
+        globals.ctxHUD.fillStyle = "white";
+        globals.ctxHUD.fillText ("x 2", 135, 410);
+    }
 }
 
 function renderNewGameText(){
