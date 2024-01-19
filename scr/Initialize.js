@@ -97,12 +97,13 @@ function loadHandler(){
 
 function initTimers(){
 
-    globals.levelTime = new Timer(30, 1);
+    globals.levelTime = new Timer(180, 1);
     globals.lakesTime = new Timer(30, 1);
     globals.EnemySpawnTime = new Timer(5, 1);
     globals.EnemyDespawnTime = new Timer(2, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
     globals.menuPositionTime = new Timer(1, 0.5);
+    globals.historyTime = new Timer(10, 1);
 }
 
 function initParticles(){

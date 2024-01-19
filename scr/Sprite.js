@@ -15,6 +15,8 @@ export default class Sprite{
         this.isCollidingWithWall                = false;        //Indica si ha habido colosion con el muro
         this.isCollidingWithChair               = false;        //Indica si ha habido colosion con la silla
         this.isCollidingWithObject              = false;        //Indica si ha habido colosion con los objetos
+        this.isCollidingWithEnemy               = false;        //Indica si ha habido colosion con el enemigo
+        this.isCollidingWithMagic               = false;        //Indica si ha habido colosion con la magia
     }
 }
 
@@ -25,7 +27,6 @@ export class Enemy1 extends Sprite{
         super(id, state, xPos, yPos, imageSet, frames, physics, hitBox);
 
             this.hp                                 = 4;            //Vida de los enemigos
-            this.isCollidingWithEnemy               = false;        //Indica si ha habido colosion con el enemigo
             this.enemyCont                          = 5;            //Contador de enemigos spawneados
     }
 }

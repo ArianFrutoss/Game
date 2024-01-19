@@ -1,5 +1,7 @@
 import globals from "./globals.js";
 import {Game, Tile, ParticleState, ParticleID, SpriteID} from "./constans.js";
+import {historyText} from "./Text.js";
+import {updateTimer} from "./gameLogic.js";
 
 export default function render(){
     
@@ -364,25 +366,41 @@ function renderNewGameText(){
 }
 
 function renderHistoryText(){
+    
+    const height = 120;
+    const width = 340;
 
-    //Dibujar Titulo
-    globals.ctx.font = "7px emulogic";
-    globals.ctx.fillStyle = "black";
-
-    globals.ctx.fillText ("The defense of the throne", 335, 68);
+    let spacesX = 0;
+    let spacesY = 0;
+    let word;
 
     //Dibujar Historia
     globals.ctx.font = "6px emulogic";
-    
-    globals.ctx.fillText ("The news of Joseph's strange", 335, 120);
-    globals.ctx.fillText ("chair spread rapidly throughout", 335, 130);
-    globals.ctx.fillText ("the Lowlands. The villagers,", 335, 140); 
-    globals.ctx.fillText ("intrigued and superstitious,", 335, 150);
-    globals.ctx.fillText ("began to fear the mysterious", 335, 160);
-    globals.ctx.fillText ("connection between Joseph and", 335, 170); 
-    globals.ctx.fillText ("the colossal chair. Rumors of", 335, 180);
-    globals.ctx.fillText ("goblins and dark magic spread", 335, 190);
-    globals.ctx.fillText ("like wildfire in a dry forest.", 335, 200);
+    globals.ctx.fillStyle = "black";
+
+    for (let i = 0; i < historyText.length; i++){
+        
+        updateTimer(globals.historyTime);
+
+        globals.ctx.fillText (historyText[i], width + spacesX, height + spacesY);
+
+        word = historyText[i].length;
+
+        spacesX += (word * 6) + 10;
+
+        if (spacesX >= 130){
+
+            spacesX = 0;
+            spacesY += 10;
+        }
+
+        if (spacesY >= 210){
+            
+            spacesX = 0;
+            spacesY = 0;
+            historyText.splice(0, i);
+        }
+    }   
 }
 
 function renderControlsText(){

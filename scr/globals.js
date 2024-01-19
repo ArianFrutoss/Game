@@ -61,6 +61,9 @@ export default{
     //Temporizador para cambiar de posicion del menu
     menuPositionTime: {},
 
+    //Temporizador para añadir palabra
+    historyTime: {},
+
     //Objeto que guarda el estado de la tecla pulsada
     action: {},
 
@@ -77,10 +80,10 @@ export default{
     highScore: 0,
 
     //Stone
-    stoneCont: 0,
+    stoneCont: 10,
 
     //Wood
-    woodCont: 0,
+    woodCont: 10,
 
     //Array de particulas
     particles: [],
@@ -89,5 +92,8 @@ export default{
     camera: {},
     
     //Contador de en que posicion esta en el menu
-    gameStateCont: 2
+    gameStateCont: 2,
+
+    //Texto de historia
+    historyTextCont: 0
 };

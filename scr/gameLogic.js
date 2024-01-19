@@ -102,6 +102,7 @@ function playGamePlayingScreen(){
     updateSprites();
     gameOver();
     updateHighScore();
+    updateTimer(globals.levelTime);
 }
 
 function playGame(){
@@ -141,7 +142,7 @@ function updateSprites(){
             }
             
             const sprite = globals.sprites[i];
-
+            
             updateSprite(sprite);
             updateSpriteSpeed(sprite);
             updatePlayerStateWhenIsCollidingWithWall(sprite);
@@ -270,7 +271,7 @@ function updateMagicParticle(particle){
     particle.yPos += particle.physics.vy * globals.deltaTime;
 }
 
-function updateTimer(time){
+export function updateTimer(time){
 
     //Incrementamos el contador de cambio de valor
     time.timerChangeCounter += globals.deltaTime;
@@ -492,11 +493,16 @@ function updateMagic(sprite){
         if (globals.sprites[i].xPos > numBlocksX * brickSize - sprite.hitBox.xOffset && globals.sprites[i].id === SpriteID.MAGIC){
             
             globals.sprites.splice(i, 1);
+        }
 
+        if (globals.sprites[i].isCollidingWithEnemy && globals.sprites[i].id === SpriteID.MAGIC){
+            
             const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
             const spriteYpos = sprite.yPos + sprite.imageSet.ySize - 5;
-
+            
             initMagicParticles(spriteXpos, spriteYpos);
+
+            globals.sprites.splice(i, 1);
         }
     }
 
@@ -775,6 +781,19 @@ function updateEnemy1(sprite){
         }
     }
 
+    if (sprite.isCollidingWithWall && sprite.hp > 0 && sprite.frames.frameCounter === 1){
+            
+        sprite.state = State.ENEMY_1_ATTACK;
+        sprite.frames.speed = 4;
+        sprite.frames.framesPerState = 4;
+        
+        if (sprite.frames.frameCounter === 2){
+
+            sprite.hitsWall++;
+            console.log(sprite.hitsWall);
+        }
+    }
+
     if (sprite.hp <= 0){
 
         updateTimer(globals.EnemyDespawnTime);
@@ -786,20 +805,7 @@ function updateEnemy1(sprite){
         sprite.frames.frameCounter = 0;
         globals.score += 100;
     }
-
-    if (sprite.isCollidingWithWall){
-
-        sprite.frames.speed = 4;
-        sprite.frames.framesPerState = 4;
-        sprite.state = State.ENEMY_1_ATTACK;
-        
-        if (sprite.frames.frameCounter === 3){
-
-            sprite.frames.frameCounter = 0;
-            sprite.frames.framesPerState = 6;
-        }
-    }
-
+    
     for (let i = 0; i < globals.sprites.length; i++){ 
         
         if (globals.EnemyDespawnTime.value <= 0 && globals.sprites[i].hp <= 0 && globals.sprites[i].id === SpriteID.ENEMY_1 && sprite.frames.frameCounter === 0){
@@ -814,12 +820,11 @@ function updateEnemy1(sprite){
             globals.sprites.splice(i, 1);
             globals.EnemyDespawnTime.value = 2;
         }
+    }
 
-        if (globals.sprites[i].isCollidingWithEnemy && globals.sprites[i] === SpriteID.MAGIC){
-
-            globals.sprites.splice(i, 1);
-            sprite.hp -= 1;
-        }
+    if (sprite.isCollidingWithMagic && sprite.id === SpriteID.ENEMY_1){
+        
+        sprite.hp -= 1;
     }
     
     //Actualizamos la animacion
@@ -1090,7 +1095,7 @@ function updateHighScore(){
 
 function gameOver(){
 
-    if (globals.chairHP === 3){
+    if (globals.chairHP === 3 || globals.levelTime.value <= 0){
 
         globals.gameState = Game.OVER_LOAD;
     }

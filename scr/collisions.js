@@ -87,13 +87,13 @@ function detectCollisionsBetweenChairAndEnemy(sprite){
 
 function detectCollisionsBetweenMagicAndEnemy(sprite){
 
+    sprite.isCollidingWithMagic = false;
+
     for (let i = 0; i < globals.sprites.length; i++){
 
         if (globals.sprites[i].id === SpriteID.MAGIC){
 
             const magic = globals.sprites[i];
-        
-            sprite.isCollidingWithEnemy = false;
 
             //Datos de la magic
             const x1 = magic.xPos + magic.hitBox.xOffset;
@@ -112,7 +112,8 @@ function detectCollisionsBetweenMagicAndEnemy(sprite){
             //Existe collision
             if (isOverlap && sprite.hp > 0){
                 
-                sprite.isCollidingWithEnemy = true;
+                sprite.isCollidingWithMagic = true;
+                magic.isCollidingWithEnemy = true;
             }
         }
     }
@@ -290,8 +291,9 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
         const wall = globals.activeWall[i];
 
+        wall.isCollidingWithEnemy = false;
         sprite.isCollidingWithWall = false;
-
+        
         //Datos del wall
         const x1 = wall.xPos + wall.hitBox.xOffset;
         const y1 = wall.yPos + wall.hitBox.yOffset;
@@ -322,8 +324,9 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
         //Existe collision
         if (isOverlap){
             
+            wall.isCollidingWithEnemy = true;
             sprite.isCollidingWithWall = true;
-                
+            
             if (sprite.id != SpriteID.MAGIC){
 
                 if (sprite.physics.vx > 0){
