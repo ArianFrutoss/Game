@@ -141,7 +141,7 @@ function updateSprites(){
             }
             
             const sprite = globals.sprites[i];
-
+            
             updateSprite(sprite);
             updateSpriteSpeed(sprite);
             updatePlayerStateWhenIsCollidingWithWall(sprite);
@@ -438,6 +438,18 @@ function updateMagic(sprite){
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
     sprite.frames.frameChangeCounter = 0;
+
+    const brickSize = globals.level.imageSet.gridSize;
+    const levelData = globals.level.data;
+    const numBlocksX = levelData[0].length;
+
+    for (let i = 0; i < globals.sprites.length; i++){ 
+
+        if (sprite.xPos > numBlocksX * brickSize - sprite.hitBox.xOffset && globals.sprites[i].id === SpriteID.MAGIC){
+            
+            globals.sprites.splice(i, 1);
+        }
+    }
 
     //Actualizamos la animacion
     updateAnimationFrame(sprite);

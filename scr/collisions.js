@@ -44,7 +44,7 @@ export default function detectCollisions(){
         }
 
         if (sprite.id === SpriteID.PLAYER){
-
+            
             detectCollisionsBetweenPlayerAndBorders(sprite);
             detectCollisionsBetweenCameraAndBorders(sprite);
         }
@@ -133,7 +133,7 @@ function detectCollisionsBetweenPlayerAndBorders(sprite){
     const y1 = sprite.yPos + sprite.hitBox.yOffset;
     const w1 = sprite.hitBox.xSize;
     const h1 = sprite.hitBox.ySize;
-    
+
     if (x1 < 0){
 
         overlap = x1 - 1;
