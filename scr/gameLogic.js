@@ -1104,19 +1104,19 @@ function changeGameState(){
 
         updateTimer(globals.menuPositionTime);
         
-        if (globals.action.moveUp && globals.gameStateCont > 2 && globals.menuPositionTime.value < 1){
+        if (globals.action.moveUp && globals.gameStateCont > 2 && globals.menuPositionTime.value <= 0){
 
             globals.menuPositionTime.value = 1;
             globals.gameStateCont -= 1; 
         }
         
-        else if (globals.action.moveDown && globals.gameStateCont < 5 && globals.menuPositionTime.value < 1){
+        else if (globals.action.moveDown && globals.gameStateCont < 5 && globals.menuPositionTime.value <= 0){
             
             globals.menuPositionTime.value = 1;
             globals.gameStateCont += 1;
         }
 
-        else if (globals.action.attack && globals.menuPositionTime.value < 1){
+        else if (globals.action.attack && globals.menuPositionTime.value <= 0){
             
             globals.gameState = globals.gameStateCont;
             globals.menuPositionTime.value = 1;
@@ -1124,13 +1124,13 @@ function changeGameState(){
         }
     } 
 
-    else if (globals.gameState === Game.HISTORY || globals.gameState === Game.CONTROLS || globals.gameState === Game.SCORES || globals.gameState === Game.OVER){
+    if (globals.gameState === Game.HISTORY || globals.gameState === Game.CONTROLS || globals.gameState === Game.SCORES || globals.gameState === Game.OVER){
 
         updateTimer(globals.menuPositionTime);
 
-        if (globals.action.attack && globals.menuPositionTime.value < 1){
+        if (globals.action.attack && globals.menuPositionTime.value <= 0){
 
-            globals.menuPositionTime.value = 1;
+            globals.menuPositionTime.value = 2;
             globals.gameState = Game.NEW_GAME_LOAD;
         }
     }

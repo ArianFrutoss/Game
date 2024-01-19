@@ -54,9 +54,10 @@ function gameLoop(timeStamp){
 
     //Variable que corrige el tiempo de frame debido a retrasos con respecto al tiempo objetivo (frameTImeObj)
     globals.deltaTime += elapsedCycleSeconds;
+    globals.cycleRealTime += elapsedCycleSeconds;
 
-    if (globals.deltaTime >= globals.frameTimeObj){
-
+    if (globals.cycleRealTime >= globals.frameTimeObj){
+        
         //Funcion para cargar lo que esta ocurriendo en el juego
         update();
 
@@ -64,6 +65,7 @@ function gameLoop(timeStamp){
         render();
 
         //Corregimos los excesos de tiempo
+        globals.cycleRealTime -= globals.frameTimeObj;
         globals.deltaTime = 0;
     }
 }
