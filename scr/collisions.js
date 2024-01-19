@@ -46,6 +46,7 @@ export default function detectCollisions(){
         if (sprite.id === SpriteID.PLAYER){
             
             detectCollisionsBetweenPlayerAndBorders(sprite);
+            detectCollisionsBetweenPlayerAndObjects(sprite);
             detectCollisionsBetweenCameraAndBorders(sprite);
         }
     }
@@ -156,6 +157,39 @@ function detectCollisionsBetweenPlayerAndBorders(sprite){
         
         overlap = numBlocksY * brickSize - y1 - h1 + sprite.imageSet.yOffset - 1;
         sprite.yPos += overlap;
+    }
+}
+
+function detectCollisionsBetweenPlayerAndObjects(sprite){
+    
+    for (let i = 0; i < globals.sprites.length; i++){
+
+        if (globals.sprites[i].id === SpriteID.STONE || globals.sprites[i].id === SpriteID.WOOD){
+
+            const object = globals.sprites[i];
+        
+            sprite.isCollidingWithObject = false;
+
+            //Datos de la magic
+            const x1 = object.xPos + object.hitBox.xOffset;
+            const y1 = object.yPos + object.hitBox.yOffset;
+            const w1 = object.hitBox.xSize;
+            const h1 = object.hitBox.ySize;
+
+            //Datos del otro sprite
+            const x2 = sprite.xPos + sprite.hitBox.xOffset;
+            const y2 = sprite.yPos + sprite.hitBox.yOffset;
+            const w2 = sprite.hitBox.xSize;
+            const h2 = sprite.hitBox.ySize;
+
+            const isOverlap = rectIntersect(x1, y1, w1, h1 + h1, x2, y2, w2, h2);
+
+            //Existe collision
+            if (isOverlap){
+                
+                object.isCollidingWithObject = true;
+            }
+        }
     }
 }
 

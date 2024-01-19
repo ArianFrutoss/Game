@@ -290,9 +290,9 @@ function renderHUD(){
         globals.ctxHUD.fillText ("MATERIALS", 75, 200);
 
         globals.ctxHUD.fillStyle = "white";
-        globals.ctxHUD.fillText ("x 1", 155, 240);
+        globals.ctxHUD.fillText ("x " + globals.woodCont, 155, 240);
         globals.ctxHUD.fillStyle = "white";
-        globals.ctxHUD.fillText ("x 5", 155, 280);
+        globals.ctxHUD.fillText ("x " + globals.woodCont, 155, 280);
 
         //Dibujar Requisitos
         globals.ctxHUD.fillStyle = "white";

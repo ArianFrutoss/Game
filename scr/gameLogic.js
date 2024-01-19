@@ -458,6 +458,24 @@ function updateMagic(sprite){
 function updateStone(sprite){
 
     updateMovementOfObjets(sprite);
+
+    for (let i = 0; i < globals.sprites.length; i++){
+
+        if (globals.sprites[i].isCollidingWithObject){
+            
+            if (globals.sprites[i].id === SpriteID.STONE){
+                
+                globals.stoneCont += 1;
+            }
+
+            else if (globals.sprites[i].id === SpriteID.WOOD){
+
+                globals.woodCont += 1;
+            }
+
+            globals.sprites.splice(i, 1);
+        }
+    }
 }
 
 function updateWood(sprite){
@@ -711,11 +729,10 @@ function updateEnemy1(sprite){
     for (let i = 0; i < globals.sprites.length; i++){ 
         
         if (globals.EnemyDespawnTime.value <= 0 && globals.sprites[i].hp <= 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
-            
+
+            randomObjectSpawn(globals.sprites[i].xPos, globals.sprites[i].yPos);
             globals.sprites.splice(i, 1);
             globals.EnemyDespawnTime.value = 5;
-            
-            randomObjectSpawn(globals.sprites[i].xPos, globals.sprites[i].yPos);
         }
 
         if (globals.sprites[i].xPos + sprite.hitBox.xOffset - 1 < 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
@@ -733,7 +750,7 @@ function randomObjectSpawn(spawnXpos, spawnYpos){
 
     const options = [1, 2, 1, 3, 1];
     const randomObject = options[Math.floor(Math.random() * options.length)];
-
+    
     if (randomObject === 2){
 
         initStone(spawnXpos, spawnYpos);
@@ -982,7 +999,7 @@ function spawnRandomEnemys(){
 function updateHighScore(){
 
     if (globals.score > globals.highScore && globals.chairHP === 3){
-        console.log(1);
+        
         globals.highScore = globals.score;
     }
 

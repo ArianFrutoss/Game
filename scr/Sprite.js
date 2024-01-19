@@ -14,6 +14,7 @@ export default class Sprite{
         this.isCollidingWithTheLake             = false;        //Indica si ha habido colision con el lago
         this.isCollidingWithWall                = false;        //Indica si ha habido colosion con el muro
         this.isCollidingWithChair               = false;        //Indica si ha habido colosion con la silla
+        this.isCollidingWithObject              = false;        //Indica si ha habido colosion con los objetos
     }
 }
 
