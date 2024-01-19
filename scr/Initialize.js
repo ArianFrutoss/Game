@@ -100,7 +100,7 @@ function initTimers(){
     globals.levelTime = new Timer(30, 1);
     globals.lakesTime = new Timer(30, 1);
     globals.EnemySpawnTime = new Timer(5, 1);
-    globals.EnemyDespawnTime = new Timer(10, 1);
+    globals.EnemyDespawnTime = new Timer(5, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
     globals.menuPositionTime = new Timer(1, 0.5);
 }
@@ -435,7 +435,7 @@ function initMagic(playerXpos, playerYpos){
     globals.sprites.push(magic);
 }
 
-function initStone(){
+function initStone(spawnXpos, spawnYpos){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(6, 0, 64, 64, 64, 0, 0);
@@ -450,13 +450,13 @@ function initStone(){
     const hitBox = new HitBox(23, 15, 21, 29);
 
     //Creamos nuestro sprite
-    const stone = new Sprite(SpriteID.STONE, State.STONE, 190, 260, imageSet, frames, physics, hitBox);
+    const stone = new Sprite(SpriteID.STONE, State.STONE, spawnXpos, spawnYpos, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(stone);
 }
 
-function initWood(){
+function initWood(spawnXpos, spawnYpos){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(7, 0, 64, 64, 64, 0, 0);
@@ -471,7 +471,7 @@ function initWood(){
     const hitBox = new HitBox(20, 20, 22, 24);
 
     //Creamos nuestro sprite
-    const wood = new Sprite(SpriteID.WOOD, State.WOOD, 120, 110, imageSet, frames, physics, hitBox);
+    const wood = new Sprite(SpriteID.WOOD, State.WOOD, spawnXpos, spawnYpos, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wood);
@@ -780,6 +780,8 @@ export{
     initWall,
     initMagic,
     initEnemy1,
+    initStone,
+    initWood,
     initParticles,
     initWaterParticles,
     initCamera

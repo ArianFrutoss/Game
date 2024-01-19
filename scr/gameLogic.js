@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, ParticleID} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initEnemy1} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initEnemy1, initStone, initWood} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 
@@ -445,7 +445,7 @@ function updateMagic(sprite){
 
     for (let i = 0; i < globals.sprites.length; i++){ 
 
-        if (sprite.xPos > numBlocksX * brickSize - sprite.hitBox.xOffset && globals.sprites[i].id === SpriteID.MAGIC){
+        if (globals.sprites[i].xPos > numBlocksX * brickSize - sprite.hitBox.xOffset && globals.sprites[i].id === SpriteID.MAGIC){
             
             globals.sprites.splice(i, 1);
         }
@@ -698,7 +698,7 @@ function updateEnemy1(sprite){
 
     if (sprite.hp <= 0){
 
-        updateTimer(globals.EnemyDespawnTime)
+        updateTimer(globals.EnemyDespawnTime);
     }
 
     if (sprite.hp <= 0 && sprite.state === State.ENEMY_1_DEAD && sprite.frames.frameCounter === 3){
@@ -710,22 +710,40 @@ function updateEnemy1(sprite){
 
     for (let i = 0; i < globals.sprites.length; i++){ 
         
-        if (globals.EnemyDespawnTime.value <= 0 && sprite[i].hp <= 0){
+        if (globals.EnemyDespawnTime.value <= 0 && globals.sprites[i].hp <= 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
             
             globals.sprites.splice(i, 1);
-            globals.EnemyDespawnTime.value = 10;
+            globals.EnemyDespawnTime.value = 5;
+            
+            randomObjectSpawn(globals.sprites[i].xPos, globals.sprites[i].yPos);
         }
 
         if (globals.sprites[i].xPos + sprite.hitBox.xOffset - 1 < 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
-
+            
             globals.sprites.splice(i, 1);
-            globals.EnemyDespawnTime.value = 10;
+            globals.EnemyDespawnTime.value = 5;
         }
     }
     
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
-}   
+}
+
+function randomObjectSpawn(spawnXpos, spawnYpos){
+
+    const options = [1, 2, 1, 3, 1];
+    const randomObject = options[Math.floor(Math.random() * options.length)];
+
+    if (randomObject === 2){
+
+        initStone(spawnXpos, spawnYpos);
+    }
+
+    else if (randomObject === 3){
+
+        initWood(spawnXpos, spawnYpos);
+    }
+}
 
 function updateWall(sprite){
 
