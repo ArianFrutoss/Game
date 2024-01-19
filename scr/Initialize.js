@@ -102,7 +102,7 @@ function initTimers(){
     globals.EnemySpawnTime = new Timer(5, 1);
     globals.EnemyDespawnTime = new Timer(5, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
-    globals.menuPositionTime = new Timer(1, 1);
+    globals.menuPositionTime = new Timer(1, 0.5);
 }
 
 function initParticles(){

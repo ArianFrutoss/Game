@@ -106,9 +106,7 @@ function renderSprite(sprite){
     if (sprite.id === SpriteID.CHAIR_MENU){
         
         globals.ctx.translate(xPos + sprite.imageSet.xSize / 2, yPos + sprite.imageSet.ySize / 2);
-
         globals.ctx.scale(0.5, 0.5);
-
         globals.ctx.translate(-(xPos + sprite.imageSet.xSize / 2), -(yPos + sprite.imageSet.ySize / 2));
     }
 
@@ -265,10 +263,7 @@ function renderMap(){
 function renderHUD(){
 
     if (globals.gameState === Game.PLAYING){
-        
-        //Datos
-        const highScore = 640200;
-
+    
         globals.ctxHUD.font = "12px emulogic";
 
         //Dibujar los FPS
@@ -282,7 +277,7 @@ function renderHUD(){
         globals.ctxHUD.fillStyle = "white";
         globals.ctxHUD.fillText ("HIGH SCORE", 15, 30);
         globals.ctxHUD.fillStyle = "crimson";
-        globals.ctxHUD.fillText (" " + highScore, 150, 30);
+        globals.ctxHUD.fillText (" " + globals.highScore, 150, 30);
 
         //Dibujar Score
         globals.ctxHUD.fillStyle = "white";

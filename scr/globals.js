@@ -70,6 +70,9 @@ export default{
     //Score
     score: 0,
 
+    //HighScore
+    highScore: 0,
+
     //Array de particulas
     particles: [],
 

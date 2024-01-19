@@ -98,10 +98,10 @@ function playGamePlayingScreen(){
     updateCamera();
     updateLakes();
     spawnRandomEnemys();
-    updateScore();
     updateParticles();
     updateSprites();
     gameOver();
+    updateHighScore();
 }
 
 function playGame(){
@@ -162,7 +162,7 @@ function updateSprites(){
 }
 
 function updateParticles(){
-
+    
     for (let i = 0; i < globals.particles.length; i++){
 
         const particle = globals.particles[i];
@@ -677,7 +677,7 @@ function updateEnemy1(sprite){
         sprite.xPos += sprite.physics.vx * globals.deltaTime;
         sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
-        if (sprite.hp === 0 && sprite.frames.frameCounter === 1){
+        if (sprite.hp <= 0 && sprite.frames.frameCounter === 1){
 
             sprite.state = State.ENEMY_1_DEAD;
             sprite.physics.vLimit = 0;
@@ -686,22 +686,32 @@ function updateEnemy1(sprite){
         }
     }
 
-    if (sprite.hp === 0 && sprite.state === State.ENEMY_1_DEAD && sprite.frames.frameCounter === 3){
+    if (sprite.hp <= 0){
 
-        updateTimer(globals.EnemyDespawnTime);
+        updateTimer(globals.EnemyDespawnTime)
+    }
+
+    if (globals.EnemyDespawnTime.value <= 0 && sprite.active === false){
         
+        globals.EnemyDespawnTime.value = 5;
+    }
+
+    if (sprite.hp <= 0 && sprite.state === State.ENEMY_1_DEAD && sprite.frames.frameCounter === 3){
+
         activeDead = true;
         sprite.frames.speed = 0;
         sprite.frames.frameCounter = 0;
         globals.score += 100;
-
-        if (globals.EnemyDespawnTime.value === 0){
-            
-            globals.sprites.splice(sprite, 1)
-            globals.EnemyDespawnTime.value = 5;
-        }
     }
 
+    for (let i = 0; i < globals.sprites.length; i++){ 
+
+        if (globals.EnemyDespawnTime.value <= 0 && sprite.activeDead){
+            
+            globals.sprites.splice(i, 1);
+        }
+    }
+    
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
 }   
@@ -936,10 +946,17 @@ function spawnRandomEnemys(){
     }
 }
 
-function updateScore(){
+function updateHighScore(){
 
-    
-    
+    if (globals.score > globals.highScore && globals.chairHP === 3){
+        console.log(1);
+        globals.highScore = globals.score;
+    }
+
+    if (globals.chairHP === 3){
+        
+        globals.score = 0;
+    }
 }
 
 function gameOver(){
@@ -953,6 +970,8 @@ function gameOver(){
 function changeGameState(){
     
     if (globals.gameState === Game.NEW_GAME){
+
+        globals.chairHP = 0;
 
         updateTimer(globals.menuPositionTime);
         
@@ -971,8 +990,8 @@ function changeGameState(){
         if (globals.action.attack && globals.menuPositionTime.value < 1){
             
             globals.gameState = globals.gameStateCont;
-            globals.menuPositionTime.value = 1;
             globals.gameStateCont = 2;
+            globals.menuPositionTime.value = 1;
         }
     }
 
