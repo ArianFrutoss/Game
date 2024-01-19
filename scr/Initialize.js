@@ -100,7 +100,7 @@ function initTimers(){
     globals.levelTime = new Timer(30, 1);
     globals.lakesTime = new Timer(30, 1);
     globals.EnemySpawnTime = new Timer(5, 1);
-    globals.EnemyDespawnTime = new Timer(5, 1);
+    globals.EnemyDespawnTime = new Timer(10, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
     globals.menuPositionTime = new Timer(1, 0.5);
 }
@@ -142,35 +142,6 @@ function initCamera(){
 }
 
 function initSprites(){
-
-    // //Creamos las propiedades de las imagenes del mapa
-    // const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
-
-    // //Creamos y guardamos nuestros sprites en el mapa
-    // globals.levelSprites = new Level(spriteLevel1, imageSet);
-
-    // const brickSize = globals.levelSprites.imageSet.gridSize;
-    // const levelData = globals.levelSprites.data;
-
-    // //Dibujamos el mapa
-    // const num_fil = levelData.length;
-    // const num_col = levelData[0].length;
-        
-    // for (let i = 0; i < num_fil - 7; i++){
-
-    //     for (let j = 0; j < num_col; j++){
-
-    //         const xPos = j * brickSize;
-    //         const yPos = i * brickSize;
-
-    //         if (levelData[i][j] === globals.sprites[i].id){
-
-    //             globals.sprites[i].xPos = xPos;
-                
-    //             globals.sprites[i].xPos = yPos;
-    //         }
-    //     }
-    // }
 
     initPlayingSprites();
     initNewGameSprites();
@@ -251,8 +222,7 @@ function initScoresSprites(){
 
 function initOverSprites(){
 
-    initBlack();
-    initBlackBorder();
+    
 }
 
 function initChairMenu(){
@@ -432,7 +402,7 @@ function initPlayer(){
     const frames = new Frames(7, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(200);
+    const physics = new Physics(100);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(20, 48, 21, 11);

@@ -664,8 +664,6 @@ function updatechild2Return(sprite){
 
 function updateEnemy1(sprite){
 
-    let activeDead = false;
-
     if (sprite.state === State.ENEMY_1_RUN){
 
         Enemy1Position.POSITION_X = sprite.xPos;
@@ -691,24 +689,19 @@ function updateEnemy1(sprite){
         updateTimer(globals.EnemyDespawnTime)
     }
 
-    if (globals.EnemyDespawnTime.value <= 0 && sprite.active === false){
-        
-        globals.EnemyDespawnTime.value = 5;
-    }
-
     if (sprite.hp <= 0 && sprite.state === State.ENEMY_1_DEAD && sprite.frames.frameCounter === 3){
 
-        activeDead = true;
         sprite.frames.speed = 0;
         sprite.frames.frameCounter = 0;
         globals.score += 100;
     }
 
     for (let i = 0; i < globals.sprites.length; i++){ 
-
-        if (globals.EnemyDespawnTime.value <= 0 && sprite.activeDead){
+        
+        if (globals.EnemyDespawnTime.value <= 0 && globals.sprites[i].hp <= 0){
             
             globals.sprites.splice(i, 1);
+            globals.EnemyDespawnTime.value = 10;
         }
     }
     
@@ -934,13 +927,17 @@ function updateLakes(){
 
 function spawnRandomEnemys(){
 
-    const randomYpos = Math.floor(Math.random() * 300);
+    const brickSize = globals.level.imageSet.gridSize;
+    const levelData = globals.level.data;
+    const numBlocksY = levelData.length;
+    const randomYpos = Math.floor(Math.random() * numBlocksY) * brickSize;
+
 
     updateTimer(globals.EnemySpawnTime);
     
     if (globals.EnemySpawnTime.value === 0){
 
-        globals.EnemySpawnTime.value = 3;
+        globals.EnemySpawnTime.value = 4;
         
         initEnemy1(randomYpos);   
     }
