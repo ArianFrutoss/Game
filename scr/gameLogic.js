@@ -141,7 +141,7 @@ function updateSprites(){
             }
             
             const sprite = globals.sprites[i];
-            
+
             updateSprite(sprite);
             updateSpriteSpeed(sprite);
             updatePlayerStateWhenIsCollidingWithWall(sprite);
@@ -710,8 +710,14 @@ function updateEnemy1(sprite){
 
     for (let i = 0; i < globals.sprites.length; i++){ 
         
-        if (globals.EnemyDespawnTime.value <= 0 && globals.sprites[i].hp <= 0){
+        if (globals.EnemyDespawnTime.value <= 0 && sprite[i].hp <= 0){
             
+            globals.sprites.splice(i, 1);
+            globals.EnemyDespawnTime.value = 10;
+        }
+
+        if (globals.sprites[i].xPos + sprite.hitBox.xOffset - 1 < 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
+
             globals.sprites.splice(i, 1);
             globals.EnemyDespawnTime.value = 10;
         }
