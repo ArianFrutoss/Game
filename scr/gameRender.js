@@ -155,6 +155,11 @@ function renderParticle(particle){
 
             renderWaterParticle(particle);
             break;
+
+        case ParticleID.MAGIC:
+
+            renderMagicParticle(particle);
+            break;
         
         default:
 
@@ -163,6 +168,35 @@ function renderParticle(particle){
 }
 
 function renderWaterParticle(particle){
+
+    if (particle.state != ParticleState.OFF){
+
+        const randomColorParticles = Math.floor(Math.random() * 3);
+
+        if (randomColorParticles === 1){
+
+            globals.ctx.fillStyle = "rgb(39, 161, 185)";
+        }
+
+        else if (randomColorParticles === 2){
+
+            globals.ctx.fillStyle = "rgb(30, 106, 136)";
+        }
+
+        else{
+
+            globals.ctx.fillStyle = "rgb(205, 231, 255)";            
+        }
+        
+        globals.ctx.globalAlpha = particle.alpha;
+        globals.ctx.beginPath();
+        globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI);
+        globals.ctx.fill();
+        globals.ctx.globalAlpha = 1.0;
+    }
+}
+
+function renderMagicParticle(particle){
 
     if (particle.state != ParticleState.OFF){
 
@@ -290,7 +324,7 @@ function renderHUD(){
         globals.ctxHUD.fillText ("MATERIALS", 75, 200);
 
         globals.ctxHUD.fillStyle = "white";
-        globals.ctxHUD.fillText ("x " + globals.woodCont, 155, 240);
+        globals.ctxHUD.fillText ("x " + globals.stoneCont, 155, 240);
         globals.ctxHUD.fillStyle = "white";
         globals.ctxHUD.fillText ("x " + globals.woodCont, 155, 280);
 

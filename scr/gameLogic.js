@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, ParticleID} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initEnemy1, initStone, initWood} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initEnemy1, initStone, initWood} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 
@@ -181,6 +181,12 @@ function updateParticle(particle){
 
             updateWaterParticle(particle);
             break;
+
+        //Caso del jugador
+        case ParticleID.MAGIC:
+
+            updateMagicParticle(particle);
+            break;
         
         default:
 
@@ -189,6 +195,44 @@ function updateParticle(particle){
 }
 
 function updateWaterParticle(particle){
+
+    particle.fadeCounter += globals.deltaTime;
+    
+    //Cogemos las velocidades de los arrays
+    switch (particle.state){
+
+        case ParticleState.ON:
+
+            if (particle.fadeCounter > particle.timeToFade){
+                
+                particle.fadeCounter = 0;
+                particle.state = ParticleState.FADE;
+            }
+            
+            break;
+
+        case ParticleState.FADE:
+            
+            particle.alpha -= 1;
+
+            if (particle.alpha <= 0){
+                
+                particle.state = ParticleState.OFF;
+            }
+
+            break;
+        
+        case ParticleState.OFF:
+            
+            globals.particles.splice(particle, 1);
+            break;
+    }
+
+    particle.xPos += particle.physics.vx * globals.deltaTime;
+    particle.yPos += particle.physics.vy * globals.deltaTime;
+}
+
+function updateMagicParticle(particle){
 
     particle.fadeCounter += globals.deltaTime;
     
@@ -448,6 +492,11 @@ function updateMagic(sprite){
         if (globals.sprites[i].xPos > numBlocksX * brickSize - sprite.hitBox.xOffset && globals.sprites[i].id === SpriteID.MAGIC){
             
             globals.sprites.splice(i, 1);
+
+            const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
+            const spriteYpos = sprite.yPos + sprite.imageSet.ySize - 5;
+
+            initMagicParticles(spriteXpos, spriteYpos);
         }
     }
 
@@ -466,14 +515,8 @@ function updateStone(sprite){
             if (globals.sprites[i].id === SpriteID.STONE){
                 
                 globals.stoneCont += 1;
+                globals.sprites.splice(i, 1);
             }
-
-            else if (globals.sprites[i].id === SpriteID.WOOD){
-
-                globals.woodCont += 1;
-            }
-
-            globals.sprites.splice(i, 1);
         }
     }
 }
@@ -481,6 +524,18 @@ function updateStone(sprite){
 function updateWood(sprite){
 
     updateMovementOfObjets(sprite);
+
+    for (let i = 0; i < globals.sprites.length; i++){
+
+        if (globals.sprites[i].isCollidingWithObject){
+            
+            if (globals.sprites[i].id === SpriteID.WOOD){
+                
+                globals.woodCont += 1;
+                globals.sprites.splice(i, 1);
+            }
+        }
+    }
 }
 
 function updateMovementOfObjets(sprite){
@@ -507,12 +562,12 @@ function updateChild1Idle(sprite){
 
     updateAnimationFrame(sprite);
 
-    if (globals.action.attackChild === true){
-        
+    if (globals.action.attackChild && globals.woodCont >= 2 && globals.stoneCont >= 1){
+
         updateChild2Walk(sprite);
     }
 
-    else if (globals.action.attackChild === false){
+    else{
 
         updatechild2Return(sprite);
     }
@@ -522,7 +577,7 @@ function updateChild2Idle(sprite){
     
     updateAnimationFrame(sprite);
 
-    if (globals.action.build === true){
+    if (globals.action.build && globals.woodCont >= 2 && globals.stoneCont >= 3){
         
         if (sprite.physics.vx < 0 || sprite.physics.vy < 0){
             
@@ -570,9 +625,14 @@ function updateChild1Walk(sprite){
         if (sprite.frames.frameCounter === 8){
 
             initWall(sprite.xPos, sprite.yPos);
+
             globals.action.build = false;
+
             sprite.frames.frameCounter = 0;
             sprite.frames.framesPerState = 6;
+
+            globals.woodCont -= 2;
+            globals.stoneCont -= 3;
         }
     }
 
@@ -647,8 +707,9 @@ function updateChild2Walk(sprite){
         sprite.state = State.CHILD_2_IDLE;
 
         globals.levelTime.value = 0;
-
         globals.action.attackChild = false;
+        globals.woodCont -= 2;
+        globals.stoneCont -= 1;
     }
 
     //Calculamos distancia que se mueve (x = x + Vt)
@@ -726,19 +787,38 @@ function updateEnemy1(sprite){
         globals.score += 100;
     }
 
+    if (sprite.isCollidingWithWall){
+
+        sprite.frames.speed = 4;
+        sprite.frames.framesPerState = 4;
+        sprite.state = State.ENEMY_1_ATTACK;
+        
+        if (sprite.frames.frameCounter === 3){
+
+            sprite.frames.frameCounter = 0;
+            sprite.frames.framesPerState = 6;
+        }
+    }
+
     for (let i = 0; i < globals.sprites.length; i++){ 
         
-        if (globals.EnemyDespawnTime.value <= 0 && globals.sprites[i].hp <= 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
+        if (globals.EnemyDespawnTime.value <= 0 && globals.sprites[i].hp <= 0 && globals.sprites[i].id === SpriteID.ENEMY_1 && sprite.frames.frameCounter === 0){
 
             randomObjectSpawn(globals.sprites[i].xPos, globals.sprites[i].yPos);
             globals.sprites.splice(i, 1);
-            globals.EnemyDespawnTime.value = 5;
+            globals.EnemyDespawnTime.value = 2;
         }
 
         if (globals.sprites[i].xPos + sprite.hitBox.xOffset - 1 < 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
             
             globals.sprites.splice(i, 1);
-            globals.EnemyDespawnTime.value = 5;
+            globals.EnemyDespawnTime.value = 2;
+        }
+
+        if (globals.sprites[i].isCollidingWithEnemy && globals.sprites[i] === SpriteID.MAGIC){
+
+            globals.sprites.splice(i, 1);
+            sprite.hp -= 1;
         }
     }
     
@@ -748,7 +828,7 @@ function updateEnemy1(sprite){
 
 function randomObjectSpawn(spawnXpos, spawnYpos){
 
-    const options = [1, 2, 1, 3, 1];
+    const options = [2, 1, 3];
     const randomObject = options[Math.floor(Math.random() * options.length)];
     
     if (randomObject === 2){
@@ -764,7 +844,6 @@ function randomObjectSpawn(spawnXpos, spawnYpos){
 
 function updateWall(sprite){
 
-    
 }
 
 function updateMoon(sprite){
@@ -1027,32 +1106,32 @@ function changeGameState(){
         
         if (globals.action.moveUp && globals.gameStateCont > 2 && globals.menuPositionTime.value < 1){
 
-            globals.gameStateCont -= 1;
             globals.menuPositionTime.value = 1;
+            globals.gameStateCont -= 1; 
         }
         
-        if (globals.action.moveDown && globals.gameStateCont < 5 && globals.menuPositionTime.value < 1){
+        else if (globals.action.moveDown && globals.gameStateCont < 5 && globals.menuPositionTime.value < 1){
             
-            globals.gameStateCont += 1;
             globals.menuPositionTime.value = 1;
+            globals.gameStateCont += 1;
         }
 
-        if (globals.action.attack && globals.menuPositionTime.value < 1){
+        else if (globals.action.attack && globals.menuPositionTime.value < 1){
             
             globals.gameState = globals.gameStateCont;
-            globals.gameStateCont = 2;
             globals.menuPositionTime.value = 1;
+            globals.gameStateCont = 2;
         }
-    }
+    } 
 
-    if (globals.gameState === Game.HISTORY || globals.gameState === Game.CONTROLS || globals.gameState === Game.SCORES || globals.gameState === Game.OVER){
+    else if (globals.gameState === Game.HISTORY || globals.gameState === Game.CONTROLS || globals.gameState === Game.SCORES || globals.gameState === Game.OVER){
 
         updateTimer(globals.menuPositionTime);
 
         if (globals.action.attack && globals.menuPositionTime.value < 1){
 
-            globals.gameState = Game.NEW_GAME_LOAD;
             globals.menuPositionTime.value = 1;
+            globals.gameState = Game.NEW_GAME_LOAD;
         }
     }
 }

@@ -49,7 +49,8 @@ export const Enemy1Position = {
 
 export const ParticleID = {
 
-    WATER:      0
+    WATER:      0,
+    MAGIC:      1
 }
 
 export const ParticleState = {

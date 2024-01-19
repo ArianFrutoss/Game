@@ -1,7 +1,7 @@
 import globals from "./globals.js";
 import {Game, SpriteID, State, FPS, ParticleState, ParticleID} from "./constans.js";
 import WaterParticle from "./Particle.js";
-import Sprite, {Enemy1, HudSprites} from "./Sprite.js";
+import Sprite, {Enemy1, HudSprites, Wall} from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
 import {Level, level1} from "./Level.js";
@@ -100,7 +100,7 @@ function initTimers(){
     globals.levelTime = new Timer(30, 1);
     globals.lakesTime = new Timer(30, 1);
     globals.EnemySpawnTime = new Timer(5, 1);
-    globals.EnemyDespawnTime = new Timer(5, 1);
+    globals.EnemyDespawnTime = new Timer(2, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
     globals.menuPositionTime = new Timer(1, 0.5);
 }
@@ -129,6 +129,32 @@ function initWaterParticles(spriteXpos, spriteYpos){
         
         //Asignamos velocidades segun angulo aleatorio
         const randomAngle = Math.random() * 5 * Math.PI;
+        particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle);
+        particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle);
+
+        globals.particles.push(particle);
+    }
+}
+
+function initMagicParticles(spriteXpos, spriteYpos){
+
+    const numParticles  = 10;
+    const xInit         = spriteXpos;
+    const yInit         = spriteYpos;
+    const radius        = 1;
+    const timeToFadeMax = 0.5;
+    const alpha         = 1.0;
+
+    for (let i = 0; i < numParticles; i++){
+
+        const velocity = Math.random() * 5 + 5;
+        const physics = new Physics(velocity);
+
+        const timeToFade = timeToFadeMax * Math.random() + 1;
+        const particle = new WaterParticle(ParticleID.WATER, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
+        
+        //Asignamos velocidades segun angulo aleatorio
+        const randomAngle = 5 * Math.PI;
         particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle);
         particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle);
 
@@ -552,7 +578,7 @@ function initWall(childXpos, childYpos){
     const hitBox = new HitBox(24, 60, 16, 4);
 
     //Creamos nuestro sprite
-    const wall = new Sprite(SpriteID.WALL, State.WALL, childXpos + 30, childYpos, imageSet, frames, 0, hitBox);
+    const wall = new Wall(SpriteID.WALL, State.WALL, childXpos + 30, childYpos, imageSet, frames, 0, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wall);
@@ -784,5 +810,6 @@ export{
     initWood,
     initParticles,
     initWaterParticles,
+    initMagicParticles,
     initCamera
 }

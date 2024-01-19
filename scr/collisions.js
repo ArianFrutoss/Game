@@ -107,14 +107,12 @@ function detectCollisionsBetweenMagicAndEnemy(sprite){
             const w2 = sprite.hitBox.xSize;
             const h2 = sprite.hitBox.ySize;
 
-            const isOverlap = rectIntersect(x1, y1, w1, h1 + h1, x2, y2, w2, h2);
+            const isOverlap = rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2);
 
             //Existe collision
             if (isOverlap && sprite.hp > 0){
                 
-                globals.sprites.splice(i, 1);
                 sprite.isCollidingWithEnemy = true;
-                sprite.hp -= 1;
             }
         }
     }
@@ -182,7 +180,7 @@ function detectCollisionsBetweenPlayerAndObjects(sprite){
             const w2 = sprite.hitBox.xSize;
             const h2 = sprite.hitBox.ySize;
 
-            const isOverlap = rectIntersect(x1, y1, w1, h1 + h1, x2, y2, w2, h2);
+            const isOverlap = rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2);
 
             //Existe collision
             if (isOverlap){

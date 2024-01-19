@@ -20,7 +20,7 @@ export default class Sprite{
 
 export class Enemy1 extends Sprite{
 
-    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox, ){
+    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox){
 
         super(id, state, xPos, yPos, imageSet, frames, physics, hitBox);
 
@@ -36,6 +36,16 @@ export class HudSprites extends Sprite{
 
         super(id, state, xPos, yPos, imageSet, frames);
 
-            this.hud = true
+            this.hud = true;
+    }
+}
+
+export class Wall extends Sprite{
+
+    constructor (id, state, xPos, yPos, imageSet, frames, physics, hitBox){
+
+        super(id, state, xPos, yPos, imageSet, frames, physics, hitBox);
+
+            this.WallHp = 0;
     }
 }
