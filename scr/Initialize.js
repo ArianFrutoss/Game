@@ -429,7 +429,7 @@ function initPlayer(){
     const frames = new Frames(7, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(100);
+    const physics = new Physics(200);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(20, 48, 21, 11);

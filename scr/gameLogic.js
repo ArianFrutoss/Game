@@ -419,7 +419,7 @@ function updatePlayer(sprite){
 
     //Lectura de teclado
     readKeyboardAndAssignState(sprite);
-
+    console.log(sprite.physics.vLimit);
     sprite.physics.vx = 0;
     sprite.physics.vy = 0;
 
@@ -488,7 +488,7 @@ function updateMagic(sprite){
     const levelData = globals.level.data;
     const numBlocksX = levelData[0].length;
 
-    for (let i = 0; i < globals.sprites.length; i++){ 
+    for (let i = 0; i < globals.sprites.length; i++){
 
         if (globals.sprites[i].xPos > numBlocksX * brickSize - sprite.hitBox.xOffset && globals.sprites[i].id === SpriteID.MAGIC){
             
@@ -497,10 +497,10 @@ function updateMagic(sprite){
 
         if (globals.sprites[i].isCollidingWithEnemy && globals.sprites[i].id === SpriteID.MAGIC){
             
-            const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
-            const spriteYpos = sprite.yPos + sprite.imageSet.ySize - 5;
+            // const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
+            // const spriteYpos = sprite.yPos + sprite.imageSet.ySize - 5;
             
-            initMagicParticles(spriteXpos, spriteYpos);
+            // initMagicParticles(spriteXpos, spriteYpos);
 
             globals.sprites.splice(i, 1);
         }
@@ -761,6 +761,11 @@ function updatechild2Return(sprite){
 
 function updateEnemy1(sprite){
 
+    if (sprite.isCollidingWithMagic && sprite.id === SpriteID.ENEMY_1){
+        
+        sprite.hp -= 1;
+    }
+    console.log(sprite.hp);
     if (sprite.state === State.ENEMY_1_RUN){
 
         Enemy1Position.POSITION_X = sprite.xPos;
@@ -790,7 +795,6 @@ function updateEnemy1(sprite){
         if (sprite.frames.frameCounter === 2){
 
             sprite.hitsWall++;
-            console.log(sprite.hitsWall);
         }
     }
 
@@ -822,11 +826,6 @@ function updateEnemy1(sprite){
         }
     }
 
-    if (sprite.isCollidingWithMagic && sprite.id === SpriteID.ENEMY_1){
-        
-        sprite.hp -= 1;
-    }
-    
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
 }
