@@ -291,7 +291,8 @@ function initScoresSprites(){
 
 function initOverSprites(){
 
-    
+    initBlackBorder();
+    initBlack();  
 }
 
 function initChairMenu(){

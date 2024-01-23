@@ -422,7 +422,7 @@ function updatePlayer(sprite){
 
     //Lectura de teclado
     readKeyboardAndAssignState(sprite);
-    console.log(sprite.physics.vLimit);
+    
     sprite.physics.vx = 0;
     sprite.physics.vy = 0;
 
@@ -768,7 +768,7 @@ function updateEnemy1(sprite){
         
         sprite.hp -= 1;
     }
-    console.log(sprite.hp);
+    
     if (sprite.state === State.ENEMY_1_RUN){
 
         Enemy1Position.POSITION_X = sprite.xPos;
@@ -977,15 +977,15 @@ function updateSpriteSpeed(sprite){
                 initWaterParticles(spriteXpos, spriteYpos);
             }
         }
-
+        
         else{
-
+            
             if (sprite.physics.vLimit < minSpeed + sprite.physics.speedReductionCont){
 
                 sprite.physics.vLimit += 10;
             }
 
-            else{
+            if (sprite.physics.vLimit === minSpeed + sprite.physics.speedReductionCont){
 
                 sprite.physics.speedReductionCont = 0;
             }
@@ -1069,7 +1069,7 @@ function spawnRandomEnemys(){
     const brickSize = globals.level.imageSet.gridSize;
     const levelData = globals.level.data;
     const numBlocksY = levelData.length;
-    const randomYpos = Math.floor(Math.random() * numBlocksY) * brickSize;
+    const randomYpos = (Math.floor(Math.random() * numBlocksY - 2) * brickSize) + brickSize - 10;
 
 
     updateTimer(globals.EnemySpawnTime);
