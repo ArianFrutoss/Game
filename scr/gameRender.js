@@ -359,10 +359,64 @@ function renderNewGameText(){
     //Dibujar Opciones
     globals.ctx.font = "7px emulogic";
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("New Game", 210, 200);
-    globals.ctx.fillText ("History", 210, 230);
-    globals.ctx.fillText ("Controls", 210, 260);
-    globals.ctx.fillText ("High Scores", 210, 290);
+
+    let moveText = 0;
+
+    if (globals.gameStateCont === 2){
+
+        globals.ctx.fillStyle = "rgb(222, 75, 75)";
+        moveText = 10;
+    }
+
+    else{
+
+        globals.ctx.fillStyle = "white";
+        moveText = 0;
+    }
+
+    globals.ctx.fillText ("New Game", 210 + moveText, 200);
+
+    if (globals.gameStateCont === 3){
+
+        globals.ctx.fillStyle = "rgb(222, 75, 75)";
+        moveText = 10;
+    }
+
+    else{
+
+        globals.ctx.fillStyle = "white";
+        moveText = 0;
+    }
+
+    globals.ctx.fillText ("History", 210 + moveText, 230);
+
+    if (globals.gameStateCont === 4){
+
+        globals.ctx.fillStyle = "rgb(222, 75, 75)";
+        moveText = 10;
+    }
+    
+    else{
+
+        globals.ctx.fillStyle = "white";
+        moveText = 0;
+    }
+
+    globals.ctx.fillText ("Controls", 210 + moveText, 260);
+
+    if (globals.gameStateCont === 5){
+
+        globals.ctx.fillStyle = "rgb(222, 75, 75)";
+        moveText = 10;
+    }
+
+    else{
+
+        globals.ctx.fillStyle = "white";
+        moveText = 0;
+    }
+
+    globals.ctx.fillText ("High Scores", 210 + moveText, 290);
 }
 
 function renderHistoryText(){
