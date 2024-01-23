@@ -632,8 +632,23 @@ function updateChild1Walk(sprite){
         sprite.state = State.CHILD_2_BUILD;
         
         if (sprite.frames.frameCounter === 8){
+            
+            const brickSize = globals.level.imageSet.gridSize;
+            const spritePositionXRest = sprite.xPos % brickSize;
+            
+            let spriteXpos;
 
-            initWall(sprite.xPos, sprite.yPos);
+            if (spritePositionXRest > brickSize / 2){
+
+                spriteXpos = sprite.xPos + brickSize - spritePositionXRest + brickSize / 2;
+            }
+
+            else{
+
+                spriteXpos = sprite.xPos - spritePositionXRest + brickSize / 2;  
+            }
+
+            initWall(spriteXpos, sprite.yPos);
 
             globals.action.build = false;
 
