@@ -87,8 +87,6 @@ function detectCollisionsBetweenChairAndEnemy(sprite){
 
 function detectCollisionsBetweenMagicAndEnemy(sprite){
 
-    sprite.isCollidingWithMagic = false;
-
     for (let i = 0; i < globals.sprites.length; i++){
 
         if (globals.sprites[i].id === SpriteID.MAGIC){

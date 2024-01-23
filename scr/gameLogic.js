@@ -101,7 +101,6 @@ function playGamePlayingScreen(){
     updateParticles();
     updateSprites();
     gameOver();
-    updateHighScore();
     updateTimer(globals.levelTime);
 }
 
@@ -637,15 +636,15 @@ function updateChild1Walk(sprite){
             const spritePositionXRest = sprite.xPos % brickSize;
             
             let spriteXpos;
-
-            if (spritePositionXRest > brickSize / 2){
-
-                spriteXpos = sprite.xPos + brickSize - spritePositionXRest + brickSize / 2;
+            
+            if (spritePositionXRest < brickSize / 2){
+                
+                spriteXpos = sprite.xPos - spritePositionXRest + brickSize / 2;
             }
 
             else{
-
-                spriteXpos = sprite.xPos - spritePositionXRest + brickSize / 2;  
+                
+                spriteXpos = sprite.xPos + brickSize - spritePositionXRest + brickSize / 2;  
             }
 
             initWall(spriteXpos, sprite.yPos);
@@ -782,8 +781,9 @@ function updateEnemy1(sprite){
     if (sprite.isCollidingWithMagic && sprite.id === SpriteID.ENEMY_1){
         
         sprite.hp -= 1;
+        sprite.isCollidingWithMagic = false;
     }
-    
+    console.log(sprite.hp);
     if (sprite.state === State.ENEMY_1_RUN){
 
         Enemy1Position.POSITION_X = sprite.xPos;
@@ -1097,45 +1097,70 @@ function spawnRandomEnemys(){
     }
 }
 
-function updateHighScore(){
-
-    if (globals.score > globals.highScore && globals.chairHP === 3){
-        
-        globals.highScore = globals.score;
-    }
-
-    if (globals.chairHP === 3){
-        
-        globals.score = 0;
-    }
-}
-
 function gameOver(){
 
     if (globals.chairHP === 3 || globals.levelTime.value <= 0){
 
         globals.gameState = Game.OVER_LOAD;
+
+        updateHighScore();
+        restoreCamera();
+        restoreVars();
     }
+}
+
+function updateHighScore(){
+
+    if (globals.score > globals.highScore){
+        
+        globals.highScore = globals.score;
+    }
+}
+
+function restoreCamera(){
+    
+    globals.camera.x = 0;
+}
+
+function restoreVars(){
+
+    globals.chairHP               = 0;
+    globals.stoneCont             = 0;
+    globals.woodCont              = 0;
+    globals.score                 = 0;
+    globals.levelTime.value     = 180;
+    globals.particles            = [];
+    globals.activeWall           = [];
 }
 
 function changeGameState(){
     
     if (globals.gameState === Game.NEW_GAME){
 
-        globals.chairHP = 0;
-
         updateTimer(globals.menuPositionTime);
         
         if (globals.action.moveUp && globals.gameStateCont > 2 && globals.menuPositionTime.value <= 0){
 
             globals.menuPositionTime.value = 2;
-            globals.gameStateCont -= 1; 
+            globals.gameStateCont -= 1;
         }
         
         else if (globals.action.moveDown && globals.gameStateCont < 5 && globals.menuPositionTime.value <= 0){
             
             globals.menuPositionTime.value = 2;
             globals.gameStateCont += 1;
+        }
+
+        else if (globals.action.moveUp && globals.gameStateCont === 2 && globals.menuPositionTime.value <= 0){
+            
+            globals.menuPositionTime.value = 2;
+            globals.gameStateCont = 5;
+        }
+
+        else if (globals.action.moveDown && globals.gameStateCont === 5 && globals.menuPositionTime.value <= 0){
+            
+            globals.menuPositionTime.value = 2;
+            globals.gameStateCont = 2;
         }
 
         else if (globals.action.attack && globals.menuPositionTime.value <= 0){

@@ -80,10 +80,10 @@ export default{
     highScore: 0,
 
     //Stone
-    stoneCont: 100,
+    stoneCont: 0,
 
     //Wood
-    woodCont: 100,
+    woodCont: 0,
 
     //Array de particulas
     particles: [],
