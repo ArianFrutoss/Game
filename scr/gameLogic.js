@@ -402,7 +402,10 @@ function updateSprite(sprite){
 
 function updateChairMenu(sprite){
 
-    sprite.yPos = 165 + 30 * (globals.gameStateCont - 2);
+    const topSpace = 165;
+    const margin = 30;
+
+    sprite.yPos = topSpace + margin * (globals.gameStateCont - 2);
 }
 
 function updateChairInterface(sprite){

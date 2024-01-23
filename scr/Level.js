@@ -50,19 +50,19 @@ export function levelPuddle(level){
 
                 level[i][j] = floor_options[randomFloor(floor_options)];
 
-                if (level[i][j] === 3 && level[i][j - 1] === 3 || level[i - 1][j] === 3){
-
+                if (level[i][j - 1] === 3 || level[i - 1][j] === 3 || level[i][j + 1] === 3 || level[i + 1][j] === 3){
+                    
                     level[i][j] = 2;
-                }
-
-                if (level[i][j] === 3){
-
-                    contPuddleFloor++;
                 }
             }
 
-            if (contPuddleFloor >= 2){
+            if (level[i][j] === 3){
+                    
+                contPuddleFloor++;
+            }
 
+            if (contPuddleFloor >= 2){
+                
                 break;
             }
         }
