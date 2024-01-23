@@ -102,7 +102,7 @@ function initTimers(){
     globals.EnemySpawnTime = new Timer(5, 1);
     globals.EnemyDespawnTime = new Timer(2, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
-    globals.menuPositionTime = new Timer(1, 0.5);
+    globals.menuPositionTime = new Timer(2, 0.15);
     globals.historyTime = new Timer(10, 1);
 }
 
