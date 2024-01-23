@@ -4,7 +4,7 @@ import WaterParticle from "./Particle.js";
 import Sprite, {Enemy1, HudSprites, Wall} from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
 import Frames from "./Frames.js";
-import {Level, level1} from "./Level.js";
+import {Level, level1, spriteLevel1} from "./Level.js";
 import Timer from "./Timer.js";
 import Physics from "./Physics.js";
 import {keydownHandler, keyupHandler} from "./events.js";
@@ -180,10 +180,52 @@ function initSprites(){
 
 function initPlayingSprites(){
 
-    initPlayer();
-    initChild1();
-    initChild2();
-    initChair();
+    //Creamos las propiedades de las imagenes del mapa
+    const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
+
+    //Creamos y guardamos nuestro nivel
+    globals.levelSprites = new Level(spriteLevel1, imageSet);
+
+    //Tamaño de los bloques del mapa
+    const brickSize = globals.levelSprites.imageSet.gridSize;
+
+    for (let i = 0; i < spriteLevel1.length; i++){
+
+        for (let j = 0; j < spriteLevel1[0].length; j++){
+
+            const id = globals.levelSprites.data[i][j];
+            const positionX = j * brickSize;
+            const positionY = i * brickSize;
+            
+            switch (id){
+
+                case SpriteID.CHAIR:
+                    
+                    initChair(positionX, positionY);
+                    break;
+
+                case SpriteID.PLAYER:
+
+                    initPlayer(positionX, positionY);
+                    break;
+                
+                case SpriteID.CHILD_1:
+                    
+                    initChild1(positionX, positionY);
+                    break;
+
+                case SpriteID.CHILD_2:
+
+                    initChild2(positionX, positionY);
+                    break;
+
+                default:
+
+                    break;
+            }
+        }
+    }
+
     initChairInterface();
     initStoneInterface1();
     initWoodInterface1();
@@ -402,7 +444,7 @@ function initChild2Interface2(){
     globals.sprites.push(child2Interface);
 }
 
-function initChair(){
+function initChair(positionX, positionY){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(0, 0, 64, 64, 64, 0, 0);
@@ -414,13 +456,13 @@ function initChair(){
     const hitBox = new HitBox(27, 500, 18, -200);
 
     //Creamos nuestro sprite
-    const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, 0, 192, imageSet, frames, 0, hitBox);
+    const chair = new Sprite(SpriteID.CHAIR, State.INTEGRITY, positionX, positionY, imageSet, frames, 0, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(chair);
 }
 
-function initPlayer(){
+function initPlayer(positionX, positionY){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(1, 0, 64, 64, 64, 0, 0);
@@ -435,7 +477,7 @@ function initPlayer(){
     const hitBox = new HitBox(20, 48, 21, 11);
 
     //Creamos nuestro sprite
-    const player = new Sprite(SpriteID.PLAYER, State.IDLE, 64, 184, imageSet, frames, physics, hitBox);
+    const player = new Sprite(SpriteID.PLAYER, State.IDLE, positionX, positionY, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(player);
@@ -504,7 +546,7 @@ function initWood(spawnXpos, spawnYpos){
     globals.sprites.push(wood);
 }
 
-function initChild1(){
+function initChild1(positionX, positionY){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(10, 0, 64, 64, 64, 0, 0);
@@ -519,13 +561,13 @@ function initChild1(){
     const hitBox = new HitBox(16, 38, 24, 21);
 
     //Creamos nuestro sprite
-    const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, 0, 372, imageSet, frames, physics, hitBox);
+    const child1 = new Sprite(SpriteID.CHILD_1, State.CHILD_1_IDLE, positionX, positionY, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child1);
 }
 
-function initChild2(){
+function initChild2(positionX, positionY){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(14, 0, 64, 64, 64, 0, 0);
@@ -540,7 +582,7 @@ function initChild2(){
     const hitBox = new HitBox(16, 39, 24, 19);
 
     //Creamos nuestro sprite
-    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, 0, 0, imageSet, frames, physics, hitBox);
+    const child2 = new Sprite(SpriteID.CHILD_2, State.CHILD_2_IDLE, positionX, positionY, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(child2);
