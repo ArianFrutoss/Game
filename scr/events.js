@@ -33,9 +33,21 @@ export function keydownHandler(event){
             for (let i = 0; i < globals.sprites.length; i++){
                 
                 if (globals.sprites[i].id === SpriteID.PLAYER){
-                    
+
+                    const brickSize = globals.level.imageSet.gridSize;
+                    const playerPositionYRest = globals.sprites[i].yPos % brickSize;
+
                     PlayerPosition.POSITION_X = globals.sprites[i].xPos;
-                    PlayerPosition.POSITION_Y = globals.sprites[i].yPos;
+
+                    if (playerPositionYRest > brickSize / 2){
+
+                        PlayerPosition.POSITION_Y = globals.sprites[i].yPos + brickSize - playerPositionYRest;
+                    }
+
+                    else{
+
+                        PlayerPosition.POSITION_Y = globals.sprites[i].yPos - playerPositionYRest;  
+                    }
                 }
             }
             
