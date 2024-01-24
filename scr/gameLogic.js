@@ -97,7 +97,7 @@ function playGamePlayingScreen(){
     detectCollisions();
     updateCamera();
     updateLakes();
-    spawnRandomEnemys();
+    //spawnRandomEnemys();
     updateParticles();
     updateSprites();
     gameOver();
@@ -783,7 +783,7 @@ function updateEnemy1(sprite){
         sprite.hp -= 1;
         sprite.isCollidingWithMagic = false;
     }
-    console.log(sprite.hp);
+    
     if (sprite.state === State.ENEMY_1_RUN){
 
         Enemy1Position.POSITION_X = sprite.xPos;
@@ -837,7 +837,7 @@ function updateEnemy1(sprite){
             globals.EnemyDespawnTime.value = 2;
         }
 
-        if (globals.sprites[i].xPos + sprite.hitBox.xOffset - 1 < 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
+        if (globals.sprites[i].xPos + sprite.hitBox.xOffset - 1 < 0 && globals.sprites[i].id === SpriteID.ENEMY_1 && sprite.frames.frameCounter === 1){
             
             globals.sprites.splice(i, 1);
             globals.EnemyDespawnTime.value = 2;
@@ -995,14 +995,10 @@ function updateSpriteSpeed(sprite){
         
         else{
             
-            if (sprite.physics.vLimit < minSpeed + sprite.physics.speedReductionCont){
+            if (sprite.physics.speedReductionCont > 0){
 
                 sprite.physics.vLimit += 10;
-            }
-
-            if (sprite.physics.vLimit === minSpeed + sprite.physics.speedReductionCont){
-
-                sprite.physics.speedReductionCont = 0;
+                sprite.physics.speedReductionCont -= 10;
             }
         }
     }
@@ -1084,8 +1080,7 @@ function spawnRandomEnemys(){
     const brickSize = globals.level.imageSet.gridSize;
     const levelData = globals.level.data;
     const numBlocksY = levelData.length;
-    const randomYpos = (Math.floor(Math.random() * numBlocksY - 2) * brickSize) + brickSize - 10;
-
+    const randomYpos = Math.floor(Math.random() * (numBlocksY - 2)) * brickSize + brickSize - 10;
 
     updateTimer(globals.EnemySpawnTime);
     

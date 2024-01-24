@@ -357,7 +357,7 @@ function renderNewGameText(){
     globals.ctx.fillText ("The defense of the throne", 180, 140);
 
     //Dibujar Opciones
-    globals.ctx.font = "7px emulogic";
+    globals.ctx.font = "10px emulogic";
     globals.ctx.fillStyle = "white";
 
     let moveText = 0;

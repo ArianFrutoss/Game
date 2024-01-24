@@ -97,7 +97,7 @@ function loadHandler(){
 
 function initTimers(){
 
-    globals.levelTime = new Timer(180, 1);
+    globals.levelTime = new Timer(1800, 1);
     globals.lakesTime = new Timer(30, 1);
     globals.EnemySpawnTime = new Timer(5, 1);
     globals.EnemyDespawnTime = new Timer(2, 1);
