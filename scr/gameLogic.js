@@ -810,17 +810,12 @@ function updateEnemy1(sprite){
         }
     }
     
-    if (sprite.isCollidingWithWall && sprite.frames.frameCounter === 1){
+    // if (sprite.isCollidingWithWall && sprite.frames.frameCounter === 1){
             
-        sprite.state = State.ENEMY_1_ATTACK;
-        sprite.frames.speed = 4;
-        sprite.frames.framesPerState = 4;
-        
-        if (sprite.frames.frameCounter === 2){
-
-            sprite.hitsWall++;
-        }
-    }
+    //     sprite.state = State.ENEMY_1_ATTACK;
+    //     sprite.frames.speed = 4;
+    //     sprite.frames.framesPerState = 4;
+    // }
 
     if (sprite.hp <= 0){
 

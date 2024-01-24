@@ -323,7 +323,7 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
             //Existe collision
             if (isOverlap){
-                
+                console.log(wall.id);
                 wall.isCollidingWithEnemy = true;
                 sprite.isCollidingWithWall = true;
                 
