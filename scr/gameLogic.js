@@ -17,6 +17,7 @@ export default function update(){
         case Game.NEW_GAME_LOAD:
 
             globals.sprites = [];
+            globals.particles = [];
             initNewGameSprites();
             globals.gameState = Game.NEW_GAME;
             break;
@@ -29,6 +30,7 @@ export default function update(){
         case Game.PLAYING_LOAD:
 
             globals.sprites = [];
+            globals.particles = [];
             initPlayingSprites();
             globals.gameState = Game.PLAYING;
             break;
@@ -41,6 +43,7 @@ export default function update(){
         case Game.CONTROLS_LOAD:
 
             globals.sprites = [];
+            globals.particles = [];
             initControlsSprites();
             globals.gameState = Game.CONTROLS;
             break;
@@ -53,6 +56,7 @@ export default function update(){
         case Game.SCORES_LOAD:
 
             globals.sprites = [];
+            globals.particles = [];
             initScoresSprites();
             globals.gameState = Game.SCORES;
             break;
@@ -65,6 +69,7 @@ export default function update(){
         case Game.HISTORY_LOAD:
             
             globals.sprites = [];
+            globals.particles = [];
             initHistorySprites();
             globals.gameState = Game.HISTORY;
             break;
@@ -77,6 +82,7 @@ export default function update(){
         case Game.OVER_LOAD:
             
             globals.sprites = [];
+            globals.particles = [];
             initOverSprites();
             globals.gameState = Game.OVER;
             break;
@@ -97,7 +103,7 @@ function playGamePlayingScreen(){
     detectCollisions();
     updateCamera();
     updateLakes();
-    //spawnRandomEnemys();
+    spawnRandomEnemys();
     updateParticles();
     updateSprites();
     gameOver();
@@ -803,8 +809,8 @@ function updateEnemy1(sprite){
             sprite.frames.framesPerState = 4;
         }
     }
-
-    if (sprite.isCollidingWithWall && sprite.hp > 0 && sprite.frames.frameCounter === 1){
+    
+    if (sprite.isCollidingWithWall && sprite.frames.frameCounter === 1){
             
         sprite.state = State.ENEMY_1_ATTACK;
         sprite.frames.speed = 4;
@@ -828,7 +834,7 @@ function updateEnemy1(sprite){
         globals.score += 100;
     }
     
-    for (let i = 0; i < globals.sprites.length; i++){ 
+    for (let i = 0; i < globals.sprites.length; i++){
         
         if (globals.EnemyDespawnTime.value <= 0 && globals.sprites[i].hp <= 0 && globals.sprites[i].id === SpriteID.ENEMY_1 && sprite.frames.frameCounter === 0){
 
@@ -842,8 +848,13 @@ function updateEnemy1(sprite){
             globals.sprites.splice(i, 1);
             globals.EnemyDespawnTime.value = 2;
         }
-    }
+        
+        if (globals.sprites[i].isCollidingWithEnemy){
 
+            globals.sprites[i].hp++;
+        }
+    }
+    
     //Actualizamos la animacion
     updateAnimationFrame(sprite);
 }
@@ -866,6 +877,7 @@ function randomObjectSpawn(spawnXpos, spawnYpos){
 
 function updateWall(sprite){
 
+    sprite.frames.frameCounter = sprite.hp;
 }
 
 function updateMoon(sprite){
@@ -1124,8 +1136,6 @@ function restoreVars(){
     globals.woodCont              = 0;
     globals.score                 = 0;
     globals.levelTime.value     = 180;
-    globals.particles            = [];
-    globals.activeWall           = [];
 }
 
 function changeGameState(){

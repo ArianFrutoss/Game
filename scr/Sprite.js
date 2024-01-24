@@ -15,7 +15,6 @@ export default class Sprite{
         this.isCollidingWithWall                = false;        //Indica si ha habido colosion con el muro
         this.isCollidingWithChair               = false;        //Indica si ha habido colosion con la silla
         this.isCollidingWithObject              = false;        //Indica si ha habido colosion con los objetos
-        this.isCollidingWithEnemy               = false;        //Indica si ha habido colosion con el enemigo
         this.isCollidingWithMagic               = false;        //Indica si ha habido colosion con la magia
     }
 }
@@ -37,7 +36,7 @@ export class HudSprites extends Sprite{
 
         super(id, state, xPos, yPos, imageSet, frames);
 
-            this.hud = true;
+            this.hud                                = true;
     }
 }
 
@@ -47,6 +46,7 @@ export class Wall extends Sprite{
 
         super(id, state, xPos, yPos, imageSet, frames, physics, hitBox);
 
-            this.WallHp = 0;
+            this.hp                                 = 0;
+            this.isCollidingWithEnemy               = false;
     }
 }

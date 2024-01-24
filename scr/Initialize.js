@@ -493,7 +493,7 @@ function initMagic(playerXpos, playerYpos){
     const frames = new Frames(5, 1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(200);
+    const physics = new Physics(300);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(18, 18, 23, 25);
@@ -626,9 +626,6 @@ function initWall(childXpos, childYpos){
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wall);
-
-    //Activar muros
-    globals.activeWall.push(wall);
 }
 
 function initMoon(){

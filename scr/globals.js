@@ -67,9 +67,6 @@ export default{
     //Objeto que guarda el estado de la tecla pulsada
     action: {},
 
-    //Muros
-    activeWall: [],
-
     //Chair HP
     chairHP: 0,
 
@@ -80,10 +77,10 @@ export default{
     highScore: 0,
 
     //Stone
-    stoneCont: 0,
+    stoneCont: 10,
 
     //Wood
-    woodCont: 0,
+    woodCont: 10,
 
     //Array de particulas
     particles: [],
