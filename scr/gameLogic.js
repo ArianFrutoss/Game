@@ -640,8 +640,10 @@ function updateChild1Walk(sprite){
             
             const brickSize = globals.level.imageSet.gridSize;
             const spritePositionXRest = sprite.xPos % brickSize;
+            const spritePositionYRest = sprite.yPos % brickSize;
             
             let spriteXpos;
+            let spriteYpos = sprite.yPos - spritePositionYRest;
             
             if (spritePositionXRest < brickSize / 2){
                 
@@ -652,8 +654,8 @@ function updateChild1Walk(sprite){
                 
                 spriteXpos = sprite.xPos + brickSize - spritePositionXRest + brickSize / 2;  
             }
-
-            initWall(spriteXpos, sprite.yPos);
+            
+            initWall(spriteXpos, spriteYpos);
 
             globals.action.build = false;
 

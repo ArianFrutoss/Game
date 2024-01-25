@@ -37,16 +37,16 @@ export function keydownHandler(event){
                     const brickSize = globals.level.imageSet.gridSize;
                     const playerPositionYRest = globals.sprites[i].yPos % brickSize;
 
-                    PlayerPosition.POSITION_X = globals.sprites[i].xPos;
+                    PlayerPosition.POSITION_X = Math.floor(globals.sprites[i].xPos);
 
                     if (playerPositionYRest > brickSize / 2){
 
-                        PlayerPosition.POSITION_Y = globals.sprites[i].yPos + brickSize - playerPositionYRest;
+                        PlayerPosition.POSITION_Y = Math.floor(globals.sprites[i].yPos + brickSize - playerPositionYRest);
                     }
 
                     else{
 
-                        PlayerPosition.POSITION_Y = globals.sprites[i].yPos - playerPositionYRest;  
+                        PlayerPosition.POSITION_Y = Math.floor(globals.sprites[i].yPos - playerPositionYRest);  
                     }
                 }
             }
