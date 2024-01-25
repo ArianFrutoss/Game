@@ -192,6 +192,12 @@ function detectCollisionsBetweenPlayerAndObjects(sprite){
 
 function detectCollisionsBetweenCameraAndBorders(player){
 
+    const brickSize = globals.level.imageSet.gridSize;
+    const levelData = globals.level.data[0];
+    const numBlocksX = levelData.length;
+    const screenWidth = globals.canvas.width - globals.canvasHUD.width;
+    const playerSize = player.imageSet.xSize;
+
     if (player.xPos >= 100){
         
         globals.camera.isCollidingWithBorderLeft = false;
@@ -207,7 +213,7 @@ function detectCollisionsBetweenCameraAndBorders(player){
         globals.camera.isCollidingWithBorderRight = false;
     }
 
-    else if (globals.camera.x >= globals.canvas.width - player.xPos - player.imageSet.xSize + globals.canvasHUD.width){
+    else if (globals.camera.x >= numBlocksX * brickSize - globals.camera.x - globals.canvasHUD.width - player.imageSet.xSize - player.hitBox.xSize){
         
         globals.camera.isCollidingWithBorderRight = true;
     }
@@ -291,8 +297,11 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
             const wall = globals.sprites[i];
 
-            wall.isCollidingWithEnemy = false;
-            sprite.isCollidingWithWall = false;
+            if (sprite.id != SpriteID.ENEMY_1){
+
+                wall.isCollidingWithEnemy = false;
+                sprite.isCollidingWithWall = false;
+            }
             
             //Datos del wall
             const x1 = wall.xPos + wall.hitBox.xOffset;
@@ -323,7 +332,7 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
 
             //Existe collision
             if (isOverlap){
-                console.log(wall.id);
+                
                 wall.isCollidingWithEnemy = true;
                 sprite.isCollidingWithWall = true;
                 

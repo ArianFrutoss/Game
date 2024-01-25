@@ -556,7 +556,7 @@ function initChild1(positionX, positionY){
     const frames = new Frames(7, 3);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(100);
+    const physics = new Physics(200);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(16, 38, 24, 21);
@@ -577,7 +577,7 @@ function initChild2(positionX, positionY){
     const frames = new Frames(6, 3);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(100);
+    const physics = new Physics(200);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(16, 39, 24, 19);
@@ -622,7 +622,7 @@ function initWall(childXpos, childYpos){
     const hitBox = new HitBox(24, 60, 16, 4);
 
     //Creamos nuestro sprite
-    const wall = new Wall(SpriteID.WALL, State.WALL, childXpos + 30, childYpos, imageSet, frames, 0, hitBox);
+    const wall = new Wall(SpriteID.WALL, State.WALL, childXpos, childYpos, imageSet, frames, 0, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(wall);

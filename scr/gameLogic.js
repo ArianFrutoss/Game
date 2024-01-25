@@ -592,12 +592,7 @@ function updateChild2Idle(sprite){
     updateAnimationFrame(sprite);
 
     if (globals.action.build && globals.woodCont >= 2 && globals.stoneCont >= 3){
-        
-        if (sprite.physics.vx < 0 || sprite.physics.vy < 0){
             
-            globals.action.build = false;
-        }
-
         updateChild1Walk(sprite);
     }
 
@@ -613,7 +608,7 @@ function updateChild1Walk(sprite){
 
     if (sprite.physics.vx > 0 && sprite.isCollidingWithTheLake === false){
 
-        sprite.physics.vLimit = 100;
+        sprite.physics.vLimit = 200;
     }
     
     sprite.physics.vx = sprite.physics.vLimit;
@@ -647,12 +642,12 @@ function updateChild1Walk(sprite){
             
             if (spritePositionXRest < brickSize / 2){
                 
-                spriteXpos = sprite.xPos - spritePositionXRest + brickSize / 2;
+                spriteXpos = sprite.xPos - spritePositionXRest + brickSize;
             }
 
             else{
                 
-                spriteXpos = sprite.xPos + brickSize - spritePositionXRest + brickSize / 2;  
+                spriteXpos = sprite.xPos - spritePositionXRest + brickSize * 2;  
             }
             
             initWall(spriteXpos, spriteYpos);
@@ -681,7 +676,7 @@ function updatechild1Return(sprite){
 
     if (sprite.physics.vx < 0 && sprite.isCollidingWithTheLake === false){
 
-        sprite.physics.vLimit = 60;
+        sprite.physics.vLimit = 100;
     }
 
     sprite.physics.vx = -sprite.physics.vLimit;
@@ -786,38 +781,35 @@ function updatechild2Return(sprite){
 
 function updateEnemy1(sprite){
 
+    Enemy1Position.POSITION_X = sprite.xPos;
+    Enemy1Position.POSITION_Y = sprite.yPos;
+
+    sprite.physics.vx = -sprite.physics.vLimit;
+    sprite.physics.vy = 0;
+    
+    sprite.xPos += sprite.physics.vx * globals.deltaTime;
+    sprite.yPos += sprite.physics.vy * globals.deltaTime;
+
     if (sprite.isCollidingWithMagic && sprite.id === SpriteID.ENEMY_1){
         
         sprite.hp -= 1;
         sprite.isCollidingWithMagic = false;
     }
     
-    if (sprite.state === State.ENEMY_1_RUN){
-
-        Enemy1Position.POSITION_X = sprite.xPos;
-        Enemy1Position.POSITION_Y = sprite.yPos;
-
-        sprite.physics.vx = -sprite.physics.vLimit;
-        sprite.physics.vy = 0;
+    if (sprite.hp <= 0 && sprite.frames.frameCounter === 1){
         
-        sprite.xPos += sprite.physics.vx * globals.deltaTime;
-        sprite.yPos += sprite.physics.vy * globals.deltaTime;
-
-        if (sprite.hp <= 0 && sprite.frames.frameCounter === 1){
-
-            sprite.state = State.ENEMY_1_DEAD;
-            sprite.physics.vLimit = 0;
-            sprite.frames.speed = 4;
-            sprite.frames.framesPerState = 4;
-        }
+        sprite.state = State.ENEMY_1_DEAD;
+        sprite.physics.vLimit = 0;
+        sprite.frames.speed = 4;
+        sprite.frames.framesPerState = 4;          
     }
     
-    // if (sprite.isCollidingWithWall && sprite.frames.frameCounter === 1){
-            
-    //     sprite.state = State.ENEMY_1_ATTACK;
-    //     sprite.frames.speed = 4;
-    //     sprite.frames.framesPerState = 4;
-    // }
+    if (sprite.hp > 0 && sprite.isCollidingWithWall && sprite.frames.frameCounter === 1){
+        
+        sprite.state = State.ENEMY_1_ATTACK;
+        sprite.frames.speed = 4;
+        sprite.frames.framesPerState = 4;
+    }
 
     if (sprite.hp <= 0){
 
@@ -847,7 +839,7 @@ function updateEnemy1(sprite){
         }
         
         if (globals.sprites[i].isCollidingWithEnemy){
-
+            
             globals.sprites[i].hp++;
         }
     }
