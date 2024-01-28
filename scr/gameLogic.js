@@ -801,7 +801,7 @@ function updateEnemy1(sprite){
         sprite.state = State.ENEMY_1_DEAD;
         sprite.physics.vLimit = 0;
         sprite.frames.speed = 4;
-        sprite.frames.framesPerState = 4;          
+        sprite.frames.framesPerState = 4;
     }
     
     if (sprite.hp > 0 && sprite.isCollidingWithWall && sprite.frames.frameCounter === 1){
@@ -811,36 +811,31 @@ function updateEnemy1(sprite){
         sprite.frames.framesPerState = 4;
     }
 
-    if (sprite.hp <= 0){
+    if (sprite.state === State.ENEMY_1_DEAD){
 
-        updateTimer(globals.EnemyDespawnTime);
+        sprite.physics.vLimit = 0;
+        updateTimer(globals.enemyDespawnTime);
     }
 
-    if (sprite.hp <= 0 && sprite.state === State.ENEMY_1_DEAD && sprite.frames.frameCounter === 3){
+    if (sprite.hp <= 0 && sprite.frames.speed > 0 && sprite.state === State.ENEMY_1_DEAD && sprite.frames.frameCounter === 0){
 
         sprite.frames.speed = 0;
         sprite.frames.frameCounter = 0;
-        globals.score += 100;
+        globals.score += 1000;
     }
     
     for (let i = 0; i < globals.sprites.length; i++){
         
-        if (globals.EnemyDespawnTime.value <= 0 && globals.sprites[i].hp <= 0 && globals.sprites[i].id === SpriteID.ENEMY_1 && sprite.frames.frameCounter === 0){
+        if (globals.sprites[i].hp <= 0 && globals.sprites[i].id === SpriteID.ENEMY_1 && globals.enemyDespawnTime.value <= 0){
 
             randomObjectSpawn(globals.sprites[i].xPos, globals.sprites[i].yPos);
             globals.sprites.splice(i, 1);
-            globals.EnemyDespawnTime.value = 2;
+            globals.enemyDespawnTime.value = 1;
         }
 
-        if (globals.sprites[i].xPos + sprite.hitBox.xOffset - 1 < 0 && globals.sprites[i].id === SpriteID.ENEMY_1 && sprite.frames.frameCounter === 1){
+        if (globals.sprites[i].xPos + sprite.hitBox.xOffset - 1 < 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
             
             globals.sprites.splice(i, 1);
-            globals.EnemyDespawnTime.value = 2;
-        }
-        
-        if (globals.sprites[i].isCollidingWithEnemy){
-            
-            globals.sprites[i].hp++;
         }
     }
     
@@ -865,6 +860,13 @@ function randomObjectSpawn(spawnXpos, spawnYpos){
 }
 
 function updateWall(sprite){
+
+    console.log(sprite.isCollidingWithEnemy);
+
+    if (sprite.isCollidingWithEnemy){
+        
+        sprite.hp--;
+    }
 
     sprite.frames.frameCounter = sprite.hp;
 }
@@ -1081,15 +1083,17 @@ function spawnRandomEnemys(){
     const brickSize = globals.level.imageSet.gridSize;
     const levelData = globals.level.data;
     const numBlocksY = levelData.length;
-    const randomYpos = Math.floor(Math.random() * (numBlocksY - 2)) * brickSize + brickSize - 10;
+    const numBlocksX = levelData[0].length;
+    const randomYPos = Math.floor(Math.random() * (numBlocksY - 2)) * brickSize + brickSize - 10;
+    const xPos = numBlocksX * brickSize;
 
-    updateTimer(globals.EnemySpawnTime);
+    updateTimer(globals.enemySpawnTime);
     
-    if (globals.EnemySpawnTime.value === 0){
+    if (globals.enemySpawnTime.value === 0){
 
-        globals.EnemySpawnTime.value = 4;
+        globals.enemySpawnTime.value = 4;
         
-        initEnemy1(randomYpos);   
+        initEnemy1(xPos, randomYPos);   
     }
 }
 

@@ -99,8 +99,8 @@ function initTimers(){
 
     globals.levelTime = new Timer(1800, 1);
     globals.lakesTime = new Timer(30, 1);
-    globals.EnemySpawnTime = new Timer(5, 1);
-    globals.EnemyDespawnTime = new Timer(2, 1);
+    globals.enemySpawnTime = new Timer(5, 1);
+    globals.enemyDespawnTime = new Timer(1, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
     globals.menuPositionTime = new Timer(2, 0.15);
     globals.historyTime = new Timer(10, 1);
@@ -589,7 +589,7 @@ function initChild2(positionX, positionY){
     globals.sprites.push(child2);
 }
 
-function initEnemy1(yPos){
+function initEnemy1(xPos, yPos){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(18, 0, 64, 64, 64, 0, 0);
@@ -604,7 +604,7 @@ function initEnemy1(yPos){
     const hitBox = new HitBox(18, 45, 22, 10);
 
     //Creamos nuestro sprite
-    const enemy1 = new Enemy1(SpriteID.ENEMY_1, State.ENEMY_1_RUN, 1200, yPos, imageSet, frames, physics, hitBox);
+    const enemy1 = new Enemy1(SpriteID.ENEMY_1, State.ENEMY_1_RUN, xPos, yPos, imageSet, frames, physics, hitBox);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(enemy1);

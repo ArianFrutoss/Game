@@ -50,10 +50,10 @@ export default{
     lakesTime: {},
 
     //Temporizador aparicion de enemigos
-    EnemySpawnTime: {},
+    enemySpawnTime: {},
 
     //Temporizador aparicion de enemigos
-    EnemyDespawnTime: {},
+    enemyDespawnTime: {},
 
     //Temporizador aparicion de nubes
     cloudSpawnTime: {},

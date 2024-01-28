@@ -294,7 +294,7 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
             let isOverlap;
 
             const wall = globals.sprites[i];
-
+            
             if (sprite.id != SpriteID.ENEMY_1){
 
                 wall.isCollidingWithEnemy = false;
