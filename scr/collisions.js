@@ -195,8 +195,6 @@ function detectCollisionsBetweenCameraAndBorders(player){
     const brickSize = globals.level.imageSet.gridSize;
     const levelData = globals.level.data[0];
     const numBlocksX = levelData.length;
-    const screenWidth = globals.canvas.width - globals.canvasHUD.width;
-    const playerSize = player.imageSet.xSize;
 
     if (player.xPos >= 100){
         
@@ -213,7 +211,7 @@ function detectCollisionsBetweenCameraAndBorders(player){
         globals.camera.isCollidingWithBorderRight = false;
     }
 
-    else if (globals.camera.x >= numBlocksX * brickSize - globals.camera.x - globals.canvasHUD.width - player.imageSet.xSize - player.hitBox.xSize){
+    else if (globals.camera.x - globals.canvasHUD.width + globals.canvas.width >= numBlocksX * brickSize + player.imageSet.xSize - player.hitBox.xSize / 2){
         
         globals.camera.isCollidingWithBorderRight = true;
     }
