@@ -203,3 +203,14 @@ export const State = {
     //Black border
     BLACK_BORDER:           0
 }
+
+export const Sounds = {
+
+    NO_SOUND:              -1,
+    GAME_MUSIC:             0,
+    GAME_MENU_MUSIC:        1,
+    GAME_OVER_MUSIC:        2,
+    EXPLOSION:              3,
+    SELECT:                 4,
+    OBJECT:                 5
+}

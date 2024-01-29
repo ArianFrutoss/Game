@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, ParticleID} from "./constans.js";
+import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, ParticleID, Sounds} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initEnemy1, initStone, initWood} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
@@ -108,6 +108,7 @@ function playGamePlayingScreen(){
     updateSprites();
     gameOver();
     updateTimer(globals.levelTime);
+    playSound();
 }
 
 function playGame(){
@@ -115,6 +116,7 @@ function playGame(){
     updateParticles();
     updateSprites();
     changeGameState();
+    playSound();
 }
 
 function updateSprites(){
@@ -152,7 +154,6 @@ function updateSprites(){
             updateSpriteSpeed(sprite);
             updatePlayerStateWhenIsCollidingWithWall(sprite);
             updateChairHPWhenIsCollidingWithEnemy(sprite);
-            updateEnemyHpWhenIsCollidingWithEnemy(sprite);
         }
     }
 
@@ -164,6 +165,20 @@ function updateSprites(){
 
             updateSprite(sprite);
         }
+    }
+}
+
+function playSound(){
+    
+    //Reproducimos el sonido que ha sido invocado
+    if (globals.currentSound != Sounds.NO_SOUND){
+
+        //Reproducimos el sonido correspondiente
+        globals.sounds[globals.currentSound].currentTime = 0;
+        globals.sounds[globals.currentSound].play();
+
+        //Reseteamos current sound
+        globals.currentSound = Sounds.NO_SOUND;
     }
 }
 
@@ -509,6 +524,7 @@ function updateMagic(sprite){
             // const spriteYpos = sprite.yPos + sprite.imageSet.ySize - 5;
             
             // initMagicParticles(spriteXpos, spriteYpos);
+            globals.currentSound = Sounds.EXPLOSION;
 
             globals.sprites.splice(i, 1);
         }
@@ -527,7 +543,8 @@ function updateStone(sprite){
         if (globals.sprites[i].isCollidingWithObject){
             
             if (globals.sprites[i].id === SpriteID.STONE){
-                
+
+                globals.currentSound = Sounds.OBJECT;
                 globals.stoneCont += 1;
                 globals.sprites.splice(i, 1);
             }
@@ -545,6 +562,7 @@ function updateWood(sprite){
             
             if (globals.sprites[i].id === SpriteID.WOOD){
                 
+                globals.currentSound = Sounds.OBJECT;
                 globals.woodCont += 1;
                 globals.sprites.splice(i, 1);
             }
@@ -800,15 +818,33 @@ function updateEnemy1(sprite){
         
         sprite.state = State.ENEMY_1_DEAD;
         sprite.physics.vLimit = 0;
-        sprite.frames.speed = 4;
+        sprite.frames.speed = 6;
         sprite.frames.framesPerState = 4;
     }
     
     if (sprite.hp > 0 && sprite.isCollidingWithWall && sprite.frames.frameCounter === 1){
         
         sprite.state = State.ENEMY_1_ATTACK;
-        sprite.frames.speed = 4;
+        sprite.frames.speed = 6;
         sprite.frames.framesPerState = 4;
+    }
+
+    if (sprite.hp > 0 && sprite.isCollidingWithWall === false && sprite.frames.frameCounter === 1){
+        
+        sprite.state = State.ENEMY_1_RUN;
+        sprite.frames.speed = 2;
+        sprite.frames.framesPerState = 6;
+    }
+
+    if (sprite.frames.frameCounter === 0 && sprite.state === State.ENEMY_1_ATTACK){
+
+        sprite.frames.frameCounter = 1;
+
+        if (sprite.hits >= 5){
+
+            sprite.isCollidingWithWall = false;
+            sprite.hits = 0;
+        }
     }
 
     if (sprite.state === State.ENEMY_1_DEAD){
@@ -837,6 +873,11 @@ function updateEnemy1(sprite){
             
             globals.sprites.splice(i, 1);
         }
+
+        if (globals.sprites[i].id === SpriteID.WALL && globals.sprites[i].isCollidingWithEnemy && sprite.isCollidingWithWall){
+
+            sprite.hits = globals.sprites[i].hp;
+        }
     }
     
     //Actualizamos la animacion
@@ -860,15 +901,21 @@ function randomObjectSpawn(spawnXpos, spawnYpos){
 }
 
 function updateWall(sprite){
-
-    console.log(sprite.isCollidingWithEnemy);
-
-    if (sprite.isCollidingWithEnemy){
+    
+    for (let i = 0; i < globals.sprites.length; i++){
         
-        sprite.hp--;
-    }
+        if (globals.sprites[i].id === SpriteID.WALL && globals.sprites[i].hp >= 7){
 
-    sprite.frames.frameCounter = sprite.hp;
+            globals.sprites.splice(i, 1);
+        }
+
+        if (globals.sprites[i].id === SpriteID.ENEMY_1 && sprite.isCollidingWithEnemy && globals.sprites[i].frames.frameCounter === 0 && globals.sprites[i].state === State.ENEMY_1_ATTACK){
+
+            sprite.hp++;
+        }
+    }
+    
+    sprite.frames.frameCounter = Math.floor(sprite.hp / 2);
 }
 
 function updateMoon(sprite){
@@ -1023,15 +1070,6 @@ function updateChairHPWhenIsCollidingWithEnemy(sprite){
     }
 }
 
-function updateEnemyHpWhenIsCollidingWithEnemy(sprite){
-
-    if (sprite.isCollidingWithEnemy){
-        
-        sprite.hp -= 1;
-        sprite.isCollidingWithEnemy = false;
-    }
-}
-
 function updateCamera(){
     
     let player;
@@ -1099,10 +1137,12 @@ function spawnRandomEnemys(){
 
 function gameOver(){
 
-    if (globals.chairHP === 3 || globals.levelTime.value <= 0){
+    if (globals.chairHP >= 4 || globals.levelTime.value <= 0){
 
         globals.gameState = Game.OVER_LOAD;
-
+        globals.sounds[Sounds.GAME_MUSIC].pause();
+        globals.currentSound = Sounds.GAME_OVER_MUSIC;
+        
         updateHighScore();
         restoreCamera();
         restoreVars();
@@ -1124,11 +1164,11 @@ function restoreCamera(){
 
 function restoreVars(){
 
-    globals.chairHP               = 0;
-    globals.stoneCont             = 0;
-    globals.woodCont              = 0;
-    globals.score                 = 0;
-    globals.levelTime.value     = 180;
+    globals.chairHP                = 0;
+    globals.stoneCont            = 100;
+    globals.woodCont             = 100;
+    globals.score                  = 0;
+    globals.levelTime.value     = 1800;
 }
 
 function changeGameState(){
@@ -1136,43 +1176,61 @@ function changeGameState(){
     if (globals.gameState === Game.NEW_GAME){
 
         updateTimer(globals.menuPositionTime);
-        
+
+        globals.sounds[Sounds.GAME_OVER_MUSIC].pause();
+        globals.currentSound = Sounds.GAME_MENU_MUSIC;
+
         if (globals.action.moveUp && globals.gameStateCont > 2 && globals.menuPositionTime.value <= 0){
 
+            globals.currentSound = Sounds.SELECT;
             globals.menuPositionTime.value = 2;
             globals.gameStateCont -= 1;
         }
         
         else if (globals.action.moveDown && globals.gameStateCont < 5 && globals.menuPositionTime.value <= 0){
             
+            globals.currentSound = Sounds.SELECT;
             globals.menuPositionTime.value = 2;
             globals.gameStateCont += 1;
         }
 
         else if (globals.action.moveUp && globals.gameStateCont === 2 && globals.menuPositionTime.value <= 0){
             
+            globals.currentSound = Sounds.SELECT;
             globals.menuPositionTime.value = 2;
             globals.gameStateCont = 5;
         }
 
         else if (globals.action.moveDown && globals.gameStateCont === 5 && globals.menuPositionTime.value <= 0){
             
+            globals.currentSound = Sounds.SELECT;
             globals.menuPositionTime.value = 2;
             globals.gameStateCont = 2;
         }
 
         else if (globals.action.attack && globals.menuPositionTime.value <= 0){
             
+            if (globals.gameStateCont === Game.PLAYING_LOAD){
+                
+                globals.sounds[Sounds.GAME_MENU_MUSIC].pause();
+                globals.currentSound = Sounds.GAME_MUSIC;
+            }
+
+            if (globals.gameStateCont != Game.PLAYING_LOAD){
+                
+                globals.currentSound = Sounds.SELECT;
+            }
+            
             globals.gameState = globals.gameStateCont;
             globals.menuPositionTime.value = 2;
             globals.gameStateCont = 2;
         }
-    } 
+    }
 
     if (globals.gameState === Game.HISTORY || globals.gameState === Game.CONTROLS || globals.gameState === Game.SCORES || globals.gameState === Game.OVER){
 
         updateTimer(globals.menuPositionTime);
-
+        
         if (globals.action.attack && globals.menuPositionTime.value <= 0){
 
             globals.menuPositionTime.value = 2;

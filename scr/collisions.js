@@ -286,7 +286,7 @@ function detectCollisionsBetweenSpritesAndLakes(sprite){
 function detectCollisionsBetweenSpritesAndWall(sprite){
 
     for (let i = 0; i < globals.sprites.length; i++){
-        
+
         if (globals.sprites[i].id === SpriteID.WALL){
 
             //Variables a usar
@@ -294,12 +294,8 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
             let isOverlap;
 
             const wall = globals.sprites[i];
-            
-            if (sprite.id != SpriteID.ENEMY_1){
-
-                wall.isCollidingWithEnemy = false;
-                sprite.isCollidingWithWall = false;
-            }
+    
+            sprite.isCollidingWithWall = false; 
             
             //Datos del wall
             const x1 = wall.xPos + wall.hitBox.xOffset;
@@ -331,8 +327,12 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
             //Existe collision
             if (isOverlap){
                 
-                wall.isCollidingWithEnemy = true;
                 sprite.isCollidingWithWall = true;
+
+                if (sprite.id === SpriteID.ENEMY_1){
+                    
+                    wall.isCollidingWithEnemy = true;
+                }
                 
                 if (sprite.id != SpriteID.MAGIC){
 
@@ -361,6 +361,6 @@ function detectCollisionsBetweenSpritesAndWall(sprite){
                     }
                 }
             }
-        }   
+        }
     }
 }

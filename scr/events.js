@@ -1,4 +1,4 @@
-import {Key, SpriteID} from "./constans.js";
+import {Key, SpriteID, Sounds} from "./constans.js";
 import globals from "./globals.js";
 import {PlayerPosition} from "./constans.js";
 
@@ -93,5 +93,17 @@ export function keyupHandler(event){
 
             globals.action.attack = false;
             break;
+    }
+}
+
+export function updateMusic(){
+
+    const buffer = 0.28;
+    const music = globals.sounds[Sounds.GAME_MUSIC];
+
+    if (music.currentTime > music.duration - buffer){
+
+        music.currentTime = 0;
+        music.play();
     }
 }

@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, SpriteID, State, FPS, ParticleState, ParticleID} from "./constans.js";
+import {Game, SpriteID, State, FPS, ParticleState, ParticleID, Sounds} from "./constans.js";
 import WaterParticle from "./Particle.js";
 import Sprite, {Enemy1, HudSprites, Wall} from "./Sprite.js";
 import ImageSet from "./ImageSet.js";
@@ -7,7 +7,7 @@ import Frames from "./Frames.js";
 import {Level, level1, spriteLevel1} from "./Level.js";
 import Timer from "./Timer.js";
 import Physics from "./Physics.js";
-import {keydownHandler, keyupHandler} from "./events.js";
+import {keydownHandler, keyupHandler, updateMusic} from "./events.js";
 import HitBox from "./HitBox.js";
 import Camera from "./Camera.js";
 
@@ -37,6 +37,7 @@ function initVars(){
     globals.deltaTime = 0;
     globals.frameTimeObj = 1 / FPS;
     globals.gameState = Game.LOADING;
+    globals.currentSound = Sounds.NO_SOUND;
 
     //Inicializamos los estados de las acciones
     globals.action = {
@@ -73,19 +74,62 @@ function loadAssets(){
     tileSet.src = "./images/spritesheetmap.png";
     globals.tileSets.push(tileSet);
     globals.assetsToLoad.push(tileSet);
+
+    let gameMusic = document.querySelector("#gameMusic");
+    gameMusic.addEventListener("canplaythrough", loadHandler, false);
+    gameMusic.addEventListener("timeupdate", updateMusic, false);
+    gameMusic.load();
+    globals.sounds.push(gameMusic);
+    globals.assetsToLoad.push(gameMusic);
+
+    let gameMenuMusic = document.querySelector("#menuMusic");
+    gameMenuMusic.addEventListener("canplaythrough", loadHandler, false);
+    gameMenuMusic.addEventListener("timeupdate", updateMusic, false);
+    gameMenuMusic.load();
+    globals.sounds.push(gameMenuMusic);
+    globals.assetsToLoad.push(gameMenuMusic);
+
+    let gameOverMusic = document.querySelector("#overMusic");
+    gameOverMusic.addEventListener("canplaythrough", loadHandler, false);
+    gameOverMusic.load();
+    globals.sounds.push(gameOverMusic);
+    globals.assetsToLoad.push(gameOverMusic);
+    
+    let explosion = document.querySelector("#explosion");
+    explosion.addEventListener("canplaythrough", loadHandler, false);
+    explosion.load();
+    globals.sounds.push(explosion);
+    globals.assetsToLoad.push(explosion);
+
+    let select = document.querySelector("#select");
+    select.addEventListener("canplaythrough", loadHandler, false);
+    select.load();
+    globals.sounds.push(select);
+    globals.assetsToLoad.push(select);
+
+    let object = document.querySelector("#object");
+    object.addEventListener("canplaythrough", loadHandler, false);
+    object.load();
+    globals.sounds.push(object);
+    globals.assetsToLoad.push(object);
 }
 
 //Funcion que se carga cada vez que se llama a un activo
 function loadHandler(){
 
     globals.assetsLoaded++;
-
+    
     //Cuando se han cargado todos los archivos entra en el if
     if (globals.assetsLoaded === globals.assetsToLoad.length){
-
+        
         for (let i = 0; i < globals.tileSets.length; i++){
 
             globals.tileSets[i].removeEventListener("load", loadHandler, false);
+        }
+
+        for (let i = 0; i < globals.sounds.length; i++){
+
+            globals.sounds[i].removeEventListener("canplaythrough", loadHandler, false);
         }
 
         console.log("Assets finished loading");

@@ -27,6 +27,7 @@ export class Enemy1 extends Sprite{
 
             this.hp                                 = 4;            //Vida de los enemigos
             this.enemyCont                          = 5;            //Contador de enemigos spawneados
+            this.hits                               = 0;            //Contador de golpes
     }
 }
 

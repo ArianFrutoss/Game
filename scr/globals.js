@@ -27,6 +27,12 @@ export default{
     //Caja de texto para mostrar datos de depuración
     txtPruebas: {},
 
+    //Sonidos
+    sounds: [],
+
+    //Estado del sonido
+    currentSound: -1,
+
     //Objeto para guardar datos del tileSet
     tileSets: [],
 
