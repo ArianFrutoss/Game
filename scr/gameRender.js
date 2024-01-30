@@ -1,7 +1,7 @@
 import globals from "./globals.js";
 import {Game, Tile, ParticleState, ParticleID, SpriteID} from "./constans.js";
-import {historyText} from "./Text.js";
-import {updateTimer} from "./gameLogic.js";
+import update from "./gameLogic.js";
+import { historyText } from "./Text.js";
 
 export default function render(){
     
@@ -202,22 +202,7 @@ function renderMagicParticle(particle){
 
     if (particle.state != ParticleState.OFF){
 
-        const randomColorParticles = Math.floor(Math.random() * 3);
-
-        if (randomColorParticles === 1){
-
-            globals.ctx.fillStyle = "rgb(39, 161, 185)";
-        }
-
-        else if (randomColorParticles === 2){
-
-            globals.ctx.fillStyle = "rgb(30, 106, 136)";
-        }
-
-        else{
-
-            globals.ctx.fillStyle = "rgb(205, 231, 255)";            
-        }
+        globals.ctx.fillStyle = "red";           
         
         globals.ctx.globalAlpha = particle.alpha;
         globals.ctx.beginPath();
@@ -423,36 +408,48 @@ function renderHistoryText(){
     
     const height = 120;
     const width = 340;
+    const letterSpace = 6;
+    const wordSpace = 10;
 
     let spacesX = 0;
     let spacesY = 0;
-    let word;
+    let word = 0;
 
     //Dibujar Historia
     globals.ctx.font = "6px emulogic";
     globals.ctx.fillStyle = "black";
 
-    for (let i = 0; i < historyText.length; i++){
+    for (let i = 0; i < globals.historyTextWordCont; i++){
         
-        updateTimer(globals.historyTime);
+        if (i < globals.historyText.length){
 
-        globals.ctx.fillText (historyText[i], width + spacesX, height + spacesY);
+            globals.ctx.fillText (globals.historyText[i], width + spacesX, height + spacesY);
+        
+            word = globals.historyText[i].length;
+      
+            spacesX += (word * letterSpace) + wordSpace;
 
-        word = historyText[i].length;
+            if (spacesX >= 130){
 
-        spacesX += (word * 6) + 10;
+                spacesX = 0;
+                spacesY += 10;
+            }
 
-        if (spacesX >= 130){
+            if (spacesY >= 210 && globals.historyPageChange === 0){
 
-            spacesX = 0;
-            spacesY += 10;
-        }
+                globals.historyPageChange = 1;
+            }
 
-        if (spacesY >= 210){
-            
-            spacesX = 0;
-            spacesY = 0;
-            historyText.splice(0, i);
+            if (spacesY >= 210 && globals.historyPageChangeTime.value === 0){
+
+                spacesX = 0;
+                spacesY = 0;
+                globals.historyText.splice(0, i);
+                globals.historyTextWordCont = 0;
+                globals.historyPageChange = 0;
+                globals.historyPageChangeTime.value = 10;
+                i = 0;
+            }
         }
     }   
 }

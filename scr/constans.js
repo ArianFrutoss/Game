@@ -212,5 +212,9 @@ export const Sounds = {
     GAME_OVER_MUSIC:        2,
     EXPLOSION:              3,
     SELECT:                 4,
-    OBJECT:                 5
+    OBJECT:                 5,
+    WALK_PLAYER_AND_CHILDS: 6,
+    WALK_ENEMY:             7,
+    HITS:                   8,
+    WATER:                  9
 }

@@ -3,6 +3,7 @@ import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, P
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initEnemy1, initStone, initWood} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
+import {historyText} from "./Text.js";
 
 export default function update(){
 
@@ -70,12 +71,15 @@ export default function update(){
             
             globals.sprites = [];
             globals.particles = [];
+            globals.historyText = [];
+            globals.historyTextWordCont = 0;
             initHistorySprites();
             globals.gameState = Game.HISTORY;
             break;
 
         case Game.HISTORY:
 
+            updateHistoryText();
             playGame();
             break;
 
@@ -291,6 +295,22 @@ function updateMagicParticle(particle){
     particle.yPos += particle.physics.vy * globals.deltaTime;
 }
 
+function updateHistoryText(){
+    
+    updateTimer(globals.historyTextTime);
+    
+    if (globals.historyTextTime.value <= 0 && globals.historyPageChange === 0 && globals.historyTextWordCont < historyText.length - 1){
+        
+        globals.historyTextTime.value = 1;
+        globals.historyTextWordCont++;
+    }
+
+    else{
+
+        updateTimer(globals.historyPageChangeTime);
+    }
+}
+
 export function updateTimer(time){
 
     //Incrementamos el contador de cambio de valor
@@ -446,11 +466,14 @@ function updatePlayer(sprite){
     sprite.physics.vx = 0;
     sprite.physics.vy = 0;
 
+    globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].volume = 0.1;
+
     if (globals.action.moveUp === true){
 
         //Si se mueve hacia arriba asignamos vy (-)
         sprite.physics.vx = 0;
         sprite.physics.vy = -sprite.physics.vLimit;
+        globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
     }
     
     else if (globals.action.moveDown === true){
@@ -458,6 +481,7 @@ function updatePlayer(sprite){
         //Si se mueve hacia abajo asignamos vy (+)
         sprite.physics.vx = 0;
         sprite.physics.vy = sprite.physics.vLimit;
+        globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
     }
 
     else if (globals.action.moveRight === true){
@@ -465,6 +489,7 @@ function updatePlayer(sprite){
         //Si se mueve a la derecha asignamos vx (+)
         sprite.physics.vx = sprite.physics.vLimit;
         sprite.physics.vy = 0;
+        globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
     }
 
     else if (globals.action.moveLeft === true){
@@ -472,6 +497,7 @@ function updatePlayer(sprite){
         //Si se mueve a la izquierda asignamos vx (-)
         sprite.physics.vx = -sprite.physics.vLimit;
         sprite.physics.vy = 0;
+        globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
     }
 
    else if (globals.action.attack === true){
@@ -520,12 +546,12 @@ function updateMagic(sprite){
 
         if (globals.sprites[i].isCollidingWithEnemy && globals.sprites[i].id === SpriteID.MAGIC){
             
-            // const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
-            // const spriteYpos = sprite.yPos + sprite.imageSet.ySize - 5;
+            const spriteXpos = globals.sprites[i].xPos;
+            const spriteYpos = globals.sprites[i].yPos + globals.sprites[i].imageSet.ySize / 2;
             
-            // initMagicParticles(spriteXpos, spriteYpos);
+            initMagicParticles(spriteXpos, spriteYpos);
+            
             globals.currentSound = Sounds.EXPLOSION;
-
             globals.sprites.splice(i, 1);
         }
     }
@@ -594,9 +620,12 @@ function updateChild1Idle(sprite){
 
     updateAnimationFrame(sprite);
 
+    globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].volume = 0.1;
+
     if (globals.action.attackChild && globals.woodCont >= 2 && globals.stoneCont >= 1){
 
         updateChild2Walk(sprite);
+        globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
     }
 
     else{
@@ -608,10 +637,13 @@ function updateChild1Idle(sprite){
 function updateChild2Idle(sprite){
     
     updateAnimationFrame(sprite);
+    
+    globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].volume = 0.1;
 
     if (globals.action.build && globals.woodCont >= 2 && globals.stoneCont >= 3){
             
         updateChild1Walk(sprite);
+        globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
     }
 
     else if (globals.action.build === false){
@@ -717,6 +749,11 @@ function updatechild1Return(sprite){
 
         sprite.state = State.CHILD_1_IDLE;
     }
+
+    else{
+
+        globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
+    }
     
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
@@ -789,6 +826,11 @@ function updatechild2Return(sprite){
 
         sprite.state = State.CHILD_2_IDLE;
     }
+
+    else{
+
+        globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
+    }
     
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
@@ -798,6 +840,9 @@ function updatechild2Return(sprite){
 }
 
 function updateEnemy1(sprite){
+
+    globals.sounds[Sounds.WALK_ENEMY].play();
+    globals.sounds[Sounds.WALK_ENEMY].volume = 0.2;
 
     Enemy1Position.POSITION_X = sprite.xPos;
     Enemy1Position.POSITION_Y = sprite.yPos;
@@ -912,6 +957,7 @@ function updateWall(sprite){
         if (globals.sprites[i].id === SpriteID.ENEMY_1 && sprite.isCollidingWithEnemy && globals.sprites[i].frames.frameCounter === 0 && globals.sprites[i].state === State.ENEMY_1_ATTACK){
 
             sprite.hp++;
+            globals.sounds[Sounds.HITS].play();
         }
     }
     
@@ -1040,6 +1086,9 @@ function updateSpriteSpeed(sprite){
                 const spriteYpos = sprite.yPos + sprite.imageSet.ySize - 5;
 
                 initWaterParticles(spriteXpos, spriteYpos);
+
+                //globals.sounds[Sounds.WATER].play();
+                //globals.sounds[Sounds.WATER].volume = 0.4;
             }
         }
         
@@ -1067,6 +1116,7 @@ function updateChairHPWhenIsCollidingWithEnemy(sprite){
     if (sprite.isCollidingWithChair){
         
         globals.chairHP += 1;
+        globals.sounds[Sounds.HITS].play();
     }
 }
 
@@ -1141,7 +1191,7 @@ function gameOver(){
 
         globals.gameState = Game.OVER_LOAD;
         globals.sounds[Sounds.GAME_MUSIC].pause();
-        globals.currentSound = Sounds.GAME_OVER_MUSIC;
+        globals.sounds[Sounds.GAME_OVER_MUSIC].play();
         
         updateHighScore();
         restoreCamera();
@@ -1178,32 +1228,32 @@ function changeGameState(){
         updateTimer(globals.menuPositionTime);
 
         globals.sounds[Sounds.GAME_OVER_MUSIC].pause();
-        globals.currentSound = Sounds.GAME_MENU_MUSIC;
+        globals.sounds[Sounds.GAME_MENU_MUSIC].play();
 
         if (globals.action.moveUp && globals.gameStateCont > 2 && globals.menuPositionTime.value <= 0){
 
-            globals.currentSound = Sounds.SELECT;
+            globals.sounds[Sounds.SELECT].play();
             globals.menuPositionTime.value = 2;
             globals.gameStateCont -= 1;
         }
         
         else if (globals.action.moveDown && globals.gameStateCont < 5 && globals.menuPositionTime.value <= 0){
             
-            globals.currentSound = Sounds.SELECT;
+            globals.sounds[Sounds.SELECT].play();
             globals.menuPositionTime.value = 2;
             globals.gameStateCont += 1;
         }
 
         else if (globals.action.moveUp && globals.gameStateCont === 2 && globals.menuPositionTime.value <= 0){
             
-            globals.currentSound = Sounds.SELECT;
+            globals.sounds[Sounds.SELECT].play();
             globals.menuPositionTime.value = 2;
             globals.gameStateCont = 5;
         }
 
         else if (globals.action.moveDown && globals.gameStateCont === 5 && globals.menuPositionTime.value <= 0){
             
-            globals.currentSound = Sounds.SELECT;
+            globals.sounds[Sounds.SELECT].play();
             globals.menuPositionTime.value = 2;
             globals.gameStateCont = 2;
         }
@@ -1216,11 +1266,7 @@ function changeGameState(){
                 globals.currentSound = Sounds.GAME_MUSIC;
             }
 
-            if (globals.gameStateCont != Game.PLAYING_LOAD){
-                
-                globals.currentSound = Sounds.SELECT;
-            }
-            
+            globals.sounds[Sounds.SELECT].play();
             globals.gameState = globals.gameStateCont;
             globals.menuPositionTime.value = 2;
             globals.gameStateCont = 2;
@@ -1235,6 +1281,12 @@ function changeGameState(){
 
             globals.menuPositionTime.value = 2;
             globals.gameState = Game.NEW_GAME_LOAD;
+            globals.sounds[Sounds.SELECT].play();
+        }
+
+        if (globals.gameState === Game.OVER){
+
+            globals.currentSound = Sounds.GAME_MENU_MUSIC
         }
     }
 }

@@ -67,9 +67,6 @@ export default{
     //Temporizador para cambiar de posicion del menu
     menuPositionTime: {},
 
-    //Temporizador para añadir palabra
-    historyTime: {},
-
     //Objeto que guarda el estado de la tecla pulsada
     action: {},
 
@@ -97,6 +94,18 @@ export default{
     //Contador de en que posicion esta en el menu
     gameStateCont: 2,
 
+    //Contador de palabras del texto de historia
+    historyTextWordCont: 0,
+
     //Texto de historia
-    historyTextCont: 0
+    historyText: [],
+
+    //Temporizador de aparicion de palabras del texto de historia
+    historyTextTime: [],
+
+    //Temporizador de cambio de pagina del texto de historia
+    historyPageChangeTime: [],
+
+    //Variable para cambiar de pagina
+    historyPageChange:  0
 };

@@ -10,6 +10,7 @@ import Physics from "./Physics.js";
 import {keydownHandler, keyupHandler, updateMusic} from "./events.js";
 import HitBox from "./HitBox.js";
 import Camera from "./Camera.js";
+import {historyText} from "./Text.js";
 
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
@@ -112,6 +113,30 @@ function loadAssets(){
     object.load();
     globals.sounds.push(object);
     globals.assetsToLoad.push(object);
+
+    let walkPlayerAndChilds = document.querySelector("#walkPlayerAndChilds");
+    walkPlayerAndChilds.addEventListener("canplaythrough", loadHandler, false);
+    walkPlayerAndChilds.load();
+    globals.sounds.push(walkPlayerAndChilds);
+    globals.assetsToLoad.push(walkPlayerAndChilds);
+
+    let walkEnemy = document.querySelector("#walkEnemy");
+    walkEnemy.addEventListener("canplaythrough", loadHandler, false);
+    walkEnemy.load();
+    globals.sounds.push(walkEnemy);
+    globals.assetsToLoad.push(walkEnemy);
+    
+    let hits = document.querySelector("#hits");
+    hits.addEventListener("canplaythrough", loadHandler, false);
+    hits.load();
+    globals.sounds.push(hits);
+    globals.assetsToLoad.push(hits);
+
+    let water = document.querySelector("#water");
+    water.addEventListener("canplaythrough", loadHandler, false);
+    water.load();
+    globals.sounds.push(water);
+    globals.assetsToLoad.push(water);
 }
 
 //Funcion que se carga cada vez que se llama a un activo
@@ -147,7 +172,8 @@ function initTimers(){
     globals.enemyDespawnTime = new Timer(1, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
     globals.menuPositionTime = new Timer(2, 0.15);
-    globals.historyTime = new Timer(10, 1);
+    globals.historyTextTime = new Timer(1, 0.2);
+    globals.historyPageChangeTime = new Timer(10, 1);
 }
 
 function initParticles(){
@@ -174,6 +200,7 @@ function initWaterParticles(spriteXpos, spriteYpos){
         
         //Asignamos velocidades segun angulo aleatorio
         const randomAngle = Math.random() * 5 * Math.PI;
+        
         particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle);
         particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle);
 
@@ -183,27 +210,37 @@ function initWaterParticles(spriteXpos, spriteYpos){
 
 function initMagicParticles(spriteXpos, spriteYpos){
 
-    const numParticles  = 10;
+    const numParticles  = 50;
     const xInit         = spriteXpos;
     const yInit         = spriteYpos;
-    const radius        = 1;
-    const timeToFadeMax = 0.5;
-    const alpha         = 1.0;
+    const radius        = 2;
+    const timeToFadeMax = 1;
+    const alpha         = 3.0;
 
     for (let i = 0; i < numParticles; i++){
 
-        const velocity = Math.random() * 5 + 5;
+        const velocity = Math.random() * 10;
         const physics = new Physics(velocity);
 
         const timeToFade = timeToFadeMax * Math.random() + 1;
-        const particle = new WaterParticle(ParticleID.WATER, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
+        const particle = new WaterParticle(ParticleID.MAGIC, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
         
         //Asignamos velocidades segun angulo aleatorio
-        const randomAngle = 5 * Math.PI;
-        particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle);
-        particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle);
+        const randomAngleX = Math.random() * 30 + 250;
+        const randomAngleY = Math.random() * 270 * Math.PI;
+
+        particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngleY);
+        particle.physics.vy = particle.physics.vLimit * Math.cos(randomAngleY);
 
         globals.particles.push(particle);
+    }
+}
+
+function initHistoryText(){
+    
+    for (let i = 0; i < historyText.length; i++){
+
+        globals.historyText[i] = historyText[i];
     }
 }
 
@@ -318,6 +355,7 @@ function initHistorySprites(){
     initBackground();
     initBlackBorder();
     initPaper();
+    initHistoryText();
 }
 
 function initScoresSprites(){
