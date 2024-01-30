@@ -14,12 +14,6 @@ function init(){
     //Cargamos los activos
     loadAssets();
 
-    //Inicializamos los sprites
-    initSprites();
-
-    //Inicializamos las particulas
-    initParticles();
-
     //Inicialización de variables del juego
     initVars();
 

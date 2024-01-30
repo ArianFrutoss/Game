@@ -166,7 +166,7 @@ function loadHandler(){
 
 function initTimers(){
 
-    globals.levelTime = new Timer(1800, 1);
+    globals.levelTime = new Timer(180, 1);
     globals.lakesTime = new Timer(30, 1);
     globals.enemySpawnTime = new Timer(5, 1);
     globals.enemyDespawnTime = new Timer(1, 1);
@@ -239,7 +239,7 @@ function initObjectParticles(spriteXpos, spriteYpos){
     const numParticles  = 5;
     const xInit         = spriteXpos;
     const yInit         = spriteYpos;
-    const radius        = 0.1;
+    const radius        = 0.5;
     const timeToFadeMax = 1;
     const alpha         = 1.0;
 

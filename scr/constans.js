@@ -221,3 +221,9 @@ export const Sounds = {
     HITS:                   8,
     WATER:                  9
 }
+
+export const Levels = {
+
+    LEVEL_1:        0,
+    LEVEL_2:        1
+}

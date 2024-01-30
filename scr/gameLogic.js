@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds} from "./constans.js";
+import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds, Levels} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
@@ -104,6 +104,7 @@ export default function update(){
 
 function playGamePlayingScreen(){
     
+    updateLevel();
     detectCollisions();
     updateCamera();
     updateLakes();
@@ -239,14 +240,16 @@ function updateHistoryText(){
     
     if (globals.historyTextTime.value <= 0 && globals.historyPageChange === 0 && globals.historyTextWordCont < historyText.length - 1){
         
-        globals.historyTextTime.value = 1;
+        globals.historyTextTime.value = 0;
         globals.historyTextWordCont++;
     }
 
     else{
-
+        
         updateTimer(globals.historyPageChangeTime);
     }
+
+    console.log(globals.historyPageChangeTime.value);
 }
 
 export function updateTimer(time){
@@ -1109,13 +1112,35 @@ function updateCamera(){
 
 function updateLakes(){
 
-    updateTimer(globals.lakesTime);
+    switch(globals.levels){
 
-    if (globals.lakesTime.value === 0){
+        case Levels.LEVEL_1:
 
-        levelClear(level1);
-        levelPuddle(level1);
-        globals.lakesTime.value = 30;
+            if (globals.levelTime.value === 180){
+
+                levelClear(level1);
+                levelPuddle(level1);
+
+                globals.levelTime.value = 179;
+            }
+            
+            break;
+
+        case Levels.LEVEL_2:
+
+            if (globals.levelTime.value === 90){
+
+                levelClear(level1);
+                levelPuddle(level1);
+
+                globals.levelTime.value = 89;
+            }
+
+            break;
+
+        default:    
+
+            break;
     }
 }
 
@@ -1125,9 +1150,22 @@ function spawnRandomEnemys(){
     const levelData = globals.level.data;
     const numBlocksY = levelData.length;
     const numBlocksX = levelData[0].length;
-    const randomYPos = Math.floor(Math.random() * (numBlocksY - 2)) * brickSize + brickSize - 10;
+    let randomYPos;
     const xPos = numBlocksX * brickSize;
 
+    switch(globals.levels){
+
+        case Levels.LEVEL_1:
+
+            randomYPos = Math.floor(Math.random() * (numBlocksY - 3)) * brickSize + (brickSize * 2) - 10;
+            break;
+
+        case Levels.LEVEL_2:
+
+            randomYPos = Math.floor(Math.random() * (numBlocksY - 2)) * brickSize + brickSize - 10;
+            break;
+    }
+    
     updateTimer(globals.enemySpawnTime);
     
     if (globals.enemySpawnTime.value === 0){
@@ -1135,6 +1173,19 @@ function spawnRandomEnemys(){
         globals.enemySpawnTime.value = 4;
         
         initEnemy1(xPos, randomYPos);   
+    }
+}
+
+function updateLevel(){
+
+    if (globals.levelTime.value > 90){
+
+        globals.levels = Levels.LEVEL_1;
+    }
+
+    else if(globals.levelTime.value <= 90){
+
+        globals.levels = Levels.LEVEL_2;
     }
 }
 
@@ -1171,7 +1222,7 @@ function restoreVars(){
     globals.stoneCont              = 0;
     globals.woodCont               = 0;
     globals.score                  = 0;
-    globals.levelTime.value     = 1800;
+    globals.levelTime.value      = 180;
 }
 
 function changeGameState(){

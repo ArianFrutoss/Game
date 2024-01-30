@@ -107,5 +107,8 @@ export default{
     historyPageChangeTime: [],
 
     //Variable para cambiar de pagina
-    historyPageChange:  0
+    historyPageChange:  0,
+
+    //Nivel en el que estas
+    levels: 0
 };

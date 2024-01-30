@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, Tile, ParticleState, ParticleID, SpriteID} from "./constans.js";
+import {Game, Tile, ParticleState, ParticleID, SpriteID, Levels} from "./constans.js";
 
 export default function render(){
     
@@ -19,6 +19,7 @@ export default function render(){
         case Game.PLAYING:
 
             drawGame();
+            renderGameText();
             break;
 
         case Game.CONTROLS:
@@ -413,6 +414,38 @@ function renderHUD(){
         globals.ctxHUD.fillText ("x 2", 135, 370);
         globals.ctxHUD.fillStyle = "white";
         globals.ctxHUD.fillText ("x 2", 135, 410);
+    }
+}
+
+function renderGameText(){
+
+    switch (globals.levels){
+
+        case Levels.LEVEL_1:
+            
+            if (globals.levelTime.value >= 178){
+
+                globals.ctx.font = "30px emulogic";
+                globals.ctx.fillStyle = "white";
+                globals.ctx.fillText ("LEVEL 1", globals.canvas.width / 2 - globals.canvasHUD.width, globals.canvas.height / 2);
+            }
+
+            break;
+
+        case Levels.LEVEL_2:
+
+            if (globals.levelTime.value >= 88){
+
+                globals.ctx.font = "30px emulogic";
+                globals.ctx.fillStyle = "white";
+                globals.ctx.fillText ("LEVEL 2", globals.canvas.width / 2 - globals.canvasHUD.width, globals.canvas.height / 2);
+            }
+
+            break;
+
+        default:    
+
+            break;
     }
 }
 

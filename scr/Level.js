@@ -30,8 +30,6 @@ export const spriteLevel1 = [
     [5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
 ];
 
-levelPuddle(level1)
-
 export function levelPuddle(level){
 
     const num_fil = level.length;
@@ -39,7 +37,7 @@ export function levelPuddle(level){
     const floor_options = [2, 2, 3, 2, 2];
 
     let contPuddleFloor = 0;
-
+    
     for (let i = 0; i < num_fil; i++){
         
         contPuddleFloor = 0;
