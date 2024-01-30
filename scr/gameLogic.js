@@ -1,6 +1,6 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, ParticleID, Sounds} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initEnemy1, initStone, initWood} from "./Initialize.js";
+import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds} from "./constans.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 import {historyText} from "./Text.js";
@@ -196,68 +196,6 @@ function updateParticles(){
 }
 
 function updateParticle(particle){
-
-    const type = particle.id;
-
-    switch (type){
-
-        //Caso del jugador
-        case ParticleID.WATER:
-
-            updateWaterParticle(particle);
-            break;
-
-        //Caso del jugador
-        case ParticleID.MAGIC:
-
-            updateMagicParticle(particle);
-            break;
-        
-        default:
-
-            break;
-    }
-}
-
-function updateWaterParticle(particle){
-
-    particle.fadeCounter += globals.deltaTime;
-    
-    //Cogemos las velocidades de los arrays
-    switch (particle.state){
-
-        case ParticleState.ON:
-
-            if (particle.fadeCounter > particle.timeToFade){
-                
-                particle.fadeCounter = 0;
-                particle.state = ParticleState.FADE;
-            }
-            
-            break;
-
-        case ParticleState.FADE:
-            
-            particle.alpha -= 1;
-
-            if (particle.alpha <= 0){
-                
-                particle.state = ParticleState.OFF;
-            }
-
-            break;
-        
-        case ParticleState.OFF:
-            
-            globals.particles.splice(particle, 1);
-            break;
-    }
-
-    particle.xPos += particle.physics.vx * globals.deltaTime;
-    particle.yPos += particle.physics.vy * globals.deltaTime;
-}
-
-function updateMagicParticle(particle){
 
     particle.fadeCounter += globals.deltaTime;
     
@@ -546,7 +484,7 @@ function updateMagic(sprite){
 
         if (globals.sprites[i].isCollidingWithEnemy && globals.sprites[i].id === SpriteID.MAGIC){
             
-            const spriteXpos = globals.sprites[i].xPos;
+            const spriteXpos = globals.sprites[i].xPos + 20;
             const spriteYpos = globals.sprites[i].yPos + globals.sprites[i].imageSet.ySize / 2;
             
             initMagicParticles(spriteXpos, spriteYpos);
@@ -563,6 +501,11 @@ function updateMagic(sprite){
 function updateStone(sprite){
 
     updateMovementOfObjets(sprite);
+
+    const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
+    const spriteYpos = sprite.yPos + sprite.imageSet.ySize / 2;
+
+    initObjectParticles(spriteXpos, spriteYpos);
 
     for (let i = 0; i < globals.sprites.length; i++){
 
@@ -581,6 +524,11 @@ function updateStone(sprite){
 function updateWood(sprite){
 
     updateMovementOfObjets(sprite);
+
+    const spriteXpos = sprite.xPos + sprite.imageSet.xSize / 2;
+    const spriteYpos = sprite.yPos + sprite.imageSet.ySize / 2;
+
+    initObjectParticles(spriteXpos, spriteYpos);
 
     for (let i = 0; i < globals.sprites.length; i++){
 
@@ -872,6 +820,11 @@ function updateEnemy1(sprite){
         sprite.state = State.ENEMY_1_ATTACK;
         sprite.frames.speed = 6;
         sprite.frames.framesPerState = 4;
+
+        const spriteXpos = sprite.xPos + sprite.hitBox.xOffset;
+        const spriteYpos = sprite.yPos + sprite.imageSet.ySize / 2;
+        
+        initWallParticles(spriteXpos, spriteYpos);
     }
 
     if (sprite.hp > 0 && sprite.isCollidingWithWall === false && sprite.frames.frameCounter === 1){
@@ -1215,8 +1168,8 @@ function restoreCamera(){
 function restoreVars(){
 
     globals.chairHP                = 0;
-    globals.stoneCont            = 100;
-    globals.woodCont             = 100;
+    globals.stoneCont              = 0;
+    globals.woodCont               = 0;
     globals.score                  = 0;
     globals.levelTime.value     = 1800;
 }

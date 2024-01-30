@@ -50,7 +50,10 @@ export const Enemy1Position = {
 export const ParticleID = {
 
     WATER:      0,
-    MAGIC:      1
+    MAGIC:      1,
+    OBJECT:     2,
+    WALL:       3,
+    RAIN:        4
 }
 
 export const ParticleState = {

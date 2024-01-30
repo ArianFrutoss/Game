@@ -177,7 +177,6 @@ function initTimers(){
 }
 
 function initParticles(){
-
     
 }
 
@@ -200,7 +199,7 @@ function initWaterParticles(spriteXpos, spriteYpos){
         
         //Asignamos velocidades segun angulo aleatorio
         const randomAngle = Math.random() * 5 * Math.PI;
-        
+
         particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle);
         particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle);
 
@@ -213,9 +212,36 @@ function initMagicParticles(spriteXpos, spriteYpos){
     const numParticles  = 50;
     const xInit         = spriteXpos;
     const yInit         = spriteYpos;
-    const radius        = 2;
+    const radius        = 1;
+    const timeToFadeMax = 2;
+    const alpha         = 1.0;
+
+    for (let i = 0; i < numParticles; i++){
+
+        const velocity = Math.random() * 15;
+        const physics = new Physics(velocity);
+
+        const timeToFade = timeToFadeMax * Math.random() + 1;
+        const particle = new WaterParticle(ParticleID.MAGIC, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
+        
+        //Asignamos velocidades segun angulo aleatorio
+        const randomAngle = Math.random() * 30 * Math.PI;
+        
+        particle.physics.vx = randomAngle;
+        particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle);
+
+        globals.particles.push(particle);
+    }
+}
+
+function initObjectParticles(spriteXpos, spriteYpos){
+
+    const numParticles  = 5;
+    const xInit         = spriteXpos;
+    const yInit         = spriteYpos;
+    const radius        = 0.1;
     const timeToFadeMax = 1;
-    const alpha         = 3.0;
+    const alpha         = 1.0;
 
     for (let i = 0; i < numParticles; i++){
 
@@ -223,16 +249,73 @@ function initMagicParticles(spriteXpos, spriteYpos){
         const physics = new Physics(velocity);
 
         const timeToFade = timeToFadeMax * Math.random() + 1;
-        const particle = new WaterParticle(ParticleID.MAGIC, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
+        const particle = new WaterParticle(ParticleID.OBJECT, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
         
         //Asignamos velocidades segun angulo aleatorio
-        const randomAngleX = Math.random() * 30 + 250;
-        const randomAngleY = Math.random() * 270 * Math.PI;
-
-        particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngleY);
-        particle.physics.vy = particle.physics.vLimit * Math.cos(randomAngleY);
+        const randomAngle = Math.random() * 10 * Math.PI;
+        
+        particle.physics.vx = particle.physics.vLimit * Math.sin(randomAngle);
+        particle.physics.vy = -randomAngle;
 
         globals.particles.push(particle);
+    }
+}
+
+function initWallParticles(spriteXpos, spriteYpos){
+
+    const numParticles  = 5;
+    const xInit         = spriteXpos;
+    const yInit         = spriteYpos;
+    const radius        = 1.5;
+    const timeToFadeMax = 1;
+    const alpha         = 1.0;
+
+    for (let i = 0; i < numParticles; i++){
+
+        const velocity = Math.random() * 20;
+        const physics = new Physics(velocity);
+
+        const timeToFade = timeToFadeMax * Math.random() + 1;
+        const particle = new WaterParticle(ParticleID.WALL, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
+        
+        //Asignamos velocidades segun angulo aleatorio
+        const randomAngle = Math.random() * 15 * Math.PI;
+        
+        particle.physics.vx = particle.physics.vLimit * Math.sin(randomAngle);
+        particle.physics.vy = -randomAngle;
+
+        globals.particles.push(particle);
+    }
+}
+
+function initRainParticles(){
+    
+    const numParticles  = 200;
+
+    for (let i = 0; i < numParticles; i++){
+
+        const xInit         = Math.floor((Math.random() * globals.canvas.width * 2) - 200);
+        const yInit         = -300;
+        const radius        = 2;
+        const timeToFadeMax = 10;
+        const alpha         = 1.0;
+
+        for (let i = 0; i < 1; i++){
+
+            const velocity = Math.random() * 15;
+            const physics = new Physics(velocity);
+
+            const timeToFade = timeToFadeMax * Math.random() + 1;
+            const particle = new WaterParticle(ParticleID.RAIN, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade);
+            
+            //Asignamos velocidades segun angulo aleatorio
+            const randomAngle = Math.random() * 100 * Math.PI;
+            
+            particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle);
+            particle.physics.vy = randomAngle;
+
+            globals.particles.push(particle);
+        }
     }
 }
 
@@ -324,6 +407,7 @@ function initNewGameSprites(){
     initDaySky();
     initSun();
     initMoon();
+    initRainParticles();
     initDayCloud();
     initNightCloud();
     initBackground();
@@ -934,5 +1018,7 @@ export{
     initParticles,
     initWaterParticles,
     initMagicParticles,
+    initObjectParticles,
+    initWallParticles,
     initCamera
 }

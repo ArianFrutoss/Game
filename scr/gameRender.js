@@ -1,7 +1,5 @@
 import globals from "./globals.js";
 import {Game, Tile, ParticleState, ParticleID, SpriteID} from "./constans.js";
-import update from "./gameLogic.js";
-import { historyText } from "./Text.js";
 
 export default function render(){
     
@@ -82,11 +80,11 @@ function drawGame(){
     //Dibujamos la interfaz
     renderHUD();
 
-    //Pintar las particulas
-    renderParticles();
-
     //Pintar los sprites
     renderSprites();
+
+    //Pintar las particulas
+    renderParticles();
 
     //Restablecer camara
     restoreCamera();
@@ -162,6 +160,21 @@ function renderParticle(particle){
 
             renderMagicParticle(particle);
             break;
+
+        case ParticleID.OBJECT:
+
+            renderObjectParticle(particle);
+            break;
+
+        case ParticleID.WALL:
+
+            renderWallParticle(particle);
+            break;
+
+        case ParticleID.RAIN:
+
+            renderRainParticle(particle);
+            break;
         
         default:
 
@@ -202,8 +215,80 @@ function renderMagicParticle(particle){
 
     if (particle.state != ParticleState.OFF){
 
-        globals.ctx.fillStyle = "red";           
+        const randomColorParticles = Math.floor(Math.random() * 3);
+
+        if (randomColorParticles === 1){
+
+            globals.ctx.fillStyle = "rgb(193, 105, 34)";
+        }
+
+        else if (randomColorParticles === 2){
+
+            globals.ctx.fillStyle = "rgb(193, 68, 34)";
+        }
+
+        else{
+
+            globals.ctx.fillStyle = "rgb(229, 215, 18)";            
+        }         
         
+        globals.ctx.globalAlpha = particle.alpha;
+        globals.ctx.beginPath();
+        globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI);
+        globals.ctx.fill();
+        globals.ctx.globalAlpha = 1.0;
+    }
+}
+
+function renderObjectParticle(particle){
+
+    if (particle.state != ParticleState.OFF){
+
+        globals.ctx.fillStyle = "rgb(212, 168, 26)";                    
+        
+        globals.ctx.globalAlpha = particle.alpha;
+        globals.ctx.beginPath();
+        globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI);
+        globals.ctx.fill();
+        globals.ctx.globalAlpha = 1.0;
+    }
+}
+
+function renderWallParticle(particle){
+
+    if (particle.state != ParticleState.OFF){
+
+        const randomColorParticles = Math.floor(Math.random() * 3);
+
+        if (randomColorParticles === 1){
+
+            globals.ctx.fillStyle = "rgb(115, 111, 99)";
+        }
+
+        else if (randomColorParticles === 2){
+
+            globals.ctx.fillStyle = "rgb(173, 170, 159)";
+        }
+
+        else{
+
+            globals.ctx.fillStyle = "rgb(63, 63, 63)";            
+        }         
+        
+        globals.ctx.globalAlpha = particle.alpha;
+        globals.ctx.beginPath();
+        globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI);
+        globals.ctx.fill();
+        globals.ctx.globalAlpha = 1.0;
+    }
+}
+
+function renderRainParticle(particle){
+
+    if (particle.state != ParticleState.OFF){
+
+        globals.ctx.fillStyle = "rgb(50, 14, 14)";
+       
         globals.ctx.globalAlpha = particle.alpha;
         globals.ctx.beginPath();
         globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI);
