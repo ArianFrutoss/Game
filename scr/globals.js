@@ -85,6 +85,9 @@ export default{
     //Wood
     woodCont: 10,
 
+    //Cuando se pulsa a la tecla se cambia el valor
+    magicActive:  0,
+
     //Array de particulas
     particles: [],
 

@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds, Levels} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 import {historyText} from "./Text.js";
@@ -33,6 +33,7 @@ export default function update(){
             globals.sprites = [];
             globals.particles = [];
             initPlayingSprites();
+            initLevel();
             globals.gameState = Game.PLAYING;
             break;
 
@@ -441,8 +442,10 @@ function updatePlayer(sprite){
         globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
     }
 
-   else if (globals.action.attack === true){
-        
+   else if (globals.action.attack){
+
+        globals.magic = 1;
+
         if (globals.action.build === true || globals.action.attackChild === true){
 
             sprite.state = State.ATTACK;
@@ -453,7 +456,7 @@ function updatePlayer(sprite){
             sprite.frames.frameCounter = 4;
             
             initMagic(sprite.xPos, sprite.yPos);
-        }
+        }  
     }
     
     //Calculamos distancia que se mueve (x = x + Vt)

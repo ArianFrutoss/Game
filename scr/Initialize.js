@@ -176,10 +176,6 @@ function initTimers(){
     globals.historyPageChangeTime = new Timer(10, 1);
 }
 
-function initParticles(){
-    
-}
-
 function initWaterParticles(spriteXpos, spriteYpos){
 
     const numParticles  = 10;
@@ -1015,7 +1011,6 @@ export{
     initEnemy1,
     initStone,
     initWood,
-    initParticles,
     initWaterParticles,
     initMagicParticles,
     initObjectParticles,
