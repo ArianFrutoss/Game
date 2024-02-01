@@ -81,11 +81,11 @@ function drawGame(){
     //Dibujamos la interfaz
     renderHUD();
 
-    //Pintar los sprites
-    renderSprites();
-
     //Pintar las particulas
     renderParticles();
+
+    //Pintar los sprites
+    renderSprites();    
 
     //Restablecer camara
     restoreCamera();
