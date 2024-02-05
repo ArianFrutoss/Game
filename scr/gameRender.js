@@ -10,16 +10,33 @@ export default function render(){
 
             break;
 
+        case Game.NEW_GAME_LOAD:
+
+            drawGame();
+            renderNewGameText();
+            break;
+
         case Game.NEW_GAME:
 
             drawGame();
             renderNewGameText();
             break;
 
-        case Game.PLAYING:
+        case Game.LEVEL_LOAD:
 
             drawGame();
             renderGameText();
+            break;
+
+        case Game.PLAYING:
+
+            drawGame();
+            break;
+
+        case Game.CONTROLS_LOAD:
+
+            drawGame();
+            renderNewGameText();
             break;
 
         case Game.CONTROLS:
@@ -28,16 +45,34 @@ export default function render(){
             renderControlsText();
             break;
 
+        case Game.SCORES_LOAD:
+
+            drawGame();
+            renderNewGameText();
+            break;
+
         case Game.SCORES:
 
             drawGame();
             renderScoresText();
             break;
 
+        case Game.HISTORY_LOAD:
+
+            drawGame();
+            renderNewGameText();
+            break;
+
         case Game.HISTORY:
 
             drawGame();
             renderHistoryText();
+            break;
+
+        case Game.OVER_LOAD:
+
+            drawGame();
+            renderNewGameText();
             break;
 
         case Game.OVER:
@@ -335,7 +370,7 @@ function drawSpriteHitBox(sprite){
 
 function renderMap(){
 
-    if (globals.gameState === Game.PLAYING || globals.gameState === Game.OVER){
+    if (globals.gameState === Game.PLAYING || globals.gameState === Game.OVER || globals.gameState === Game.LEVEL_LOAD){
 
         const brickSize = globals.level.imageSet.gridSize;
         const levelData = globals.level.data;
@@ -372,9 +407,6 @@ function renderHUD(){
     if (globals.gameState === Game.PLAYING){
     
         globals.ctxHUD.font = "12px emulogic";
-
-        //Dibujar los FPS
-        //globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 5,20);
 
         //Dibujar Fondo del HUD
         globals.ctxHUD.fillStyle = "black";
@@ -419,34 +451,15 @@ function renderHUD(){
 
 function renderGameText(){
 
-    switch (globals.levels){
+    globals.ctx.font = "30px emulogic";
+    globals.ctx.fillStyle = "white";
 
-        case Levels.LEVEL_1:
-            
-            if (globals.levelTime.value >= 178){
+    const level = "LEVEL " + globals.levels;
 
-                globals.ctx.font = "30px emulogic";
-                globals.ctx.fillStyle = "white";
-                globals.ctx.fillText ("LEVEL 1", globals.canvas.width / 2 - globals.canvasHUD.width, globals.canvas.height / 2);
-            }
+    if (globals.gameState === Game.LEVEL_LOAD){
 
-            break;
-
-        case Levels.LEVEL_2:
-
-            if (globals.levelTime.value >= 88){
-
-                globals.ctx.font = "30px emulogic";
-                globals.ctx.fillStyle = "white";
-                globals.ctx.fillText ("LEVEL 2", globals.canvas.width / 2 - globals.canvasHUD.width, globals.canvas.height / 2);
-            }
-
-            break;
-
-        default:    
-
-            break;
-    }
+        globals.ctx.fillText (level, (globals.canvas.width - level.length * 30) / 2, globals.canvas.height / 2);
+    }      
 }
 
 function renderNewGameText(){

@@ -10,11 +10,12 @@ export const Game = {
     SCORES_LOAD:        5,
     OVER_LOAD:          6,
     NEW_GAME:           7,
-    PLAYING:            8,
-    CONTROLS:           9,
-    SCORES:            10,
-    HISTORY:           11,
-    OVER:              12
+    LEVEL_LOAD:         8,
+    PLAYING:            9,
+    CONTROLS:          10,
+    SCORES:            11,
+    HISTORY:           12,
+    OVER:              13
 }
 
 //Codigos de teclas
@@ -224,6 +225,6 @@ export const Sounds = {
 
 export const Levels = {
 
-    LEVEL_1:        0,
-    LEVEL_2:        1
+    LEVEL_1:        1,
+    LEVEL_2:        2
 }

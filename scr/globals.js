@@ -85,6 +85,9 @@ export default{
     //Wood
     woodCont: 10,
 
+    //Contador de material
+    materialCont: 0,
+
     //Cuando se pulsa a la tecla se cambia el valor
     magicActive:  0,
 

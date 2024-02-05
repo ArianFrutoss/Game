@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds, Levels} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initLevels, initSprites} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 import {historyText} from "./Text.js";
@@ -34,7 +34,21 @@ export default function update(){
             globals.particles = [];
             initPlayingSprites();
             initLevel();
-            globals.gameState = Game.PLAYING;
+            globals.gameState = Game.LEVEL_LOAD;
+            break;
+
+        case Game.LEVEL_LOAD:
+
+            initLevels();
+            playGame();
+            updateTimer(globals.levelChangeTime)
+
+            if (globals.levelChangeTime.value === 0){
+
+                globals.gameState = Game.PLAYING;
+                globals.levelChangeTime.value = 3;
+            }
+            
             break;
 
         case Game.PLAYING:
@@ -73,7 +87,6 @@ export default function update(){
             globals.sprites = [];
             globals.particles = [];
             globals.historyText = [];
-            globals.historyTextWordCont = 0;
             initHistorySprites();
             globals.gameState = Game.HISTORY;
             break;
@@ -520,7 +533,8 @@ function updateStone(sprite){
             if (globals.sprites[i].id === SpriteID.STONE){
 
                 globals.currentSound = Sounds.OBJECT;
-                globals.stoneCont += 1;
+                globals.stoneCont++;
+                globals.materialCont++;
                 globals.sprites.splice(i, 1);
             }
         }
@@ -543,7 +557,8 @@ function updateWood(sprite){
             if (globals.sprites[i].id === SpriteID.WOOD){
                 
                 globals.currentSound = Sounds.OBJECT;
-                globals.woodCont += 1;
+                globals.woodCont++;
+                globals.materialCont++;
                 globals.sprites.splice(i, 1);
             }
         }
@@ -1160,7 +1175,7 @@ function spawnRandomEnemys(){
 
         case Levels.LEVEL_1:
 
-            randomYPos = Math.floor(Math.random() * (numBlocksY - 3)) * brickSize + (brickSize * 2) - 10;
+            randomYPos = Math.floor(Math.random() * (numBlocksY - 4)) * brickSize + (brickSize * 2) - 10;
             break;
 
         case Levels.LEVEL_2:
@@ -1181,14 +1196,10 @@ function spawnRandomEnemys(){
 
 function updateLevel(){
 
-    if (globals.levelTime.value > 90){
+    if (globals.materialCont === 2){
 
-        globals.levels = Levels.LEVEL_1;
-    }
-
-    else if(globals.levelTime.value <= 90){
-
-        globals.levels = Levels.LEVEL_2;
+        globals.gameState = Game.LEVEL_LOAD;
+        globals.materialCont = 0;
     }
 }
 
@@ -1224,7 +1235,9 @@ function restoreVars(){
     globals.chairHP                = 0;
     globals.stoneCont              = 0;
     globals.woodCont               = 0;
+    globals.materialCont           = 0;
     globals.score                  = 0;
+    globals.levels                 = 0;
     globals.levelTime.value      = 180;
 }
 

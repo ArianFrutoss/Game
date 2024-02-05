@@ -167,6 +167,7 @@ function loadHandler(){
 function initTimers(){
 
     globals.levelTime = new Timer(180, 1);
+    globals.levelChangeTime = new Timer(3, 1);
     globals.lakesTime = new Timer(30, 1);
     globals.enemySpawnTime = new Timer(5, 1);
     globals.enemyDespawnTime = new Timer(1, 1);
@@ -328,6 +329,11 @@ function initCamera(){
     globals.camera = new Camera(0);
 }
 
+function initLevels(){
+
+    globals.levels = 1;
+}
+
 function initSprites(){
 
     initPlayingSprites();
@@ -385,16 +391,6 @@ function initPlayingSprites(){
             }
         }
     }
-
-    initChairInterface();
-    initStoneInterface1();
-    initWoodInterface1();
-    initStoneInterface2();
-    initWoodInterface2();
-    initStoneInterface3();
-    initWoodInterface3();
-    initChild1Interface2();
-    initChild2Interface2();
 }
 
 function initNewGameSprites(){
@@ -1015,5 +1011,6 @@ export{
     initMagicParticles,
     initObjectParticles,
     initWallParticles,
-    initCamera
+    initCamera,
+    initLevels
 }
