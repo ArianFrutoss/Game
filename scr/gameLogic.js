@@ -1257,7 +1257,7 @@ function updateLevel(){
     if (globals.materialCont === 2){
 
         globals.levels++;
-        globals.gameState = Game.LEVEL_LOAD;
+        globals.gameState = Game.PLAYING_LOAD;
         globals.materialCont = 0;
     }
 }
