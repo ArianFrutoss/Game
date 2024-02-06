@@ -4,7 +4,8 @@ import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresS
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 import {historyText} from "./Text.js";
-import Player from "./Player.js";
+import Player from "./HighScores.js";
+import HighScores from "./HighScores.js";
 
 export default function update(){
 
@@ -48,7 +49,7 @@ export default function update(){
             if (globals.levelChangeTime.value === 0){
 
                 globals.gameState = Game.PLAYING;
-                globals.levelChangeTime.value = 3;
+                globals.levelChangeTime.value = 2;
             }
             
             break;
@@ -1376,8 +1377,8 @@ function chooseLetters(){
         if (globals.action.attack){
             
             const name = globals.name[0] + globals.name[1] + globals.name[2];
-            const player = new Player(name, globals.score);
-
+            const player = new HighScores(name, globals.score);
+            
             globals.players.push(player);
 
             restoreVars();

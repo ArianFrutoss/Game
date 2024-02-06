@@ -11,7 +11,7 @@ import {keydownHandler, keyupHandler, updateMusic} from "./events.js";
 import HitBox from "./HitBox.js";
 import Camera from "./Camera.js";
 import {historyText} from "./Text.js";
-import Player from "./Player.js";
+import Player from "./HighScores.js";
 
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
@@ -168,7 +168,7 @@ function loadHandler(){
 function initTimers(){
 
     globals.levelTime = new Timer(180, 1);
-    globals.levelChangeTime = new Timer(3, 1);
+    globals.levelChangeTime = new Timer(2, 1);
     globals.lakesTime = new Timer(30, 1);
     globals.enemySpawnTime = new Timer(5, 1);
     globals.enemyDespawnTime = new Timer(1, 1);

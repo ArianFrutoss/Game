@@ -71,7 +71,7 @@ export default{
     action: {},
 
     //Chair HP
-    chairHP: 0,
+    chairHP: 10,
 
     //Score
     score: 0,
@@ -80,10 +80,10 @@ export default{
     highScore: 0,
 
     //Stone
-    stoneCont: 10,
+    stoneCont: 0,
 
     //Wood
-    woodCont: 10,
+    woodCont: 0,
 
     //Contador de material
     materialCont: 0,

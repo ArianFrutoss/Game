@@ -477,7 +477,7 @@ function renderGameText(){
     globals.ctx.font = "30px emulogic";
     globals.ctx.fillStyle = "white";
 
-    const level = "LEVEL " + globals.levels;
+    const level = "LEVEL " + (globals.levels + 1);
 
     if (globals.gameState === Game.LEVEL_LOAD){
 
@@ -662,7 +662,7 @@ function renderScoresText(){
 
             break;
         }
-        
+
         globals.ctx.fillText (i + 1, widthPos, height + spacesY);
         globals.ctx.fillText (globals.players[i].name + " " + globals.players[i].wordSeparate + " " + globals.players[i].score, widthName, height + spacesY);
 
@@ -675,15 +675,15 @@ function renderOverText(){
     //Dibujar Controles
     globals.ctx.font = "20px emulogic";
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText ("YOU DIED", 350, 220);
+    globals.ctx.fillText ("YOU DIED", 350, 170);
 
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("Enter your name:", 355, 280);
+    globals.ctx.fillText ("Enter your name:", 355, 240);
 
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText ("___", 485, 280);
+    globals.ctx.fillText ("___", 485, 240);
     
     if (globals.letterPos === 0){
         
@@ -695,7 +695,7 @@ function renderOverText(){
         globals.ctx.fillStyle = "white";
     }
 
-    globals.ctx.fillText (globals.name[0], 485, 278);
+    globals.ctx.fillText (globals.name[0], 485, 238);
 
     if (globals.letterPos === 1){
         
@@ -707,7 +707,7 @@ function renderOverText(){
         globals.ctx.fillStyle = "white";
     }
     
-    globals.ctx.fillText (globals.name[1], 493, 278);
+    globals.ctx.fillText (globals.name[1], 493, 238);
 
 
     if (globals.letterPos === 2){
@@ -720,5 +720,9 @@ function renderOverText(){
         globals.ctx.fillStyle = "white";
     }
 
-    globals.ctx.fillText (globals.name[2], 501, 278);
+    globals.ctx.fillText (globals.name[2], 501, 238);
+
+    globals.ctx.font = "12px emulogic";
+    globals.ctx.fillStyle = "white";
+    globals.ctx.fillText ("Your score is: " + globals.score, 340, 310);
 }

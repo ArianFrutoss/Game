@@ -1,4 +1,4 @@
-export default class Player{
+export default class HighScores{
 
     constructor(name, score){
 
