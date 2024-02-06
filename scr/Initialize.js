@@ -11,7 +11,7 @@ import {keydownHandler, keyupHandler, updateMusic} from "./events.js";
 import HitBox from "./HitBox.js";
 import Camera from "./Camera.js";
 import {historyText} from "./Text.js";
-import Player from "./HighScores.js";
+import HighScore from "./HighScores.js";
 
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
@@ -332,7 +332,9 @@ function initPLayers(){
 
         for (let i = 0; i < 20; i++){
 
-            const player = new Player("ABC", 100000);
+            const randomNum = Math.floor(Math.random() * 1000000);
+
+            const player = new HighScore("ABC", randomNum);
 
             globals.players.push(player);
         }
@@ -878,7 +880,7 @@ function initNightSky(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(32);
+    const physics = new Physics(34);
 
     //Posicion de inicializacion de la nube
     const position = globals.canvas.width - imageSet.xSize / 2 - 150;
@@ -899,7 +901,7 @@ function initDaySky(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(32);
+    const physics = new Physics(34);
 
     //Posicion de inicializacion de la nube
     const position = -globals.canvas.width - 150;
@@ -920,7 +922,7 @@ function initNightCloud(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(61);
+    const physics = new Physics(80);
 
     //Posicion de inicializacion de la nube
     const position = -imageSet.xSize - imageSet.xOffset;
@@ -941,7 +943,7 @@ function initDayCloud(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(61);
+    const physics = new Physics(80);
 
     //Posicion de inicializacion de la nube
     const position = -imageSet.xSize - imageSet.xOffset;
