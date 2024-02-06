@@ -71,7 +71,7 @@ export default{
     action: {},
 
     //Chair HP
-    chairHP: 6,
+    chairHP: 0,
 
     //Score
     score: 0,

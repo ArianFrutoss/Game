@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds, Levels, Letters} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initLevels, initPLayers} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initPLayers} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 import {historyText} from "./Text.js";
@@ -35,8 +35,6 @@ export default function update(){
             globals.sprites = [];
             globals.particles = [];
             initLevel();
-            initLevels();
-            restoreCamera();
             initPlayingSprites();
             globals.gameState = Game.LEVEL_LOAD;
             break;
@@ -44,7 +42,8 @@ export default function update(){
         case Game.LEVEL_LOAD:
 
             playGame();
-            updateTimer(globals.levelChangeTime)
+            restoreCamera();
+            updateTimer(globals.levelChangeTime);
 
             if (globals.levelChangeTime.value === 0){
 
@@ -259,9 +258,9 @@ function updateHistoryText(){
     
     updateTimer(globals.historyTextTime);
     
-    if (globals.historyTextTime.value <= 0 && globals.historyPageChange === 0 && globals.historyTextWordCont < historyText.length - 1){
+    if (globals.historyTextTime.value <= 0 && globals.historyPageChange <= 0 && globals.historyTextWordCont < historyText.length - 1){
         
-        globals.historyTextTime.value = 0;
+        globals.historyTextTime.value = 1;
         globals.historyTextWordCont++;
     }
 
@@ -269,6 +268,15 @@ function updateHistoryText(){
         
         updateTimer(globals.historyPageChangeTime);
     }
+}
+
+function restorehistory(){
+
+    globals.historyText                = [];
+    globals.historyTextWordCont         = 0;
+    globals.historyPageChangeTime.value = 15;
+    globals.historyTextTime.value       = 1;
+    globals.historyPageChange           = 0;
 }
 
 function updateScoreText(){
@@ -1247,7 +1255,8 @@ function updateLevel(){
 
     if (globals.materialCont === 2){
 
-        globals.gameState = Game.PLAYING_LOAD;
+        globals.levels++;
+        globals.gameState = Game.LEVEL_LOAD;
         globals.materialCont = 0;
     }
 }

@@ -174,8 +174,8 @@ function initTimers(){
     globals.enemyDespawnTime = new Timer(1, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
     globals.menuPositionTime = new Timer(2, 0.15);
-    globals.historyTextTime = new Timer(1, 0.3);
-    globals.historyPageChangeTime = new Timer(20, 1);
+    globals.historyTextTime = new Timer(1, 0.1);
+    globals.historyPageChangeTime = new Timer(15, 1);
     globals.scoreMovementTime = new Timer(1, 0.01);
 }
 
@@ -342,11 +342,6 @@ function initPLayers(){
 function initCamera(){
 
     globals.camera = new Camera(0);
-}
-
-function initLevels(){
-
-    globals.levels++;
 }
 
 function initSprites(){
@@ -1037,6 +1032,5 @@ export{
     initObjectParticles,
     initWallParticles,
     initCamera,
-    initLevels,
     initPLayers,
 }

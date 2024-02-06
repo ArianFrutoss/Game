@@ -1,67 +1,70 @@
-import {Key, SpriteID, Sounds} from "./constans.js";
+import {Key, SpriteID, Sounds, Game} from "./constans.js";
 import globals from "./globals.js";
 import {PlayerPosition} from "./constans.js";
 
 export function keydownHandler(event){
 
-    switch (event.keyCode){
+    if (globals.gameState != Game.LEVEL_LOAD){
 
-        case Key.UP:
+        switch (event.keyCode){
 
-            globals.action.moveUp = true;
-            break;
-        
-        case Key.DOWN:
+            case Key.UP:
 
-            globals.action.moveDown = true;
-            break;
+                globals.action.moveUp = true;
+                break;
+            
+            case Key.DOWN:
 
-        case Key.LEFT:
+                globals.action.moveDown = true;
+                break;
 
-            globals.action.moveLeft = true;
-            break;
+            case Key.LEFT:
 
-        case Key.RIGHT:
+                globals.action.moveLeft = true;
+                break;
 
-            globals.action.moveRight = true;
-            break;
+            case Key.RIGHT:
 
-        case Key.BUILD:
+                globals.action.moveRight = true;
+                break;
 
-            globals.action.build = true;
+            case Key.BUILD:
 
-            for (let i = 0; i < globals.sprites.length; i++){
-                
-                if (globals.sprites[i].id === SpriteID.PLAYER){
+                globals.action.build = true;
 
-                    const brickSize = globals.level.imageSet.gridSize;
-                    const playerPositionYRest = globals.sprites[i].yPos % brickSize;
+                for (let i = 0; i < globals.sprites.length; i++){
+                    
+                    if (globals.sprites[i].id === SpriteID.PLAYER){
 
-                    PlayerPosition.POSITION_X = Math.floor(globals.sprites[i].xPos);
+                        const brickSize = globals.level.imageSet.gridSize;
+                        const playerPositionYRest = globals.sprites[i].yPos % brickSize;
 
-                    if (playerPositionYRest > brickSize / 2){
+                        PlayerPosition.POSITION_X = Math.floor(globals.sprites[i].xPos);
 
-                        PlayerPosition.POSITION_Y = Math.floor(globals.sprites[i].yPos + brickSize - playerPositionYRest);
-                    }
+                        if (playerPositionYRest > brickSize / 2){
 
-                    else{
+                            PlayerPosition.POSITION_Y = Math.floor(globals.sprites[i].yPos + brickSize - playerPositionYRest);
+                        }
 
-                        PlayerPosition.POSITION_Y = Math.floor(globals.sprites[i].yPos - playerPositionYRest);  
+                        else{
+
+                            PlayerPosition.POSITION_Y = Math.floor(globals.sprites[i].yPos - playerPositionYRest);  
+                        }
                     }
                 }
-            }
-            
-            break;
+                
+                break;
 
-        case Key.ATTACK_CHILD:
+            case Key.ATTACK_CHILD:
 
-            globals.action.attackChild = true;
-            break;
+                globals.action.attackChild = true;
+                break;
 
-        case Key.ATTACK:
+            case Key.ATTACK:
 
-            globals.action.attack = true;
-            break;
+                globals.action.attack = true;
+                break;
+        }
     }
 }
 
