@@ -4,5 +4,6 @@ export default class Player{
 
         this.name           = name;         //Nombre del jugador
         this.score          = score;        //Puntuacion del jugador
+        this.wordSeparate   = "";           //Separacion entre las palabras
     }
 }

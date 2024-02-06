@@ -77,6 +77,7 @@ export default function update(){
             globals.sprites = [];
             globals.particles = [];
             initScoresSprites();
+            restoreScore();
             globals.gameState = Game.SCORES;
             break;
 
@@ -90,7 +91,7 @@ export default function update(){
             
             globals.sprites = [];
             globals.particles = [];
-            globals.historyText = [];
+            restorehistory();
             initHistorySprites();
             globals.gameState = Game.HISTORY;
             break;
@@ -273,17 +274,22 @@ function updateHistoryText(){
 function updateScoreText(){
     
     updateTimer(globals.menuPositionTime);
+    updateTimer(globals.scoreMovementTime);
 
-    for (let i = 0; i < globals.players.length; i++){
+    for (let i = globals.selectPlayers; i < globals.players.length; i++){
         
         const minWordSeparates = 16;
         const scoreLength = globals.players[i].score.toString().split("").length;
-        console.log(scoreLength);
-        if (globals.wordSeparate < minWordSeparates + scoreLength){
-            
-            for (let i = 0; i < minWordSeparates - scoreLength; i++){
+        
+        for (let j = 0; j < minWordSeparates - scoreLength; j++){
 
-                globals.wordSeparate += "-";
+            if (globals.players[i].wordSeparate.length < minWordSeparates - scoreLength){
+
+                if (globals.scoreMovementTime.value <= 0){
+
+                    globals.players[i].wordSeparate += "-";
+                    globals.scoreMovementTime.value = 1;
+                }
             }
         }
     }
@@ -299,6 +305,16 @@ function updateScoreText(){
         globals.selectPlayers += 10;
         globals.menuPositionTime.value = 4
     }
+}
+
+function restoreScore(){
+
+    for (let i = 0; i < globals.players.length; i++){
+
+        globals.players[i].wordSeparate = [];
+    }
+    
+    globals.selectPlayers = 0;
 }
 
 export function updateTimer(time){

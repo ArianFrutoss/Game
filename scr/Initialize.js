@@ -174,8 +174,9 @@ function initTimers(){
     globals.enemyDespawnTime = new Timer(1, 1);
     globals.cloudSpawnTime = new Timer(160, 1);
     globals.menuPositionTime = new Timer(2, 0.15);
-    globals.historyTextTime = new Timer(1, 0.2);
-    globals.historyPageChangeTime = new Timer(10, 1);
+    globals.historyTextTime = new Timer(1, 0.3);
+    globals.historyPageChangeTime = new Timer(20, 1);
+    globals.scoreMovementTime = new Timer(1, 0.01);
 }
 
 function initWaterParticles(spriteXpos, spriteYpos){

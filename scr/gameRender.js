@@ -662,9 +662,9 @@ function renderScoresText(){
 
             break;
         }
-
+        
         globals.ctx.fillText (i + 1, widthPos, height + spacesY);
-        globals.ctx.fillText (globals.players[i].name + " " + globals.wordSeparate + " " + globals.players[i].score, widthName, height + spacesY);
+        globals.ctx.fillText (globals.players[i].name + " " + globals.players[i].wordSeparate + " " + globals.players[i].score, widthName, height + spacesY);
 
         spacesY += 20;
     }
