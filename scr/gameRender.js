@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, Tile, ParticleState, ParticleID, SpriteID, Levels} from "./constans.js";
+import {Game, Tile, ParticleState, ParticleID, SpriteID, Levels, Letters} from "./constans.js";
 
 export default function render(){
     
@@ -128,39 +128,27 @@ function drawGame(){
 
 function renderSprite(sprite){
     
-    //Calculamos la posicion del tile de inicio
-    const xPosInit = sprite.imageSet.initCol * sprite.imageSet.gridSize;
-    const yPosInit = sprite.imageSet.initFil * sprite.imageSet.gridSize;
+    if (sprite.hud === false){
 
-    //Calculamos la posicion en el tilemap a dibujar
-    const xTile = xPosInit + sprite.frames.frameCounter * sprite.imageSet.gridSize + sprite.imageSet.xOffset;
-    const yTile = yPosInit + sprite.state * sprite.imageSet.gridSize + sprite.imageSet.yOffset;
+        //Calculamos la posicion del tile de inicio
+        const xPosInit = sprite.imageSet.initCol * sprite.imageSet.gridSize;
+        const yPosInit = sprite.imageSet.initFil * sprite.imageSet.gridSize;
 
-    const xPos = Math.floor(sprite.xPos);
-    const yPos = Math.floor(sprite.yPos);
-    
-    if (sprite.id === SpriteID.CHAIR_MENU){
+        //Calculamos la posicion en el tilemap a dibujar
+        const xTile = xPosInit + sprite.frames.frameCounter * sprite.imageSet.gridSize + sprite.imageSet.xOffset;
+        const yTile = yPosInit + sprite.state * sprite.imageSet.gridSize + sprite.imageSet.yOffset;
+
+        const xPos = Math.floor(sprite.xPos);
+        const yPos = Math.floor(sprite.yPos);
         
-        globals.ctx.translate(xPos + sprite.imageSet.xSize / 2, yPos + sprite.imageSet.ySize / 2);
-        globals.ctx.scale(0.5, 0.5);
-        globals.ctx.translate(-(xPos + sprite.imageSet.xSize / 2), -(yPos + sprite.imageSet.ySize / 2));
-    }
+        if (sprite.id === SpriteID.CHAIR_MENU){
+            
+            globals.ctx.translate(xPos + sprite.imageSet.xSize / 2, yPos + sprite.imageSet.ySize / 2);
+            globals.ctx.scale(0.5, 0.5);
+            globals.ctx.translate(-(xPos + sprite.imageSet.xSize / 2), -(yPos + sprite.imageSet.ySize / 2));
+        }
 
-    //Dibujamos el nuevo fotograma del sprite
-    if (sprite.hud){
-        
-        globals.ctxHUD.drawImage(
-
-            globals.tileSets[Tile.SPRITES],                             
-            xTile, yTile,                                   
-            sprite.imageSet.xSize, sprite.imageSet.ySize,   
-            xPos, yPos,                                     
-            sprite.imageSet.xSize, sprite.imageSet.ySize    
-        );
-    }
-
-    else{
-
+        //Dibujamos el nuevo fotograma del sprite
         globals.ctx.drawImage(
 
             globals.tileSets[Tile.SPRITES],                             
@@ -168,7 +156,41 @@ function renderSprite(sprite){
             sprite.imageSet.xSize, sprite.imageSet.ySize,   
             xPos, yPos,                                     
             sprite.imageSet.xSize, sprite.imageSet.ySize    
-        );
+        )
+    }
+
+    else if (globals.gameState === Game.PLAYING){
+
+        //Calculamos la posicion del tile de inicio
+        const xPosInit = sprite.imageSet.initCol * sprite.imageSet.gridSize;
+        const yPosInit = sprite.imageSet.initFil * sprite.imageSet.gridSize;
+
+        //Calculamos la posicion en el tilemap a dibujar
+        const xTile = xPosInit + sprite.frames.frameCounter * sprite.imageSet.gridSize + sprite.imageSet.xOffset;
+        const yTile = yPosInit + sprite.state * sprite.imageSet.gridSize + sprite.imageSet.yOffset;
+
+        const xPos = Math.floor(sprite.xPos);
+        const yPos = Math.floor(sprite.yPos);
+        
+        if (sprite.id === SpriteID.CHAIR_MENU){
+            
+            globals.ctx.translate(xPos + sprite.imageSet.xSize / 2, yPos + sprite.imageSet.ySize / 2);
+            globals.ctx.scale(0.5, 0.5);
+            globals.ctx.translate(-(xPos + sprite.imageSet.xSize / 2), -(yPos + sprite.imageSet.ySize / 2));
+        }
+
+        //Dibujamos el nuevo fotograma del sprite
+        if (sprite.hud){
+            
+            globals.ctxHUD.drawImage(
+
+                globals.tileSets[Tile.SPRITES],                             
+                xTile, yTile,                                   
+                sprite.imageSet.xSize, sprite.imageSet.ySize,   
+                xPos, yPos,                                     
+                sprite.imageSet.xSize, sprite.imageSet.ySize    
+            );
+        }
     }
 }
 
@@ -340,6 +362,7 @@ function renderSprites(){
         const sprite = globals.sprites[i];
         // drawSpriteRectangle(sprite);
         // drawSpriteHitBox(sprite);
+
         renderSprite(sprite);
     }
 }
@@ -670,4 +693,41 @@ function renderOverText(){
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "crimson";
     globals.ctx.fillText ("___", 485, 280);
+    
+    if (globals.letterPos === 0){
+        
+        globals.ctx.fillStyle = "crimson";
+    }
+
+    else{
+
+        globals.ctx.fillStyle = "white";
+    }
+
+    globals.ctx.fillText (globals.name[0], 485, 278);
+
+    if (globals.letterPos === 1){
+        
+        globals.ctx.fillStyle = "crimson";
+    }
+
+    else{
+
+        globals.ctx.fillStyle = "white";
+    }
+    
+    globals.ctx.fillText (globals.name[1], 493, 278);
+
+
+    if (globals.letterPos === 2){
+    
+        globals.ctx.fillStyle = "crimson";
+    }
+
+    else{
+
+        globals.ctx.fillStyle = "white";
+    }
+
+    globals.ctx.fillText (globals.name[2], 501, 278);
 }

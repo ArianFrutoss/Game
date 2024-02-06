@@ -1,5 +1,5 @@
 //Variables globales
-import {Game} from "./constans.js";
+import {Game, Letters} from "./constans.js";
 
 export default{
 
@@ -71,7 +71,7 @@ export default{
     action: {},
 
     //Chair HP
-    chairHP: 0,
+    chairHP: 6,
 
     //Score
     score: 0,
@@ -116,5 +116,14 @@ export default{
     historyPageChange:  0,
 
     //Nivel en el que estas
-    levels: 0
+    levels: 0,
+
+    //Nombre del usuario
+    name: [Letters[0], Letters[0], Letters[0]],
+
+    //Posicion de la letra
+    lettercont: [0, 0, 0],
+
+    //Posicion de la letra
+    letterPos: 0,
 };

@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds, Levels} from "./constans.js";
+import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds, Levels, Letters} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initLevels, initSprites} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
@@ -32,14 +32,15 @@ export default function update(){
 
             globals.sprites = [];
             globals.particles = [];
-            initPlayingSprites();
             initLevel();
+            initLevels();
+            restoreCamera();
+            initPlayingSprites();
             globals.gameState = Game.LEVEL_LOAD;
             break;
 
         case Game.LEVEL_LOAD:
 
-            initLevels();
             playGame();
             updateTimer(globals.levelChangeTime)
 
@@ -136,6 +137,7 @@ function playGame(){
     updateSprites();
     changeGameState();
     playSound();
+    chooseLetters();
 }
 
 function updateSprites(){
@@ -1130,35 +1132,28 @@ function updateCamera(){
 
 function updateLakes(){
 
-    switch(globals.levels){
+    if (globals.gameState === Game.PLAYING_LOAD){
 
-        case Levels.LEVEL_1:
+        switch(globals.levels){
 
-            if (globals.levelTime.value === 180){
-
-                levelClear(level1);
-                levelPuddle(level1);
-
-                globals.levelTime.value = 179;
-            }
-            
-            break;
-
-        case Levels.LEVEL_2:
-
-            if (globals.levelTime.value === 90){
+            case Levels.LEVEL_1:
 
                 levelClear(level1);
                 levelPuddle(level1);
+                break;
 
-                globals.levelTime.value = 89;
-            }
+            case Levels.LEVEL_2:
 
-            break;
+                levelClear(level1);
+                levelPuddle(level1);
+                break;
 
-        default:    
+            default:    
 
-            break;
+                levelClear(level1);
+                levelPuddle(level1);
+                break;
+        }
     }
 }
 
@@ -1182,6 +1177,11 @@ function spawnRandomEnemys(){
 
             randomYPos = Math.floor(Math.random() * (numBlocksY - 2)) * brickSize + brickSize - 10;
             break;
+
+        default:
+
+            randomYPos = Math.floor(Math.random() * (numBlocksY - 2)) * brickSize + brickSize - 10;
+            break;
     }
     
     updateTimer(globals.enemySpawnTime);
@@ -1198,7 +1198,7 @@ function updateLevel(){
 
     if (globals.materialCont === 2){
 
-        globals.gameState = Game.LEVEL_LOAD;
+        globals.gameState = Game.PLAYING_LOAD;
         globals.materialCont = 0;
     }
 }
@@ -1307,6 +1307,69 @@ function changeGameState(){
         if (globals.gameState === Game.OVER){
 
             globals.currentSound = Sounds.GAME_MENU_MUSIC
+        }
+    }
+}
+
+function chooseLetters(){
+    
+    if (globals.gameState === Game.OVER){
+
+        updateTimer(globals.menuPositionTime);
+
+        if (globals.action.moveUp && globals.lettercont[globals.letterPos] < Letters.length - 1 && globals.menuPositionTime.value <= 0){
+
+            globals.name[globals.letterPos] = Letters[++globals.lettercont[globals.letterPos]];
+            globals.menuPositionTime.value = 2;
+        }
+        
+        else if (globals.action.moveDown &&  globals.lettercont[globals.letterPos] > 0 && globals.menuPositionTime.value <= 0){
+            
+            globals.name[globals.letterPos] = Letters[--globals.lettercont[globals.letterPos]];
+            globals.menuPositionTime.value = 2;
+        }
+
+        else if (globals.action.moveUp && globals.lettercont[globals.letterPos] >= Letters.length - 1 && globals.menuPositionTime.value <= 0){
+            
+            globals.name[globals.letterPos] = Letters[0];
+            globals.lettercont[globals.letterPos] = 0;
+            globals.menuPositionTime.value = 2;
+        }
+
+        else if (globals.action.moveDown && globals.lettercont[globals.letterPos] <= 0 && globals.menuPositionTime.value <= 0){
+            
+            globals.name[globals.letterPos] = Letters[Letters.length - 1];
+            globals.lettercont[globals.letterPos] = Letters.length - 1;
+            globals.menuPositionTime.value = 2;
+        }
+
+        else if (globals.action.moveLeft && globals.letterPos > 0 && globals.menuPositionTime.value <= 0){
+
+            globals.letterPos--;
+            globals.menuPositionTime.value = 4;
+        }
+        
+        else if (globals.action.moveRight && globals.letterPos < globals.name.length - 1 && globals.menuPositionTime.value <= 0){
+            
+            globals.letterPos++;
+            globals.menuPositionTime.value = 4;
+        }
+
+        else if (globals.action.moveLeft && globals.letterPos <= 0 && globals.menuPositionTime.value <= 0){
+            
+            globals.letterPos = globals.name.length - 1;
+            globals.menuPositionTime.value = 4;
+        }
+
+        else if (globals.action.moveRight && globals.letterPos >= globals.name.length - 1 && globals.menuPositionTime.value <= 0){
+            
+            globals.letterPos = 0;
+            globals.menuPositionTime.value = 4;
+        }
+
+        if (globals.action.attack && globals.menuPositionTime.value <= 0){
+
+            
         }
     }
 }

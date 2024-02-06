@@ -16,6 +16,7 @@ export default class Sprite{
         this.isCollidingWithChair               = false;        //Indica si ha habido colosion con la silla
         this.isCollidingWithObject              = false;        //Indica si ha habido colosion con los objetos
         this.isCollidingWithMagic               = false;        //Indica si ha habido colosion con la magia
+        this.hud                                = false;
     }
 }
 
