@@ -71,7 +71,7 @@ export default{
     action: {},
 
     //Chair HP
-    chairHP: 6,
+    chairHP: 0,
 
     //Score
     score: 0,
@@ -126,4 +126,13 @@ export default{
 
     //Posicion de la letra
     letterPos: 0,
+
+    //Array de los jugadores
+    players: [],
+
+    //Seleccionar jugadores
+    selectPlayers:  0,
+
+    //Separador de palabras
+    wordSeparate: 0
 };

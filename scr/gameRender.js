@@ -646,37 +646,28 @@ function renderControlsText(){
 
 function renderScoresText(){
 
-    //Dibujar Controles
-    globals.ctx.font = "7px emulogic";
+    const height = 120;
+    const widthPos = 340;
+    const widthName = 370;
+
+    let spacesY = 0;
+
+    //Dibujar Historia
+    globals.ctx.font = "6px emulogic";
     globals.ctx.fillStyle = "black";
-    
-    globals.ctx.fillText ("WSD", 340, 120);
-    globals.ctx.fillText ("-------------", 367, 120);
-    globals.ctx.fillText ("043220", 465, 120);
 
-    globals.ctx.fillText ("GSC", 340, 150);
-    globals.ctx.fillText ("-------------", 367, 150);
-    globals.ctx.fillText ("928320", 465, 150);
+    for (let i = globals.selectPlayers; i < globals.players.length; i++){
+        
+        if (spacesY >= 200){
 
-    globals.ctx.fillText ("DSJ", 340, 180);
-    globals.ctx.fillText ("-------------", 367, 180);
-    globals.ctx.fillText ("023320", 465, 180);
+            break;
+        }
 
-    globals.ctx.fillText ("HFS", 340, 210);
-    globals.ctx.fillText ("-------------", 367, 210);
-    globals.ctx.fillText ("723900", 465, 210);
+        globals.ctx.fillText (i + 1, widthPos, height + spacesY);
+        globals.ctx.fillText (globals.players[i].name + " " + globals.wordSeparate + " " + globals.players[i].score, widthName, height + spacesY);
 
-    globals.ctx.fillText ("IKY", 340, 240);
-    globals.ctx.fillText ("-------------", 367, 240);
-    globals.ctx.fillText ("002380", 465, 240);
-
-    globals.ctx.fillText ("QES", 340, 270);
-    globals.ctx.fillText ("-------------", 367, 270);
-    globals.ctx.fillText ("055520", 465, 270);
-
-    globals.ctx.fillText ("BAI", 340, 300);
-    globals.ctx.fillText ("-------------", 367, 300);
-    globals.ctx.fillText ("728130", 465, 300);
+        spacesY += 20;
+    }
 }
 
 function renderOverText(){

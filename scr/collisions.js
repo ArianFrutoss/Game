@@ -211,7 +211,7 @@ function detectCollisionsBetweenCameraAndBorders(player){
         globals.camera.isCollidingWithBorderRight = false;
     }
 
-    else if (globals.camera.x - globals.canvasHUD.width + globals.canvas.width >= numBlocksX * brickSize + player.imageSet.xSize - player.hitBox.xSize / 2){
+    else if (globals.camera.x - globals.canvasHUD.width + globals.canvas.width >= numBlocksX * brickSize + player.imageSet.xSize - player.hitBox.xSize){
         
         globals.camera.isCollidingWithBorderRight = true;
     }

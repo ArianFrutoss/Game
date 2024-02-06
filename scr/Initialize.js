@@ -11,6 +11,7 @@ import {keydownHandler, keyupHandler, updateMusic} from "./events.js";
 import HitBox from "./HitBox.js";
 import Camera from "./Camera.js";
 import {historyText} from "./Text.js";
+import Player from "./Player.js";
 
 //Función que inicializa los elementos HTML
 function initHTMLelements(){
@@ -321,6 +322,19 @@ function initHistoryText(){
     for (let i = 0; i < historyText.length; i++){
 
         globals.historyText[i] = historyText[i];
+    }
+}
+
+function initPLayers(){
+
+    if (globals.players.length < 20){
+
+        for (let i = 0; i < 20; i++){
+
+            const player = new Player("ABC", 100000);
+
+            globals.players.push(player);
+        }
     }
 }
 
@@ -1022,5 +1036,6 @@ export{
     initObjectParticles,
     initWallParticles,
     initCamera,
-    initLevels
+    initLevels,
+    initPLayers,
 }

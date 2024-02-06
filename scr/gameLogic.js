@@ -1,9 +1,10 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds, Levels, Letters} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initLevels, initSprites} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initLevels, initPLayers} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 import {historyText} from "./Text.js";
+import Player from "./Player.js";
 
 export default function update(){
 
@@ -20,6 +21,7 @@ export default function update(){
             globals.sprites = [];
             globals.particles = [];
             initNewGameSprites();
+            initPLayers();
             globals.gameState = Game.NEW_GAME;
             break;
 
@@ -80,6 +82,7 @@ export default function update(){
 
         case Game.SCORES:
 
+            updateScoreText();
             playGame();
             break;
 
@@ -133,11 +136,12 @@ function playGamePlayingScreen(){
 
 function playGame(){
     
+    chooseLetters();
     updateParticles();
     updateSprites();
     changeGameState();
     playSound();
-    chooseLetters();
+    orderPlayers();
 }
 
 function updateSprites(){
@@ -264,8 +268,37 @@ function updateHistoryText(){
         
         updateTimer(globals.historyPageChangeTime);
     }
+}
 
-    console.log(globals.historyPageChangeTime.value);
+function updateScoreText(){
+    
+    updateTimer(globals.menuPositionTime);
+
+    for (let i = 0; i < globals.players.length; i++){
+        
+        const minWordSeparates = 16;
+        const scoreLength = globals.players[i].score.toString().split("").length;
+        console.log(scoreLength);
+        if (globals.wordSeparate < minWordSeparates + scoreLength){
+            
+            for (let i = 0; i < minWordSeparates - scoreLength; i++){
+
+                globals.wordSeparate += "-";
+            }
+        }
+    }
+    
+    if (globals.action.moveLeft && globals.selectPlayers > 0 && globals.menuPositionTime.value <= 0){
+        
+        globals.selectPlayers -= 10;
+        globals.menuPositionTime.value = 4
+    }
+
+    else if (globals.action.moveRight && globals.selectPlayers + 10 < globals.players.length && globals.menuPositionTime.value <= 0){
+        
+        globals.selectPlayers += 10;
+        globals.menuPositionTime.value = 4
+    }
 }
 
 export function updateTimer(time){
@@ -1210,10 +1243,9 @@ function gameOver(){
         globals.gameState = Game.OVER_LOAD;
         globals.sounds[Sounds.GAME_MUSIC].pause();
         globals.sounds[Sounds.GAME_OVER_MUSIC].play();
-        
+
         updateHighScore();
         restoreCamera();
-        restoreVars();
     }
 }
 
@@ -1236,7 +1268,6 @@ function restoreVars(){
     globals.stoneCont              = 0;
     globals.woodCont               = 0;
     globals.materialCont           = 0;
-    globals.score                  = 0;
     globals.levels                 = 0;
     globals.levelTime.value      = 180;
 }
@@ -1278,7 +1309,7 @@ function changeGameState(){
             globals.gameStateCont = 2;
         }
 
-        else if (globals.action.attack && globals.menuPositionTime.value <= 0){
+        else if (globals.action.attack && globals.menuPositionTime.value <= 0 && globals.gameState != Game.OVER){
             
             if (globals.gameStateCont === Game.PLAYING_LOAD){
                 
@@ -1296,7 +1327,7 @@ function changeGameState(){
     if (globals.gameState === Game.HISTORY || globals.gameState === Game.CONTROLS || globals.gameState === Game.SCORES || globals.gameState === Game.OVER){
 
         updateTimer(globals.menuPositionTime);
-        
+
         if (globals.action.attack && globals.menuPositionTime.value <= 0){
 
             globals.menuPositionTime.value = 2;
@@ -1314,8 +1345,18 @@ function changeGameState(){
 function chooseLetters(){
     
     if (globals.gameState === Game.OVER){
-
+        
         updateTimer(globals.menuPositionTime);
+
+        if (globals.action.attack){
+            
+            const name = globals.name[0] + globals.name[1] + globals.name[2];
+            const player = new Player(name, globals.score);
+
+            globals.players.push(player);
+
+            restoreVars();
+        }
 
         if (globals.action.moveUp && globals.lettercont[globals.letterPos] < Letters.length - 1 && globals.menuPositionTime.value <= 0){
 
@@ -1366,10 +1407,22 @@ function chooseLetters(){
             globals.letterPos = 0;
             globals.menuPositionTime.value = 4;
         }
+    }
+}
 
-        if (globals.action.attack && globals.menuPositionTime.value <= 0){
+function orderPlayers(){
 
+    for (let i = 0; i < globals.players.length; i++){
             
+        for (let j = i + 1; j < globals.players.length; j++){
+            
+            let maxYPosSprite = globals.players[i];
+            
+            if (globals.players[j].score > globals.players[i].score){
+                
+                globals.players[i] = globals.players[j];
+                globals.players[j] = maxYPosSprite;
+            }
         }
     }
 }
