@@ -24,7 +24,7 @@
             echo json_encode($newClassic);
         }
     }
-
+    
     else{
 
         die ("Forbidden");

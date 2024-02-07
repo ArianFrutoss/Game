@@ -10,7 +10,7 @@
         private $num_rows;
 
         public static function getInstance(){
-
+            
             if (is_null(self :: $_singleton)){
 
                 self :: $_singleton = new self();
