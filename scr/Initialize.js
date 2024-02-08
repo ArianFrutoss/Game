@@ -326,18 +326,20 @@ function initHistoryText(){
     }
 }
 
-function initPLayers(){
+function initPlayers(players){
 
-    if (globals.players.length < 20){
+    globals.players = [];
 
-        for (let i = 0; i < 20; i++){
+    for (let i = 0; i < players.length; i++){
 
-            const randomNum = Math.floor(Math.random() * 1000000);
+        const pos = i;
+        const playerName = players.player_name;
+        const score = players.score;
+        const date = players.play_date;
 
-            const player = new HighScore("ABC", randomNum);
+        const player = new HighScore(pos, playerName, score, date);
 
-            globals.players.push(player);
-        }
+        globals.players.push(player);
     }
 }
 
@@ -1034,5 +1036,5 @@ export{
     initObjectParticles,
     initWallParticles,
     initCamera,
-    initPLayers,
+    initPlayers
 }

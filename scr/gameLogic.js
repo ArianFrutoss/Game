@@ -1,10 +1,9 @@
 import globals from "./globals.js";
 import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds, Levels, Letters} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initPLayers} from "./Initialize.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initPlayers} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 import {historyText} from "./Text.js";
-import Player from "./HighScores.js";
 import HighScores from "./HighScores.js";
 
 export default function update(){
@@ -22,7 +21,6 @@ export default function update(){
             globals.sprites = [];
             globals.particles = [];
             initNewGameSprites();
-            initPLayers();
             globals.gameState = Game.NEW_GAME;
             break;
 
@@ -78,6 +76,7 @@ export default function update(){
             globals.particles = [];
             initScoresSprites();
             restoreScore();
+            updateScores();
             globals.gameState = Game.SCORES;
             break;
 
@@ -1376,11 +1375,7 @@ function chooseLetters(){
 
         if (globals.action.attack){
             
-            const name = globals.name[0] + globals.name[1] + globals.name[2];
-            const player = new HighScores(name, globals.score);
-            
-            globals.players.push(player);
-
+            addScores();
             restoreVars();
         }
 
@@ -1451,4 +1446,97 @@ function orderPlayers(){
             }
         }
     }
+}
+
+function updateScores(){
+
+    const url = "./server/routes/getAllClassic.php";
+    
+    const request = new XMLHttpRequest();
+    
+    request.onreadystatechange = function(){
+
+        if (this.readyState === 4){
+            
+            if (this.status === 200){
+
+                if (this.responseText != null){
+                    
+                    const resultJSON = JSON.parse(this.responseText);
+                    
+                    initPlayers(resultJSON);
+                }
+
+                else{
+
+                    alert("Communication error: No data received");
+                }
+            }
+
+            else{
+                
+                alert("Communication error: " + this.statusText);
+            }
+        }
+    }
+
+    request.open("GET", url, true);
+    request.responseType = "text";
+    request.send();
+}
+
+export function addScores(){
+
+    const name = globals.name[0] + globals.name[1] + globals.name[2];
+    const score = globals.score;
+
+    console.log(globals.name[0] + globals.name[1] + globals.name[2]);
+    console.log(score);
+
+    //Datos a enviar
+    const objectToSend = {
+
+        player_name:        name,
+        score:             score             
+    }
+
+    //String de datos a enviar
+    const dataTosend = '&player_name=' + objectToSend.player_name + '&score=' + objectToSend.score;
+
+    //Ruta relativa al fichero que hace la peticion
+    const url = "./server/routes/postClassic.php";
+    const request = new XMLHttpRequest();
+
+    request.open("POST", url, true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    request.onreadystatechange = function(){
+
+        if (this.readyState === 4){
+
+            if (this.status === 200){
+
+                if (this.responseText != null){
+                    
+                    const resultJSON = JSON.parse(this.responseText);
+                    const arrayResult = [resultJSON];
+                    
+                    initPlayers(arrayResult);
+                }
+
+                else{
+
+                    alert("Communication error: No data received");
+                }
+            }
+
+            else{
+                
+                alert("Communication error: " + this.statusText);
+            }
+        }
+    }
+
+    request.responseType = "text";
+    request.send(dataTosend);
 }

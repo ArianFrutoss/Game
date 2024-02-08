@@ -2,14 +2,11 @@
 
     require_once (__DIR__."/../controller/Controller.php");
     
-    if (isset($_POST['isbn']) && isset($_POST['title']) && isset($_POST['author']) && isset($_POST['category']) && isset($_POST['year'])){
+    if (isset($_POST['player_name']) && isset($_POST['score'])){
 
         //Si se reciben todos los datos se creara el objeto Classic
-        $newClassic['isbn']     = $_POST['isbn'];
-        $newClassic['title']    = $_POST['title'];
-        $newClassic['author']   = $_POST['author'];
-        $newClassic['category'] = $_POST['category'];
-        $newClassic['year']     = $_POST['year'];
+        $newClassic['player_name']  = $_POST['player_name'];
+        $newClassic['score']        = $_POST['score'];
 
         //Añadimos el nuevo objeto a la base de datos
         $returnValue = $classic->addNew($newClassic);
