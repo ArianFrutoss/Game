@@ -286,7 +286,7 @@ function updateScoreText(){
 
     for (let i = globals.selectPlayers; i < globals.players.length; i++){
         
-        const minWordSeparates = 16;
+        const minWordSeparates = 10;
         const scoreLength = globals.players[i].score.toString().split("").length;
         
         for (let j = 0; j < minWordSeparates - scoreLength; j++){
@@ -1322,7 +1322,7 @@ function changeGameState(){
 
         else if (globals.action.moveUp && globals.gameStateCont === 2 && globals.menuPositionTime.value <= 0){
             
-            globals.sounds[Sounds.SELECT].play();
+            globals.sounds[Sounds.SELECT].play();new Date().getTime
             globals.menuPositionTime.value = 2;
             globals.gameStateCont = 5;
         }
@@ -1489,54 +1489,36 @@ export function addScores(){
 
     const name = globals.name[0] + globals.name[1] + globals.name[2];
     const score = globals.score;
-
-    console.log(globals.name[0] + globals.name[1] + globals.name[2]);
-    console.log(score);
+    const fullDate = calculateDate();
 
     //Datos a enviar
     const objectToSend = {
 
         player_name:        name,
-        score:             score             
+        score:             score,
+        play_date:      fullDate,     
     }
 
     //String de datos a enviar
-    const dataTosend = '&player_name=' + objectToSend.player_name + '&score=' + objectToSend.score;
-
+    const dataTosend = '&player_name=' + objectToSend.player_name + '&score=' + objectToSend.score + '&play_date=' + objectToSend.play_date;
+    
     //Ruta relativa al fichero que hace la peticion
     const url = "./server/routes/postClassic.php";
     const request = new XMLHttpRequest();
-
+    
     request.open("POST", url, true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    request.onreadystatechange = function(){
-
-        if (this.readyState === 4){
-
-            if (this.status === 200){
-
-                if (this.responseText != null){
-                    
-                    const resultJSON = JSON.parse(this.responseText);
-                    const arrayResult = [resultJSON];
-                    
-                    initPlayers(arrayResult);
-                }
-
-                else{
-
-                    alert("Communication error: No data received");
-                }
-            }
-
-            else{
-                
-                alert("Communication error: " + this.statusText);
-            }
-        }
-    }
-
     request.responseType = "text";
     request.send(dataTosend);
+}
+
+function calculateDate(){
+
+    const date = new Date();
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    return day + "-" + month + "-" + year;
 }

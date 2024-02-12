@@ -6,7 +6,7 @@
 
         function __construct(){
             
-            $this->table_name = 'classics';
+            $this->table_name = 'score';
 
             parent :: __construct();
         }

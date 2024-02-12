@@ -648,23 +648,25 @@ function renderScoresText(){
 
     const height = 120;
     const widthPos = 340;
-    const widthName = 370;
+    const widthName = widthPos + 30;
+    const widthScoresAndDates = widthName + 45;
 
     let spacesY = 0;
 
     //Dibujar Historia
     globals.ctx.font = "6px emulogic";
     globals.ctx.fillStyle = "black";
-
+    
     for (let i = globals.selectPlayers; i < globals.players.length; i++){
         
         if (spacesY >= 200){
 
             break;
         }
-
+        
         globals.ctx.fillText (i + 1, widthPos, height + spacesY);
-        globals.ctx.fillText (globals.players[i].name + " " + globals.players[i].wordSeparate + " " + globals.players[i].score, widthName, height + spacesY);
+        globals.ctx.fillText (globals.players[i].name, widthName, height + spacesY);
+        globals.ctx.fillText (globals.players[i].score + " " + globals.players[i].wordSeparate + " " + globals.players[i].date, widthScoresAndDates, height + spacesY);
 
         spacesY += 20;
     }

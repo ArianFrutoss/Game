@@ -331,13 +331,11 @@ function initPlayers(players){
     globals.players = [];
 
     for (let i = 0; i < players.length; i++){
-
-        const pos = i;
-        const playerName = players.player_name;
-        const score = players.score;
-        const date = players.play_date;
-
-        const player = new HighScore(pos, playerName, score, date);
+        
+        const playerName = players[i].player_name;
+        const score = players[i].score;
+        const date = players[i].play_date;
+        const player = new HighScore(playerName, score, date);
 
         globals.players.push(player);
     }

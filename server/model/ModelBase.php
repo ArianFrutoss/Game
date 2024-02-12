@@ -43,7 +43,7 @@
 
             return $array;
         }
-
+        
         protected function selectDB($table, $columns = "*", $name = "", $value = ""){
 
             $query = "SELECT $columns FROM $table";
