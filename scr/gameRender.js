@@ -8,6 +8,7 @@ export default function render(){
 
         case Game.LOADING:
 
+            renderLoadindBar();
             break;
 
         case Game.NEW_GAME_LOAD:
@@ -727,4 +728,27 @@ function renderOverText(){
     globals.ctx.font = "12px emulogic";
     globals.ctx.fillStyle = "white";
     globals.ctx.fillText ("Your score is: " + globals.score, 340, 310);
+}
+
+function renderLoadindBar(){
+
+    let xPos = 170;
+    const width = 40;
+
+    globals.ctx.font = "14px emulogic";
+    globals.ctx.fillText ("LOADING", 370, 320);
+
+    for(let i = 0; i < globals.assetsToLoad; i++){
+
+        globals.ctx.fillStyle = "white";
+        globals.ctx.fillRect (xPos, 350, width, 10);
+        xPos += width; 
+    }
+
+    for(let i = 0; i < globals.assetsLoaded; i++){
+
+        globals.ctx.fillStyle = "white";
+        globals.ctx.fillRect (xPos, 350, width, 10);
+        xPos += width; 
+    }
 }

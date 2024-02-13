@@ -138,4 +138,7 @@ export default{
 
     //Contador de guiones
     scriptCont: 0,
+
+    //Variable para saber que los archivos estan cargados
+    assetsAreLoaded: false,
 };

@@ -4,7 +4,6 @@ import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresS
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 import {historyText} from "./Text.js";
-import HighScores from "./HighScores.js";
 
 export default function update(){
 
@@ -13,6 +12,7 @@ export default function update(){
 
         case Game.LOADING:
 
+            playGame();
             console.log("Loading assets...");
             break;
 
@@ -1298,7 +1298,15 @@ function restoreVars(){
 }
 
 function changeGameState(){
-    
+
+    if (globals.gameState === Game.LOADING && globals.assetsAreLoaded){
+
+        if (globals.action.attack){
+            
+            globals.gameState = Game.NEW_GAME_LOAD;
+        }
+    }
+
     if (globals.gameState === Game.NEW_GAME){
 
         updateTimer(globals.menuPositionTime);
