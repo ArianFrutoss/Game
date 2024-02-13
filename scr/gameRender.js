@@ -732,23 +732,30 @@ function renderOverText(){
 
 function renderLoadindBar(){
 
-    let xPos = 170;
+    let assetsToLoadxPos = 170;
+    let assetsLoadedxPos = 171;
+
     const width = 40;
 
+    globals.ctx.fillStyle = "white";
     globals.ctx.font = "14px emulogic";
-    globals.ctx.fillText ("LOADING", 370, 320);
+    globals.ctx.fillText ("LOADING", 370, 300);
+    globals.ctx.fillText ("PRESS SPACE TO CONTINUE", 250, 380);
 
-    for(let i = 0; i < globals.assetsToLoad; i++){
+    for(let i = 0; i < globals.assetsToLoad.length; i++){
 
         globals.ctx.fillStyle = "white";
-        globals.ctx.fillRect (xPos, 350, width, 10);
-        xPos += width; 
+        globals.ctx.fillRect (assetsToLoadxPos, 320, width, 10); 
+        assetsToLoadxPos += width;
     }
+
+    globals.ctx.fillStyle = "black";
+    globals.ctx.fillRect (171, 321, width * globals.assetsToLoad.length - 2, 8);
 
     for(let i = 0; i < globals.assetsLoaded; i++){
 
-        globals.ctx.fillStyle = "white";
-        globals.ctx.fillRect (xPos, 350, width, 10);
-        xPos += width; 
+        globals.ctx.fillStyle = "rgb(114, 47, 47)";
+        globals.ctx.fillRect (assetsLoadedxPos, 321, width + 8 / globals.assetsLoaded, 8);
+        assetsLoadedxPos += width - 3 / globals.assetsLoaded;
     }
 }
