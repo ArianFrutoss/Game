@@ -36,18 +36,6 @@ export const PlayerPosition = {
     POSITION_Y: 0
 }
 
-export const Child2Position = {
-
-    POSITION_X: 0,
-    POSITION_Y: 0
-}
-
-export const Enemy1Position = {
-
-    POSITION_X: 0,
-    POSITION_Y: 0
-}
-
 export const ParticleID = {
 
     WATER:      0,

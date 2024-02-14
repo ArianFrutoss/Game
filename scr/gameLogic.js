@@ -1,5 +1,5 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, Child2Position, Enemy1Position, ParticleState, Sounds, Levels, Letters} from "./constans.js";
+import {Game, State, SpriteID, PlayerPosition, ParticleState, Sounds, Levels, Letters} from "./constans.js";
 import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initPlayers} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
@@ -872,9 +872,6 @@ function updateEnemy1(sprite){
     globals.sounds[Sounds.WALK_ENEMY].play();
     globals.sounds[Sounds.WALK_ENEMY].volume = 0.2;
 
-    Enemy1Position.POSITION_X = sprite.xPos;
-    Enemy1Position.POSITION_Y = sprite.yPos;
-
     sprite.physics.vx = -sprite.physics.vLimit;
     sprite.physics.vy = 0;
     
@@ -1061,7 +1058,7 @@ function updateNightSky(sprite){
     sprite.physics.vx = sprite.physics.vLimit;
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
 
-    if (sprite.xPos >= globals.canvas.width - 2){
+    if (sprite.xPos >= globals.canvas.width){
 
         sprite.xPos = -globals.canvas.width - sprite.imageSet.xSize + sprite.imageSet.xSize / 2;
     }
@@ -1072,7 +1069,7 @@ function updateDaySky(sprite){
     sprite.physics.vx = sprite.physics.vLimit;
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
 
-    if (sprite.xPos >= globals.canvas.width - 2){
+    if (sprite.xPos >= globals.canvas.width){
 
         sprite.xPos = -globals.canvas.width - sprite.imageSet.xSize + sprite.imageSet.xSize / 2;
     }

@@ -858,13 +858,19 @@ function initSun(){
 function initBackground(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(24, 0, 608, 300, 64, 0, 0);
+    const imageSet = new ImageSet(24, 0, 605, 300, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
+    //Posicion X de inicializacion del fondo
+    const positionX = globals.canvas.width / 2 - imageSet.xSize / 2;
+
+    //Posicion Y de inicializacion del fondo
+    const positionY = globals.canvas.height - imageSet.ySize;
+
     //Creamos nuestro sprite
-    const background = new Sprite(SpriteID.BACK_GROUND, State.BACK_GROUND, 124, globals.canvas.height / 3, imageSet, frames);
+    const background = new Sprite(SpriteID.BACK_GROUND, State.BACK_GROUND, positionX, positionY, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(background);
@@ -873,16 +879,16 @@ function initBackground(){
 function initNightSky(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(35, 0, 1144, 344, 64, 0, 0);
+    const imageSet = new ImageSet(35, 0, 1145, 344, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(34);
+    const physics = new Physics(35);
 
     //Posicion de inicializacion de la nube
-    const position = globals.canvas.width - imageSet.xSize / 2 - 150;
+    const position = -150;
 
     //Creamos nuestro sprite
     const nightSky = new Sprite(SpriteID.NIGHT_SKY, State.NIGHT_SKY, position, 0, imageSet, frames, physics);
@@ -894,16 +900,16 @@ function initNightSky(){
 function initDaySky(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(29, 0, 1144, 344, 64, 0, 0);
+    const imageSet = new ImageSet(29, 0, 1145, 344, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(34);
+    const physics = new Physics(35);
 
-    //Posicion de inicializacion de la nube
-    const position = -globals.canvas.width - 150;
+    //Posicion de inicializacion de la nube 
+    const position = -imageSet.xSize - 150;
     
     //Creamos nuestro sprite
     const daySky = new Sprite(SpriteID.DAY_SKY, State.DAY_SKY, position, 0, imageSet, frames, physics);
@@ -921,7 +927,7 @@ function initNightCloud(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(80);
+    const physics = new Physics(60);
 
     //Posicion de inicializacion de la nube
     const position = -imageSet.xSize - imageSet.xOffset;
@@ -942,7 +948,7 @@ function initDayCloud(){
     const frames = new Frames(1);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(80);
+    const physics = new Physics(60);
 
     //Posicion de inicializacion de la nube
     const position = -imageSet.xSize - imageSet.xOffset;
@@ -957,13 +963,19 @@ function initDayCloud(){
 function initPaper(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(49, 0, 640, 320, 64, 0, 0);
+    const imageSet = new ImageSet(49, 0, 330, 415, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
+    //Posicion X de inicializacion del papel
+    const positionX = globals.canvas.width / 2 - imageSet.xSize / 2;
+
+    //Posicion Y de inicializacion del papel
+    const positionY = globals.canvas.height / 2 - imageSet.ySize / 2;
+
     //Creamos nuestro sprite
-    const paper = new Sprite(SpriteID.PAPER, State.PAPER, 300, 45, imageSet, frames);
+    const paper = new Sprite(SpriteID.PAPER, State.PAPER, positionX, positionY, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(paper);
@@ -972,13 +984,13 @@ function initPaper(){
 function initBlack(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(54, 0, 640, 500, 64, 0, 0);
+    const imageSet = new ImageSet(56, 0, globals.canvas.width, globals.canvas.height, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
 
     //Creamos nuestro sprite
-    const black = new Sprite(SpriteID.BLACK, State.BLACK, 120, 0, imageSet, frames);
+    const black = new Sprite(SpriteID.BLACK, State.BLACK, 0, 0, imageSet, frames);
 
     //Añadimos el player el array de sprites
     globals.sprites.push(black);
@@ -987,7 +999,7 @@ function initBlack(){
 function initBlackBorder(){
 
     //Creamos las propiedades de las imagenes
-    const imageSet = new ImageSet(64, 0, 855, 500, 64, 0, 0);
+    const imageSet = new ImageSet(63, 0, globals.canvas.width, globals.canvas.height, 64, 0, 0);
 
     //Creamos los datos de la animacion
     const frames = new Frames(1);
