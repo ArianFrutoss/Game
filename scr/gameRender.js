@@ -472,7 +472,7 @@ function renderGameText(){
 
     if (globals.gameState === Game.LEVEL_LOAD){
 
-        globals.ctx.fillText (level, (globals.canvas.width - level.length * 30) / 2, globals.canvas.height / 2);
+        globals.ctx.fillText (level, (globals.canvas.width - level.length * 30) / 2, globals.canvas.height / 2 + 30 / 2);
     }      
 }
 
@@ -602,43 +602,55 @@ function renderHistoryText(){
 function renderControlsText(){
 
     const w = "W";
-    const wBars = "--------------";
+    const wBars = "-------------------";
     const wAction = "move up";
 
+    const wXpos = globals.canvas.width / 2 - w.length * 7 / 2 - wBars.length * 7 / 2 - wAction.length * 7 / 2;
+    const wBarsXpos = globals.canvas.width / 2 - wBars.length * 7 / 2 + w.length * 7 / 2 - wAction.length * 7 / 2;
+    const wActionXpos = globals.canvas.width / 2 - wAction.length * 7 / 2 - w.length * 7 / 2 + wBars.length * 7 / 2;
+
     const s = "S";
+    const sBars = "-----------------";
+    const sAction = "move down";
+
+    const sXpos = globals.canvas.width / 2 - s.length * 7 / 2 - sBars.length * 7 / 2 - sAction.length * 7 / 2;
+    const sBarsXpos = globals.canvas.width / 2 - sBars.length * 7 / 2 + s.length * 7 / 2 - sAction.length * 7 / 2;
+    const sActionXpos = globals.canvas.width / 2 - sAction.length * 7 / 2 - s.length * 7 / 2 + sBars.length * 7 / 2;
 
     const d = "D";
+    const dBars = "-----------------";
+    const dAction = "move rigth";
+
+    const dXpos = globals.canvas.width / 2 - d.length * 7 / 2 - dBars.length * 7 / 2 - dAction.length * 7 / 2;
+    const dBarsXpos = globals.canvas.width / 2 - dBars.length * 7 / 2 + d.length * 7 / 2 - dAction.length * 7 / 2;
+    const dActionXpos = globals.canvas.width / 2 - dAction.length * 7 / 2 - d.length * 7 / 2 + dBars.length * 7 / 2;
 
     const a = "A";
+    const aBars = "--------------";
+    const aAction = "move left";
 
-    
-    const wXpos = globals.canvas.width / 2 - w.length * 7 / 2 - wBars.length * 7 / 2 - wAction.length * 7 / 2;
-
-    const sXpos = globals.canvas.width / 2 - s.length * 7 / 2;
-
-    const dXpos = globals.canvas.width / 2 - d.length * 7 / 2;
-
-    const aXpos = globals.canvas.width / 2 - a.length * 7 / 2;
-
+    const aXpos = globals.canvas.width / 2 - w.length * 7 / 2 - wBars.length * 7 / 2 - wAction.length * 7 / 2;
+    const aBarsXpos = globals.canvas.width / 2 - wBars.length * 7 / 2 + w.length * 7 / 2 - wAction.length * 7 / 2;
+    const aActionXpos = globals.canvas.width / 2 - wAction.length * 7 / 2 - w.length * 7 / 2 + wBars.length * 7 / 2;
 
     globals.ctx.font = "7px emulogic";
     globals.ctx.fillStyle = "black";
     
     globals.ctx.fillText (w, wXpos, 120);
-    globals.ctx.fillText (wBars, 355, 120);
-    globals.ctx.fillText (wAction, 475, 120);
+    globals.ctx.fillText (wBars, wBarsXpos, 120);
+    globals.ctx.fillText (wAction, wActionXpos, 120);
 
     globals.ctx.fillText (s, sXpos, 150);
-    globals.ctx.fillText ("-----------", 355, 150);
-    globals.ctx.fillText ("move Down", 462, 150);
+    globals.ctx.fillText (sBars, sBarsXpos, 150);
+    globals.ctx.fillText (sAction, sActionXpos, 150);
 
     globals.ctx.fillText (d, dXpos, 180);
-    globals.ctx.fillText ("----------", 355, 180);
-    globals.ctx.fillText ("move Right", 455, 180);
+    globals.ctx.fillText (dBars, dBarsXpos, 180);
+    globals.ctx.fillText (dAction, dActionXpos, 180);
 
     globals.ctx.fillText (a, aXpos, 210);
-    globals.ctx.fillText ("-----------", 355, 210);
-    globals.ctx.fillText ("move Left", 462, 210);
+    globals.ctx.fillText (aBars, aBarsXpos, 210);
+    globals.ctx.fillText (aAction, aActionXpos, 210);
 
     globals.ctx.fillText ("SPACE", 310, 240);
     globals.ctx.fillText ("----------", 383, 240);
