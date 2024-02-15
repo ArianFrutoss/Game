@@ -602,36 +602,60 @@ function renderHistoryText(){
 function renderControlsText(){
 
     const w = "W";
-    const wBars = "-------------------";
+    const wBars = " ------------------- ";
     const wAction = "move up";
 
     const wXpos = globals.canvas.width / 2 - w.length * 7 / 2 - wBars.length * 7 / 2 - wAction.length * 7 / 2;
     const wBarsXpos = globals.canvas.width / 2 - wBars.length * 7 / 2 + w.length * 7 / 2 - wAction.length * 7 / 2;
-    const wActionXpos = globals.canvas.width / 2 - wAction.length * 7 / 2 - w.length * 7 / 2 + wBars.length * 7 / 2;
+    const wActionXpos = globals.canvas.width / 2 - wAction.length * 7 / 2 + w.length * 7 / 2 + wBars.length * 7 / 2;
 
     const s = "S";
-    const sBars = "-----------------";
+    const sBars = " ----------------- ";
     const sAction = "move down";
 
     const sXpos = globals.canvas.width / 2 - s.length * 7 / 2 - sBars.length * 7 / 2 - sAction.length * 7 / 2;
     const sBarsXpos = globals.canvas.width / 2 - sBars.length * 7 / 2 + s.length * 7 / 2 - sAction.length * 7 / 2;
-    const sActionXpos = globals.canvas.width / 2 - sAction.length * 7 / 2 - s.length * 7 / 2 + sBars.length * 7 / 2;
+    const sActionXpos = globals.canvas.width / 2 - sAction.length * 7 / 2 + s.length * 7 / 2 + sBars.length * 7 / 2;
 
     const d = "D";
-    const dBars = "-----------------";
+    const dBars = " ---------------- ";
     const dAction = "move rigth";
 
     const dXpos = globals.canvas.width / 2 - d.length * 7 / 2 - dBars.length * 7 / 2 - dAction.length * 7 / 2;
     const dBarsXpos = globals.canvas.width / 2 - dBars.length * 7 / 2 + d.length * 7 / 2 - dAction.length * 7 / 2;
-    const dActionXpos = globals.canvas.width / 2 - dAction.length * 7 / 2 - d.length * 7 / 2 + dBars.length * 7 / 2;
+    const dActionXpos = globals.canvas.width / 2 - dAction.length * 7 / 2 + d.length * 7 / 2 + dBars.length * 7 / 2;
 
     const a = "A";
-    const aBars = "--------------";
+    const aBars = " ----------------- ";
     const aAction = "move left";
 
-    const aXpos = globals.canvas.width / 2 - w.length * 7 / 2 - wBars.length * 7 / 2 - wAction.length * 7 / 2;
-    const aBarsXpos = globals.canvas.width / 2 - wBars.length * 7 / 2 + w.length * 7 / 2 - wAction.length * 7 / 2;
-    const aActionXpos = globals.canvas.width / 2 - wAction.length * 7 / 2 - w.length * 7 / 2 + wBars.length * 7 / 2;
+    const aXpos = globals.canvas.width / 2 - a.length * 7 / 2 - aBars.length * 7 / 2 - aAction.length * 7 / 2;
+    const aBarsXpos = globals.canvas.width / 2 - aBars.length * 7 / 2 + a.length * 7 / 2 - aAction.length * 7 / 2;
+    const aActionXpos = globals.canvas.width / 2 - aAction.length * 7 / 2 + a.length * 7 / 2 + aBars.length * 7 / 2;
+
+    const space = "SPACE";
+    const spaceBars = " ---------------- ";
+    const spaceAction = "Attack";
+
+    const spaceXpos = globals.canvas.width / 2 - space.length * 7 / 2 - spaceBars.length * 7 / 2 - spaceAction.length * 7 / 2;
+    const spaceBarsXpos = globals.canvas.width / 2 - spaceBars.length * 7 / 2 + space.length * 7 / 2 - spaceAction.length * 7 / 2;
+    const spaceActionXpos = globals.canvas.width / 2 - spaceAction.length * 7 / 2 + space.length * 7 / 2 + spaceBars.length * 7 / 2;
+
+    const e = "E";
+    const eBars = " ------------- ";
+    const eAction = "Put up a wall";
+
+    const eXpos = globals.canvas.width / 2 - e.length * 7 / 2 - eBars.length * 7 / 2 - eAction.length * 7 / 2;
+    const eBarsXpos = globals.canvas.width / 2 - eBars.length * 7 / 2 + e.length * 7 / 2 - eAction.length * 7 / 2;
+    const eActionXpos = globals.canvas.width / 2 - eAction.length * 7 / 2 + e.length * 7 / 2 + eBars.length * 7 / 2;
+
+    const q = "Q";
+    const qBars = " ----- ";
+    const qAction = "Attack with the child";
+
+    const qXpos = globals.canvas.width / 2 - q.length * 7 / 2 - qBars.length * 7 / 2 - qAction.length * 7 / 2;
+    const qBarsXpos = globals.canvas.width / 2 - qBars.length * 7 / 2 + q.length * 7 / 2 - qAction.length * 7 / 2;
+    const qActionXpos = globals.canvas.width / 2 - qAction.length * 7 / 2 + q.length * 7 / 2 + qBars.length * 7 / 2;
 
     globals.ctx.font = "7px emulogic";
     globals.ctx.fillStyle = "black";
@@ -652,18 +676,17 @@ function renderControlsText(){
     globals.ctx.fillText (aBars, aBarsXpos, 210);
     globals.ctx.fillText (aAction, aActionXpos, 210);
 
-    globals.ctx.fillText ("SPACE", 310, 240);
-    globals.ctx.fillText ("----------", 383, 240);
-    globals.ctx.fillText ("Attack", 482, 240);
+    globals.ctx.fillText (space, spaceXpos, 240);
+    globals.ctx.fillText (spaceBars, spaceBarsXpos, 240);
+    globals.ctx.fillText (spaceAction, spaceActionXpos, 240);
 
-    globals.ctx.fillText ("E", 310, 270);
-    globals.ctx.fillText ("-------", 355, 270);
-    globals.ctx.fillText ("Put up a wall", 433, 270);
+    globals.ctx.fillText (e, eXpos, 270);
+    globals.ctx.fillText (eBars, eBarsXpos, 270);
+    globals.ctx.fillText (eAction, eActionXpos, 270);
 
-    globals.ctx.fillText ("Q", 310, 300);
-    globals.ctx.fillText ("---------", 355, 300);
-    globals.ctx.fillText ("Attack with", 447, 300);
-    globals.ctx.fillText ("the child", 461, 310);
+    globals.ctx.fillText (q, qXpos, 300);
+    globals.ctx.fillText (qBars, qBarsXpos, 300);
+    globals.ctx.fillText (qAction, qActionXpos, 300);
 }
 
 function renderScoresText(){
