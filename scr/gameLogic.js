@@ -1,6 +1,6 @@
 import globals from "./globals.js";
-import {Game, State, SpriteID, PlayerPosition, ParticleState, Sounds, Levels, Letters} from "./constans.js";
-import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initPlayers} from "./Initialize.js";
+import {Game, State, SpriteID, PlayerPosition, ParticleState, Sounds, Levels, Letters, ParticleID} from "./constans.js";
+import {initPlayingSprites, initNewGameSprites, initControlsSprites, initScoresSprites, initHistorySprites, initOverSprites, initWall, initMagic, initWaterParticles, initMagicParticles, initObjectParticles, initWallParticles, initEnemy1, initStone, initWood, initLevel, initPlayers, initRainParticles} from "./Initialize.js";
 import detectCollisions from "./collisions.js";
 import {level1, levelPuddle, levelClear} from "./Level.js";
 import {historyText} from "./Text.js";
@@ -21,6 +21,7 @@ export default function update(){
             globals.sprites = [];
             globals.particles = [];
             initNewGameSprites();
+            initRainParticles();
             globals.gameState = Game.NEW_GAME;
             break;
 
@@ -187,7 +188,6 @@ function updateSprites(){
         for (let i = 0; i < globals.sprites.length; i++){
 
             const sprite = globals.sprites[i];
-
             updateSprite(sprite);
         }
     }
@@ -212,6 +212,12 @@ function updateParticles(){
     for (let i = 0; i < globals.particles.length; i++){
 
         const particle = globals.particles[i];
+
+        if (globals.particles.length < 200 && particle.id === ParticleID.RAIN){
+            
+            initRainParticles();
+        }
+
         updateParticle(particle);
     }
 }
@@ -265,9 +271,59 @@ function updateHistoryText(){
     }
 
     else{
-        
+       
         updateTimer(globals.historyPageChangeTime);
     }
+
+    globals.historyTextHeight = 120;
+    globals.historyTextWidth = 300;
+
+    const letterSpace = 6;
+    const wordSpace = 10;
+
+    let spacesX = 0;
+    let spacesY = 0;
+    let wordLength = 0;
+
+    //Dibujar Historia
+    globals.ctx.font = "6px emulogic";
+    globals.ctx.fillStyle = "black";
+
+    for (let i = 0; i < globals.historyTextWordCont; i++){
+        
+        if (i < globals.historyText.length){
+
+            globals.historyTextWidth += spacesX;
+            globals.historyTextHeight += spacesY;
+        
+            wordLength = globals.historyText[i].length;
+      
+            spacesX += (word * letterSpace) + wordSpace;
+
+            if (spacesX > 200){
+
+                spacesX = 0;
+                spacesY += 10;
+            }
+
+            if (spacesY > 260 && globals.historyPageChange === 0){
+
+                globals.historyPageChange = 1;
+            }
+
+            if (spacesY > 260 && globals.historyPageChangeTime.value === 0){
+
+                spacesX = 0;
+                spacesY = 0;
+                globals.historyText.splice(0, i);
+                globals.historyTextWordCont = 0;
+                globals.historyPageChange = 0;
+                globals.historyPageChangeTime.value = 15;
+                i = 0;
+            }
+        }
+    }
+    console.log(spacesX);
 }
 
 function restorehistory(){

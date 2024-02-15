@@ -288,19 +288,19 @@ function initWallParticles(spriteXpos, spriteYpos){
 
 function initRainParticles(){
     
-    const numParticles  = 200;
+    const numParticles  = 10;
 
     for (let i = 0; i < numParticles; i++){
 
         const xInit         = Math.floor((Math.random() * globals.canvas.width * 2) - 200);
         const yInit         = -300;
-        const radius        = 2;
+        const radius        = 1.5;
         const timeToFadeMax = 10;
         const alpha         = 1.0;
 
         for (let i = 0; i < 1; i++){
 
-            const velocity = Math.random() * 15;
+            const velocity = Math.random() * 5 + 20;
             const physics = new Physics(velocity);
 
             const timeToFade = timeToFadeMax * Math.random() + 1;
@@ -420,7 +420,6 @@ function initNewGameSprites(){
     initDaySky();
     initSun();
     initMoon();
-    initRainParticles();
     initDayCloud();
     initNightCloud();
     initBackground();
@@ -1045,5 +1044,6 @@ export{
     initObjectParticles,
     initWallParticles,
     initCamera,
-    initPlayers
+    initPlayers,
+    initRainParticles,
 }

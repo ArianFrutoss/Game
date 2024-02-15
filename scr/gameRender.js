@@ -117,11 +117,11 @@ function drawGame(){
     //Dibujamos la interfaz
     renderHUD();
 
+    //Pintar los sprites
+    renderSprites();
+
     //Pintar las particulas
     renderParticles();
-
-    //Pintar los sprites
-    renderSprites();    
 
     //Restablecer camara
     restoreCamera();
@@ -172,13 +172,6 @@ function renderSprite(sprite){
 
         const xPos = Math.floor(sprite.xPos);
         const yPos = Math.floor(sprite.yPos);
-        
-        if (sprite.id === SpriteID.CHAIR_MENU){
-            
-            globals.ctx.translate(xPos + sprite.imageSet.xSize / 2, yPos + sprite.imageSet.ySize / 2);
-            globals.ctx.scale(0.5, 0.5);
-            globals.ctx.translate(-(xPos + sprite.imageSet.xSize / 2), -(yPos + sprite.imageSet.ySize / 2));
-        }
 
         //Dibujamos el nuevo fotograma del sprite
         if (sprite.hud){
@@ -361,9 +354,6 @@ function renderSprites(){
     for (let i = 0; i < globals.sprites.length; ++i){
 
         const sprite = globals.sprites[i];
-        // drawSpriteRectangle(sprite);
-        // drawSpriteHitBox(sprite);
-
         renderSprite(sprite);
     }
 }
@@ -561,52 +551,14 @@ function renderNewGameText(){
 
 function renderHistoryText(){
     
-    const height = 120;
-    const width = 340;
-    const letterSpace = 6;
-    const wordSpace = 10;
-
-    let spacesX = 0;
-    let spacesY = 0;
-    let word = 0;
-
     //Dibujar Historia
     globals.ctx.font = "6px emulogic";
     globals.ctx.fillStyle = "black";
 
     for (let i = 0; i < globals.historyTextWordCont; i++){
         
-        if (i < globals.historyText.length){
-
-            globals.ctx.fillText (globals.historyText[i], width + spacesX, height + spacesY);
-        
-            word = globals.historyText[i].length;
-      
-            spacesX += (word * letterSpace) + wordSpace;
-
-            if (spacesX >= 130){
-
-                spacesX = 0;
-                spacesY += 10;
-            }
-
-            if (spacesY >= 210 && globals.historyPageChange === 0){
-
-                globals.historyPageChange = 1;
-            }
-
-            if (spacesY >= 210 && globals.historyPageChangeTime.value === 0){
-
-                spacesX = 0;
-                spacesY = 0;
-                globals.historyText.splice(0, i);
-                globals.historyTextWordCont = 0;
-                globals.historyPageChange = 0;
-                globals.historyPageChangeTime.value = 10;
-                i = 0;
-            }
-        }
-    }   
+        globals.ctx.fillText (globals.historyText[i], globals.historyTextWidth, globals.historyTextHeight);
+    }
 }
 
 function renderControlsText(){
