@@ -13,7 +13,6 @@ export default function update(){
         case Game.LOADING:
 
             playGame();
-            console.log("Loading assets...");
             break;
 
         case Game.NEW_GAME_LOAD:
@@ -175,7 +174,7 @@ function updateSprites(){
             }
             
             const sprite = globals.sprites[i];
-            
+
             updateSprite(sprite);
             updateSpriteSpeed(sprite);
             updatePlayerStateWhenIsCollidingWithWall(sprite);
@@ -188,6 +187,7 @@ function updateSprites(){
         for (let i = 0; i < globals.sprites.length; i++){
 
             const sprite = globals.sprites[i];
+
             updateSprite(sprite);
         }
     }
@@ -274,63 +274,13 @@ function updateHistoryText(){
        
         updateTimer(globals.historyPageChangeTime);
     }
-
-    globals.historyTextHeight = 120;
-    globals.historyTextWidth = 300;
-
-    const letterSpace = 6;
-    const wordSpace = 10;
-
-    let spacesX = 0;
-    let spacesY = 0;
-    let wordLength = 0;
-
-    //Dibujar Historia
-    globals.ctx.font = "6px emulogic";
-    globals.ctx.fillStyle = "black";
-
-    for (let i = 0; i < globals.historyTextWordCont; i++){
-        
-        if (i < globals.historyText.length){
-
-            globals.historyTextWidth += spacesX;
-            globals.historyTextHeight += spacesY;
-        
-            wordLength = globals.historyText[i].length;
-      
-            spacesX += (word * letterSpace) + wordSpace;
-
-            if (spacesX > 200){
-
-                spacesX = 0;
-                spacesY += 10;
-            }
-
-            if (spacesY > 260 && globals.historyPageChange === 0){
-
-                globals.historyPageChange = 1;
-            }
-
-            if (spacesY > 260 && globals.historyPageChangeTime.value === 0){
-
-                spacesX = 0;
-                spacesY = 0;
-                globals.historyText.splice(0, i);
-                globals.historyTextWordCont = 0;
-                globals.historyPageChange = 0;
-                globals.historyPageChangeTime.value = 15;
-                i = 0;
-            }
-        }
-    }
-    console.log(spacesX);
 }
 
 function restorehistory(){
 
     globals.historyText                = [];
     globals.historyTextWordCont         = 0;
-    globals.historyPageChangeTime.value = 15;
+    globals.historyPageChangeTime.value = 20;
     globals.historyTextTime.value       = 1;
     globals.historyPageChange           = 0;
 }
@@ -1224,19 +1174,14 @@ function updateCamera(){
         globals.camera.x = 0;
     }
     
-    if (globals.camera.isCollidingWithBorderRight && player.xPos >= globals.camera.x + 100){
+    if (globals.camera.isCollidingWithBorderRight && player.xPos < globals.camera.x + 100){
 
-        
-    }
-
-    else if (globals.camera.isCollidingWithBorderRight){
-        
         globals.camera.x = globals.canvas.width - globals.camera.x - player.imageSet.xSize + globals.canvasHUD.width;
     }
 
     if(globals.camera.isCollidingWithBorderLeft === false && globals.camera.isCollidingWithBorderRight === false){
         
-        globals.camera.x = player.xPos - 100;
+        globals.camera.x = Math.floor(player.xPos - 100);
     }
 }
 

@@ -550,69 +550,125 @@ function renderNewGameText(){
 }
 
 function renderHistoryText(){
-    
+
+    const height = 120;
+    const width = 300;
+    const letterSpace = 6;
+    const wordSpace = 10;
+
+    let spacesX = 0;
+    let spacesY = 0;
+    let word = 0;
+
     //Dibujar Historia
     globals.ctx.font = "6px emulogic";
     globals.ctx.fillStyle = "black";
 
     for (let i = 0; i < globals.historyTextWordCont; i++){
-        
-        globals.ctx.fillText (globals.historyText[i], globals.historyTextWidth, globals.historyTextHeight);
-    }
+
+        if (i < globals.historyText.length){
+
+            globals.ctx.fillText (globals.historyText[i], width + spacesX, height + spacesY);
+
+            word = globals.historyText[i].length;
+
+            spacesX += (word * letterSpace) + wordSpace;
+
+            if (spacesX > 190){
+
+                spacesX = 0;
+                spacesY += 10;
+            }
+
+            if (spacesY > 250 && globals.historyPageChange === 0){
+
+                globals.historyPageChange = 1;
+            }
+
+            if (spacesY >= 250 && globals.historyPageChangeTime.value === 0){
+
+                spacesX = 0;
+                spacesY = 0;
+                globals.historyText.splice(0, i);
+                globals.historyTextWordCont = 0;
+                globals.historyPageChange = 0;
+                globals.historyPageChangeTime.value = 20;
+                i = 0;
+            }
+        }
+    }   
 }
 
 function renderControlsText(){
 
-    //Dibujar Controles
+    const w = "W";
+    const wBars = "--------------";
+    const wAction = "move up";
+
+    const s = "S";
+
+    const d = "D";
+
+    const a = "A";
+
+    
+    const wXpos = globals.canvas.width / 2 - w.length * 7 / 2 - wBars.length * 7 / 2 - wAction.length * 7 / 2;
+
+    const sXpos = globals.canvas.width / 2 - s.length * 7 / 2;
+
+    const dXpos = globals.canvas.width / 2 - d.length * 7 / 2;
+
+    const aXpos = globals.canvas.width / 2 - a.length * 7 / 2;
+
+
     globals.ctx.font = "7px emulogic";
     globals.ctx.fillStyle = "black";
     
-    globals.ctx.fillText ("W", 340, 120);
-    globals.ctx.fillText ("-------------", 355, 120);
-    globals.ctx.fillText ("move up", 455, 120);
+    globals.ctx.fillText (w, wXpos, 120);
+    globals.ctx.fillText (wBars, 355, 120);
+    globals.ctx.fillText (wAction, 475, 120);
 
-    globals.ctx.fillText ("S", 340, 150);
+    globals.ctx.fillText (s, sXpos, 150);
     globals.ctx.fillText ("-----------", 355, 150);
-    globals.ctx.fillText ("move Down", 442, 150);
+    globals.ctx.fillText ("move Down", 462, 150);
 
-    globals.ctx.fillText ("D", 340, 180);
+    globals.ctx.fillText (d, dXpos, 180);
     globals.ctx.fillText ("----------", 355, 180);
-    globals.ctx.fillText ("move Right", 435, 180);
+    globals.ctx.fillText ("move Right", 455, 180);
 
-    globals.ctx.fillText ("A", 340, 210);
+    globals.ctx.fillText (a, aXpos, 210);
     globals.ctx.fillText ("-----------", 355, 210);
-    globals.ctx.fillText ("move Left", 442, 210);
+    globals.ctx.fillText ("move Left", 462, 210);
 
-    globals.ctx.fillText ("SPACE", 340, 240);
+    globals.ctx.fillText ("SPACE", 310, 240);
     globals.ctx.fillText ("----------", 383, 240);
-    globals.ctx.fillText ("Attack", 462, 240);
+    globals.ctx.fillText ("Attack", 482, 240);
 
-    globals.ctx.fillText ("E", 340, 270);
+    globals.ctx.fillText ("E", 310, 270);
     globals.ctx.fillText ("-------", 355, 270);
-    globals.ctx.fillText ("Put up a wall", 413, 270);
+    globals.ctx.fillText ("Put up a wall", 433, 270);
 
-    globals.ctx.fillText ("Q", 340, 300);
+    globals.ctx.fillText ("Q", 310, 300);
     globals.ctx.fillText ("---------", 355, 300);
-    globals.ctx.fillText ("Attack with", 427, 300);
-    globals.ctx.fillText ("the child", 441, 310);
+    globals.ctx.fillText ("Attack with", 447, 300);
+    globals.ctx.fillText ("the child", 461, 310);
 }
 
 function renderScoresText(){
 
     const height = 120;
-    const widthPos = 340;
+    const widthPos = 310;
     const widthName = widthPos + 30;
     const widthScoresAndDates = widthName + 45;
 
     let spacesY = 0;
 
-    //Dibujar Historia
     globals.ctx.font = "6px emulogic";
     globals.ctx.fillStyle = "black";
     
     for (let i = globals.selectPlayers; i < globals.players.length; i++){
         
-        if (spacesY >= 200){
+        if (spacesY >= 250){
 
             break;
         }
@@ -627,19 +683,34 @@ function renderScoresText(){
 
 function renderOverText(){
 
-    //Dibujar Controles
+    const youDied = "YOU DIED";
+    const name = "Enter your name:";
+    const lowBars = "___";
+    const score = "Your score is: " + globals.score;
+    
+    const youDiedXpos = globals.canvas.width / 2 - youDied.length * 20 / 2;
+    const nameXpos = globals.canvas.width / 2 - name.length * 8 / 2 - lowBars.length * 8 / 2;
+    const lowBarsXpos = globals.canvas.width / 2 - lowBars.length * 8 / 2 + name.length * 8 / 2;
+    const scoreXpos = globals.canvas.width / 2 - score.length * 12 / 2;
+
     globals.ctx.font = "20px emulogic";
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText ("YOU DIED", 350, 170);
+    globals.ctx.fillText (youDied, youDiedXpos, 170);
 
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("Enter your name:", 355, 240);
+    globals.ctx.fillText (name, nameXpos, 240);
 
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText ("___", 485, 240);
+    globals.ctx.fillText (lowBars, lowBarsXpos, 240);
+
+    globals.ctx.font = "12px emulogic";
+    globals.ctx.fillStyle = "white";
+    globals.ctx.fillText (score, scoreXpos, 310);
     
+    globals.ctx.font = "8px emulogic";
+
     if (globals.letterPos === 0){
         
         globals.ctx.fillStyle = "crimson";
@@ -650,7 +721,7 @@ function renderOverText(){
         globals.ctx.fillStyle = "white";
     }
 
-    globals.ctx.fillText (globals.name[0], 485, 238);
+    globals.ctx.fillText (globals.name[0], lowBarsXpos, 238);
 
     if (globals.letterPos === 1){
         
@@ -662,7 +733,7 @@ function renderOverText(){
         globals.ctx.fillStyle = "white";
     }
     
-    globals.ctx.fillText (globals.name[1], 493, 238);
+    globals.ctx.fillText (globals.name[1], lowBarsXpos + 8, 238);
 
 
     if (globals.letterPos === 2){
@@ -675,39 +746,45 @@ function renderOverText(){
         globals.ctx.fillStyle = "white";
     }
 
-    globals.ctx.fillText (globals.name[2], 501, 238);
-
-    globals.ctx.font = "12px emulogic";
-    globals.ctx.fillStyle = "white";
-    globals.ctx.fillText ("Your score is: " + globals.score, 340, 310);
+    globals.ctx.fillText (globals.name[2], lowBarsXpos + 8 * 2, 238);
 }
 
 function renderLoadindBar(){
 
-    let assetsToLoadxPos = 170;
-    let assetsLoadedxPos = 171;
-
     const width = 40;
 
+    const barWidth = globals.assetsToLoad.length * width;
+    const barHeight = 8;
+    
+    const barBorderWidth = globals.assetsToLoad.length * width + 2;
+    const barBorderHeiht = 10;
+
+    let barXpos = globals.canvas.width / 2 - barWidth / 2;
+    let barBorderXpos = globals.canvas.width / 2 - barBorderWidth / 2;
+    let barLoadedXpos = globals.canvas.width / 2 - barWidth / 2;
+
+    const loading = "LOADING";
+    const space = "PRESS SPACE TO CONTINUE";
+
+    const loadingXpos = globals.canvas.width / 2 - loading.length * 6 / 2;
+    const spaceXpos = globals.canvas.width / 2 - space.length * 6 / 2;
+
     globals.ctx.fillStyle = "white";
-    globals.ctx.font = "14px emulogic";
-    globals.ctx.fillText ("LOADING", 370, 300);
-    globals.ctx.fillText ("PRESS SPACE TO CONTINUE", 250, 380);
+    
+    globals.ctx.fillText (loading, loadingXpos, 300);
+    globals.ctx.fillText (space, spaceXpos, 380);
 
-    for(let i = 0; i < globals.assetsToLoad.length; i++){
-
-        globals.ctx.fillStyle = "white";
-        globals.ctx.fillRect (assetsToLoadxPos, 320, width, 10); 
-        assetsToLoadxPos += width;
-    }
+    globals.ctx.fillStyle = "white";
+    globals.ctx.fillRect (barBorderXpos, 320, barBorderWidth, barBorderHeiht);
 
     globals.ctx.fillStyle = "black";
-    globals.ctx.fillRect (171, 321, width * globals.assetsToLoad.length - 2, 8);
-
+    globals.ctx.fillRect (barXpos, 321, barWidth, barHeight);
+    
     for(let i = 0; i < globals.assetsLoaded; i++){
 
         globals.ctx.fillStyle = "rgb(114, 47, 47)";
-        globals.ctx.fillRect (assetsLoadedxPos, 321, width + 8 / globals.assetsLoaded, 8);
-        assetsLoadedxPos += width - 3 / globals.assetsLoaded;
+        globals.ctx.fillRect (barLoadedXpos, 321, width, barHeight);
+
+        barLoadedXpos += width;
     }
 }

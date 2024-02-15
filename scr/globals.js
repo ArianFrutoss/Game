@@ -115,12 +115,6 @@ export default{
     //Variable para cambiar de pagina
     historyPageChange: 0,
 
-    //Variable para posicionar horizontalmente el texto de historia
-    historyTextWidth: 0,
-
-    //Variable para posicionar verticalmente el texto de historia
-    historyTextHeight: 0,
-
     //Nivel en el que estas
     levels: 0,
 
