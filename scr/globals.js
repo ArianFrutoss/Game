@@ -71,7 +71,7 @@ export default{
     action: {},
 
     //Chair HP
-    chairHP: 10,
+    chairHP: 0,
 
     //Score
     score: 0,
@@ -119,7 +119,7 @@ export default{
     historyPageChange: 0,
 
     //Nivel en el que estas
-    levels: 0,
+    levels: 1,
 
     //Nombre del usuario
     name: [Letters[0], Letters[0], Letters[0]],
@@ -147,4 +147,7 @@ export default{
 
     //Variable para saber si has ganado
     win: false,
+
+    //Variable para activar evento de Enemigos en los bordes
+    borderEnemys: true,
 };

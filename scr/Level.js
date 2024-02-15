@@ -30,7 +30,39 @@ export const spriteLevel1 = [
     [5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
 ];
 
-export function levelPuddle(level){
+export function levelPuddle1(level){
+
+    const num_fil = level.length;
+    const num_col = level[0].length;
+    const floor_options = [2, 2, 3, 2, 2];
+
+    let contPuddleFloor = 0;
+    
+    for (let i = 0; i < num_fil; i++){
+        
+        contPuddleFloor = 0;
+
+        for (let j = 8; j < num_col; j++){
+
+            if (level[i][j] === 2){
+
+                level[i][j] = 3;
+
+                if (level[i][j - 1] === 3 || level[i][j + 1] === 3){
+                    
+                    level[i][j] = 2;
+                }
+
+                if (level[i - 1][j] === 3 || level[i + 1][j] === 3){
+                    
+                    level[i][j] = 3;
+                }
+            }
+        }
+    }
+}
+
+export function levelPuddle2(level){
 
     const num_fil = level.length;
     const num_col = level[0].length;

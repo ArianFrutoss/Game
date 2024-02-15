@@ -117,11 +117,20 @@ function drawGame(){
     //Dibujamos la interfaz
     renderHUD();
 
+    if (globals.gameState === Game.PLAYING){
+
+        //Pintar las particulas
+        renderParticles();
+    }
+
     //Pintar los sprites
     renderSprites();
 
-    //Pintar las particulas
-    renderParticles();
+    if (globals.gameState != Game.PLAYING){
+
+        //Pintar las particulas
+        renderParticles();
+    }
 
     //Restablecer camara
     restoreCamera();
@@ -468,7 +477,7 @@ function renderGameText(){
     globals.ctx.font = "30px emulogic";
     globals.ctx.fillStyle = "white";
 
-    const level = "LEVEL " + (globals.levels + 1);
+    const level = "LEVEL " + (globals.levels);
 
     if (globals.gameState === Game.LEVEL_LOAD){
 

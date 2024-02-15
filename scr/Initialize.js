@@ -180,7 +180,7 @@ function initTimers(){
     globals.lakesTime = new Timer(30, 1);
     globals.enemySpawnTime = new Timer(5, 1);
     globals.enemyDespawnTime = new Timer(1, 1);
-    globals.cloudSpawnTime = new Timer(160, 1);
+    globals.cloudSpawnTime = new Timer(300, 1);
     globals.menuPositionTime = new Timer(2, 0.15);
     globals.historyTextTime = new Timer(1, 0.1);
     globals.historyPageChangeTime = new Timer(20, 1);
@@ -776,7 +776,7 @@ function initChild2(positionX, positionY){
     globals.sprites.push(child2);
 }
 
-function initEnemy1(xPos, yPos){
+function initEnemy1(xPos, yPos, speed){
 
     //Creamos las propiedades de las imagenes
     const imageSet = new ImageSet(18, 0, 64, 64, 64, 0, 0);
@@ -785,7 +785,7 @@ function initEnemy1(xPos, yPos){
     const frames = new Frames(6, 2);
 
     //Creamos los datos de las fisicas del sprite
-    const physics = new Physics(60);
+    const physics = new Physics(speed);
 
     //Creamos la HitBox del sprite
     const hitBox = new HitBox(18, 45, 22, 10);
