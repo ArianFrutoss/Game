@@ -552,7 +552,7 @@ function renderNewGameText(){
 function renderHistoryText(){
 
     const height = 120;
-    const width = 300;
+    const width = 310;
     const letterSpace = 6;
     const wordSpace = 10;
 
@@ -560,7 +560,6 @@ function renderHistoryText(){
     let spacesY = 0;
     let word = 0;
 
-    //Dibujar Historia
     globals.ctx.font = "6px emulogic";
     globals.ctx.fillStyle = "black";
 
@@ -574,7 +573,7 @@ function renderHistoryText(){
 
             spacesX += (word * letterSpace) + wordSpace;
 
-            if (spacesX > 190){
+            if (spacesX > 180){
 
                 spacesX = 0;
                 spacesY += 10;
@@ -719,18 +718,29 @@ function renderScoresText(){
 function renderOverText(){
 
     const youDied = "YOU DIED";
+    const youWin = "YOU WIN!!!"
     const name = "Enter your name:";
     const lowBars = "___";
     const score = "Your score is: " + globals.score;
     
     const youDiedXpos = globals.canvas.width / 2 - youDied.length * 20 / 2;
+    const youWinXpos = globals.canvas.width / 2 - youWin.length * 20 / 2;
     const nameXpos = globals.canvas.width / 2 - name.length * 8 / 2 - lowBars.length * 8 / 2;
     const lowBarsXpos = globals.canvas.width / 2 - lowBars.length * 8 / 2 + name.length * 8 / 2;
     const scoreXpos = globals.canvas.width / 2 - score.length * 12 / 2;
 
     globals.ctx.font = "20px emulogic";
     globals.ctx.fillStyle = "crimson";
-    globals.ctx.fillText (youDied, youDiedXpos, 170);
+
+    if (globals.win){
+
+        globals.ctx.fillText (youWin, youWinXpos, 170);
+    }
+
+    else{
+
+        globals.ctx.fillText (youDied, youDiedXpos, 170);
+    }
 
     globals.ctx.font = "8px emulogic";
     globals.ctx.fillStyle = "white";

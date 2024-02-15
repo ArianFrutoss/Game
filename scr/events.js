@@ -101,8 +101,18 @@ export function keyupHandler(event){
 
 export function updateMusic(){
 
+    const gameMusic = globals.sounds[Sounds.GAME_MUSIC];
+    const gameMenuMusic = globals.sounds[Sounds.GAME_MENU_MUSIC];
+    const historyMusic = globals.sounds[Sounds.GAME_MENU_MUSIC];
+
+    repeatMusic(gameMusic);
+    repeatMusic(gameMenuMusic);
+    repeatMusic(historyMusic);
+}
+
+function repeatMusic(music){
+
     const buffer = 0.28;
-    const music = globals.sounds[Sounds.GAME_MUSIC];
 
     if (music.currentTime > music.duration - buffer){
 

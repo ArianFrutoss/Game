@@ -71,7 +71,7 @@ export default{
     action: {},
 
     //Chair HP
-    chairHP: 0,
+    chairHP: 10,
 
     //Score
     score: 0,
@@ -80,13 +80,16 @@ export default{
     highScore: 0,
 
     //Stone
-    stoneCont: 10,
+    stoneCont: 0,
 
     //Wood
-    woodCont: 10,
+    woodCont: 0,
 
     //Contador de material
     materialCont: 0,
+
+    //Contador de asesinatos
+    KillCont: 0,
 
     //Cuando se pulsa a la tecla se cambia el valor
     magicActive:  0,
@@ -141,4 +144,7 @@ export default{
 
     //Variable para saber que los archivos estan cargados
     assetsAreLoaded: false,
+
+    //Variable para saber si has ganado
+    win: false,
 };

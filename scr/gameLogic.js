@@ -1000,6 +1000,7 @@ function updateEnemy1(sprite){
             randomObjectSpawn(globals.sprites[i].xPos, globals.sprites[i].yPos);
             globals.sprites.splice(i, 1);
             globals.enemyDespawnTime.value = 1;
+            globals.KillCont += 1;
         }
 
         if (globals.sprites[i].xPos + sprite.hitBox.xOffset - 1 < 0 && globals.sprites[i].id === SpriteID.ENEMY_1){
@@ -1174,9 +1175,6 @@ function updateSpriteSpeed(sprite){
                 const spriteYpos = sprite.yPos + sprite.imageSet.ySize - 5;
 
                 initWaterParticles(spriteXpos, spriteYpos);
-
-                //globals.sounds[Sounds.WATER].play();
-                //globals.sounds[Sounds.WATER].volume = 0.4;
             }
         }
         
@@ -1314,10 +1312,21 @@ function updateLevel(){
 function gameOver(){
 
     if (globals.chairHP >= 4 || globals.levelTime.value <= 0){
+        
+        if (globals.KillCont >= 100){
 
-        globals.gameState = Game.OVER_LOAD;
-        globals.sounds[Sounds.GAME_MUSIC].pause();
-        globals.sounds[Sounds.GAME_OVER_MUSIC].play();
+            globals.gameState = Game.OVER_LOAD;
+            globals.sounds[Sounds.GAME_MUSIC].pause();
+            globals.sounds[Sounds.WIN_MUSIC].play();
+            globals.win = true;
+        }
+
+        else{
+
+            globals.gameState = Game.OVER_LOAD;
+            globals.sounds[Sounds.GAME_MUSIC].pause();
+            globals.sounds[Sounds.GAME_OVER_MUSIC].play();
+        }
 
         updateHighScore();
         restoreCamera();
@@ -1360,7 +1369,9 @@ function changeGameState(){
     if (globals.gameState === Game.NEW_GAME){
 
         updateTimer(globals.menuPositionTime);
-
+        
+        globals.sounds[Sounds.HISTORY_MUSIC].pause();
+        globals.sounds[Sounds.WIN_MUSIC].pause();
         globals.sounds[Sounds.GAME_OVER_MUSIC].pause();
         globals.sounds[Sounds.GAME_MENU_MUSIC].play();
 
@@ -1398,6 +1409,12 @@ function changeGameState(){
                 
                 globals.sounds[Sounds.GAME_MENU_MUSIC].pause();
                 globals.currentSound = Sounds.GAME_MUSIC;
+            }
+
+            if (globals.gameStateCont === Game.HISTORY_LOAD){
+                
+                globals.sounds[Sounds.GAME_MENU_MUSIC].pause();
+                globals.currentSound = Sounds.HISTORY_MUSIC;
             }
 
             globals.sounds[Sounds.SELECT].play();
@@ -1439,18 +1456,21 @@ function chooseLetters(){
 
         if (globals.action.moveUp && globals.lettercont[globals.letterPos] < Letters.length - 1 && globals.menuPositionTime.value <= 0){
 
+            globals.sounds[Sounds.SELECT].play();
             globals.name[globals.letterPos] = Letters[++globals.lettercont[globals.letterPos]];
             globals.menuPositionTime.value = 2;
         }
         
         else if (globals.action.moveDown &&  globals.lettercont[globals.letterPos] > 0 && globals.menuPositionTime.value <= 0){
             
+            globals.sounds[Sounds.SELECT].play();
             globals.name[globals.letterPos] = Letters[--globals.lettercont[globals.letterPos]];
             globals.menuPositionTime.value = 2;
         }
 
         else if (globals.action.moveUp && globals.lettercont[globals.letterPos] >= Letters.length - 1 && globals.menuPositionTime.value <= 0){
             
+            globals.sounds[Sounds.SELECT].play();
             globals.name[globals.letterPos] = Letters[0];
             globals.lettercont[globals.letterPos] = 0;
             globals.menuPositionTime.value = 2;
@@ -1458,6 +1478,7 @@ function chooseLetters(){
 
         else if (globals.action.moveDown && globals.lettercont[globals.letterPos] <= 0 && globals.menuPositionTime.value <= 0){
             
+            globals.sounds[Sounds.SELECT].play();
             globals.name[globals.letterPos] = Letters[Letters.length - 1];
             globals.lettercont[globals.letterPos] = Letters.length - 1;
             globals.menuPositionTime.value = 2;
@@ -1465,24 +1486,28 @@ function chooseLetters(){
 
         else if (globals.action.moveLeft && globals.letterPos > 0 && globals.menuPositionTime.value <= 0){
 
+            globals.sounds[Sounds.SELECT].play();
             globals.letterPos--;
             globals.menuPositionTime.value = 4;
         }
         
         else if (globals.action.moveRight && globals.letterPos < globals.name.length - 1 && globals.menuPositionTime.value <= 0){
             
+            globals.sounds[Sounds.SELECT].play();
             globals.letterPos++;
             globals.menuPositionTime.value = 4;
         }
 
         else if (globals.action.moveLeft && globals.letterPos <= 0 && globals.menuPositionTime.value <= 0){
             
+            globals.sounds[Sounds.SELECT].play();
             globals.letterPos = globals.name.length - 1;
             globals.menuPositionTime.value = 4;
         }
 
         else if (globals.action.moveRight && globals.letterPos >= globals.name.length - 1 && globals.menuPositionTime.value <= 0){
             
+            globals.sounds[Sounds.SELECT].play();
             globals.letterPos = 0;
             globals.menuPositionTime.value = 4;
         }

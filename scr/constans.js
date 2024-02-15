@@ -15,7 +15,7 @@ export const Game = {
     CONTROLS:          10,
     SCORES:            11,
     HISTORY:           12,
-    OVER:              13
+    OVER:              13,
 }
 
 //Codigos de teclas
@@ -202,13 +202,14 @@ export const Sounds = {
     GAME_MUSIC:             0,
     GAME_MENU_MUSIC:        1,
     GAME_OVER_MUSIC:        2,
-    EXPLOSION:              3,
-    SELECT:                 4,
-    OBJECT:                 5,
-    WALK_PLAYER_AND_CHILDS: 6,
-    WALK_ENEMY:             7,
-    HITS:                   8,
-    WATER:                  9
+    WIN_MUSIC:              3,
+    HISTORY_MUSIC:          4,
+    EXPLOSION:              5,
+    SELECT:                 6,
+    OBJECT:                 7,
+    WALK_PLAYER_AND_CHILDS: 8,
+    WALK_ENEMY:             9,
+    HITS:                  10
 }
 
 export const Levels = {

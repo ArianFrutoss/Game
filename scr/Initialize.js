@@ -93,9 +93,24 @@ function loadAssets(){
 
     let gameOverMusic = document.querySelector("#overMusic");
     gameOverMusic.addEventListener("canplaythrough", loadHandler, false);
+    gameMenuMusic.addEventListener("timeupdate", updateMusic, false);
     gameOverMusic.load();
     globals.sounds.push(gameOverMusic);
     globals.assetsToLoad.push(gameOverMusic);
+
+    let winMusic = document.querySelector("#winMusic");
+    winMusic.addEventListener("canplaythrough", loadHandler, false);
+    gameMenuMusic.addEventListener("timeupdate", updateMusic, false);
+    winMusic.load();
+    globals.sounds.push(winMusic);
+    globals.assetsToLoad.push(winMusic);
+
+    let historyMusic = document.querySelector("#historyMusic");
+    historyMusic.addEventListener("canplaythrough", loadHandler, false);
+    gameMenuMusic.addEventListener("timeupdate", updateMusic, false);
+    historyMusic.load();
+    globals.sounds.push(historyMusic);
+    globals.assetsToLoad.push(historyMusic);
     
     let explosion = document.querySelector("#explosion");
     explosion.addEventListener("canplaythrough", loadHandler, false);
@@ -132,12 +147,6 @@ function loadAssets(){
     hits.load();
     globals.sounds.push(hits);
     globals.assetsToLoad.push(hits);
-
-    let water = document.querySelector("#water");
-    water.addEventListener("canplaythrough", loadHandler, false);
-    water.load();
-    globals.sounds.push(water);
-    globals.assetsToLoad.push(water);
 }
 
 //Funcion que se carga cada vez que se llama a un activo
