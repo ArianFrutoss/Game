@@ -62,6 +62,7 @@ export default function update(){
             globals.sprites = [];
             globals.particles = [];
             initControlsSprites();
+            initRainParticles();
             globals.gameState = Game.CONTROLS;
             break;
 
@@ -77,6 +78,7 @@ export default function update(){
             initScoresSprites();
             restoreScore();
             updateScores();
+            initRainParticles();
             globals.gameState = Game.SCORES;
             break;
 
@@ -92,6 +94,7 @@ export default function update(){
             globals.particles = [];
             restorehistory();
             initHistorySprites();
+            initRainParticles();
             globals.gameState = Game.HISTORY;
             break;
 
@@ -695,21 +698,70 @@ function updateChild1Walk(sprite){
         sprite.physics.vLimit = 200;
     }
     
-    sprite.physics.vx = sprite.physics.vLimit;
+    if (PlayerPosition.POSITION_X + 30 > sprite.xPos){
 
-    if (PlayerPosition.POSITION_X + 30 <= sprite.xPos){
-        
-        sprite.physics.vx = 0;
+        sprite.physics.vx = sprite.physics.vLimit;
+
+        if (Math.abs(PlayerPosition.POSITION_X + 30 - sprite.xPos) <= 10){
+
+            sprite.physics.vx = 10;
+
+            if (PlayerPosition.POSITION_X + 30 === Math.floor(sprite.xPos)){
+                
+                sprite.physics.vx = 0;
+            }
+        }
+    } 
+
+    else if (PlayerPosition.POSITION_X + 30 < sprite.xPos){
+
+        sprite.physics.vx = -sprite.physics.vLimit;
+
+        if (Math.abs(PlayerPosition.POSITION_X + 30 - sprite.xPos) <= 10){
+
+            sprite.physics.vx = -10;
+
+            if (PlayerPosition.POSITION_X + 30 === Math.floor(sprite.xPos)){
+                
+                sprite.physics.vx = 0;
+            }
+        }
+    }
+    
+    if (PlayerPosition.POSITION_Y > sprite.yPos){
+
+        sprite.physics.vy = sprite.physics.vLimit;
+
+        if (Math.abs(PlayerPosition.POSITION_Y - sprite.yPos) <= 10){
+
+            sprite.physics.vy = 10;
+
+            if (PlayerPosition.POSITION_Y === Math.floor(sprite.yPos)){
+                
+                sprite.physics.vy = 0;
+            }
+        }
+    } 
+    
+    else if (PlayerPosition.POSITION_Y < sprite.yPos){
+
+        sprite.physics.vy = -sprite.physics.vLimit;
+
+        if (Math.abs(PlayerPosition.POSITION_Y - sprite.yPos) <= 10){
+
+            sprite.physics.vy = -10;
+
+            if (PlayerPosition.POSITION_Y === Math.floor(sprite.yPos)){
+                
+                sprite.physics.vy = 0;
+            }
+        }
     }
 
-    sprite.physics.vy = sprite.physics.vLimit;
+    console.log(PlayerPosition.POSITION_Y === Math.floor(sprite.yPos));
+    console.log(PlayerPosition.POSITION_X + 30 === Math.floor(sprite.xPos));
 
-    if (PlayerPosition.POSITION_Y <= sprite.yPos){
-        
-        sprite.physics.vy = 0;
-    }   
-    
-    if (PlayerPosition.POSITION_X + 30 <= sprite.xPos && PlayerPosition.POSITION_Y <= sprite.yPos){
+    if (PlayerPosition.POSITION_Y === Math.floor(sprite.yPos) && PlayerPosition.POSITION_X + 30 === Math.floor(sprite.xPos)){
 
         sprite.frames.speed = 4;
         sprite.frames.framesPerState = 9;
