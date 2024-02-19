@@ -1618,7 +1618,7 @@ export function addScores(){
 
     //Datos a enviar
     const objectToSend = {
-
+        
         player_name:        name,
         score:             score,
         play_date:      fullDate,     
@@ -1645,5 +1645,17 @@ function calculateDate(){
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
 
-    return day + "-" + month + "-" + year;
+    let returnValue = 0;
+
+    if (month < 10){
+
+        returnValue = year + "0" + month + "" + day;
+    }
+    
+    else{
+
+        returnValue = year + "" + month + "" + day;
+    }
+    
+    return returnValue;
 }

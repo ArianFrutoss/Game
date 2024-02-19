@@ -71,7 +71,7 @@ export default{
     action: {},
 
     //Chair HP
-    chairHP: 0,
+    chairHP: 10,
 
     //Score
     score: 0,
@@ -119,7 +119,7 @@ export default{
     historyPageChange: 0,
 
     //Nivel en el que estas
-    levels: 1,
+    levels: 0,
 
     //Nombre del usuario
     name: [Letters[0], Letters[0], Letters[0]],

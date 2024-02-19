@@ -699,19 +699,19 @@ function renderControlsText(){
 
 function renderScoresText(){
 
-    const height = 120;
+    const height = 150;
     const widthPos = 310;
     const widthName = widthPos + 30;
     const widthScoresAndDates = widthName + 45;
 
     let spacesY = 0;
-
+    
     globals.ctx.font = "6px emulogic";
     globals.ctx.fillStyle = "black";
     
     for (let i = globals.selectPlayers; i < globals.players.length; i++){
         
-        if (spacesY >= 250){
+        if (spacesY >= 200){
 
             break;
         }

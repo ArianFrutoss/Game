@@ -1,7 +1,7 @@
 <?php
 
     require_once (__DIR__."/../controller/Controller.php");
-    
+
     if (isset($_POST['player_name']) && isset($_POST['score']) && isset($_POST['play_date'])){
 
         //Si se reciben todos los datos se creara el objeto Classic

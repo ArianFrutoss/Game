@@ -29,11 +29,11 @@
     margin-top: 100px;
     position: absolute;
     margin-left: 450px;
-    color: rgb(50, 14, 14);
 }
 
 body{
 
     display: flex;
     justify-content: center;
+    background-color: black;
 }
