@@ -45,9 +45,9 @@
         }
         
         protected function selectDB($table, $columns = "*", $name = "", $value = ""){
-            echo "$value";
-            $query = "SELECT $columns FROM $table";
 
+            $query = "SELECT $columns FROM $table ORDER BY $table DESC";
+            
             if ($name != "" && $value != ""){
 
                 $query .= "WHERE $name = '$value'";
