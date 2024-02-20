@@ -147,7 +147,6 @@ function playGame(){
     updateSprites();
     changeGameState();
     playSound();
-    orderPlayers();
 }
 
 function updateSprites(){
@@ -1552,23 +1551,6 @@ function chooseLetters(){
             globals.sounds[Sounds.SELECT].play();
             globals.letterPos = 0;
             globals.menuPositionTime.value = 4;
-        }
-    }
-}
-
-function orderPlayers(){
-
-    for (let i = 0; i < globals.players.length; i++){
-            
-        for (let j = i + 1; j < globals.players.length; j++){
-            
-            let maxYPosSprite = globals.players[i];
-            
-            if (globals.players[j].score > globals.players[i].score){
-                
-                globals.players[i] = globals.players[j];
-                globals.players[j] = maxYPosSprite;
-            }
         }
     }
 }

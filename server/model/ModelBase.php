@@ -45,7 +45,7 @@
         }
         
         protected function selectDB($table, $columns = "*", $name = "", $value = ""){
-
+            echo "$value";
             $query = "SELECT $columns FROM $table";
 
             if ($name != "" && $value != ""){
