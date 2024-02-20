@@ -79,7 +79,6 @@ export default function update(){
             globals.particles = [];
             initScoresSprites();
             restoreScore();
-            updateScores();
             initRainParticles();
             globals.gameState = Game.SCORES;
             break;
@@ -1491,7 +1490,6 @@ function chooseLetters(){
 
         if (globals.action.attack){
             
-            addScores();
             restoreVars();
         }
 
@@ -1553,91 +1551,4 @@ function chooseLetters(){
             globals.menuPositionTime.value = 4;
         }
     }
-}
-
-function updateScores(){
-
-    const url = "./server/routes/getAllClassic.php";
-    
-    const request = new XMLHttpRequest();
-    
-    request.onreadystatechange = function(){
-
-        if (this.readyState === 4){
-            
-            if (this.status === 200){
-
-                if (this.responseText != null){
-                    
-                    const resultJSON = JSON.parse(this.responseText);
-                    
-                    initPlayers(resultJSON);
-                }
-
-                else{
-
-                    alert("Communication error: No data received");
-                }
-            }
-
-            else{
-                
-                alert("Communication error: " + this.statusText);
-            }
-        }
-    }
-
-    request.open("GET", url, true);
-    request.responseType = "text";
-    request.send();
-}
-
-export function addScores(){
-
-    const name = globals.name[0] + globals.name[1] + globals.name[2];
-    const score = globals.score;
-    const fullDate = calculateDate();
-
-    //Datos a enviar
-    const objectToSend = {
-        
-        player_name:        name,
-        score:             score,
-        play_date:      fullDate,     
-    }
-
-    //String de datos a enviar
-    const dataTosend = '&player_name=' + objectToSend.player_name + '&score=' + objectToSend.score + '&play_date=' + objectToSend.play_date;
-    
-    //Ruta relativa al fichero que hace la peticion
-    const url = "./server/routes/postClassic.php";
-    const request = new XMLHttpRequest();
-    
-    request.open("POST", url, true);
-    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.responseType = "text";
-    request.send(dataTosend);
-}
-
-function calculateDate(){
-
-    const date = new Date();
-
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    let returnValue = 0;
-
-    if (month < 10){
-
-        returnValue = year + "0" + month + "" + day;
-    }
-    
-    else{
-
-        returnValue = year + "" + month + "" + day;
-    }
-    
-    return returnValue;
 }
