@@ -79,7 +79,7 @@ export default function update(){
             globals.particles = [];
             initScoresSprites();
             restoreScore();
-            updateScores();
+            //updateScores();
             initRainParticles();
             globals.gameState = Game.SCORES;
             break;
@@ -1492,7 +1492,7 @@ function chooseLetters(){
 
         if (globals.action.attack){
             
-            addScores();
+            //addScores();
             restoreVars();
         }
 
