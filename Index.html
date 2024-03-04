@@ -5,8 +5,68 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Defense of the Decrepit Throne</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <h1>hola</h1>
+    <canvas id="gameScreen" width="832" height="448">
+        Your browser does not support the HTMLS canvas tag.
+    </canvas>
+
+    <canvas id="gameHUD" width="250" height="448">
+        Your browser does not support the HTMLS canvas tag.
+    </canvas>
+
+    <audio id="gameMusic">
+        <source src="./sounds/gameMusic.mp3" type="audio/mp3">
+    </audio>
+
+    <audio id="menuMusic" autoplay>
+        <source src="./sounds/menuMusic.mp3" type="audio/mp3">
+    </audio>
+
+    <audio id="overMusic">
+        <source src="./sounds/gameOverMusic.mp3" type="audio/mp3">
+    </audio>
+
+    <audio id="winMusic">
+        <source src="./sounds/winMusic.mp3" type="audio/mp3">
+    </audio>
+
+    <audio id="historyMusic">
+        <source src="./sounds/historyMusic.mp3" type="audio/mp3">
+    </audio>
+    
+    <audio id="select">
+        <source src="./sounds/select.wav" type="audio/wav">
+    </audio>
+    
+    <audio id="object">
+        <source src="./sounds/object.wav" type="audio/wav">
+    </audio>
+
+    <audio id="explosion">
+        <source src="./sounds/explosion.wav" type="audio/wav">
+    </audio>
+    
+    <audio id="walkPlayerAndChilds">
+        <source src="./sounds/walkPlayerAndChilds.wav" type="audio/wav">
+    </audio>
+
+    <audio id="walkEnemy">
+        <source src="./sounds/walkEnemy.wav" type="audio/wav">
+    </audio>
+
+    <audio id="hits">
+        <source src="./sounds/hits.wav" type="audio/wav">
+    </audio>
+
+    <audio id="water">
+        <source src="./sounds/water.wav" type="audio/wav">
+    </audio>
+
+    <label id="txtPruebas"></label>
+
+    <script type="module" src="./src/game.js"></script>
 </body>
 </html>
+
