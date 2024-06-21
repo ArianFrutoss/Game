@@ -156,4 +156,7 @@ export default{
 
     //Cantidad de enemigos que mata el niño
     ChildKillCont: 0,
+
+    //Temporizador de tiempo sin recoger un objeto
+    dontTakeObjectTime: [],
 };

@@ -131,6 +131,7 @@ function playGamePlayingScreen(){
     updateCamera();
     updateLakes();
     spawnRandomEnemys();
+    spawnEnemyGroup();
     updateParticles();
     updateSprites();
     gameOver();
@@ -694,6 +695,11 @@ function updateChild1Walk(sprite){
 
     sprite.state = State.CHILD_1_RUN;
 
+    if (sprite.isCollidingWithWall){
+
+        sprite.state = State.CHILD_2_IDLE;
+    }
+
     if (sprite.physics.vx > 0 && sprite.isCollidingWithTheLake === false){
 
         sprite.physics.vLimit = 200;
@@ -854,10 +860,15 @@ function updateChild2Walk(sprite){
     }
     
     const enemy = targetEnemy();
-    
+
     if (enemy != undefined && globals.ChildKillCont < 3){
 
         sprite.state = State.CHILD_2_RUN;
+
+        if (sprite.isCollidingWithWall){
+
+            sprite.state = State.CHILD_2_IDLE;
+        }
 
         if (enemy.xPos - 60 > sprite.xPos){
 
@@ -1397,7 +1408,52 @@ function spawnRandomEnemys(){
 
         globals.enemySpawnTime.value = 4;
         
-        initEnemy1(xPos, randomYPos, 60);   
+        initEnemy1(xPos, randomYPos, 60 + globals.levels);   
+    }
+}
+
+function spawnEnemyGroup(){
+    
+    const brickSize = globals.level.imageSet.gridSize;
+    const levelData = globals.level.data;
+    const numBlocksY = levelData.length;
+    const numBlocksX = levelData[0].length;
+    let randomYPos;
+    const xPos = numBlocksX * brickSize;
+    
+    updateTimer(globals.dontTakeObjectTime);
+    
+    for (let i = 0; i < globals.levels; i++){
+
+        switch(globals.levels){
+
+            case Levels.LEVEL_1:
+    
+                randomYPos = Math.floor(Math.random() * (numBlocksY - 4)) * brickSize + (brickSize * 2) - 10;
+                break;
+    
+            case Levels.LEVEL_2:
+                
+                randomYPos = Math.floor(Math.random() * (numBlocksY - 2)) * brickSize + brickSize - 10;
+                spawnBorderEnemys();
+                break;
+    
+            default:
+    
+                randomYPos = Math.floor(Math.random() * (numBlocksY - 2)) * brickSize + brickSize - 10;
+                spawnBorderEnemys();
+                break;
+        }
+        
+        if (globals.dontTakeObjectTime.value === 0){
+            console.log(randomYPos);
+            initEnemy1(xPos, randomYPos, 50 + globals.levels);
+        }
+    }
+
+    if (globals.dontTakeObjectTime.value === 0){
+        
+        globals.dontTakeObjectTime.value = 10;
     }
 }
 
@@ -1416,9 +1472,9 @@ function spawnBorderEnemys(){
     const randomYPos = Math.floor(Math.random() * 2);
     const xPos = numBlocksX * brickSize;
     
-    if (globals.materialCont === 4 && globals.borderEnemys){
+    if (globals.materialCont === 2 && globals.borderEnemys){
 
-        initEnemy1(xPos, positions[randomYPos], 120);
+        initEnemy1(xPos, positions[randomYPos], 120 + globals.levels);
 
         globals.borderEnemys = false;
     }
@@ -1428,10 +1484,10 @@ function spawnBorderEnemys(){
         globals.borderEnemys = true;
     }
 
-    else if(globals.materialCont === 8 && globals.borderEnemys){
+    else if(globals.materialCont === 4 && globals.borderEnemys){
 
-        initEnemy1(xPos, positions[position1], 120);
-        initEnemy1(xPos, positions[position2], 120);
+        initEnemy1(xPos, positions[position1], 120 + globals.levels);
+        initEnemy1(xPos, positions[position2], 120 + globals.levels);
 
         globals.borderEnemys = false;
     }
@@ -1439,7 +1495,7 @@ function spawnBorderEnemys(){
 
 function updateLevel(){
 
-    if (globals.materialCont === 10){
+    if (globals.materialCont === 5){
 
         globals.gameState = Game.PLAYING_LOAD;
         globals.materialCont = 0;
@@ -1481,7 +1537,7 @@ function restoreVars(){
     globals.KillCont               = 0;
     globals.levels                 = 0;
     globals.score                  = 0;
-    globals.levelTime.value      = 300;
+    globals.sprites                = [];
 }
 
 function changeGameState(){
