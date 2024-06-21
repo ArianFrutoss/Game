@@ -152,9 +152,14 @@ function renderSprite(sprite){
         const yPos = Math.floor(sprite.yPos);
         
         if (sprite.id === SpriteID.CHAIR_MENU){
+
+            if (globals.menuChairSize < 0.5){
+
+                globals.menuChairSize += 0.1;
+            }
             
             globals.ctx.translate(xPos + sprite.imageSet.xSize / 2, yPos + sprite.imageSet.ySize / 2);
-            globals.ctx.scale(0.5, 0.5);
+            globals.ctx.scale(globals.menuChairSize, globals.menuChairSize);
             globals.ctx.translate(-(xPos + sprite.imageSet.xSize / 2), -(yPos + sprite.imageSet.ySize / 2));
         }
 

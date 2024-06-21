@@ -1417,6 +1417,7 @@ function changeGameState(){
         
         if (globals.action.moveUp && globals.gameStateCont > 2 && globals.menuPositionTime.value <= 0){
 
+            globals.menuChairSize = 0.1;
             globals.sounds[Sounds.SELECT].play();
             globals.menuPositionTime.value = 2;
             globals.gameStateCont -= 1;
@@ -1424,6 +1425,7 @@ function changeGameState(){
         
         else if (globals.action.moveDown && globals.gameStateCont < 5 && globals.menuPositionTime.value <= 0){
             
+            globals.menuChairSize = 0.1;
             globals.sounds[Sounds.SELECT].play();
             globals.menuPositionTime.value = 2;
             globals.gameStateCont += 1;
@@ -1431,13 +1433,15 @@ function changeGameState(){
 
         else if (globals.action.moveUp && globals.gameStateCont === 2 && globals.menuPositionTime.value <= 0){
             
-            globals.sounds[Sounds.SELECT].play();new Date().getTime
+            globals.menuChairSize = 0.1;
+            globals.sounds[Sounds.SELECT].play();new Date().getTime;
             globals.menuPositionTime.value = 2;
             globals.gameStateCont = 5;
         }
 
         else if (globals.action.moveDown && globals.gameStateCont === 5 && globals.menuPositionTime.value <= 0){
             
+            globals.menuChairSize = 0.1;
             globals.sounds[Sounds.SELECT].play();
             globals.menuPositionTime.value = 2;
             globals.gameStateCont = 2;

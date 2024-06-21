@@ -150,4 +150,7 @@ export default{
 
     //Variable para activar evento de Enemigos en los bordes
     borderEnemys: true,
+
+    //Tamaño de la silla en el menu
+    menuChairSize: 0.1,
 };
