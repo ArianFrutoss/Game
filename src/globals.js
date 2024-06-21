@@ -153,4 +153,7 @@ export default{
 
     //Tamaño de la silla en el menu
     menuChairSize: 0.1,
+
+    //Cantidad de enemigos que mata el niño
+    ChildKillCont: 0,
 };

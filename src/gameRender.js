@@ -663,8 +663,8 @@ function renderControlsText(){
     const eActionXpos = globals.canvas.width / 2 - eAction.length * 7 / 2 + e.length * 7 / 2 + eBars.length * 7 / 2;
 
     const q = "Q";
-    const qBars = " ------------- ";
-    const qAction = "Put up a wall";
+    const qBars = " ----- ";
+    const qAction = "Attack with the child";
 
     const qXpos = globals.canvas.width / 2 - q.length * 7 / 2 - qBars.length * 7 / 2 - qAction.length * 7 / 2;
     const qBarsXpos = globals.canvas.width / 2 - qBars.length * 7 / 2 + q.length * 7 / 2 - qAction.length * 7 / 2;

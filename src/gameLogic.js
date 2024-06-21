@@ -660,13 +660,13 @@ function updateChild1Idle(sprite){
 
     globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].volume = 0.1;
 
-    if (globals.action.attackChild && globals.woodCont >= 2 && globals.stoneCont >= 1){
+    if (globals.action.attackChild && globals.woodCont >= 2 && globals.stoneCont >= 3){
 
         updateChild2Walk(sprite);
         globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
     }
 
-    else{
+    else if (globals.action.attackChild === false){
 
         updatechild2Return(sprite);
     }
@@ -678,7 +678,7 @@ function updateChild2Idle(sprite){
     
     globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].volume = 0.1;
 
-    if (globals.action.build && globals.woodCont >= 2 && globals.stoneCont >= 3){
+    if (globals.action.build && globals.woodCont >= 2 && globals.stoneCont >= 1){
             
         updateChild1Walk(sprite);
         globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
@@ -759,9 +759,6 @@ function updateChild1Walk(sprite){
         }
     }
 
-    console.log(PlayerPosition.POSITION_Y === Math.floor(sprite.yPos));
-    console.log(PlayerPosition.POSITION_X + 30 === Math.floor(sprite.xPos));
-
     if (PlayerPosition.POSITION_Y === Math.floor(sprite.yPos) && PlayerPosition.POSITION_X + 30 === Math.floor(sprite.xPos)){
 
         sprite.frames.speed = 4;
@@ -795,7 +792,7 @@ function updateChild1Walk(sprite){
             sprite.frames.framesPerState = 6;
 
             globals.woodCont -= 2;
-            globals.stoneCont -= 3;
+            globals.stoneCont -= 1;
         }
     }
 
@@ -851,48 +848,148 @@ function updatechild1Return(sprite){
 
 function updateChild2Walk(sprite){
 
-    sprite.state = State.CHILD_2_RUN;
+    if (sprite.physics.vx > 0 && sprite.isCollidingWithTheLake === false){
 
-    sprite.physics.vx = sprite.physics.vLimit;
-
-    if (Enemy1Position.POSITION_X - 40 <= sprite.xPos){
-
-        sprite.physics.vx = 0;
+        sprite.physics.vLimit = 200;
     }
+    
+    const enemy = targetEnemy();
+    
+    if (enemy != undefined && globals.ChildKillCont < 3){
 
-    sprite.physics.vy = -sprite.physics.vLimit;
+        sprite.state = State.CHILD_2_RUN;
 
-    if (Enemy1Position.POSITION_Y >= sprite.yPos){
+        if (enemy.xPos - 60 > sprite.xPos){
 
-        sprite.physics.vy = 0;
-    }
-
-    if (sprite.physics.vx === 0 && sprite.physics.vx === 0){
-
-        Child2Position.POSITION_X = sprite.xPos;
-        Child2Position.POSITION_Y = sprite.yPos;
+            sprite.physics.vx = sprite.physics.vLimit;
+    
+            if (Math.abs(enemy.xPos - 60 - sprite.xPos) <= 10){
+    
+                sprite.physics.vx = 10;
+    
+                if (enemy.xPos - 60 === Math.floor(sprite.xPos)){
+                    
+                    sprite.physics.vx = 0;
+                }
+            }
+        } 
+    
+        else if (enemy.xPos - 60 < sprite.xPos){
+    
+            sprite.physics.vx = -sprite.physics.vLimit;
+    
+            if (Math.abs(enemy.xPos - 60 - sprite.xPos) <= 10){
+    
+                sprite.physics.vx = -10;
+    
+                if (enemy.xPos - 60 === Math.floor(sprite.xPos)){
+                    
+                    sprite.physics.vx = 0;
+                }
+            }
+        }
         
-        sprite.state = State.CHILD_2_IDLE;
+        if (enemy.yPos > sprite.yPos){
+    
+            sprite.physics.vy = sprite.physics.vLimit;
+    
+            if (Math.abs(enemy.yPos - sprite.yPos) <= 10){
+    
+                sprite.physics.vy = 10;
+    
+                if (enemy.yPos === Math.floor(sprite.yPos)){
+                    
+                    sprite.physics.vy = 0;
+                }
+            }
+        } 
+        
+        else if (enemy.yPos < sprite.yPos){
+    
+            sprite.physics.vy = -sprite.physics.vLimit;
+    
+            if (Math.abs(enemy.yPos - sprite.yPos) <= 10){
+    
+                sprite.physics.vy = -10;
+    
+                if (enemy.yPos === Math.floor(sprite.yPos)){
+                    
+                    sprite.physics.vy = 0;
+                }
+            }
+        }
+        
+        if (Math.abs(enemy.xPos - 60 - sprite.xPos) <= 20 && Math.abs(enemy.yPos - sprite.yPos) <= 20 && enemy.hp > 0){
+    
+            sprite.frames.speed = 4;
+            sprite.frames.framesPerState = 9;
+            sprite.state = State.CHILD_1_ATTACK;
+            
+            if (sprite.frames.frameCounter === 8){
+    
+                enemy.hp = 0;
+    
+                sprite.frames.frameCounter = 0;
+                sprite.frames.framesPerState = 5;
+                
+                globals.currentSound = Sounds.HITS;
+                globals.ChildKillCont++;
+            }
+        }
+    
+        //Calculamos distancia que se mueve (x = x + Vt)
+        sprite.xPos += sprite.physics.vx * globals.deltaTime;
+        sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
-        globals.levelTime.value = 0;
-        globals.action.attackChild = false;
-        globals.woodCont -= 2;
-        globals.stoneCont -= 1;
+        //Actualizamos la animacion
+        updateAnimationFrame(sprite);
     }
 
-    //Calculamos distancia que se mueve (x = x + Vt)
-    sprite.xPos += sprite.physics.vx * globals.deltaTime;
-    sprite.yPos += sprite.physics.vy * globals.deltaTime;
+    else if (globals.ChildKillCont === 3){
 
-    //Actualizamos la animacion
-    updateAnimationFrame(sprite);
+        globals.woodCont -= 2;
+        globals.stoneCont -= 3;
+        globals.action.attackChild = false;
+    }
+
+    else{
+
+        sprite.state = State.CHILD_2_IDLE;
+    }
+}
+
+function targetEnemy(){
+
+    let targetEnemy;
+
+    for (let i = 0; i < globals.sprites.length; i++){
+
+        if (globals.sprites[i].id === SpriteID.ENEMY_1 && globals.sprites[i].hp > 0){
+
+            if (targetEnemy === undefined){
+
+                targetEnemy = globals.sprites[i];
+            }
+
+            else if (targetEnemy != undefined && globals.sprites[i].xPos < targetEnemy.xPos){
+
+                targetEnemy = globals.sprites[i];
+            }
+        }
+    }
+
+    return targetEnemy;
 }
 
 function updatechild2Return(sprite){
 
     sprite.state = State.CHILD_2_WALK;
 
-    sprite.physics.vLimit = 60;
+    if (sprite.physics.vx < 0 && sprite.isCollidingWithTheLake === false){
+
+        sprite.physics.vLimit = 100;
+    }
+
     sprite.physics.vx = -sprite.physics.vLimit;
 
     if (sprite.xPos <= 0){
@@ -901,7 +998,7 @@ function updatechild2Return(sprite){
         sprite.physics.vx = 0;
     }
 
-    sprite.physics.vy = sprite.physics.vLimit;
+    sprite.physics.vy = +sprite.physics.vLimit;
 
     if (sprite.yPos >= 372){
         
@@ -919,6 +1016,8 @@ function updatechild2Return(sprite){
         globals.sounds[Sounds.WALK_PLAYER_AND_CHILDS].play();
     }
     
+    globals.ChildKillCont = 0;
+
     sprite.xPos += sprite.physics.vx * globals.deltaTime;
     sprite.yPos += sprite.physics.vy * globals.deltaTime;
 
@@ -1349,22 +1448,11 @@ function updateLevel(){
 
 function gameOver(){
 
-    if (globals.chairHP >= 4 || globals.levelTime.value <= 0){
+    if (globals.chairHP >= 4){
         
-        if (globals.KillCont >= 100){
-
-            globals.gameState = Game.OVER_LOAD;
-            globals.sounds[Sounds.GAME_MUSIC].pause();
-            globals.sounds[Sounds.WIN_MUSIC].play();
-            globals.win = true;
-        }
-
-        else{
-
-            globals.gameState = Game.OVER_LOAD;
-            globals.sounds[Sounds.GAME_MUSIC].pause();
-            globals.sounds[Sounds.GAME_OVER_MUSIC].play();
-        }
+        globals.gameState = Game.OVER_LOAD;
+        globals.sounds[Sounds.GAME_MUSIC].pause();
+        globals.sounds[Sounds.GAME_OVER_MUSIC].play();
 
         updateHighScore();
         restoreCamera();
