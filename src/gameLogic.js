@@ -1446,7 +1446,7 @@ function spawnEnemyGroup(){
         }
         
         if (globals.dontTakeObjectTime.value === 0){
-            console.log(randomYPos);
+            
             initEnemy1(xPos, randomYPos, 50 + globals.levels);
         }
     }

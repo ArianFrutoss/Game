@@ -185,7 +185,7 @@ function initTimers(){
     globals.historyTextTime = new Timer(1, 0.1);
     globals.historyPageChangeTime = new Timer(20, 1);
     globals.scoreMovementTime = new Timer(1, 0.01);
-    globals.dontTakeObjectTime = new Timer(1, 10);
+    globals.dontTakeObjectTime = new Timer(10, 1);
 }
 
 function initWaterParticles(spriteXpos, spriteYpos){
