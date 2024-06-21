@@ -42,20 +42,15 @@ export function levelPuddle1(level){
         
         contPuddleFloor = 0;
 
-        for (let j = 8; j < num_col; j++){
+        for (let j = 10; j < num_col; j++){
 
             if (level[i][j] === 2){
 
                 level[i][j] = 3;
 
-                if (level[i][j - 1] === 3 || level[i][j + 1] === 3){
+                if (level[i][j - 1] === 3 || level[i - 1][j] === 3){
                     
                     level[i][j] = 2;
-                }
-
-                if (level[i - 1][j] === 3 || level[i + 1][j] === 3){
-                    
-                    level[i][j] = 3;
                 }
             }
         }
